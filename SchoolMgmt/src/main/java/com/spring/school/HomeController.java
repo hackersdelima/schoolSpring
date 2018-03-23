@@ -64,7 +64,7 @@ public class HomeController {
 			String username=getUser();
 			request.getSession().setAttribute("userDetail", "shishir");
 			
-			return "home";
+			return "profile";
 		}
 		else{
 			return "index";
