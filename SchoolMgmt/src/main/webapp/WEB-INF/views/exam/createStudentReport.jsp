@@ -1,12 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@page import="java.sql.*"%>
-<%
-	ResultSet section = (ResultSet) request.getAttribute("sectionlist");
-	ResultSet classlist = (ResultSet) request.getAttribute("classlist");
-	ResultSet examlist = (ResultSet) request.getAttribute("examlist");
-%>
-<jsp:include page="/includefile"></jsp:include>
+
+
 <html>
 <head>
 </head>
@@ -37,13 +30,7 @@
 								</h6>
 								<select class="form-control" name="examid" required>
 									<option value="">Select Exam</option>
-									<%
-										while (examlist.next()) {
-									%>
-									<option value="<%=examlist.getString("examid")%>"><%=examlist.getString("examname")%></option>
-									<%
-										}
-									%>
+									
 								</select>
 							</div>
 							<div class="col-md-3">
@@ -52,13 +39,7 @@
 								</h6>
 								<select class="form-control" name="classid" id="class" required>
 									<option value="">Select Class</option>
-									<%
-										while (classlist.next()) {
-									%>
-									<option value="<%=classlist.getString("classid")%>"><%=classlist.getString("classname")%></option>
-									<%
-										}
-									%>
+									
 								</select>
 							</div>
 							<div class="col-md-3">
@@ -67,13 +48,7 @@
 								</h6>
 								<select class="form-control" name="sectionid" required>
 									<option value="">Select Section</option>
-									<%
-										while (section.next()) {
-									%>
-									<option value="<%=section.getString("sectionid")%>"><%=section.getString("sectionname")%></option>
-									<%
-										}
-									%>
+								
 								</select>
 							</div>
 							<div class="col-md-3">

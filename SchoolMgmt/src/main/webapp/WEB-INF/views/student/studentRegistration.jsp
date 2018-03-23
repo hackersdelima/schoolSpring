@@ -1,21 +1,5 @@
-<%@page import="com.controller.student.classes.StudentOperations"%>
-<%@page import="java.util.*"%>
-<%@page import="java.sql.*"%>
-<%
-	if ((session.getAttribute("userdetail")) != null) {
-%>
-<%
-	StudentOperations s = new StudentOperations();
-		ResultSet districts = s.districts();
-		ResultSet disablelist = s.disabletypelist();
-		ResultSet language = s.getlanguage();
-		ResultSet caste = s.getcaste();
-		ResultSet section = s.getsection();
-		ResultSet housegroup = s.gethousegroup();
-		ResultSet specialinterest = s.getspecialinterest();
-		ResultSet classlist = s.selectclass();
-%>
-<jsp:include page="/includefile"></jsp:include>
+
+
 <html>
 <head>
 </head>
@@ -102,13 +86,8 @@
 												<strong>Mother Language</strong>
 											</h6> <select class="form-control" name="Language" form="form">
 												<option value="" selected>Select mother language</option>
-												<%
-													while (language.next()) {
-												%>
-												<option value="<%=language.getString(2)%>"><%=language.getString(2)%></option>
-												<%
-													}
-												%>
+											
+											
 										</select>
 										</td>
 										<td>
@@ -116,13 +95,9 @@
 												<strong>Ethnic Group</strong>
 											</h6> <select class="form-control" name="SCast" form="form">
 												<option value="" selected>Select ethnic group</option>
-												<%
-													while (caste.next()) {
-												%>
-												<option value="<%=caste.getString(2)%>"><%=caste.getString(2)%></option>
-												<%
-													}
-												%>
+												
+												<option value=""></option>
+											
 										</select>
 										</td>
 									</tr>
@@ -152,13 +127,9 @@
 												</h6>
 												<select class="form-control" name="DisableType" form="form">
 													<option value="" selected>Select disabled type</option>
-													<%
-														while (disablelist.next()) {
-													%>
-													<option value="<%=disablelist.getString(1)%>"><%=disablelist.getString(2)%></option>
-													<%
-														}
-													%>
+													
+													<option value=""></option>
+													
 												</select>
 										</td>
 									</tr>
@@ -250,13 +221,8 @@
 											data-show-subtext="true" data-live-search="true"
 											name="District" form="form">
 												<option value="" selected>Select district</option>
-												<%
-													while (districts.next()) {
-												%>
-												<option value="<%=districts.getString(1)%>"><%=districts.getString(2)%></option>
-												<%
-													}
-												%>
+												
+												
 										</select>
 										</td>
 										<td>
@@ -820,13 +786,7 @@
 											</h6> <select class="form-control" name="admissionclass"
 											form="form" required>
 												<option selected value="">Select admission class</option>
-												<%
-													while (classlist.next()) {
-												%>
-												<option value="<%=classlist.getString("classid")%>"><%=classlist.getString("classname")%></option>
-												<%
-													}
-												%>
+												
 										</select>
 										</td>
 										<td>
@@ -834,13 +794,7 @@
 												<strong>Section</strong>
 											</h6> <select class="form-control" name="section" form="form">
 												<option selected value="">Select section</option>
-												<%
-													while (section.next()) {
-												%>
-												<option value="<%=section.getString(1)%>"><%=section.getString(2)%></option>
-												<%
-													}
-												%>
+												
 										</select>
 										</td>
 										<td>
@@ -856,13 +810,7 @@
 												<strong>House Group</strong>
 											</h6> <select class="form-control" name="housegroup" form="form">
 												<option value="" selected>Select house group</option>
-												<%
-													while (housegroup.next()) {
-												%>
-												<option value="<%=housegroup.getString(2)%>"><%=housegroup.getString(2)%></option>
-												<%
-													}
-												%>
+												
 										</select>
 										</td>
 										<td>
@@ -891,13 +839,7 @@
 											</h6> <select class="form-control" name="specialinterest"
 											form="form">
 												<option value="" selected>Select special interest</option>
-												<%
-											while (specialinterest.next()) {
-										%>
-												<option value="<%=specialinterest.getString(2)%>"><%=specialinterest.getString(2)%></option>
-												<%
-											}
-										%>
+								
 										</select>
 										</td>
 									</tr>
@@ -913,21 +855,11 @@
 
 
 
-	<jsp:include page="/msgmodal"></jsp:include>
+	
 	<script>
 		
-	<%if (request.getAttribute("msg") != null) {%>
-		$('#myModal').modal('show');
-	<%}%>
-		$('#form').submit(function() {
-
-			return confirm('CONFIRM REGISTRATION?'); // return false to cancel form action
-		});
+	
 	</script>
 </body>
 </html>
 
-
-<%
-	}
-%>

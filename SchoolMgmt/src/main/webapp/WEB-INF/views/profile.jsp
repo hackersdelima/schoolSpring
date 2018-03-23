@@ -62,13 +62,13 @@
                   </li>
                   <li><a><i class="fa fa-edit"></i> Student <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="studentadmission.click" target="iframe_a">Student Admission</a></li>
+                      <li><a href="studentAdmission" target="iframe_a">Student Admission</a></li>
                       <li><a href="studentslist.click" target="iframe_a">Students List</a></li>
                     </ul>
                   </li>
                    <li><a><i class="fa fa-edit"></i> Exam <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                    	 <li><a href="createexam.click" target="iframe_a">Create Exam</a>
+                    	 <li><a href="createExam" target="iframe_a">Create Exam</a>
                             </li>
                       <li><a href="createStudentReport.click" target="iframe_a">Create Marks Report</a></li>
                        <li><a href="reportsearchbox.click" target="iframe_a">Search Report</a>
