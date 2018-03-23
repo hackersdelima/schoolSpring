@@ -16,6 +16,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,7 +30,7 @@ import com.spring.model.UserModel;
  * Handles requests for the application home page.
  */
 @Controller
-
+@SessionAttributes("userDetail")
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -37,6 +38,9 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
+	ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("root-context.xml");
+	UserDao dao= (UserDao)context.getBean("userDao");
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
@@ -52,17 +56,16 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public String login(@ModelAttribute UserModel user,HttpServletRequest request){
+	public String login(@ModelAttribute UserModel user,ModelMap model){
 		
-		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("root-context.xml");
-		UserDao dao= (UserDao)context.getBean("userDao");
+		
 		
 	
 		boolean status=dao.verifyUser(user);
 		if(status)
 		{
-			String username=getUser();
-			request.getSession().setAttribute("userDetail", "shishir");
+			UserModel userDetail=getUser(user);
+		model.put("userDetail", userDetail);
 			
 			return "profile";
 		}
@@ -73,9 +76,8 @@ public class HomeController {
 		
 	}
 	
-	public String getUser(){
-		String username="session";
-		return username;
+	public UserModel getUser(UserModel user){
+		return dao.getUserDetails(user);
 	}
 	
 }

@@ -66,6 +66,10 @@ public class UserDaoImpl implements UserDao{
 		
 		
 	}
+	public UserModel getUserDetails(UserModel user){
+		String sql="SELECT * FROM USERTBL WHERE USERNAME='"+user.getUsername()+"' AND PASSWORD='"+user.getPassword()+"'";
+		return jdbcTemplate.queryForObject(sql, new ClassMapper());
+	}
 	
 
 	public static final class ClassMapper implements RowMapper<UserModel>{

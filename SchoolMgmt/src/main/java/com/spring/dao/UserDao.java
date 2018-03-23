@@ -6,4 +6,6 @@ public interface UserDao {
 
 	public boolean verifyUser(UserModel user);
 
+	public UserModel getUserDetails(UserModel user);
+
 }
