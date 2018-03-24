@@ -29,7 +29,7 @@
 					</li>
 				</ul>
 				
-				<form method="post" action="studentregistration" id="form"></form>
+				<form method="post" action="studentRegistration" id="form"></form>
 				<button type="submit" class="btn btn-success " form="form">
 					<i class="fa fa-check"></i> SUBMIT
 				</button>

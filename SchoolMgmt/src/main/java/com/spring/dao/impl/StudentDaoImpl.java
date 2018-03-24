@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.RowMapper;
 import com.spring.dao.StudentDao;
 import com.spring.dao.impl.UserDaoImpl.ClassMapper;
 import com.spring.model.FormDetails;
+import com.spring.model.StudentModel;
 import com.spring.model.UserModel;
 
 public class StudentDaoImpl implements StudentDao {
@@ -114,5 +115,18 @@ private JdbcTemplate jdbcTemplate;
 			form.setSpecialInterestName(rs.getString("specialinterestname"));
 				return form;
 			}
+	 }
+	 
+	 public boolean insertStudent(StudentModel s)
+	 {
+		 String inputter="inputter";
+		 boolean status=false;
+		String sql="insert into studentinfo(LegacyId,studentname,sex,smotherlanguage,sethinicgroup,sreligion,dob,doben,differentlyabledYN,differentlyabledtype,admissionclass,section,rollno,housegroup,oldschool,reasonleav,hobby,specialinterest,inputter,entrydate,admissiondate,admissiondateen)values('"+s.getLegacyId()+"','"+s.getStudentname()+"','"+s.getSex()+"','"+s.getSmotherlanguage()+"','"+s.getSethinicgroup()+"','"+s.getSReligion()+"','"+s.getDob()+"','"+s.getDoben()+"','"+s.getDifferentlyabledYN()+"','"+s.getDifferentlyabledtype()+"','"+s.getAdmissionclass()+"','"+s.getSection()+"','"+s.getRollno()+"','"+s.getHousegroup()+"','"+s.getOldschool()+"','"+s.getReasonleav()+"','"+s.getHobby()+"','"+s.getSpecialinterest()+"','"+inputter+"',CURDATE(),'"+s.getAdmissiondate()+"','"+s.getAdmissiondateen()+"')";
+		int i=jdbcTemplate.update(sql);
+		if(i>0){
+			status=true;
+		}
+		return status;
+		
 	 }
 }
