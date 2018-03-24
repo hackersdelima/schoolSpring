@@ -1,4 +1,5 @@
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<jsp:include page="../include.jsp"></jsp:include>
 
 <html>
 <head>
@@ -86,8 +87,8 @@
 												<strong>Mother Language</strong>
 											</h6> <select class="form-control" name="Language" form="form">
 												<option value="" selected>Select mother language</option>
-											
-											
+
+
 										</select>
 										</td>
 										<td>
@@ -95,9 +96,9 @@
 												<strong>Ethnic Group</strong>
 											</h6> <select class="form-control" name="SCast" form="form">
 												<option value="" selected>Select ethnic group</option>
-												
+
 												<option value=""></option>
-											
+
 										</select>
 										</td>
 									</tr>
@@ -127,9 +128,11 @@
 												</h6>
 												<select class="form-control" name="DisableType" form="form">
 													<option value="" selected>Select disabled type</option>
-													
-													<option value=""></option>
-													
+
+													<c:forEach items="${disabledlist }" var="disabled">
+														<option value="${disabled.id }">${disabled.typehead }</option>
+													</c:forEach>
+
 												</select>
 										</td>
 									</tr>
@@ -221,8 +224,11 @@
 											data-show-subtext="true" data-live-search="true"
 											name="District" form="form">
 												<option value="" selected>Select district</option>
-												
-												
+												<c:forEach items="${dislist }" var="dis">
+													<option value="${dis.districtCode }">${dis.districtName }</option>
+												</c:forEach>
+
+
 										</select>
 										</td>
 										<td>
@@ -786,7 +792,7 @@
 											</h6> <select class="form-control" name="admissionclass"
 											form="form" required>
 												<option selected value="">Select admission class</option>
-												
+
 										</select>
 										</td>
 										<td>
@@ -794,7 +800,7 @@
 												<strong>Section</strong>
 											</h6> <select class="form-control" name="section" form="form">
 												<option selected value="">Select section</option>
-												
+
 										</select>
 										</td>
 										<td>
@@ -810,7 +816,7 @@
 												<strong>House Group</strong>
 											</h6> <select class="form-control" name="housegroup" form="form">
 												<option value="" selected>Select house group</option>
-												
+
 										</select>
 										</td>
 										<td>
@@ -839,7 +845,7 @@
 											</h6> <select class="form-control" name="specialinterest"
 											form="form">
 												<option value="" selected>Select special interest</option>
-								
+
 										</select>
 										</td>
 									</tr>
@@ -855,7 +861,7 @@
 
 
 
-	
+
 	<script>
 		
 	

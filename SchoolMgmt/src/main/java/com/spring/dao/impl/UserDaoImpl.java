@@ -27,12 +27,6 @@ public class UserDaoImpl implements UserDao{
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
-
-
-
-
-
-
 	 
 	 @Autowired
 	 private void setDataSource(DataSource dataSource)
@@ -40,15 +34,6 @@ public class UserDaoImpl implements UserDao{
 		 this.jdbcTemplate=new JdbcTemplate(dataSource);
 		 
 	 }
-
-	/*public DataSource getDataSource() {
-		return datasource;
-	}
-	
-	public void setDataSource(DataSource datasource) {
-		JdbcTemplate jdbc=new JdbcTemplate(datasource);
-	}*/
-
 
 	public boolean verifyUser(UserModel user)
 	{
