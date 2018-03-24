@@ -1,13 +1,23 @@
 package com.spring.school;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.spring.dao.StudentDao;
 
 @Controller
 public class NavigationController {
+	@Autowired
+	private StudentDao studentDao;
+	
 	@RequestMapping(value="/studentAdmission")
-	public String studentForm()
+	public String studentForm(Model model)
 	{
+		model.addAttribute("dislist", 	studentDao.getDistricts());
+		model.addAttribute("disabledlist",studentDao.getDisabledType());
+;	
 		return "student/studentRegistration";
 	}
 	

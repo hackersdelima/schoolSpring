@@ -27,13 +27,19 @@ public class UserDaoImpl implements UserDao{
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+<<<<<<< HEAD
 
 	@Autowired
+=======
+	 
+	 @Autowired
+>>>>>>> branch 'master' of https://github.com/hackersdelima/schoolSpring
 	 private void setDataSource(DataSource dataSource)
 	 {
 		 this.jdbcTemplate=new JdbcTemplate(dataSource);
 		 
 	 }
+<<<<<<< HEAD
 
 	/*@Autowired
 	public UserDaoImpl(DataSource dataSource)
@@ -49,6 +55,8 @@ public class UserDaoImpl implements UserDao{
 		JdbcTemplate jdbc=new JdbcTemplate(datasource);
 	}*/
 
+=======
+>>>>>>> branch 'master' of https://github.com/hackersdelima/schoolSpring
 
 	public boolean verifyUser(UserModel user)
 	{
