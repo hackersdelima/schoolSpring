@@ -1,5 +1,5 @@
 
-
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <html>
 <head>
 </head>
@@ -25,6 +25,7 @@
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 					</li>
 				</ul>
+				
 				<form method="post" action="studentregistration" id="form"></form>
 				<button type="submit" class="btn btn-success " form="form">
 					<i class="fa fa-check"></i> SUBMIT

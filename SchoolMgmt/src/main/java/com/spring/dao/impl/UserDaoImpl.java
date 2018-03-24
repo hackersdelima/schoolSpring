@@ -28,19 +28,19 @@ public class UserDaoImpl implements UserDao{
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-
-
-
-
-
-	 
-	 @Autowired
+	@Autowired
 	 private void setDataSource(DataSource dataSource)
 	 {
 		 this.jdbcTemplate=new JdbcTemplate(dataSource);
 		 
 	 }
 
+	/*@Autowired
+	public UserDaoImpl(DataSource dataSource)
+	{
+		 this.jdbcTemplate=new JdbcTemplate(dataSource);
+
+	}*/
 	/*public DataSource getDataSource() {
 		return datasource;
 	}
