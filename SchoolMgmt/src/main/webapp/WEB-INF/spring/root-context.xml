@@ -3,11 +3,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<<<<<<< HEAD
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-=======
-	 <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
->>>>>>> branch 'master' of https://github.com/hackersdelima/schoolSpring
+
+<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
@@ -16,13 +13,10 @@
 	<bean id="userDao" class="com.spring.dao.impl.UserDaoImpl">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
-<<<<<<< HEAD
-=======
 	<bean id="studentDao" class="com.spring.dao.impl.StudentDaoImpl">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
 	<!-- Root Context: defines shared resources visible to all other web components -->
->>>>>>> branch 'master' of https://github.com/hackersdelima/schoolSpring
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
