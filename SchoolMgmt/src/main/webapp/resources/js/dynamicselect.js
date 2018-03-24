@@ -7,7 +7,7 @@ $(document).ready(function()
 		$.ajax
 		({
 		type: "POST",
-		url: "onselectpages/viewMuncipality.jsp",
+		url: "viewMuncipality",
 		data: dataString,
 		cache: false,
 		success: function(html)
@@ -23,7 +23,7 @@ $(document).ready(function()
 				$.ajax
 				({
 				type: "POST",
-				url: "onselectpages/viewWardNo.jsp",
+				url: "viewWardNo",
 				data: dataString,
 				cache: false,
 				success: function(html)
@@ -32,6 +32,4 @@ $(document).ready(function()
 				} 
 				});
 				});
-		});/**
- * 
- */
+		});

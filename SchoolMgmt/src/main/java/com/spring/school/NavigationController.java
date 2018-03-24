@@ -27,5 +27,15 @@ public class NavigationController {
 	{
 		return "exam/createStudentReport";
 	}
+	@RequestMapping(value="/viewMuncipality")
+	public String viewMuncipality()
+	{
+		return "onselectpages/viewMuncipality";
+	}
+	@RequestMapping(value="/viewWardNo")
+	public String viewWardNo()
+	{
+		return "onselectpages/viewWardNo";
+	}
 
 }

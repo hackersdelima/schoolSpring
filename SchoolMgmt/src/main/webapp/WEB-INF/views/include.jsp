@@ -58,6 +58,6 @@
     <!-- Form Required Scripts -->
 	<script type="text/javascript" src="resources/nepaliDatePicker/nepali.datepicker.v2.2.min.js"></script>
 	<script type="text/javascript" src="resources/js/dconverter.js"></script>
-	<script type="text/javascript" src="resources/js/selector.js"></script>    
+	<script type="text/javascript" src="resources/js/dynamicselect.js"></script>    
 </body>
 </html>
