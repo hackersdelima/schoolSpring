@@ -59,4 +59,60 @@ private JdbcTemplate jdbcTemplate;
 	 }
 	
 
+	 public List<FormDetails> getAdmissionClass(){
+		 String sql="SELECT * FROM CLASSLIST";
+			return jdbcTemplate.query(sql, new AdmissionClass());
+	 }
+	 public static final class AdmissionClass implements RowMapper<FormDetails>{
+			@Override
+			public FormDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
+				FormDetails form=new FormDetails();
+				form.setClassid(rs.getString("classid"));
+				form.setClassname(rs.getString("classname"));
+				return form;
+			}
+	 }
+	 
+	 public List<FormDetails> getSection(){
+		 String sql="SELECT * FROM sectiontbl";
+			return jdbcTemplate.query(sql, new Section());
+	 }
+	 public static final class Section implements RowMapper<FormDetails>{
+			@Override
+			public FormDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
+				FormDetails form=new FormDetails();
+				form.setSectionid(rs.getString("sectionid"));
+				form.setSectionname(rs.getString("sectionname"));
+				return form;
+			}
+	 }
+	 
+	 public List<FormDetails> HouseGroup(){
+		 String sql="SELECT * FROM housegrouptbl";
+			return jdbcTemplate.query(sql, new HouseGroup());
+	 }
+	 public static final class HouseGroup implements RowMapper<FormDetails>{
+			@Override
+			public FormDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
+				FormDetails form=new FormDetails();
+				form.setHousegroupid(rs.getString("housegroupid"));
+				form.setHousegroupname(rs.getString("housegroupname"));
+				return form;
+			}
+	 }
+	 
+	 
+	 public List<FormDetails> SpecialInterest(){
+		 String sql="SELECT * FROM specialinteresttbl";
+			return jdbcTemplate.query(sql, new SpecialInterest());
+	 }
+	 public static final class SpecialInterest implements RowMapper<FormDetails>{
+			@Override
+			public FormDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
+				FormDetails form=new FormDetails();
+			form.setSpecialInterestId(rs.getString("specialinterestid"));
+			form.setSpecialInterestName(rs.getString("specialinterestname"));
+				return form;
+			}
+	 }
 }

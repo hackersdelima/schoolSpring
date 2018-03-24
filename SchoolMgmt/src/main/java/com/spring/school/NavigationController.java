@@ -15,9 +15,14 @@ public class NavigationController {
 	@RequestMapping(value="/studentAdmission")
 	public String studentForm(Model model)
 	{
+		System.out.println(studentDao.getAdmissionClass());
+		model.addAttribute("interest", studentDao.SpecialInterest());
+		model.addAttribute("housegroup",studentDao.HouseGroup());
+		model.addAttribute("section",studentDao.getSection());
+		model.addAttribute("classlist", studentDao.getAdmissionClass());
 		model.addAttribute("dislist", 	studentDao.getDistricts());
 		model.addAttribute("disabledlist",studentDao.getDisabledType());
-;	
+
 		return "student/studentRegistration";
 	}
 	

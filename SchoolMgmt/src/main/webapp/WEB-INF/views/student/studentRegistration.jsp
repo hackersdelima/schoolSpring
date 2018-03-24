@@ -1,3 +1,5 @@
+
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include.jsp"></jsp:include>
 
@@ -26,6 +28,7 @@
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 					</li>
 				</ul>
+				
 				<form method="post" action="studentregistration" id="form"></form>
 				<button type="submit" class="btn btn-success " form="form">
 					<i class="fa fa-check"></i> SUBMIT
@@ -792,6 +795,10 @@
 											</h6> <select class="form-control" name="admissionclass"
 											form="form" required>
 												<option selected value="">Select admission class</option>
+												<c:forEach items="${classlist}" var="cl">
+												<option value="${cl.classid}">${cl.classname }</option>
+												
+												</c:forEach>
 
 										</select>
 										</td>
@@ -800,6 +807,10 @@
 												<strong>Section</strong>
 											</h6> <select class="form-control" name="section" form="form">
 												<option selected value="">Select section</option>
+												<c:forEach items="${section}" var="sec">
+												<option value="${sec.sectionid}">${sec.sectionname }</option>
+												
+												</c:forEach>
 
 										</select>
 										</td>
@@ -816,7 +827,11 @@
 												<strong>House Group</strong>
 											</h6> <select class="form-control" name="housegroup" form="form">
 												<option value="" selected>Select house group</option>
-
+				
+												<c:forEach items="${housegroup}" var="h">
+												<option value="${h.housegroupid}">${h.housegroupname }</option>
+												
+												</c:forEach>
 										</select>
 										</td>
 										<td>
@@ -845,6 +860,10 @@
 											</h6> <select class="form-control" name="specialinterest"
 											form="form">
 												<option value="" selected>Select special interest</option>
+												<c:forEach items="${interest}" var="i">
+												<option value="${i.specialInterestId}">${i.specialInterestName}</option>
+												
+												</c:forEach>
 
 										</select>
 										</td>
