@@ -120,7 +120,7 @@
 										<td>
 											<h6>
 												<strong>Differently-able?</strong>
-											</h6> <select class="form-control" name="disabledYN" form="form">
+											</h6> <select class="form-control" name="differentlyabledYN" form="form">
 												<option value="n">No</option>
 												<option value="y">Yes</option>
 										</select>
@@ -129,7 +129,7 @@
 											<h5 style="color: blue">
 												<strong>If Differently-able yes</strong>
 												</h6>
-												<select class="form-control" name="disableType" form="form">
+												<select class="form-control" name="differentlyabledtype" form="form">
 													<option value="" selected>Select disabled type</option>
 
 													<c:forEach items="${disabledlist }" var="disabled">
