@@ -20,7 +20,14 @@ public class StudentController {
 	{
 		boolean status=studentDao.insertStudent(student);
 		if(status){
+			String studentid="5";
+			 boolean otherStatus=studentDao.insertStudentOtherDetails(student,studentid);
+			 if(otherStatus){
 			model.addAttribute("msg","Insert Successful");
+			 }
+		}
+		else{
+			model.addAttribute("msg","Insert Unsuccessful");
 		}
 		return "profile";
 	}

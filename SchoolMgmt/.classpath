@@ -33,7 +33,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Hackersdelima/Desktop/mysql-connector-java-5.1.27.jar">
+	<classpathentry kind="lib" path="C:/Users/Sunil/Desktop/ADBL War/mysql-connector-java-5.1.27.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
