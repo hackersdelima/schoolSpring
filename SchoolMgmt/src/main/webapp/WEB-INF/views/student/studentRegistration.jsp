@@ -97,7 +97,7 @@
 										<td>
 											<h6>
 												<strong>Ethnic Group</strong>
-											</h6> <select class="form-control" name="SCast" form="form">
+											</h6> <select class="form-control" name="sCast" form="form">
 												<option value="" selected>Select ethnic group</option>
 
 												<option value=""></option>
@@ -109,7 +109,7 @@
 										<td>
 											<h6>
 												<strong>Religion</strong>
-											</h6> <select class="form-control" name="SReligion" form="form">
+											</h6> <select class="form-control" name="sReligion" form="form">
 												<option value="" selected>Select religion</option>
 												<option value="Hindu">Hindu</option>
 												<option value="Muslim">Muslim</option>
@@ -120,7 +120,7 @@
 										<td>
 											<h6>
 												<strong>Differently-able?</strong>
-											</h6> <select class="form-control" name="DisabledYN" form="form">
+											</h6> <select class="form-control" name="disabledYN" form="form">
 												<option value="n">No</option>
 												<option value="y">Yes</option>
 										</select>
@@ -129,7 +129,7 @@
 											<h5 style="color: blue">
 												<strong>If Differently-able yes</strong>
 												</h6>
-												<select class="form-control" name="DisableType" form="form">
+												<select class="form-control" name="disableType" form="form">
 													<option value="" selected>Select disabled type</option>
 
 													<c:forEach items="${disabledlist }" var="disabled">
@@ -225,7 +225,7 @@
 												<strong>District</strong>
 											</h6> <select class="form-control selectpicker district"
 											data-show-subtext="true" data-live-search="true"
-											name="District" form="form">
+											name="district" form="form">
 												<option value="" selected>Select district</option>
 												<c:forEach items="${dislist }" var="dis">
 													<option value="${dis.districtCode }">${dis.districtName }</option>
@@ -237,7 +237,7 @@
 										<td>
 											<h6>
 												<strong>Municipality or Village Council</strong>
-											</h6> <select class="form-control vdcmun" name="VdcMun"
+											</h6> <select class="form-control vdcmun" name="vdcMun"
 											form="form">
 												<option value="" selected>Select muncipality or VDC</option>
 										</select>
@@ -245,7 +245,7 @@
 										<td>
 											<h6>
 												<strong>Ward No.</strong>
-											</h6> <select class="form-control wardno" name="WardNo"
+											</h6> <select class="form-control wardno" name="wardNo"
 											form="form">
 												<option value="0" selected>Select ward no.</option>
 										</select>
