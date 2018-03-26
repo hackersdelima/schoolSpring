@@ -12,6 +12,6 @@ public interface StudentDao {
 	 public List<FormDetails> getSection();
 	 public List<FormDetails> HouseGroup();
 	 public List<FormDetails> SpecialInterest();
-	public boolean insertStudent(StudentModel student);
-	 public boolean insertStudentOtherDetails(StudentModel s, String studentid);
+	public int insertStudent(StudentModel student);
+	 public boolean insertStudentOtherDetails(StudentModel s, int studentid);
 }

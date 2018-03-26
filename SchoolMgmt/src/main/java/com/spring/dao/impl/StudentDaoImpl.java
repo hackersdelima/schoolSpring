@@ -1,20 +1,23 @@
 package com.spring.dao.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.spring.dao.StudentDao;
-import com.spring.dao.impl.UserDaoImpl.ClassMapper;
 import com.spring.model.FormDetails;
 import com.spring.model.StudentModel;
-import com.spring.model.UserModel;
 
 public class StudentDaoImpl implements StudentDao {
 private JdbcTemplate jdbcTemplate;
@@ -117,19 +120,18 @@ private JdbcTemplate jdbcTemplate;
 			}
 	 }
 	 
-	 public boolean insertStudent(StudentModel s)
+	 public int insertStudent(StudentModel s)
 	 {
 		 String inputter="inputter";
 		 boolean status=false;
 		String sql="insert into studentinfo(LegacyId,studentname,sex,smotherlanguage,sethinicgroup,sreligion,dob,doben,differentlyabledYN,differentlyabledtype,admissionclass,section,rollno,housegroup,oldschool,reasonleav,hobby,specialinterest,inputter,entrydate,admissiondate,admissiondateen)values('"+s.getLegacyId()+"','"+s.getStudentname()+"','"+s.getSex()+"','"+s.getSmotherlanguage()+"','"+s.getSethinicgroup()+"','"+s.getSReligion()+"','"+s.getDob()+"','"+s.getDoben()+"','"+s.getDifferentlyabledYN()+"','"+s.getDifferentlyabledtype()+"','"+s.getAdmissionclass()+"','"+s.getSection()+"','"+s.getRollno()+"','"+s.getHousegroup()+"','"+s.getOldschool()+"','"+s.getReasonleav()+"','"+s.getHobby()+"','"+s.getSpecialinterest()+"','"+inputter+"',CURDATE(),'"+s.getAdmissiondate()+"','"+s.getAdmissiondateen()+"')";
-		int i=jdbcTemplate.update(sql);
-		if(i>0){
-			status=true;
-		}
-		return status;
+		String sql1="select max(studentid) from studentinfo";
+		jdbcTemplate.update(sql);
+		return jdbcTemplate.queryForObject(sql1, Integer.class);
+		
 		
 	 }
-	 public boolean insertStudentOtherDetails(StudentModel s, String studentid){
+	 public boolean insertStudentOtherDetails(StudentModel s, int studentid){
 			String sql1="insert into smotherdetailtbl(studentid,mothername,maddress,moffice,mposition,mincome,mmobile,mtelephone,memail,mephone,mcitizenshipno,mcitizenshipissuedby,mcitizenshipissueddate,mcitizenshipissueddateen,mlicenseno,mlicenseissuedby,mlicenseissueddate,mlicenseissueddateen,mofficialidno,mofficialidissuedby,mofficialidissueddate,mofficialidissueddateen,mvoteridno,mvoteridissuedby,mvoteridissueddate,mvoteridissueddateen,mpassportno,mpassportissuedby,mpassportissueddate,mpassportissueddateen)values('"+studentid+"','"+s.getMothername()+"','"+s.getMaddress()+"','"+s.getMoffice()+"','"+s.getMposition()+"','"+s.getMincome()+"','"+s.getMmobile()+"','"+s.getMtelephone()+"','"+s.getMemail()+"','"+s.getMephone()+"','"+s.getMcitizenshipno()+"','"+s.getMcitizenshipissuedby()+"','"+s.getMcitizenshipissueddate()+"','"+s.getMcitizenshipissueddateen()+"','"+s.getMlicenseno()+"','"+s.getMlicenseissuedby()+"','"+s.getMlicenseissueddate()+"','"+s.getMlicenseissueddateen()+"','"+s.getMofficialidno()+"','"+s.getMofficialidissuedby()+"','"+s.getMofficialidissueddate()+"','"+s.getMofficialidissueddateen()+"','"+s.getMvoteridno()+"','"+s.getMvoteridissuedby()+"','"+s.getMvoteridissueddate()+"','"+s.getMvoteridissueddateen()+"','"+s.getMpassportno()+"','"+s.getMpassportissuedby()+"','"+s.getMpassportissueddate()+"','"+s.getMpassportissueddateen()+"')";
 			String sql2="insert into sfatherdetailtbl(studentid,fathername,faddress,foffice,fposition,fincome,fmobile,ftelephone,femail,fephone,fcitizenshipno,fcitizenshipissuedby,fcitizenshipissueddate,fcitizenshipissueddateen,flicenseno,flicenseissuedby,flicenseissueddate,flicenseissueddateen,fofficialidno,fofficialidissuedby,fofficialidissueddate,fofficialidissueddateen,fvoteridno,fvoteridissuedby,fvoteridissueddate,fvoteridissueddateen,fpassportno,fpassportissuedby,fpassportissueddate,fpassportissueddateen)values('"+studentid+"','"+s.getFathername()+"','"+s.getFaddress()+"','"+s.getFoffice()+"','"+s.getFposition()+"','"+s.getFincome()+"','"+s.getFmobile()+"','"+s.getFtelephone()+"','"+s.getFemail()+"','"+s.getFephone()+"','"+s.getFcitizenshipno()+"','"+s.getFcitizenshipissuedby()+"','"+s.getFcitizenshipissueddate()+"','"+s.getFcitizenshipissueddateen()+"','"+s.getFlicenseno()+"','"+s.getFlicenseissuedby()+"','"+s.getFlicenseissueddate()+"','"+s.getFlicenseissueddateen()+"','"+s.getFofficialidno()+"','"+s.getFofficialidissuedby()+"','"+s.getFofficialidissueddate()+"','"+s.getFofficialidissueddateen()+"','"+s.getFvoteridno()+"','"+s.getFvoteridissuedby()+"','"+s.getFvoteridissueddate()+"','"+s.getFvoteridissueddateen()+"','"+s.getFpassportno()+"','"+s.getFpassportissuedby()+"','"+s.getFpassportissueddate()+"','"+s.getFpassportissueddateen()+"')";
 			String sql3="insert into sbirthcertificatetbl(studentid,sbirthcertificateno,sbirthcertificateissuedby,sbirthcertificateissueddate,sbirthcertificateissueddateen)values('"+studentid+"','"+s.getBirthcertificateno()+"','"+s.getBirthcertificateissuedby()+"','"+s.getBirthcertificateissueddate()+"','"+s.getBirthcertificateissueddateen()+"') ";
@@ -137,11 +139,34 @@ private JdbcTemplate jdbcTemplate;
 			String sql5="insert into slocalguardiantbl(studentid,localguardianname,localadd,relationtype,localmob)values('"+studentid+"','"+s.getLocal1()+"','"+s.getLocaladd1()+"','"+s.getRelaiontype1()+"','"+s.getLocalmob1()+"')";
 			String sql6="insert into slocalguardiantbl(studentid,localguardianname,localadd,relationtype,localmob)values('"+studentid+"','"+s.getLocal2()+"','"+s.getLocaladd2()+"','"+s.getRelationtype2()+"','"+s.getLocalmob2()+"')";
 
+			ApplicationContext context=new ClassPathXmlApplicationContext("root-context.xml");
+			DataSource dataSource=(DataSource) context.getBean("dataSource");
 			boolean status=false;
-			int[] i=jdbcTemplate.batchUpdate(sql1,sql2,sql3,sql4,sql5,sql6);
+			int[] i = null;
+			Connection con=null;
+			Statement st=null;
+			try {
+				con=dataSource.getConnection();
+				st=con.createStatement();
+				st.addBatch(sql1);
+				st.addBatch(sql2);
+				st.addBatch(sql3);
+				st.addBatch(sql4);
+				st.addBatch(sql5);
+				st.addBatch(sql6);
+				i=st.executeBatch();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			if(i.length==6){
 				status=true;
+				
 			}
+			
+		/*	int[] i=jdbcTemplate.batchUpdate(new String[]{sql1,sql2});
+			if(i.length>0){
+				status=true;
+			}*/
 			
 		 return status; 
 	 }

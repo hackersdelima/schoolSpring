@@ -14,20 +14,18 @@ import com.spring.model.StudentModel;
 public class StudentController {
 	@Autowired
 	private StudentDao studentDao;
-	
-	@RequestMapping(value="/studentRegistration",method=RequestMethod.POST)
-	public String insert(@ModelAttribute StudentModel student, Model model)
-	{
-		boolean status=studentDao.insertStudent(student);
-		if(status){
-			String studentid="5";
-			 boolean otherStatus=studentDao.insertStudentOtherDetails(student,studentid);
-			 if(otherStatus){
-			model.addAttribute("msg","Insert Successful");
-			 }
+
+	@RequestMapping(value = "/studentRegistration", method = RequestMethod.POST)
+	public String insert(@ModelAttribute StudentModel student, Model model) {
+		int studentid = studentDao.insertStudent(student);
+
+		boolean otherStatus = studentDao.insertStudentOtherDetails(student, studentid);
+		if (otherStatus) {
+			model.addAttribute("msg", "Insert Successful");
 		}
-		else{
-			model.addAttribute("msg","Insert Unsuccessful");
+
+		else {
+			model.addAttribute("msg", "Insert Unsuccessful");
 		}
 		return "profile";
 	}
