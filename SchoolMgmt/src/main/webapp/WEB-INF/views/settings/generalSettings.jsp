@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include page="/includefile"></jsp:include>
+<jsp:include page="../include.jsp"></jsp:include>
 <html>
 <head>
 </head>
@@ -20,8 +21,8 @@
 
 	<div class="col-md-8 col-xs-12">
 		<div class="x_panel">
-			<form class="form-horizontal form-label-left input_mask"
-				method="post" action="generalSettings.add">
+			<form:form commandName="operation" class="form-horizontal form-label-left input_mask"
+				method="post" action="updateGeneralSetting">
 
 				<div class="x_title">
 					<h2>SYSTEM SETTINGS</h2>
@@ -50,10 +51,9 @@
 
 
 				</div>
-			</form>
+			</form:form>
 		</div>
 	</div>
-	<jsp:include page="/msgmodal"></jsp:include>
 	<script>
 		
 	<%if (request.getAttribute("msg") != null) {%>

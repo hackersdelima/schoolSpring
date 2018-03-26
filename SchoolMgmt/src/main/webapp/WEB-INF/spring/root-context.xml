@@ -8,7 +8,9 @@
 		<property name="dataSource" ref="dataSource" />
 		</bean>
 
-
+	<bean id="operationDao" class="com.spring.dao.impl.OperationDaoImpl">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
 
 	<bean id="userDao" class="com.spring.dao.impl.UserDaoImpl">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />

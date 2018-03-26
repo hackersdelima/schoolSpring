@@ -14,4 +14,5 @@ public interface StudentDao {
 	 public List<FormDetails> SpecialInterest();
 	public int insertStudent(StudentModel student);
 	 public boolean insertStudentOtherDetails(StudentModel s, int studentid);
+	public List<StudentModel> getAllStudents();
 }

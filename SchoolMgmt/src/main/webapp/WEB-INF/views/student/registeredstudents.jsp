@@ -1,11 +1,6 @@
-<%@page import="com.controller.student.classes.StudentOperations"%>
-<%@page import="java.util.*"%>
-<%@page import="java.sql.*"%>
-<% if((session.getAttribute("userdetail"))!=null){
-	%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<jsp:include page="/includefile"></jsp:include>
+<jsp:include page="../include.jsp"></jsp:include>
 <html>
 <head>
 <style type="text/css">
@@ -28,41 +23,6 @@ tfoot input {
 			</ol>
 		</nav>
 	</div>
-
-	<!-- <div class="col-md-12 col-sm-12 col-xs-12">
-
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>SPECIFIC SEARCH</h2>
-				<ul class="nav navbar-right panel_toolbox">
-					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-					</li>
-				</ul>
-				<div class="clearfix"></div>
-			</div>
-			<div class="x_content">
-				<table cellpadding="3" cellspacing="0" border="0">
-					<tbody>
-						<tr id="filter_col2" data-column="1">
-							<td align="center"><input type="text"
-								class="column_filter form-control" placeholder="Student Name..."
-								id="col1_filter"><br></td>
-						</tr>
-						<tr id="filter_col3" data-column="2">
-							<td align="center"><input type="text"
-								class="column_filter form-control" placeholder="Roll No..."
-								id="col2_filter"><br></td>
-						</tr>
-						<tr id="filter_col4" data-column="3">
-							<td align="center"><input type="text"
-								class="column_filter form-control" placeholder="Class..."
-								id="col3_filter"></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div> -->
 	<div class="col-md-12 col-sm-12 col-xs-12">
 		<div class="x_panel">
 			<div class="x_title">
@@ -141,7 +101,6 @@ tfoot input {
                       </div>
                     </div>
                   </div>
-	<jsp:include page="/msgmodal"></jsp:include>
 	
 	
 	<script>
@@ -194,4 +153,3 @@ $(".viewdetail").click(function()
 </script>
 </body>
 </html>
-<%}%>

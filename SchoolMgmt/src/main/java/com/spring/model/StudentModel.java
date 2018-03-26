@@ -1,6 +1,14 @@
 package com.spring.model;
 public class StudentModel {
-String admissiondate, admissiondateen,LegacyId, studentname, sex, smotherlanguage, sethinicgroup, SReligion, dob, doben, differentlyabledYN,differentlyabledtype, District, VdcMun, WardNo, tole, tempaddress, fathername, faddress, foffice, fposition, fincome,fmobile, ftelephone, femail, fephone, mothername,maddress,moffice,mposition,mincome,mmobile,mtelephone,memail,mephone,local1,localadd1,localmob1,local2,localadd2,localmob2,admissionclass,section,rollno,housegroup,oldschool,reasonleav,hobby,specialinterest,inputter, relaiontype1, relationtype2,birthcertificateno,birthcertificateissuedby,birthcertificateissueddate,birthcertificateissueddateen,fcitizenshipno,fcitizenshipissuedby, fcitizenshipissueddate, fcitizenshipissueddateen,flicenseno,flicenseissuedby,flicenseissueddate, flicenseissueddateen,fofficialidno, fofficialidissuedby,fofficialidissueddate,fofficialidissueddateen,fvoteridno,fvoteridissuedby,fvoteridissueddate,fvoteridissueddateen,fpassportno,fpassportissuedby,fpassportissueddate,fpassportissueddateen,mcitizenshipno,mcitizenshipissuedby, mcitizenshipissueddate, mcitizenshipissueddateen,mlicenseno,mlicenseissuedby,mlicenseissueddate, mlicenseissueddateen,mofficialidno, mofficialidissuedby,mofficialidissueddate,mofficialidissueddateen,mvoteridno,mvoteridissuedby,mvoteridissueddate,mvoteridissueddateen,mpassportno,mpassportissuedby,mpassportissueddate,mpassportissueddateen;
+String studentid, admissiondate, admissiondateen,LegacyId, studentname, sex, smotherlanguage, sethinicgroup, SReligion, dob, doben, differentlyabledYN,differentlyabledtype, District, VdcMun, WardNo, tole, tempaddress, fathername, faddress, foffice, fposition, fincome,fmobile, ftelephone, femail, fephone, mothername,maddress,moffice,mposition,mincome,mmobile,mtelephone,memail,mephone,local1,localadd1,localmob1,local2,localadd2,localmob2,admissionclass,section,rollno,housegroup,oldschool,reasonleav,hobby,specialinterest,inputter, relaiontype1, relationtype2,birthcertificateno,birthcertificateissuedby,birthcertificateissueddate,birthcertificateissueddateen,fcitizenshipno,fcitizenshipissuedby, fcitizenshipissueddate, fcitizenshipissueddateen,flicenseno,flicenseissuedby,flicenseissueddate, flicenseissueddateen,fofficialidno, fofficialidissuedby,fofficialidissueddate,fofficialidissueddateen,fvoteridno,fvoteridissuedby,fvoteridissueddate,fvoteridissueddateen,fpassportno,fpassportissuedby,fpassportissueddate,fpassportissueddateen,mcitizenshipno,mcitizenshipissuedby, mcitizenshipissueddate, mcitizenshipissueddateen,mlicenseno,mlicenseissuedby,mlicenseissueddate, mlicenseissueddateen,mofficialidno, mofficialidissuedby,mofficialidissueddate,mofficialidissueddateen,mvoteridno,mvoteridissuedby,mvoteridissueddate,mvoteridissueddateen,mpassportno,mpassportissuedby,mpassportissueddate,mpassportissueddateen;
+
+public String getStudentid() {
+	return studentid;
+}
+
+public void setStudentid(String studentid) {
+	this.studentid = studentid;
+}
 
 public String getAdmissiondate() {
 	return admissiondate;

@@ -2,6 +2,7 @@ package com.spring.school;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.spring.dao.OperationDao;
 import com.spring.dao.UserDao;
 import com.spring.model.UserModel;
 
@@ -24,61 +26,60 @@ import com.spring.model.UserModel;
  * Handles requests for the application home page.
  */
 @Controller
-@SessionAttributes("userDetail")
+@SessionAttributes(value = { "userDetail", "systemdetail" })
+
 public class HomeController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	
+
 	@Autowired
 	private UserDao dao;
-	
+
+	@Autowired
+	private OperationDao operationDao;
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
+
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
+
 		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
+
+		model.addAttribute("serverTime", formattedDate);
+
 		return "index";
 	}
-	
-	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public String login(@ModelAttribute UserModel user,ModelMap model,BindingResult result){
-		
-		
-		boolean status=dao.verifyUser(user);
-		if(status)
-		{
-			UserModel userDetail=getUser(user);
-		model.put("userDetail", userDetail);
-			
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(@ModelAttribute UserModel user, ModelMap model, BindingResult result) {
+
+		boolean status = dao.verifyUser(user);
+		if (status) {
+			UserModel userDetail = getUser(user);
+			List<UserModel> systemdetail = operationDao.getSystemDetails();
+			model.put("userDetail", userDetail);
+			model.put("systemdetail", systemdetail);
 			return "profile";
-		}
-		else{
+		} else {
 			return "index";
 		}
-		
-		
+
 	}
-	
-	public UserModel getUser(UserModel user){
+
+	public UserModel getUser(UserModel user) {
 		return dao.getUserDetails(user);
 	}
-	
-	@RequestMapping(value="/{name}")
-	public String pathDemo(@PathVariable String name)
-	{
+
+	@RequestMapping(value = "/{name}")
+	public String pathDemo(@PathVariable String name) {
 		System.out.println(name);
 		return "index";
 	}
-	
-	
+
 }

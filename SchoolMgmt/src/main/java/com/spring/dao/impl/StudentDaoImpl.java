@@ -1,7 +1,6 @@
 package com.spring.dao.impl;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,6 +17,7 @@ import org.springframework.jdbc.core.RowMapper;
 import com.spring.dao.StudentDao;
 import com.spring.model.FormDetails;
 import com.spring.model.StudentModel;
+import com.spring.model.UserModel;
 
 public class StudentDaoImpl implements StudentDao {
 private JdbcTemplate jdbcTemplate;
@@ -162,12 +162,26 @@ private JdbcTemplate jdbcTemplate;
 				status=true;
 				
 			}
-			
-		/*	int[] i=jdbcTemplate.batchUpdate(new String[]{sql1,sql2});
-			if(i.length>0){
-				status=true;
-			}*/
-			
 		 return status; 
 	 }
+	 public List<StudentModel> getAllStudents(){
+		 String query="select * from studentinfo";
+		 return jdbcTemplate.query(query, new StudentMapper());
+	 }
+		public static final class StudentMapper implements RowMapper<StudentModel>{
+
+			@Override
+			public StudentModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+				StudentModel s=new StudentModel();
+				s.setStudentname(rs.getString("studentname"));
+				s.setAdmissionclass(rs.getString("admissionclass"));
+				s.setSection(rs.getString("section"));
+				s.setStudentid(rs.getString("studentid"));
+				s.setRollno(rs.getString("rollno"));
+				
+				return s;
+			}
+			
+		}
+	 
 }

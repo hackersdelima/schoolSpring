@@ -1,11 +1,15 @@
 package com.spring.school;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.spring.dao.OperationDao;
 import com.spring.dao.StudentDao;
+import com.spring.model.StudentModel;
 
 @Controller
 public class NavigationController {
@@ -42,5 +46,18 @@ public class NavigationController {
 	{
 		return "onselectpages/viewWardNo";
 	}
-
+	
+	@RequestMapping(value="/listStudents")
+	public String listStudents(Model model)
+	{
+		List<StudentModel> list=studentDao.getAllStudents();
+		model.addAttribute("slist",list);
+		return "student/registeredstudents";
+	}
+	
+	@RequestMapping(value="/generalSettings")
+	public String generalSettings(){
+		
+		return "settings/generalSettings";
+	}
 }

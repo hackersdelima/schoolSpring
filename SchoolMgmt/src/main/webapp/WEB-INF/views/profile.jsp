@@ -63,7 +63,7 @@
                   <li><a><i class="fa fa-edit"></i> Student <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="studentAdmission" target="iframe_a">Student Admission</a></li>
-                      <li><a href="studentslist.click" target="iframe_a">Students List</a></li>
+                      <li><a href="listStudents" target="iframe_a">Students List</a></li>
                     </ul>
                   </li>
                    <li><a><i class="fa fa-edit"></i> Exam <span class="fa fa-chevron-down"></span></a>
@@ -82,7 +82,7 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-sitemap"></i> Settings <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                    <li ><a href="generalSet.click" target="iframe_a">General Settings</a>
+                    <li ><a href="generalSettings" target="iframe_a">General Settings</a>
                         <li><a>Academic Settings<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
                             <li ><a href="subjects.click" target="iframe_a">Subjects</a>
