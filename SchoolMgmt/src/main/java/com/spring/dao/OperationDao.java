@@ -7,4 +7,6 @@ import com.spring.model.UserModel;
 public interface OperationDao {
 	public List<UserModel> getSystemDetails();
 
+	public boolean updateGeneralSetting(UserModel user);
+
 }

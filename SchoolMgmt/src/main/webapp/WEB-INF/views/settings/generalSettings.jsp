@@ -21,7 +21,7 @@
 
 	<div class="col-md-8 col-xs-12">
 		<div class="x_panel">
-			<form:form commandName="operation" class="form-horizontal form-label-left input_mask"
+			<form:form class="form-horizontal form-label-left input_mask"
 				method="post" action="updateGeneralSetting">
 
 				<div class="x_title">
