@@ -9,6 +9,6 @@ public interface OperationDao {
 
 	public boolean updateGeneralSetting(UserModel user);
 
-	public boolean insertInitialDetail(String tablename, String value);
+	public boolean insertInitialDetail(String tablename,String columns, String value);
 
 }

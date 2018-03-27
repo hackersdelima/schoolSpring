@@ -140,7 +140,7 @@
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="tab_content7"
 							aria-labelledby="profile-tab">
-							<form action="examtype.add" method="post"
+							<form action="initialdetailadd" method="post"
 								style="width: 20%; margin-top: 10px;" class="form"
 								id="examtypeform">
 								<h6>
@@ -151,7 +151,7 @@
 								<h6>
 									<strong>Exam Type Description:</strong>
 								</h6>
-								<textarea class="form-control" name="description"
+								<textarea class="form-control" name="examdescription"
 									form="examtypeform" value="" rows="5"></textarea>
 								<br>
 								<button type="submit" class="btn btn-success">+ ADD</button>
@@ -247,6 +247,18 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>${msg}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
 	<script>
 		
 	<%if (request.getAttribute("msg") != null) {%>

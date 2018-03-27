@@ -1,7 +1,15 @@
 package com.spring.model;
 
 public class SettingsModel {
-	private String languagename, sectionname,housegroupname,castename,specialinterestname,classname,examtypename;
+	private String languagename, sectionname,housegroupname,castename,specialinterestname,classname,examtypename,examdescription;
+
+	public String getExamdescription() {
+		return examdescription;
+	}
+
+	public void setExamdescription(String examdescription) {
+		this.examdescription = examdescription;
+	}
 
 	public String getLanguagename() {
 		return languagename;

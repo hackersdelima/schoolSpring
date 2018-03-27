@@ -40,10 +40,10 @@ public class OperationDaoImpl implements OperationDao {
 		}
 		return status;
 	}
-	public boolean insertInitialDetail(String tablename, String value){
+	public boolean insertInitialDetail(String tablename,String columns, String value){
 		boolean status=false;
-		String sql="INSERT INTO '"+tablename+"' VALUES ('"+value+"')";
-		int i=jdbcTemplate.queryForObject(sql, Integer.class);
+		String sql="INSERT INTO "+tablename+" "+columns+"  VALUES ('"+value+"')";
+		int i=jdbcTemplate.update(sql);
 		if(i>0){
 			status=true;
 		}
