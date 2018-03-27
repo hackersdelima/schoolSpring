@@ -15,49 +15,55 @@ import com.spring.model.StudentModel;
 public class NavigationController {
 	@Autowired
 	private StudentDao studentDao;
-	
-	@RequestMapping(value="/studentAdmission")
-	public String studentForm(Model model)
-	{
+
+	@RequestMapping(value = "/studentAdmission")
+	public String studentForm(Model model) {
 		System.out.println(studentDao.getAdmissionClass());
 		model.addAttribute("interest", studentDao.SpecialInterest());
-		model.addAttribute("housegroup",studentDao.HouseGroup());
-		model.addAttribute("section",studentDao.getSection());
+		model.addAttribute("housegroup", studentDao.HouseGroup());
+		model.addAttribute("section", studentDao.getSection());
 		model.addAttribute("classlist", studentDao.getAdmissionClass());
-		model.addAttribute("dislist", 	studentDao.getDistricts());
-		model.addAttribute("disabledlist",studentDao.getDisabledType());
+		model.addAttribute("dislist", studentDao.getDistricts());
+		model.addAttribute("disabledlist", studentDao.getDisabledType());
 
 		return "student/studentRegistration";
 	}
-	
-	
-	@RequestMapping(value="/createExam")
-	public String createExam()
-	{
+
+	@RequestMapping(value = "/createExam")
+	public String createExam() {
 		return "exam/createStudentReport";
 	}
-	@RequestMapping(value="/viewMuncipality")
-	public String viewMuncipality()
-	{
+
+	@RequestMapping(value = "/viewMuncipality")
+	public String viewMuncipality() {
 		return "onselectpages/viewMuncipality";
 	}
-	@RequestMapping(value="/viewWardNo")
-	public String viewWardNo()
-	{
+
+	@RequestMapping(value = "/viewWardNo")
+	public String viewWardNo() {
 		return "onselectpages/viewWardNo";
 	}
-	
-	@RequestMapping(value="/listStudents")
-	public String listStudents(Model model)
-	{
-		List<StudentModel> list=studentDao.getAllStudents();
-		model.addAttribute("slist",list);
+
+	@RequestMapping(value = "/listStudents")
+	public String listStudents(Model model) {
+		List<StudentModel> list = studentDao.getAllStudents();
+		model.addAttribute("slist", list);
 		return "student/registeredstudents";
 	}
-	
-	@RequestMapping(value="/generalSettings")
-	public String generalSettings(){
-		
+
+	@RequestMapping(value = "/generalSettings")
+	public String generalSettings() {
+
 		return "settings/generalSettings";
+	}
+
+	@RequestMapping(value = "/profileSettings")
+	public String profileSettings() {
+		return "settings/userprofile";
+	}
+	
+	@RequestMapping(value="/initialDetails")
+	public String initialDetails(){
+		return "initialdetail/initialdetails";
 	}
 }

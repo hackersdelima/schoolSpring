@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.spring.dao.OperationDao;
+import com.spring.model.SettingsModel;
 import com.spring.model.UserModel;
 
 @Controller
@@ -48,4 +49,11 @@ public class OperationController {
 		return "settings/generalSettings";
 	}
 
+	@RequestMapping(value="/inititaldetailadd", method=RequestMethod.POST)
+	public String insertInitialDetail(@ModelAttribute SettingsModel model){
+		String tablename="";
+		String value="";
+		boolean status=operationDao.insertInitialDetail(tablename,value);
+		return "initialdetail/initialdetails";
+	}
 }

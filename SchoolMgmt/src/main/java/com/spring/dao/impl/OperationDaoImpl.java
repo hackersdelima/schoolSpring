@@ -40,6 +40,16 @@ public class OperationDaoImpl implements OperationDao {
 		}
 		return status;
 	}
+	public boolean insertInitialDetail(String tablename, String value){
+		boolean status=false;
+		String sql="INSERT INTO '"+tablename+"' VALUES ('"+value+"')";
+		int i=jdbcTemplate.queryForObject(sql, Integer.class);
+		if(i>0){
+			status=true;
+		}
+		
+		return status;
+	}
 	public final static class SystemDetailMapper implements RowMapper<UserModel> {
 
 		@Override
@@ -51,5 +61,6 @@ public class OperationDaoImpl implements OperationDao {
 			return user;
 		}
 	}
+	
 
 }

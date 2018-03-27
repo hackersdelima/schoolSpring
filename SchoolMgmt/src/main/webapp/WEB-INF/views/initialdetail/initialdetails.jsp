@@ -1,4 +1,4 @@
-<%@page import="com.controller.student.classes.StudentOperations"%>
+<%-- <%@page import="com.controller.student.classes.StudentOperations"%>
 <%@page import="java.sql.*"%>
 <%
 	if (session.getAttribute("userdetail") != null) {
@@ -12,8 +12,8 @@
 		ResultSet specialinterest = s.getspecialinterest();
 		ResultSet classlist = s.selectclass();
 		ResultSet examtype = s.selectexamtype();
-%>
-<jsp:include page="/includefile"></jsp:include>
+%> --%>
+<jsp:include page="../include.jsp"></jsp:include>
 <html>
 <head></head>
 <body class="background">
@@ -192,89 +192,53 @@
 						<tr>
 							<td>
 								<ol>
-									<%
-										while (language.next()) {
-									%>
 									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i> <%=language.getString("languagename")%>
+										style="color: red"></i>name
 									</li>
-									<%
-										}
-									%>
 								</ol>
 							</td>
 							<td>
 								<ol>
-									<%
-										while (section.next()) {
-									%>
 									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i> <%=section.getString("sectionname")%></li>
-									<%
-										}
-									%>
+										style="color: red"></i>name</li>
 								</ol>
 							</td>
 							<td>
 								<ol>
-									<%
-										while (housegroup.next()) {
-									%>
 									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i> <%=housegroup.getString("housegroupname")%></li>
-									<%
-										}
-									%>
+										style="color: red"></i> name</li>
+									
 								</ol>
 							</td>
 							<td>
 								<ol>
-									<%
-										while (caste.next()) {
-									%>
+							
 									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i> <%=caste.getString("castename")%></li>
-									<%
-										}
-									%>
+										style="color: red"></i>name</li>
+								
 								</ol>
 							</td>
 							<td>
 								<ol>
-									<%
-										while (specialinterest.next()) {
-									%>
 									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i> <%=specialinterest.getString("specialinterestname")%></li>
-									<%
-										}
-									%>
+										style="color: red"></i> name</li>
 								</ol>
 							</td>
 							<td>
 								<ol>
-									<%
-										while (classlist.next()) {
-									%>
+								
 									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i> <%=classlist.getString("classname")%></li>
-									<%
-										}
-									%>
+										style="color: red"></i>classname</li>
+								
 								</ol>
 							</td>
 							<td>
 								<ol>
-									<%
-										while (examtype.next()) {
-									%>
+									
 									<li><i class="fa fa-trash-o" aria-hidden="true"
 										style="color: red"></i> <a href="" data-toggle="tooltip"
-										title="<%=examtype.getString("description")%>"
-										style="color: black;"><%=examtype.getString("examtypename")%></a></li>
-									<%
-										}
-									%>
+										title="Description"
+										style="color: black;">Name</a></li>
 								</ol>
 							</td>
 						</tr>
@@ -283,9 +247,6 @@
 			</div>
 		</div>
 	</div>
-
-
-	<jsp:include page="/msgmodal"></jsp:include>
 	<script>
 		
 	<%if (request.getAttribute("msg") != null) {%>
@@ -298,4 +259,3 @@
 	</script>
 </body>
 </html>
-<%}%>
