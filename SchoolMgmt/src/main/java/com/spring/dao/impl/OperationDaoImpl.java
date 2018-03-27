@@ -2,6 +2,7 @@ package com.spring.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -30,7 +31,25 @@ public class OperationDaoImpl implements OperationDao {
 		String sql = "select * from generalsettings";
 		return jdbcTemplate.query(sql, new SystemDetailMapper());
 	}
-
+	public boolean updateGeneralSetting(UserModel user){
+		boolean status=false;
+		String sql="update generalsettings set description='"+user.getSettingsdescription()+"' where type='"+user.getSettingstype()+"'";
+		int i=jdbcTemplate.update(sql);
+		if(i>0){
+			status=true;
+		}
+		return status;
+	}
+	public boolean insertInitialDetail(String tablename,String columns, String value){
+		boolean status=false;
+		String sql="INSERT INTO "+tablename+" "+columns+"  VALUES ('"+value+"')";
+		int i=jdbcTemplate.update(sql);
+		if(i>0){
+			status=true;
+		}
+		
+		return status;
+	}
 	public final static class SystemDetailMapper implements RowMapper<UserModel> {
 
 		@Override
@@ -42,5 +61,6 @@ public class OperationDaoImpl implements OperationDao {
 			return user;
 		}
 	}
+	
 
 }

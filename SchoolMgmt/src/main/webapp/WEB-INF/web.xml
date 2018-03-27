@@ -30,5 +30,13 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>Operation</servlet-name>
+		<servlet-class>com.spring.school.OperationController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Operation</servlet-name>
+		<url-pattern>/operation</url-pattern>
+	</servlet-mapping>
 
 </web-app>

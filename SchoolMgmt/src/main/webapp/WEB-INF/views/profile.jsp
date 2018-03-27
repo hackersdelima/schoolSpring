@@ -91,7 +91,7 @@
                             </li>
                           </ul>
                         </li>
-                        <li><a href="initialdetails.click" target="iframe_a">Set Initial Details</a>
+                        <li><a href="initialDetails" target="iframe_a">Set Initial Details</a>
                         </li>
                     </ul>
                   </li>                  
@@ -135,7 +135,7 @@
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="view/settings/userprofile.jsp" target="iframe_a"> Profile</a></li>
+                    <li><a href="profileSettings" target="iframe_a"> Profile</a></li>
                     <li>
                       <a href="javascript:;">
                         <span>Settings</span>

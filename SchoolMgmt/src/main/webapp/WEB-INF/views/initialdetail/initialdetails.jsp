@@ -1,4 +1,4 @@
-<%@page import="com.controller.student.classes.StudentOperations"%>
+<%-- <%@page import="com.controller.student.classes.StudentOperations"%>
 <%@page import="java.sql.*"%>
 <%
 	if (session.getAttribute("userdetail") != null) {
@@ -12,8 +12,8 @@
 		ResultSet specialinterest = s.getspecialinterest();
 		ResultSet classlist = s.selectclass();
 		ResultSet examtype = s.selectexamtype();
-%>
-<jsp:include page="/includefile"></jsp:include>
+%> --%>
+<jsp:include page="../include.jsp"></jsp:include>
 <html>
 <head></head>
 <body class="background">
@@ -140,7 +140,7 @@
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="tab_content7"
 							aria-labelledby="profile-tab">
-							<form action="examtype.add" method="post"
+							<form action="initialdetailadd" method="post"
 								style="width: 20%; margin-top: 10px;" class="form"
 								id="examtypeform">
 								<h6>
@@ -151,7 +151,7 @@
 								<h6>
 									<strong>Exam Type Description:</strong>
 								</h6>
-								<textarea class="form-control" name="description"
+								<textarea class="form-control" name="examdescription"
 									form="examtypeform" value="" rows="5"></textarea>
 								<br>
 								<button type="submit" class="btn btn-success">+ ADD</button>
@@ -192,89 +192,53 @@
 						<tr>
 							<td>
 								<ol>
-									<%
-										while (language.next()) {
-									%>
 									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i> <%=language.getString("languagename")%>
+										style="color: red"></i>name
 									</li>
-									<%
-										}
-									%>
 								</ol>
 							</td>
 							<td>
 								<ol>
-									<%
-										while (section.next()) {
-									%>
 									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i> <%=section.getString("sectionname")%></li>
-									<%
-										}
-									%>
+										style="color: red"></i>name</li>
 								</ol>
 							</td>
 							<td>
 								<ol>
-									<%
-										while (housegroup.next()) {
-									%>
 									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i> <%=housegroup.getString("housegroupname")%></li>
-									<%
-										}
-									%>
+										style="color: red"></i> name</li>
+									
 								</ol>
 							</td>
 							<td>
 								<ol>
-									<%
-										while (caste.next()) {
-									%>
+							
 									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i> <%=caste.getString("castename")%></li>
-									<%
-										}
-									%>
+										style="color: red"></i>name</li>
+								
 								</ol>
 							</td>
 							<td>
 								<ol>
-									<%
-										while (specialinterest.next()) {
-									%>
 									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i> <%=specialinterest.getString("specialinterestname")%></li>
-									<%
-										}
-									%>
+										style="color: red"></i> name</li>
 								</ol>
 							</td>
 							<td>
 								<ol>
-									<%
-										while (classlist.next()) {
-									%>
+								
 									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i> <%=classlist.getString("classname")%></li>
-									<%
-										}
-									%>
+										style="color: red"></i>classname</li>
+								
 								</ol>
 							</td>
 							<td>
 								<ol>
-									<%
-										while (examtype.next()) {
-									%>
+									
 									<li><i class="fa fa-trash-o" aria-hidden="true"
 										style="color: red"></i> <a href="" data-toggle="tooltip"
-										title="<%=examtype.getString("description")%>"
-										style="color: black;"><%=examtype.getString("examtypename")%></a></li>
-									<%
-										}
-									%>
+										title="Description"
+										style="color: black;">Name</a></li>
 								</ol>
 							</td>
 						</tr>
@@ -283,9 +247,18 @@
 			</div>
 		</div>
 	</div>
-
-
-	<jsp:include page="/msgmodal"></jsp:include>
+	<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>${msg}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
 	<script>
 		
 	<%if (request.getAttribute("msg") != null) {%>
@@ -298,4 +271,3 @@
 	</script>
 </body>
 </html>
-<%}%>

@@ -1,15 +1,9 @@
 
-<%@page import='com.school.model.UserModel'%>
-<%
-	if ((session.getAttribute("userdetail")) != null) {
-		UserModel userdetail=(UserModel)session.getAttribute("userdetail");
-%>
-<jsp:include page="/includefile"></jsp:include>
+<jsp:include page="../include.jsp"></jsp:include>
 <html>
 <head>
 </head>
 <body class="background">
-
 	<div class="col-md-12 col-sm-12 col-xs-12">
 		<div class="x_panel">
 			<div class="x_title">
@@ -26,59 +20,18 @@
 						<div id="crop-avatar">
 							<!-- Current avatar -->
 							<img class="img-responsive avatar-view"
-								src="../../template/images/user.jpg" alt="Avatar"
+								src="resources/images/user.jpg" alt="Avatar"
 								title="Change the avatar">
 						</div>
 					</div>
-					<h3><%=userdetail.getUsername() %></h3>
+					<h3>${sessionScope.userDetail.username }</h3>
 
 					<ul class="list-unstyled user_data">
 						<li><i class="fa fa-map-marker user-profile-icon"></i>
 							Unknown</li>
-
-						<!--  <li>
-                          <i class="fa fa-briefcase user-profile-icon"></i> Software Engineer
-                        </li>
-
-                        <li class="m-top-xs">
-                          <i class="fa fa-external-link user-profile-icon"></i>
-                          <a href="http://www.kimlabs.com/profile/" target="_blank">www.kimlabs.com</a>
-                        </li> -->
 					</ul>
-
 					<a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>
 						Edit Profile</a> <br />
-
-					<!-- start skills -->
-					<!-- <h4>Skills</h4>
-                      <ul class="list-unstyled user_data">
-                        <li>
-                          <p>Web Applications</p>
-                          <div class="progress progress_sm">
-                            <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>
-                          </div>
-                        </li>
-                        <li>
-                          <p>Website Design</p>
-                          <div class="progress progress_sm">
-                            <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="70"></div>
-                          </div>
-                        </li>
-                        <li>
-                          <p>Automation & Testing</p>
-                          <div class="progress progress_sm">
-                            <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="30"></div>
-                          </div>
-                        </li>
-                        <li>
-                          <p>UI / UX</p>
-                          <div class="progress progress_sm">
-                            <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>
-                          </div>
-                        </li>
-                      </ul> -->
-					<!--end of skills -->
-
 				</div>
 				<div class="col-md-9 col-sm-9 col-xs-12">
 					<div class="" role="tabpanel" data-example-id="togglable-tabs">
@@ -111,7 +64,7 @@
 										</tr>
 									</tbody>
 								</table>
-								
+
 
 							</div>
 							<div role="tabpanel" class="tab-pane fade" id="tab_content2"
@@ -127,13 +80,16 @@
 										</div>
 										<div class="message_wrapper">
 											<h4 class="heading">Student Registration</h4>
-											<blockquote class="message">#Note: This is a SAMPLE.</blockquote>
+											<blockquote class="message">#Note: This is a
+												SAMPLE.</blockquote>
 											<br />
 											<p class="url">
-												<span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
-												<a href="#"><i class="fa fa-paperclip"></i> Registered Students. </a>
+												<span class="fs1 text-info" aria-hidden="true"
+													data-icon=""></span> <a href="#"><i
+													class="fa fa-paperclip"></i> Registered Students. </a>
 											</p>
-										</div></li>
+										</div>
+									</li>
 
 								</ul>
 								<!-- end recent activity -->
@@ -148,6 +104,3 @@
 
 </body>
 </html>
-<%
-	}else{out.println("No session Found !");}
-%>
