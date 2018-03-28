@@ -12,6 +12,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.spring.dao.OperationDao;
+import com.spring.dao.impl.StudentDaoImpl.AdmissionClass;
+import com.spring.model.FormDetails;
 import com.spring.model.UserModel;
 
 public class OperationDaoImpl implements OperationDao {
@@ -47,7 +49,6 @@ public class OperationDaoImpl implements OperationDao {
 		if(i>0){
 			status=true;
 		}
-		
 		return status;
 	}
 	public final static class SystemDetailMapper implements RowMapper<UserModel> {
@@ -61,6 +62,23 @@ public class OperationDaoImpl implements OperationDao {
 			return user;
 		}
 	}
+	
+	 public List<FormDetails> getSubjectList(){
+		 String sql="SELECT * FROM SUBJECTLIST";
+			return jdbcTemplate.query(sql, new SubjectList());
+	 }
+	 public static final class SubjectList implements RowMapper<FormDetails>{
+			@Override
+			public FormDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
+				FormDetails form=new FormDetails();
+				form.setSubjectid(rs.getString("subjectid"));
+				form.setSubjectname(rs.getString("subjectname"));
+				form.setSubjecttype(rs.getString("subjecttype"));
+				form.setSubjectCode(rs.getString("subjectCode"));
+				return form;
+			}
+	 }
+	
 	
 
 }

@@ -119,7 +119,50 @@ private JdbcTemplate jdbcTemplate;
 				return form;
 			}
 	 }
-	 
+	 public List<FormDetails> getLanguages(){
+		 String sql="SELECT * FROM LANGUAGETBL";
+			return jdbcTemplate.query(sql, new Languages());
+	 }
+	 public static final class Languages implements RowMapper<FormDetails>{
+
+		@Override
+		public FormDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
+			FormDetails form=new FormDetails();
+			form.setLanguageid(rs.getString("languageid"));
+			form.setLanguagename(rs.getString("languagename"));
+			return form;
+		}
+		 
+	 }
+	 public List<FormDetails> getCaste(){
+		 String sql="SELECT * FROM CASTETBL";
+			return jdbcTemplate.query(sql, new Caste());
+	 }
+	 public static final class Caste implements RowMapper<FormDetails>{
+		@Override
+		public FormDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
+			FormDetails form=new FormDetails();
+			form.setCasteid(rs.getString("casteid"));
+			form.setCastename(rs.getString("castename"));
+			return form;
+		}
+	 }
+	 public List<FormDetails> getExamType(){
+		 String sql="SELECT * FROM EXAM_TYPE";
+			return jdbcTemplate.query(sql, new Exam());
+	 }
+	 public static final class Exam implements RowMapper<FormDetails>{
+
+		@Override
+		public FormDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
+			FormDetails form=new FormDetails();
+			form.setExamtypeid(rs.getString("examtypeid"));
+			form.setExamtypename(rs.getString("examtypename"));
+			form.setDescription(rs.getString("description"));
+			return form;
+		}
+		 
+	 }
 	 public int insertStudent(StudentModel s)
 	 {
 		 String inputter="inputter";

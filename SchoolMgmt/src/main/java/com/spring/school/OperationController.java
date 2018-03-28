@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.dao.OperationDao;
 import com.spring.model.SettingsModel;
+import com.spring.model.Subjects;
 import com.spring.model.UserModel;
 
 @Controller
@@ -39,13 +42,12 @@ public class OperationController {
 				statlist.add("true");
 			else
 				statlist.add("false");
-
 		}
 		if (statlist.contains("true"))
 			session.removeAttribute("systemdetail");
 		List<UserModel> systemdetail = operationDao.getSystemDetails();
 		model.addAttribute("systemdetail", systemdetail);
-
+		model.addAttribute("msg","Update Successful!");
 		System.out.println("reached");
 		return "settings/generalSettings";
 	}
@@ -97,6 +99,37 @@ public class OperationController {
 		else{
 			attr.addAttribute("msg","Save Failed!");
 		}
-		return "initialdetail/initialdetails";
+		return "redirect: initialDetails";
 	}
+	
+	@RequestMapping(value="/addsubject", method=RequestMethod.POST)
+	public String addSubject(@ModelAttribute Subjects sub, Model model){
+		String tablename="subjectlist";
+		String columns="(subjectname,subjecttype,subjectCode)";
+		String value=sub.getSubjectname()+"','"+sub.getSubjecttype()+"','"+sub.getSubjectcode();
+		boolean status=operationDao.insertInitialDetail(tablename, columns, value);
+		if(status){
+			model.addAttribute("msg","Save Successful!");
+		}
+		else{
+			model.addAttribute("msg","Save Unsuccessful!");
+		}
+		return "redirect: subjects";
+	}
+	
+	@RequestMapping(value="/assignsubjects",method=RequestMethod.POST)
+	public String assignSubject(@ModelAttribute Subjects sub, @RequestParam("subjectid") String[] subjectid, ModelAndView model){
+		String tablename="coursetbl";
+		String columns="(subjectid, gradeid)";
+		String value="";
+		for(int i=0;i<subjectid.length;i++){
+			sub.setSubjectid(subjectid[i]);
+			value=subjectid[i]+"','"+sub.getClassid();
+			operationDao.insertInitialDetail(tablename, columns, value);
+		}
+		String msg="Save Successful!";
+		model.addObject("msg", msg);
+		return "redirect: assignSubjects";
+	}
+	
 }

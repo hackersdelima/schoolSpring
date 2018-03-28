@@ -5,16 +5,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.dao.OperationDao;
 import com.spring.dao.StudentDao;
+import com.spring.model.FormDetails;
 import com.spring.model.StudentModel;
 
 @Controller
 public class NavigationController {
 	@Autowired
 	private StudentDao studentDao;
+	@Autowired
+	private OperationDao operationDao;
 
 	@RequestMapping(value = "/studentAdmission")
 	public String studentForm(Model model) {
@@ -63,7 +67,32 @@ public class NavigationController {
 	}
 	
 	@RequestMapping(value="/initialDetails")
-	public String initialDetails(){
+	public String initialDetails(Model model){
+		model.addAttribute("language",studentDao.getLanguages());
+		model.addAttribute("section",studentDao.getSection());
+		model.addAttribute("housegroup",studentDao.HouseGroup());
+		model.addAttribute("caste",studentDao.getCaste());
+		model.addAttribute("specialinterest",studentDao.SpecialInterest());
+		model.addAttribute("adclass",studentDao.getAdmissionClass());
+		model.addAttribute("examtype",studentDao.getExamType());
 		return "initialdetail/initialdetails";
 	}
+	
+	@RequestMapping(value="/subjects")
+	public String subjects(Model model){
+		model.addAttribute("subject",operationDao.getSubjectList());
+		return "academics/subjects/subjects";
+	}
+	@RequestMapping(value="/assignSubjects")
+	public String assignSubjects(Model model){
+		List<FormDetails>  classlist,subjectlist;
+		classlist=studentDao.getAdmissionClass();
+		subjectlist=operationDao.getSubjectList();
+		
+		model.addAttribute("classlist",classlist);
+		model.addAttribute("subjectlist",subjectlist);
+		
+		return "academics/subjects/assignsubjects";
+	}
 }
+

@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%-- <%@page import="com.controller.student.classes.StudentOperations"%>
 <%@page import="java.sql.*"%>
 <%
@@ -192,53 +193,71 @@
 						<tr>
 							<td>
 								<ol>
+								<c:forEach items="${language }" var="lan">
 									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i>name
+										style="color: red"></i>${lan.languagename }
 									</li>
+									</c:forEach>
 								</ol>
 							</td>
 							<td>
 								<ol>
+									<c:forEach items="${section }" var="sec">
 									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i>name</li>
+										style="color: red"></i>${sec.sectionname }
+									</li>
+									</c:forEach>
 								</ol>
 							</td>
 							<td>
 								<ol>
+									<c:forEach items="${housegroup }" var="hg">
 									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i> name</li>
+										style="color: red"></i>${hg.housegroupname }
+									</li>
+									</c:forEach>
 									
 								</ol>
 							</td>
 							<td>
 								<ol>
 							
+									<c:forEach items="${caste }" var="cas">
 									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i>name</li>
+										style="color: red"></i>${cas.castename }
+									</li>
+									</c:forEach>
 								
 								</ol>
 							</td>
 							<td>
 								<ol>
+									<c:forEach items="${specialinterest }" var="si">
 									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i> name</li>
+										style="color: red"></i>${si.specialInterestName }
+									</li>
+									</c:forEach>
 								</ol>
 							</td>
 							<td>
 								<ol>
 								
+									<c:forEach items="${adclass }" var="ac">
 									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i>classname</li>
+										style="color: red"></i>${ac.classname }
+									</li>
+									</c:forEach>
 								
 								</ol>
 							</td>
 							<td>
 								<ol>
-									
+									<c:forEach items="${examtype }" var="exam">
 									<li><i class="fa fa-trash-o" aria-hidden="true"
 										style="color: red"></i> <a href="" data-toggle="tooltip"
-										title="Description"
-										style="color: black;">Name</a></li>
+										title="${exam.description }"
+										style="color: black;">${exam.examtypename }</a></li>
+										</c:forEach>
 								</ol>
 							</td>
 						</tr>
@@ -247,18 +266,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-body">
-          <p>${msg}</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-</div>
+	<jsp:include page="../msgmodal.jsp"></jsp:include>
 	<script>
 		
 	<%if (request.getAttribute("msg") != null) {%>

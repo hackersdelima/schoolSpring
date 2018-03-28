@@ -1,12 +1,13 @@
-<%@page import="com.controller.student.classes.StudentOperations"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%-- <%@page import="com.controller.student.classes.StudentOperations"%>
 <%@page import="java.util.*"%>
 <%@page import="java.sql.*"%>
 <%
 	if ((session.getAttribute("userdetail")) != null) {
 		StudentOperations s = new StudentOperations();
 		ResultSet subjects = s.selectsubject();
-%>
-<jsp:include page="/includefile"></jsp:include>
+%> --%>
+<jsp:include page="../../include.jsp"></jsp:include>
 <body class="background">
 
 	<div class="breadcrumb-line">
@@ -78,31 +79,21 @@
 					style="font-size: 95%;">
 					<thead>
 						<tr class="headings">
-							<th>S No.</th>
+							<th>Subject Code</th>
 							<th>Subject Name</th>
 							<th>Subject Type</th>
 							<th><i class="fa fa-cog" aria-hidden="true"></i></th>
 						</tr>
 					</thead>
 					<tbody>
-						<%
-								int sno = 1;
-									while (subjects.next()) {
-							%>
+					<c:forEach items="${subject }" var="sub">
 						<tr>
-							<td><%=sno%></td>
-							<td><%=subjects.getString("subjectname")%></td>
-							<td><%=subjects.getString("subjecttype")%></td>
-							<td><a href=""><i class="fa fa-pencil-square-o"
-									aria-hidden="true" style="color: blue;"></i></a>&nbsp;&nbsp;&nbsp;<a
-								href="subject.del?id=<%=subjects.getString("subjectid")%>"
-								class="delete"><i class="fa fa-trash" aria-hidden="true"
-									style="color: red;"></i></a></td>
+							<td>${sub.subjectCode }</td>
+							<td>${sub.subjectname }</td>
+							<td>${sub.subjecttype }</td>
+							<td></td>
 						</tr>
-						<%
-								sno++;
-									}
-							%>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
@@ -110,7 +101,7 @@
 	</div>
 
 
-	<jsp:include page="/msgmodal"></jsp:include>
+	<jsp:include page="../../msgmodal.jsp"></jsp:include>
 	<script>
 		$(document).ready(function() {
 	<%if (request.getAttribute("msg") != null) {%>
@@ -125,4 +116,3 @@
 		});
 		
 	</script>
-	<%}%>

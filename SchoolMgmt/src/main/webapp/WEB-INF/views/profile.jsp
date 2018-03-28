@@ -85,9 +85,9 @@
                     <li ><a href="generalSettings" target="iframe_a">General Settings</a>
                         <li><a>Academic Settings<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li ><a href="subjects.click" target="iframe_a">Subjects</a>
+                            <li ><a href="subjects" target="iframe_a">Subjects</a>
                             </li>
-                            <li><a href="subjectassign.click" target="iframe_a">Assign Subjects</a>
+                            <li><a href="assignSubjects" target="iframe_a">Assign Subjects</a>
                             </li>
                           </ul>
                         </li>
