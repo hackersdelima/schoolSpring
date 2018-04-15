@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.dao.OperationDao;
 import com.spring.dao.StudentDao;
@@ -34,8 +35,9 @@ public class NavigationController {
 	}
 
 	@RequestMapping(value = "/createExam")
-	public String createExam() {
-		return "exam/createStudentReport";
+	public String createExam(Model model) {
+		model.addAttribute("examlist",operationDao.getExamList());
+		return "exam/createExam";
 	}
 
 	@RequestMapping(value = "/viewMuncipality")
@@ -79,7 +81,7 @@ public class NavigationController {
 	}
 	
 	@RequestMapping(value="/subjects")
-	public String subjects(Model model){
+	public String subjects(Model model, @ModelAttribute("msg") String msg){
 		model.addAttribute("subject",operationDao.getSubjectList());
 		return "academics/subjects/subjects";
 	}
@@ -93,6 +95,19 @@ public class NavigationController {
 		model.addAttribute("subjectlist",subjectlist);
 		
 		return "academics/subjects/assignsubjects";
+	}
+	
+	@RequestMapping("/dashboard")
+	public String dashboard(){
+		return "dashboard";
+	}
+	@RequestMapping("/createMarksReport")
+	public String createMarksReport(){
+		return "exam/createStudentReport";
+	}
+	@RequestMapping("/marksReportSearch")
+	public String marksReportSearch(){
+		return "exam/marksSearchBox";
 	}
 }
 

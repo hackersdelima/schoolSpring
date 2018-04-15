@@ -6,7 +6,16 @@ public class FormDetails {
 	private String specialInterestId,specialInterestName;
 	private String subjectid,subjectname,subjecttype,subjectCode;
 	private String languageid, languagename, casteid, castename, examtypeid, examtypename, description;
+	private Subjects subjects;
 	
+
+	public Subjects getSubjects() {
+		return subjects;
+	}
+
+	public void setSubjects(Subjects subjects) {
+		this.subjects = subjects;
+	}
 
 	public String getExamtypeid() {
 		return examtypeid;

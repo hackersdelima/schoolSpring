@@ -2,7 +2,6 @@ package com.spring.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -12,8 +11,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.spring.dao.OperationDao;
-import com.spring.dao.impl.StudentDaoImpl.AdmissionClass;
+import com.spring.model.ExamModel;
+import com.spring.model.ExamTypeModel;
 import com.spring.model.FormDetails;
+import com.spring.model.Subjects;
 import com.spring.model.UserModel;
 
 public class OperationDaoImpl implements OperationDao {
@@ -42,7 +43,7 @@ public class OperationDaoImpl implements OperationDao {
 		}
 		return status;
 	}
-	public boolean insertInitialDetail(String tablename,String columns, String value){
+	public boolean insertTableDetail(String tablename,String columns, String value){
 		boolean status=false;
 		String sql="INSERT INTO "+tablename+" "+columns+"  VALUES ('"+value+"')";
 		int i=jdbcTemplate.update(sql);
@@ -62,7 +63,35 @@ public class OperationDaoImpl implements OperationDao {
 			return user;
 		}
 	}
-	
+	public boolean checkSubCode(String subjectcode){
+		String sql="select count(subjectCode) from subjectlist where subjectCode='"+subjectcode+"'";
+		int rowcount=jdbcTemplate.queryForObject(sql, Integer.class);
+		if(rowcount==1){
+			return true;
+		}
+		return false;
+		
+	}
+	public List<ExamModel> getExamList(){
+		 String sql="SELECT * FROM EXAM JOIN EXAM_TYPE USING(EXAMTYPEID)";
+			return jdbcTemplate.query(sql, new ExamList());
+	}
+	public static final class ExamList implements RowMapper<ExamModel>{
+
+		@Override
+		public ExamModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+			ExamModel e=new ExamModel();
+			ExamTypeModel em=new ExamTypeModel();
+			e.setExamcode(rs.getString("examcode"));
+			e.setExamname(rs.getString("examname"));
+			e.setStartdate(rs.getString("startdate"));
+			em.setExamtypename(rs.getString("examtypename"));
+			em.setDescription(rs.getString("description"));
+			e.setExamTypeModel(em);
+			return e;
+		}
+		
+	}
 	 public List<FormDetails> getSubjectList(){
 		 String sql="SELECT * FROM SUBJECTLIST";
 			return jdbcTemplate.query(sql, new SubjectList());
@@ -71,10 +100,17 @@ public class OperationDaoImpl implements OperationDao {
 			@Override
 			public FormDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
 				FormDetails form=new FormDetails();
+				Subjects sub=new Subjects();
 				form.setSubjectid(rs.getString("subjectid"));
 				form.setSubjectname(rs.getString("subjectname"));
 				form.setSubjecttype(rs.getString("subjecttype"));
 				form.setSubjectCode(rs.getString("subjectCode"));
+			sub.setFullmarks(rs.getString("fullmarks"));
+			sub.setPassmarks(rs.getString("passmarks"));
+			sub.setFullmarks_pr(rs.getString("fullmarks_pr"));
+			sub.setPassmarks_pr(rs.getString("passmarks_pr"));
+			form.setSubjects(sub);
+				
 				return form;
 			}
 	 }
