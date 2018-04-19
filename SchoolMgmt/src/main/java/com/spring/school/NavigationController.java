@@ -15,7 +15,7 @@ import com.spring.model.StudentModel;
 public class NavigationController {
 	@Autowired
 	private StudentDao studentDao;
-
+	
 	@RequestMapping(value = "/studentAdmission")
 	public String studentForm(Model model) {
 		System.out.println(studentDao.getAdmissionClass());

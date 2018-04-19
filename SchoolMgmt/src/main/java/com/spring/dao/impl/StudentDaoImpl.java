@@ -22,7 +22,6 @@ import com.spring.model.UserModel;
 public class StudentDaoImpl implements StudentDao {
 private JdbcTemplate jdbcTemplate;
 	
-
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
@@ -132,6 +131,9 @@ private JdbcTemplate jdbcTemplate;
 		
 	 }
 	 public boolean insertStudentOtherDetails(StudentModel s, int studentid){
+		 ApplicationContext context=new ClassPathXmlApplicationContext("root-context.xml");
+		 DataSource dataSource=(DataSource) context.getBean("dataSource");
+		 
 			String sql1="insert into smotherdetailtbl(studentid,mothername,maddress,moffice,mposition,mincome,mmobile,mtelephone,memail,mephone,mcitizenshipno,mcitizenshipissuedby,mcitizenshipissueddate,mcitizenshipissueddateen,mlicenseno,mlicenseissuedby,mlicenseissueddate,mlicenseissueddateen,mofficialidno,mofficialidissuedby,mofficialidissueddate,mofficialidissueddateen,mvoteridno,mvoteridissuedby,mvoteridissueddate,mvoteridissueddateen,mpassportno,mpassportissuedby,mpassportissueddate,mpassportissueddateen)values('"+studentid+"','"+s.getMothername()+"','"+s.getMaddress()+"','"+s.getMoffice()+"','"+s.getMposition()+"','"+s.getMincome()+"','"+s.getMmobile()+"','"+s.getMtelephone()+"','"+s.getMemail()+"','"+s.getMephone()+"','"+s.getMcitizenshipno()+"','"+s.getMcitizenshipissuedby()+"','"+s.getMcitizenshipissueddate()+"','"+s.getMcitizenshipissueddateen()+"','"+s.getMlicenseno()+"','"+s.getMlicenseissuedby()+"','"+s.getMlicenseissueddate()+"','"+s.getMlicenseissueddateen()+"','"+s.getMofficialidno()+"','"+s.getMofficialidissuedby()+"','"+s.getMofficialidissueddate()+"','"+s.getMofficialidissueddateen()+"','"+s.getMvoteridno()+"','"+s.getMvoteridissuedby()+"','"+s.getMvoteridissueddate()+"','"+s.getMvoteridissueddateen()+"','"+s.getMpassportno()+"','"+s.getMpassportissuedby()+"','"+s.getMpassportissueddate()+"','"+s.getMpassportissueddateen()+"')";
 			String sql2="insert into sfatherdetailtbl(studentid,fathername,faddress,foffice,fposition,fincome,fmobile,ftelephone,femail,fephone,fcitizenshipno,fcitizenshipissuedby,fcitizenshipissueddate,fcitizenshipissueddateen,flicenseno,flicenseissuedby,flicenseissueddate,flicenseissueddateen,fofficialidno,fofficialidissuedby,fofficialidissueddate,fofficialidissueddateen,fvoteridno,fvoteridissuedby,fvoteridissueddate,fvoteridissueddateen,fpassportno,fpassportissuedby,fpassportissueddate,fpassportissueddateen)values('"+studentid+"','"+s.getFathername()+"','"+s.getFaddress()+"','"+s.getFoffice()+"','"+s.getFposition()+"','"+s.getFincome()+"','"+s.getFmobile()+"','"+s.getFtelephone()+"','"+s.getFemail()+"','"+s.getFephone()+"','"+s.getFcitizenshipno()+"','"+s.getFcitizenshipissuedby()+"','"+s.getFcitizenshipissueddate()+"','"+s.getFcitizenshipissueddateen()+"','"+s.getFlicenseno()+"','"+s.getFlicenseissuedby()+"','"+s.getFlicenseissueddate()+"','"+s.getFlicenseissueddateen()+"','"+s.getFofficialidno()+"','"+s.getFofficialidissuedby()+"','"+s.getFofficialidissueddate()+"','"+s.getFofficialidissueddateen()+"','"+s.getFvoteridno()+"','"+s.getFvoteridissuedby()+"','"+s.getFvoteridissueddate()+"','"+s.getFvoteridissueddateen()+"','"+s.getFpassportno()+"','"+s.getFpassportissuedby()+"','"+s.getFpassportissueddate()+"','"+s.getFpassportissueddateen()+"')";
 			String sql3="insert into sbirthcertificatetbl(studentid,sbirthcertificateno,sbirthcertificateissuedby,sbirthcertificateissueddate,sbirthcertificateissueddateen)values('"+studentid+"','"+s.getBirthcertificateno()+"','"+s.getBirthcertificateissuedby()+"','"+s.getBirthcertificateissueddate()+"','"+s.getBirthcertificateissueddateen()+"') ";
@@ -139,8 +141,7 @@ private JdbcTemplate jdbcTemplate;
 			String sql5="insert into slocalguardiantbl(studentid,localguardianname,localadd,relationtype,localmob)values('"+studentid+"','"+s.getLocal1()+"','"+s.getLocaladd1()+"','"+s.getRelaiontype1()+"','"+s.getLocalmob1()+"')";
 			String sql6="insert into slocalguardiantbl(studentid,localguardianname,localadd,relationtype,localmob)values('"+studentid+"','"+s.getLocal2()+"','"+s.getLocaladd2()+"','"+s.getRelationtype2()+"','"+s.getLocalmob2()+"')";
 
-			ApplicationContext context=new ClassPathXmlApplicationContext("root-context.xml");
-			DataSource dataSource=(DataSource) context.getBean("dataSource");
+			
 			boolean status=false;
 			int[] i = null;
 			Connection con=null;
@@ -165,23 +166,144 @@ private JdbcTemplate jdbcTemplate;
 		 return status; 
 	 }
 	 public List<StudentModel> getAllStudents(){
-		 String query="select * from studentinfo";
+		 String query="select * from studentdetail";
 		 return jdbcTemplate.query(query, new StudentMapper());
 	 }
-		public static final class StudentMapper implements RowMapper<StudentModel>{
+		
+	 public static final class StudentMapper implements RowMapper<StudentModel>{
 
 			@Override
 			public StudentModel mapRow(ResultSet rs, int rowNum) throws SQLException {
 				StudentModel s=new StudentModel();
+				s.setStudentid(rs.getString("studentid"));
 				s.setStudentname(rs.getString("studentname"));
+				s.setLegacyId(rs.getString("LegacyId"));
 				s.setAdmissionclass(rs.getString("admissionclass"));
 				s.setSection(rs.getString("section"));
 				s.setStudentid(rs.getString("studentid"));
 				s.setRollno(rs.getString("rollno"));
+				s.setAdmissiondate(rs.getString("admissiondate"));
+				s.setAdmissiondateen(rs.getString("admissiondateen"));
+				s.setDob(rs.getString("dob"));
+				s.setDoben(rs.getString("doben"));
+				s.setDifferentlyabledYN(rs.getString("differentlyabledYN"));
+				s.setDifferentlyabledtype(rs.getString("differentlyabledtype"));
+				s.setHousegroup(rs.getString("housegroup"));
+				s.setOldschool(rs.getString("oldschool"));
+				s.setSex(rs.getString("sex"));
+				s.setSmotherlanguage(rs.getString("smotherlanguage"));
+				s.setSReligion(rs.getString("sreligion"));
+				s.setHobby(rs.getString("hobby"));
 				
+				s.setFathername(rs.getString("fathername"));
+			    s.setFaddress(rs.getString("faddress"));
+			    s.setFoffice(rs.getString("foffice"));
+			    s.setFposition(rs.getString("fposition"));
+			    s.setFincome(rs.getString("fincome"));
+			    s.setFmobile(rs.getString("fmobile"));
+			    s.setFtelephone(rs.getString("ftelephone"));
+			    s.setFemail(rs.getString("femail"));
+			    s.setFephone(rs.getString("fephone"));
+			    s.setFcitizenshipno(rs.getString("fcitizenshipno"));
+			    s.setFcitizenshipissuedby(rs.getString("fcitizenshipissuedby"));
+			    s.setFcitizenshipissueddate(rs.getString("fcitizenshipissueddate"));
+			    s.setFcitizenshipissueddateen(rs.getString("fcitizenshipissueddateen"));
+			    s.setFlicenseno(rs.getString("flicenseno"));
+			    s.setFlicenseissuedby(rs.getString("flicenseissuedby"));
+			    s.setFlicenseissueddate(rs.getString("flicenseissueddate"));
+			    s.setFlicenseissueddateen(rs.getString("flicenseissueddateen"));
+			    s.setFofficialidno(rs.getString("fofficialidno"));
+			    s.setFofficialidissuedby(rs.getString("fofficialidissuedby"));
+			    s.setFofficialidissueddate(rs.getString("fofficialidissueddate"));
+			    s.setFvoteridno(rs.getString("fvoteridno"));
+			    s.setFvoteridissuedby(rs.getString("fvoteridissuedby"));
+			    s.setFvoteridissueddate(rs.getString("fvoteridissueddate"));
+			    s.setFvoteridissueddateen(rs.getString("fvoteridissueddateen"));
+			    s.setFpassportno(rs.getString("fpassportno"));
+			    s.setFpassportissuedby(rs.getString("fpassportissuedby"));
+			    s.setFpassportissueddate(rs.getString("fpassportissueddate"));
+			    s.setFpassportissueddateen(rs.getString("fpassportissueddateen"));
+			    
+			    s.setMothername(rs.getString("mothername"));
+			    //s.setFaddress(rs.getString("fathername"));
+			    s.setMaddress(rs.getString("maddress"));
+			    s.setMoffice(rs.getString("moffice"));
+			    s.setMposition(rs.getString("mposition"));
+			    s.setMincome(rs.getString("mincome"));
+			    s.setMmobile(rs.getString("mmobile"));
+			    s.setMtelephone(rs.getString("Mtelephone"));
+			    s.setMemail(rs.getString("memail"));
+			    s.setMephone(rs.getString("mephone"));
+			    s.setMcitizenshipno(rs.getString("Mcitizenshipno"));
+			    s.setMcitizenshipissuedby(rs.getString("mcitizenshipissuedby"));
+			    s.setMcitizenshipissueddate(rs.getString("Mcitizenshipissueddate"));
+			    s.setMcitizenshipissueddateen(rs.getString("Mcitizenshipissueddateen"));
+			    s.setMlicenseno(rs.getString("mlicenseno"));
+			    s.setMlicenseissuedby(rs.getString("mlicenseissuedby"));
+			    s.setMlicenseissueddate(rs.getString("mlicenseissueddate"));
+			    s.setMlicenseissueddateen(rs.getString("mlicenseissueddateen"));
+			    s.setMofficialidno(rs.getString("mofficialidno"));
+			    s.setMofficialidissuedby(rs.getString("mofficialidissuedby"));
+			    s.setMofficialidissueddate(rs.getString("mofficialidissueddate"));
+			    s.setMofficialidissueddateen(rs.getString("mofficialidissueddateen"));
+			    s.setMvoteridno(rs.getString("mvoteridno"));
+			    s.setMvoteridissuedby(rs.getString("mvoteridissuedby"));
+			    s.setMvoteridissueddate(rs.getString("mvoteridissueddate"));
+			    s.setMvoteridissueddateen(rs.getString("mvoteridissueddateen"));
+			    s.setMpassportno(rs.getString("mpassportno"));
+			    s.setMpassportissuedby(rs.getString("mpassportissuedby"));
+			    s.setMpassportissueddate(rs.getString("mpassportissueddate"));
+			    s.setMpassportissueddateen(rs.getString("mpassportissueddateen"));
+			    
+			   /* s.setLocalguardianname(rs.getString("localguardianname"));
+			    s.setLocaladd(rs.getString("localadd"));
+			    s.setRelationtype(rs.getString("relationtype"));
+			    s.setLocalmob(rs.getString("localmob"));*/
 				return s;
 			}
 			
+		}
+		
+		public StudentModel getStudentDetail(String id, String tablename)
+		{
+			String query="select * from "+tablename+" where studentid='"+id+"'";
+			return jdbcTemplate.queryForObject(query, new StudentMapper());
+			
+		}
+		
+		
+		public boolean updateStudent(StudentModel s)
+		{
+			ApplicationContext context=new ClassPathXmlApplicationContext("root-context.xml");
+			DataSource dataSource=(DataSource) context.getBean("dataSource");
+			int status=0;
+			
+			
+			String sqlf="update sfatherdetailtbl set fathername='"+s.getFathername()+"',faddress='"+s.getFaddress()+"',foffice='"+s.getFoffice()+"',fposition='"+s.getFposition()+"',fincome='"+s.getFincome()+"',fmobile='"+s.getFmobile()+"', ftelephone='"+s.getFtelephone()+"',femail='"+s.getFemail()+"',fephone='"+s.getFephone()+"' where studentid='"+s.getStudentid()+"'";
+			String sqlm="update smotherdetailtbl set mothername='"+s.getMothername()+"',maddress='"+s.getMaddress()+"',moffice='"+s.getMoffice()+"',mposition='"+s.getMposition()+"',mincome='"+s.getMincome()+"',mmobile='"+s.getMmobile()+"', mtelephone='"+s.getMtelephone()+"',femail='"+s.getMemail()+"',mephone='"+s.getMephone()+"' where studentid='"+s.getStudentid()+"'";
+			String sqlL="update slocalguardiantbl set localguardianname='"+s.getLocalguardianname()+"',localadd='"+s.getLocaladd()+"',relationtype='"+s.getRelationtype()+"',localmob='"+s.getLocalmob()+"' where studentid='"+s.getStudentid()+"'";
+		//	String sqls="update studentinfo set"
+			
+			
+			Statement stmt=null;
+			Connection con=null;
+			
+			try{
+			con=dataSource.getConnection();
+			stmt=con.createStatement();
+			stmt.addBatch(sqlf);
+			stmt.addBatch(sqlm);
+			stmt.addBatch(sqlL);
+			stmt.executeBatch();
+			}catch(Exception e){
+				System.out.println(e);
+			}
+				
+			 if(status>0)
+			 {
+				 return true;
+				 }
+			return false;
 		}
 	 
 }
