@@ -1,17 +1,16 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%-- <%@page import="com.controller.student.classes.StudentOperations"%>
+<%@page import="com.controller.student.classes.StudentOperations"%>
 <%@page import="java.util.*"%>
 <%@page import="java.sql.*"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	if ((session.getAttribute("userdetail")) != null) {
 		StudentOperations s = new StudentOperations();
 		ResultSet subjects = s.selectsubject();
 		ResultSet section = s.getsection();
 		ResultSet classlist = s.selectclass();
-%> --%>
+%>
 
-<jsp:include page="../../include.jsp"></jsp:include>
+<jsp:include page="/includefile"></jsp:include>
 <body class="background">
 	<div class="breadcrumb-line">
 		<nav aria-label="breadcrumb" role="navigation">
@@ -37,7 +36,7 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-				<form method="post" action="assignsubjects" id="form"
+				<form method="post" action="assignsubjects.add" id="form"
 					style="width: 60%">
 					<button type="submit" class="btn btn-success" form="form">
 						<i class="fa fa-check"></i> Save
@@ -49,9 +48,13 @@
 									<h6>Class</h6> <select class="form-control" name="classid" form="form"
 									id="class" required>
 										<option value="">Select Class</option>
-										<c:forEach items="${classlist }" var="c">
-											<option value="${c.classid }">${c.classname }</option>
-										</c:forEach>
+										<%
+											while (classlist.next()) {
+										%>
+										<option value="<%=classlist.getString("classid")%>"><%=classlist.getString("classname")%></option>
+										<%
+											}
+										%>
 								</select>
 								</td>
 								<!-- <td><h6>Student Admission No. *</h6>
@@ -59,9 +62,13 @@
 					required></td> -->
 								<td><h6>Subjects</h6> <select multiple class="form-control"
 									name="subjectid" form="form">
-									<c:forEach items="${subjectlist }" var="s">
-									<option value="${s.subjectid }">${s.subjectCode }-${s.subjectname }</option>
-									</c:forEach>
+										<%
+											while (subjects.next()) {
+										%>
+										<option value="<%=subjects.getString("subjectid")%>"><%=subjects.getString("subjectname")%></option>
+										<%
+											}
+										%>
 								</select></td>
 							</tr>
 						</tbody>
@@ -71,7 +78,7 @@
 		</div>
 	</div>
 	
-	<jsp:include page="../../msgmodal.jsp"></jsp:include>
+	<jsp:include page="/msgmodal"></jsp:include>
 	<script>
 	<%if (request.getAttribute("msg") != null) {%>
 	   $('#myModal').modal('show');
@@ -81,3 +88,6 @@ $('#form').submit(function() {
 });
 </script>
 </body>
+<%
+	}
+%>

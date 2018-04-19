@@ -54,7 +54,6 @@
 			</form:form>
 		</div>
 	</div>
-	<jsp:include page="../msgmodal.jsp"></jsp:include>
 	<script>
 		
 	<%if (request.getAttribute("msg") != null) {%>
