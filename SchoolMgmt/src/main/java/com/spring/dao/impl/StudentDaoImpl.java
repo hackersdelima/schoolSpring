@@ -226,5 +226,46 @@ private JdbcTemplate jdbcTemplate;
 			}
 			
 		}
+		public StudentModel getStudentDetail(String id, String tablename)
+		{
+			String query="select * from "+tablename+" where studentid='"+id+"'";
+			return jdbcTemplate.queryForObject(query, new StudentMapper());
+			
+		}
+
+		public boolean updateStudent(StudentModel s)
+		{
+			ApplicationContext context=new ClassPathXmlApplicationContext("root-context.xml");
+			DataSource dataSource=(DataSource) context.getBean("dataSource");
+			int status=0;
+			
+			
+			String sqlf="update sfatherdetailtbl set fathername='"+s.getFathername()+"',faddress='"+s.getFaddress()+"',foffice='"+s.getFoffice()+"',fposition='"+s.getFposition()+"',fincome='"+s.getFincome()+"',fmobile='"+s.getFmobile()+"', ftelephone='"+s.getFtelephone()+"',femail='"+s.getFemail()+"',fephone='"+s.getFephone()+"' where studentid='"+s.getStudentid()+"'";
+			String sqlm="update smotherdetailtbl set mothername='"+s.getMothername()+"',maddress='"+s.getMaddress()+"',moffice='"+s.getMoffice()+"',mposition='"+s.getMposition()+"',mincome='"+s.getMincome()+"',mmobile='"+s.getMmobile()+"', mtelephone='"+s.getMtelephone()+"',femail='"+s.getMemail()+"',mephone='"+s.getMephone()+"' where studentid='"+s.getStudentid()+"'";
+			String sqlL="update slocalguardiantbl set localguardianname='"+s.getLocalguardianname()+"',localadd='"+s.getLocaladd()+"',relationtype='"+s.getRelationtype()+"',localmob='"+s.getLocalmob()+"' where studentid='"+s.getStudentid()+"'";
+		//	String sqls="update studentinfo set"
+			
+			
+			Statement stmt=null;
+			Connection con=null;
+			
+			try{
+			con=dataSource.getConnection();
+			stmt=con.createStatement();
+			stmt.addBatch(sqlf);
+			stmt.addBatch(sqlm);
+			stmt.addBatch(sqlL);
+			stmt.executeBatch();
+			}catch(Exception e){
+				System.out.println(e);
+			}
+				
+			 if(status>0)
+			 {
+				 return true;
+				 }
+			return false;
+		}
+
 	 
 }
