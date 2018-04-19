@@ -81,11 +81,10 @@ tfoot input {
 								<td>
 								
 								<a data-value="${s.studentid }" class="viewdetail"><i class="fa fa-eye" aria-hidden="true" style="color:blue"></i></a>&nbsp;&nbsp;&nbsp;
-								<a href="<spring:url value="/student/editStudent/${s.studentid }" />"><i class="fa fa-pencil-square-o"
-										aria-hidden="true" style="color: blue;"></i></a>&nbsp;&nbsp;&nbsp;
-										<a
-									href=""><i
-										class="fa fa-trash" aria-hidden="true" style="color: red;"></i></a>
+
+								<a href="<spring:url value="/student/editStudent/${s.studentid }" />"><i class="fa fa-pencil-square-o"></i></a>
+
+										<a href=""><i class="fa fa-trash" aria-hidden="true" style="color: red;"></i></a>
 								</td>
 							</tr>
 							<%sn++;%>
