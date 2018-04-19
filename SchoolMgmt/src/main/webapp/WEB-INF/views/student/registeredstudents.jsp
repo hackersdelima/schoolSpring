@@ -79,10 +79,9 @@ tfoot input {
 								<td>${s.admissiondate }</td>
 								<td>
 								<a data-value="${s.studentid }" class="viewdetail"><i class="fa fa-eye" aria-hidden="true" style="color:blue"></i></a>&nbsp;&nbsp;&nbsp;
-								<a href="editStudent/${s.studentid }"><i class="fa fa-pencil-square-o"
-										aria-hidden="true" style="color: blue;"></i></a>&nbsp;&nbsp;&nbsp;
-										<a
-									href=""><i
+								<a href=""><i class="fa fa-pencil-square-o"
+										aria-hidden="true" style="color: blue;"></i></a>&nbsp;&nbsp;&nbsp;<a
+									href="student.del?id=${s.studentid }"><i
 										class="fa fa-trash" aria-hidden="true" style="color: red;"></i></a>
 								</td>
 							</tr>

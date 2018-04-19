@@ -1,46 +1,6 @@
 package com.spring.model;
 public class StudentModel {
 String studentid, admissiondate, admissiondateen,LegacyId, studentname, sex, smotherlanguage, sethinicgroup, SReligion, dob, doben, differentlyabledYN,differentlyabledtype, District, VdcMun, WardNo, tole, tempaddress, fathername, faddress, foffice, fposition, fincome,fmobile, ftelephone, femail, fephone, mothername,maddress,moffice,mposition,mincome,mmobile,mtelephone,memail,mephone,local1,localadd1,localmob1,local2,localadd2,localmob2,admissionclass,section,rollno,housegroup,oldschool,reasonleav,hobby,specialinterest,inputter, relaiontype1, relationtype2,birthcertificateno,birthcertificateissuedby,birthcertificateissueddate,birthcertificateissueddateen,fcitizenshipno,fcitizenshipissuedby, fcitizenshipissueddate, fcitizenshipissueddateen,flicenseno,flicenseissuedby,flicenseissueddate, flicenseissueddateen,fofficialidno, fofficialidissuedby,fofficialidissueddate,fofficialidissueddateen,fvoteridno,fvoteridissuedby,fvoteridissueddate,fvoteridissueddateen,fpassportno,fpassportissuedby,fpassportissueddate,fpassportissueddateen,mcitizenshipno,mcitizenshipissuedby, mcitizenshipissueddate, mcitizenshipissueddateen,mlicenseno,mlicenseissuedby,mlicenseissueddate, mlicenseissueddateen,mofficialidno, mofficialidissuedby,mofficialidissueddate,mofficialidissueddateen,mvoteridno,mvoteridissuedby,mvoteridissueddate,mvoteridissueddateen,mpassportno,mpassportissuedby,mpassportissueddate,mpassportissueddateen;
-String slocalguardianid, localguardianname, localadd, relationtype, localmob;
-public String getSlocalguardianid() {
-	return slocalguardianid;
-}
-
-public void setSlocalguardianid(String slocalguardianid) {
-	this.slocalguardianid = slocalguardianid;
-}
-
-public String getLocalguardianname() {
-	return localguardianname;
-}
-
-public void setLocalguardianname(String localguardianname) {
-	this.localguardianname = localguardianname;
-}
-
-public String getLocaladd() {
-	return localadd;
-}
-
-public void setLocaladd(String localadd) {
-	this.localadd = localadd;
-}
-
-public String getRelationtype() {
-	return relationtype;
-}
-
-public void setRelationtype(String relationtype) {
-	this.relationtype = relationtype;
-}
-
-public String getLocalmob() {
-	return localmob;
-}
-
-public void setLocalmob(String localmob) {
-	this.localmob = localmob;
-}
 
 public String getStudentid() {
 	return studentid;

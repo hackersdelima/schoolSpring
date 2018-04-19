@@ -2,7 +2,6 @@
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@page import='java.sql.*' %>
 
 <html lang="en">
   <head>
@@ -70,8 +69,8 @@
                     <ul class="nav child_menu">
                     	 <li><a href="createExam" target="iframe_a">Create Exam</a>
                             </li>
-                      <li><a href="createStudentReport.click" target="iframe_a">Create Marks Report</a></li>
-                       <li><a href="reportsearchbox.click" target="iframe_a">Search Report</a>
+                      <li><a href="createMarksReport" target="iframe_a">Create Marks Report</a></li>
+                       <li><a href="marksReportSearch" target="iframe_a">Search Report</a>
                             </li>
                     </ul>
                   </li>
@@ -85,9 +84,9 @@
                     <li ><a href="generalSettings" target="iframe_a">General Settings</a>
                         <li><a>Academic Settings<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li ><a href="subjects.click" target="iframe_a">Subjects</a>
+                            <li ><a href="subjects" target="iframe_a">Subjects</a>
                             </li>
-                            <li><a href="subjectassign.click" target="iframe_a">Assign Subjects</a>
+                            <li><a href="assignSubjects" target="iframe_a">Assign Subjects</a>
                             </li>
                           </ul>
                         </li>
@@ -153,7 +152,7 @@
 
         <!-- page content -->
      <div class="right_col" role="main">
-          <iframe    height="1400px" width="100%" src="view/dashboard.jsp" id="Iframe" name="iframe_a"  style="border:none;" >
+          <iframe    height="1400px" width="100%" src="<%=request.getContextPath()%>/dashboard" id="Iframe" name="iframe_a"  style="border:none;" >
 		</iframe>
      </div>
         <!-- /page content -->
