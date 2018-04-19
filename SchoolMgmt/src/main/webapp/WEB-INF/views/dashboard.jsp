@@ -7,11 +7,11 @@ String totalstd=s.totalstudents(); %> --%>
 <html>
 <head>
  <!-- Theme style -->
-  <link rel="stylesheet" href="resources/css/AdminLTE.min.css">
-  <link rel="stylesheet" href="resources/css/_all-skins.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/_all-skins.min.css">
   
- <link href="resources/css/bootstrap.min.css" rel="stylesheet">
-   <link href="resources/css/font-awesome.min.css" rel="stylesheet">
+ <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+   <link href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css" rel="stylesheet">
     <style>
     	.background{
     	background-color:#F7F7F7;}
@@ -100,7 +100,7 @@ String totalstd=s.totalstudents(); %> --%>
               <h5 class="widget-user-desc">${sessionScope.systemdetail[1].settingsdescription }</h5>
             </div>
             <div class="widget-user-image">
-              <img class="img-circle" src="resources/images/download.png" alt="User Avatar">
+              <img class="img-circle" src="${pageContext.request.contextPath}/resources/images/download.png" alt="User Avatar">
             </div>
             <div class="box-footer">
               <div class="row">
