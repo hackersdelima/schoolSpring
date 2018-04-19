@@ -2,6 +2,8 @@ package com.spring.dao;
 
 import java.util.List;
 
+import com.spring.model.ExamModel;
+import com.spring.model.FormDetails;
 import com.spring.model.UserModel;
 
 public interface OperationDao {
@@ -9,6 +11,14 @@ public interface OperationDao {
 
 	public boolean updateGeneralSetting(UserModel user);
 
-	public boolean insertInitialDetail(String tablename,String columns, String value);
+	public boolean insertTableDetail(String tablename,String columns, String value);
+	 public List<FormDetails> getSubjectList();
+
+	public boolean checkSubCode(String subjectcode);
+
+	public List<ExamModel> getExamList();
+	
+
+	
 
 }
