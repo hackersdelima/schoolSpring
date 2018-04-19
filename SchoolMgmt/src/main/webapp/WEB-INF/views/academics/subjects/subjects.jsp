@@ -1,23 +1,12 @@
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%-- <%@page import="com.controller.student.classes.StudentOperations"%>
+<%@page import="com.controller.student.classes.StudentOperations"%>
 <%@page import="java.util.*"%>
 <%@page import="java.sql.*"%>
 <%
 	if ((session.getAttribute("userdetail")) != null) {
 		StudentOperations s = new StudentOperations();
 		ResultSet subjects = s.selectsubject();
-%> --%>
-<jsp:include page="../../include.jsp"></jsp:include>
-<html>
-	<head>
-		<style>
-		.tbltophead th{
-		text-align: center;}
-		</style>
-	
-	</head>
-
+%>
+<jsp:include page="/includefile"></jsp:include>
 <body class="background">
 
 	<div class="breadcrumb-line">
@@ -63,14 +52,7 @@
 										<option value="common">Common</option>
 										<option value="optional">Optional</option>
 								</select></td>
-								<td><h6>Th Full Marks*</h6> <input type="text"
-									class="form-control" name="fullmarks" form="form" required></td>
-								<td><h6>Pr Full Marks*</h6> <input type="text"
-									class="form-control" name="fullmarks_pr" form="form" required></td>
-								<td><h6>Th Pass Marks*</h6> <input type="text"
-									class="form-control" name="passmarks" form="form" required></td>
-								<td><h6>Pr Pass Marks*</h6> <input type="text"
-									class="form-control" name="passmarks_pr" form="form" required></td>
+								<td></td>
 							</tr>
 						</tbody>
 					</table>
@@ -95,42 +77,32 @@
 					class="table jambo_table table-striped table-bordered"
 					style="font-size: 95%;">
 					<thead>
-					<tr class="tbltophead">
-						<th colspan="3">SUBJECT</th>
-						<th colspan="2">FULL MARKS</th>
-						<th colspan="2">PASSMARKS</th>
-						<th rowspan="2">ACTION</th>
-						
-					
-					</tr>
 						<tr class="headings">
-							<th>Subject Code</th>
+							<th>S No.</th>
 							<th>Subject Name</th>
 							<th>Subject Type</th>
-							
-							<th>Theory</th>
-							<th>Practical</th>
-							
-							<th>Theory</th>
-							<th>Practical</th>
+							<th><i class="fa fa-cog" aria-hidden="true"></i></th>
 						</tr>
 					</thead>
 					<tbody>
-					<c:forEach items="${subject }" var="sub">
+						<%
+								int sno = 1;
+									while (subjects.next()) {
+							%>
 						<tr>
-							<td>${sub.subjectCode }</td>
-							<td>${sub.subjectname }</td>
-							<td>${sub.subjecttype }</td>
-							
-							<td>${sub.subjects.fullmarks }</td>
-							<td>${sub.subjects.fullmarks_pr }</td>
-							
-							<td>${sub.subjects.passmarks }</td>
-							<td>${sub.subjects.passmarks_pr }</td>
-							
-							<td>${msg }</td>
+							<td><%=sno%></td>
+							<td><%=subjects.getString("subjectname")%></td>
+							<td><%=subjects.getString("subjecttype")%></td>
+							<td><a href=""><i class="fa fa-pencil-square-o"
+									aria-hidden="true" style="color: blue;"></i></a>&nbsp;&nbsp;&nbsp;<a
+								href="subject.del?id=<%=subjects.getString("subjectid")%>"
+								class="delete"><i class="fa fa-trash" aria-hidden="true"
+									style="color: red;"></i></a></td>
 						</tr>
-						</c:forEach>
+						<%
+								sno++;
+									}
+							%>
 					</tbody>
 				</table>
 			</div>
@@ -138,14 +110,10 @@
 	</div>
 
 
-	<jsp:include page="../../msgmodal.jsp"></jsp:include>
+	<jsp:include page="/msgmodal"></jsp:include>
 	<script>
 		$(document).ready(function() {
-			
-		
-	<%
-	String msg=(String)request.getAttribute("msg");
-	if (msg != null || msg.length()>0) {%>
+	<%if (request.getAttribute("msg") != null) {%>
 		$('#myModal').modal('show');
 	<%}%>
 		});
@@ -157,5 +125,4 @@
 		});
 		
 	</script>
-	</body>
-	</html>
+	<%}%>

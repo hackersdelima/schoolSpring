@@ -1,12 +1,13 @@
-
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include.jsp"></jsp:include>
 
 <html>
-<head>
-</head>
+
 <body class="background">
+
 	<div class="breadcrumb-line">
 		<nav aria-label="breadcrumb" role="navigation">
 			<ol class="breadcrumb">
@@ -22,14 +23,14 @@
 
 		<div class="x_panel">
 			<div class="x_title">
-				<h2>STUDENT REGISTRATION</h2>
+				<h2>STUDENT Edit</h2>
 
 				<ul class="nav navbar-right panel_toolbox">
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 					</li>
 				</ul>
-				
-				<form method="post" action="studentRegistration" id="form"></form>
+
+				<form method="get" action="updateStudent" id="form"></form>
 				<button type="submit" class="btn btn-success " form="form">
 					<i class="fa fa-check"></i> SUBMIT
 				</button>
@@ -64,14 +65,16 @@
 										<td>
 											<h6>
 												<strong>Student Legacy ID</strong>
-											</h6> <input type="text" class="form-control" name="LegacyId"
-											form="form">
+											</h6> <input type="hidden" name="studentId"
+											value="${student.studentid }" form="form"> <input
+											type="text" class="form-control" name="LegacyId" form="form"
+											value="${student.legacyId }">
 										</td>
 										<td>
 											<h6>
 												<strong>Student Name</strong>
 											</h6> <input type="text" class="form-control" name="studentname"
-											id="studentname" form="form" required>
+											id="studentname" form="form" value="${student.studentname}">
 										</td>
 									</tr>
 									<tr>
@@ -79,10 +82,14 @@
 											<h6>
 												<strong>Sex</strong>
 											</h6> <select class="form-control" name="sex" form="form">
-												<option value="" selected>Select sex</option>
-												<option value="m">Male</option>
-												<option value="f">FeMale</option>
-												<option value="o">Other</option>
+												<c:if test="${student.sex eq 'm' }">selected</c:if>
+												<option value="">Select sex</option>
+												<option value="m"
+													<c:if test="${student.sex eq 'm' }">selected</c:if>>Male</option>
+												<option value="f"
+													<c:if test="${student.sex eq 'f' }">selected</c:if>>FeMale</option>
+												<option value="o"
+													<c:if test="${student.sex eq 'o' }">selected</c:if>>Other</option>
 										</select>
 										</td>
 										<td>
@@ -110,17 +117,23 @@
 											<h6>
 												<strong>Religion</strong>
 											</h6> <select class="form-control" name="sReligion" form="form">
-												<option value="" selected>Select religion</option>
-												<option value="Hindu">Hindu</option>
-												<option value="Muslim">Muslim</option>
-												<option value="Buddhism">Buddhism</option>
-												<option value="Christian">Christian</option>
+												<option value="">Select religion</option>
+												<option value="Hindu"
+													<c:if test="${student.SReligion eq 'Hindu' }">selected</c:if>>Hindu</option>
+												<option value="Muslim"
+													<c:if test="${student.SReligion eq 'Muslim' }">selected</c:if>>Muslim</option>
+												<option value="Buddhism"
+													<c:if test="${student.SReligion eq 'Buddhism' }">selected</c:if>>
+													Buddhism</option>
+												<option value="Christian"
+													<c:if test="${student.SReligion eq 'Christian' }">selected</c:if>>Christian</option>
 										</select>
 										</td>
 										<td>
 											<h6>
 												<strong>Differently-able?</strong>
-											</h6> <select class="form-control" name="differentlyabledYN" form="form">
+											</h6> <select class="form-control" name="differentlyabledYN"
+											form="form">
 												<option value="n">No</option>
 												<option value="y">Yes</option>
 										</select>
@@ -129,7 +142,8 @@
 											<h5 style="color: blue">
 												<strong>If Differently-able yes</strong>
 												</h6>
-												<select class="form-control" name="differentlyabledtype" form="form">
+												<select class="form-control" name="differentlyabledtype"
+													form="form">
 													<option value="" selected>Select disabled type</option>
 
 													<c:forEach items="${disabledlist }" var="disabled">
@@ -145,14 +159,14 @@
 												<strong>DOB(YYYY-MM-DD) B.S.</strong>
 											</h6> <input type="text" class="form-control" name="dob"
 											maxlength="10" id="nepaliDate1" form="form"
-											placeholder="2051-07-25">
+											placeholder="2051-07-25" value=${student.dob }>
 										</td>
 										<td>
 											<h6>
 												<strong>DOB(YYYY-MM-DD) A.D.</strong>
 											</h6> <input type="text" class="form-control" name="doben"
 											maxlength="10" form="form" id="englishDate1"
-											placeholder="1994-11-11">
+											placeholder="1994-11-11" value=${student.doben }>
 										</td>
 									</tr>
 									<tr>
@@ -161,14 +175,15 @@
 												<strong>Admission Date(YYYY-MM-DD) B.S.</strong>
 											</h6> <input type="text" class="form-control" name="admissiondate"
 											maxlength="10" id="nepaliDate14" form="form"
-											placeholder="2051-07-25" required>
+											placeholder="2051-07-25" value="${student.admissiondate }">
 										</td>
 										<td>
 											<h6>
 												<strong>Admission Date(YYYYMMDD) A.D.</strong>
 											</h6> <input type="text" class="form-control"
 											name="admissiondateen" maxlength="10" form="form"
-											id="englishDate14" placeholder="1994-11-11" required>
+											id="englishDate14" placeholder="1994-11-11"
+											value="${student.admissiondate }">
 										</td>
 									</tr>
 
@@ -185,13 +200,13 @@
 											<h6>
 												<strong>Birth Certificate No.</strong>
 											</h6> <input type="text" class="form-control"
-											name="birthcertificateno" form="form">
+											name="birthcertificateno" form="form" value="${student.birthcertificateno }">
 										</td>
 										<td>
 											<h6>
 												<strong>Issued By</strong>
 											</h6> <input type="text" class="form-control"
-											name="birthcertificateissuedby" form="form">
+											name="birthcertificateissuedby" form="form" value="${student.issuedby }">
 										</td>
 									</tr>
 									<tr>
@@ -200,14 +215,14 @@
 												<strong>Issued Date(YYYYMMDD) B.S.</strong>
 											</h6> <input type="text" class="form-control"
 											name="birthcertificateissueddate" maxlength="10"
-											id="nepaliDate2" form="form" placeholder="2051-07-25">
+											id="nepaliDate2" form="form" placeholder="2051-07-25" value="${student.issueddate }">
 										</td>
 										<td>
 											<h6>
 												<strong>Issued Date(YYYYMMDD) A.D.</strong>
 											</h6> <input type="text" class="form-control"
 											name="birthcertificateissueddateen" maxlength="10"
-											form="form" id="englishDate2" placeholder="1994-11-11">
+											form="form" id="englishDate2" placeholder="1994-11-11" value="${student.issueddateen }">
 										</td>
 									</tr>
 									<tr>
@@ -226,7 +241,8 @@
 											</h6> <select class="form-control selectpicker district"
 											data-show-subtext="true" data-live-search="true"
 											name="district" form="form">
-												<option value="" selected>Select district</option>
+												<option value="">Select district</option>
+
 												<c:forEach items="${dislist }" var="dis">
 													<option value="${dis.districtCode }">${dis.districtName }</option>
 												</c:forEach>
@@ -245,8 +261,8 @@
 										<td>
 											<h6>
 												<strong>Ward No.</strong>
-											</h6> <select class="form-control wardno" name="wardNo"
-											form="form">
+											</h6>
+											<select class="form-control wardno" name="wardNo" form="form">
 												<option value="0" selected>Select ward no.</option>
 										</select>
 										</td>
@@ -285,13 +301,13 @@
 											<h6>
 												<strong>Name</strong>
 											</h6> <input type="text" class="form-control" name="fathername"
-											form="form">
+											form="form" value="${student.fathername }">
 										</td>
 										<td>
 											<h6>
 												<strong>Address</strong>
 											</h6> <input type="text" class="form-control" name="faddress"
-											form="form">
+											form="form" value="${student.address }">
 										</td>
 									</tr>
 									<tr>
@@ -498,13 +514,13 @@
 										<h6>
 											<strong>Name</strong>
 										</h6> <input type="text" class="form-control" name="mothername"
-										form="form">
+										form="form" value="${mother.mothername }">
 									</td>
 									<td>
 										<h6>
 											<strong>Address</strong>
 										</h6> <input type="text" class="form-control" name="maddress"
-										form="form">
+										form="form" value="${mother.address }">
 									</td>
 								</tr>
 								<tr>
@@ -793,11 +809,11 @@
 											<h6>
 												<strong>Admission Class</strong>
 											</h6> <select class="form-control" name="admissionclass"
-											form="form" required>
+											form="form">
 												<option selected value="">Select admission class</option>
 												<c:forEach items="${classlist}" var="cl">
-												<option value="${cl.classid}">${cl.classname }</option>
-												
+													<option value="${cl.classid}">${cl.classname }</option>
+
 												</c:forEach>
 
 										</select>
@@ -808,8 +824,8 @@
 											</h6> <select class="form-control" name="section" form="form">
 												<option selected value="">Select section</option>
 												<c:forEach items="${section}" var="sec">
-												<option value="${sec.sectionid}">${sec.sectionname }</option>
-												
+													<option value="${sec.sectionid}">${sec.sectionname }</option>
+
 												</c:forEach>
 
 										</select>
@@ -818,7 +834,7 @@
 											<h6>
 												<strong>Roll No.</strong>
 											</h6> <input type="text" class="form-control" name="rollno"
-											form="form">
+											form="form" value="${student.rollno }">
 										</td>
 									</tr>
 									<tr>
@@ -827,10 +843,10 @@
 												<strong>House Group</strong>
 											</h6> <select class="form-control" name="housegroup" form="form">
 												<option value="" selected>Select house group</option>
-				
+
 												<c:forEach items="${housegroup}" var="h">
-												<option value="${h.housegroupid}">${h.housegroupname }</option>
-												
+													<option value="${h.housegroupid}">${h.housegroupname }</option>
+
 												</c:forEach>
 										</select>
 										</td>
@@ -861,8 +877,8 @@
 											form="form">
 												<option value="" selected>Select special interest</option>
 												<c:forEach items="${interest}" var="i">
-												<option value="${i.specialInterestId}">${i.specialInterestName}</option>
-												
+													<option value="${i.specialInterestId}">${i.specialInterestName}</option>
+
 												</c:forEach>
 
 										</select>
@@ -877,7 +893,6 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>
 

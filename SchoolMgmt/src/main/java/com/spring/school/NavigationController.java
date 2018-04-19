@@ -5,22 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.dao.OperationDao;
 import com.spring.dao.StudentDao;
-import com.spring.model.FormDetails;
 import com.spring.model.StudentModel;
 
 @Controller
 public class NavigationController {
 	@Autowired
 	private StudentDao studentDao;
-	@Autowired
-	private OperationDao operationDao;
-
+	
 	@RequestMapping(value = "/studentAdmission")
 	public String studentForm(Model model) {
 		System.out.println(studentDao.getAdmissionClass());
@@ -35,9 +30,8 @@ public class NavigationController {
 	}
 
 	@RequestMapping(value = "/createExam")
-	public String createExam(Model model) {
-		model.addAttribute("examlist",operationDao.getExamList());
-		return "exam/createExam";
+	public String createExam() {
+		return "exam/createStudentReport";
 	}
 
 	@RequestMapping(value = "/viewMuncipality")
@@ -69,45 +63,7 @@ public class NavigationController {
 	}
 	
 	@RequestMapping(value="/initialDetails")
-	public String initialDetails(Model model){
-		model.addAttribute("language",studentDao.getLanguages());
-		model.addAttribute("section",studentDao.getSection());
-		model.addAttribute("housegroup",studentDao.HouseGroup());
-		model.addAttribute("caste",studentDao.getCaste());
-		model.addAttribute("specialinterest",studentDao.SpecialInterest());
-		model.addAttribute("adclass",studentDao.getAdmissionClass());
-		model.addAttribute("examtype",studentDao.getExamType());
+	public String initialDetails(){
 		return "initialdetail/initialdetails";
 	}
-	
-	@RequestMapping(value="/subjects")
-	public String subjects(Model model, @ModelAttribute("msg") String msg){
-		model.addAttribute("subject",operationDao.getSubjectList());
-		return "academics/subjects/subjects";
-	}
-	@RequestMapping(value="/assignSubjects")
-	public String assignSubjects(Model model){
-		List<FormDetails>  classlist,subjectlist;
-		classlist=studentDao.getAdmissionClass();
-		subjectlist=operationDao.getSubjectList();
-		
-		model.addAttribute("classlist",classlist);
-		model.addAttribute("subjectlist",subjectlist);
-		
-		return "academics/subjects/assignsubjects";
-	}
-	
-	@RequestMapping("/dashboard")
-	public String dashboard(){
-		return "dashboard";
-	}
-	@RequestMapping("/createMarksReport")
-	public String createMarksReport(){
-		return "exam/createStudentReport";
-	}
-	@RequestMapping("/marksReportSearch")
-	public String marksReportSearch(){
-		return "exam/marksSearchBox";
-	}
 }
-

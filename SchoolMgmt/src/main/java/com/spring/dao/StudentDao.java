@@ -12,10 +12,9 @@ public interface StudentDao {
 	 public List<FormDetails> getSection();
 	 public List<FormDetails> HouseGroup();
 	 public List<FormDetails> SpecialInterest();
-	 public List<FormDetails> getLanguages();
-	 public List<FormDetails> getCaste();
-	 public List<FormDetails> getExamType();
 	public int insertStudent(StudentModel student);
 	 public boolean insertStudentOtherDetails(StudentModel s, int studentid);
 	public List<StudentModel> getAllStudents();
+	public StudentModel getStudentDetail(String id, String tablename);
+	public boolean updateStudent(StudentModel student);
 }
