@@ -877,14 +877,8 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
-	<script>
-		
+	<jsp:include page="../msgmodal.jsp"></jsp:include>
 	
-	</script>
 </body>
 </html>
 

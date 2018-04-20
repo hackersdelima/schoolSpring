@@ -90,6 +90,13 @@
                             </li>
                           </ul>
                         </li>
+                         <li><a>Admin Settings<span class="fa fa-chevron-down"></span></a>
+                          <ul class="nav child_menu">
+                            <li ><a href="initialDetails" target="iframe_a">Category</a>
+                            </li>
+                            
+                          </ul>
+                        </li>
                         <li><a href="initialDetails" target="iframe_a">Set Initial Details</a>
                         </li>
                     </ul>
@@ -152,7 +159,7 @@
 
         <!-- page content -->
      <div class="right_col" role="main">
-          <iframe    height="1400px" width="100%" src="<%=request.getContextPath()%>/dashboard" id="Iframe" name="iframe_a"  style="border:none;" >
+          <iframe height="1400px" width="100%" src="<%=request.getContextPath()%>/dashboard" id="Iframe" name="iframe_a"  style="border:none;" >
 		</iframe>
      </div>
         <!-- /page content -->

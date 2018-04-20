@@ -26,6 +26,7 @@ import com.spring.model.UserModel;
 
 @Controller
 @SessionAttributes(value = "systemdetail")
+@RequestMapping("/operation")
 public class OperationController {
 	@Autowired
 	OperationDao operationDao;

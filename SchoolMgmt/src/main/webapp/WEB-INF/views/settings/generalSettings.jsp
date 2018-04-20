@@ -22,7 +22,7 @@
 	<div class="col-md-8 col-xs-12">
 		<div class="x_panel">
 			<form:form class="form-horizontal form-label-left input_mask"
-				method="post" action="updateGeneralSetting">
+				method="post" action="operation/updateGeneralSetting">
 
 				<div class="x_title">
 					<h2>SYSTEM SETTINGS</h2>

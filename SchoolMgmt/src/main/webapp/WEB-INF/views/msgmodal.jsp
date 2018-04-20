@@ -10,3 +10,8 @@
       </div>
     </div>
 </div>
+<script>
+	<%if(request.getAttribute("msg")!=null){%>
+$('#myModal').modal('show');
+<%}%> 
+	</script>

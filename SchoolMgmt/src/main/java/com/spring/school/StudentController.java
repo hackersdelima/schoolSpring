@@ -28,7 +28,8 @@ public class StudentController {
 		else {
 			model.addAttribute("msg", "Insert Unsuccessful");
 		}
-		return "profile";
+		
+		return "student/studentRegistration";
 	}
 	
 	//For COmmon Attributes

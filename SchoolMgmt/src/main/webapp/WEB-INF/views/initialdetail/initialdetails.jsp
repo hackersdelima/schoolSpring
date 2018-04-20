@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%-- <%@page import="com.controller.student.classes.StudentOperations"%>
 <%@page import="java.sql.*"%>
 <%
@@ -68,15 +69,15 @@
 					<div id="myTabContent" class="tab-content">
 						<div role="tabpanel" class="tab-pane fade active in"
 							id="tab_content1" aria-labelledby="home-tab">
-							<form action="initialdetailadd" method="post"
-								style="width: 20%; margin-top: 10px;" class="form">
+							<form:form  class="form" method="post" action="operation/initialdetailadd" 
+								style="width: 20%; margin-top: 10px;">
 								<h6>
 									<strong>Language Name:</strong>
 								</h6>
 								<input type="text" class="form-control" name="languagename"
 									placeholder="Language name..." required> <br>
 								<button type="submit" class="btn btn-success">+ ADD</button>
-							</form>
+							</form:form>
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="tab_content2"
 							aria-labelledby="profile-tab">
