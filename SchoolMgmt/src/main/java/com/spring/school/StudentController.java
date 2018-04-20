@@ -12,6 +12,7 @@ import com.spring.dao.StudentDao;
 import com.spring.model.StudentModel;
 
 @Controller
+@RequestMapping("/student")
 public class StudentController {
 	@Autowired
 	private StudentDao studentDao;
@@ -28,7 +29,6 @@ public class StudentController {
 		else {
 			model.addAttribute("msg", "Insert Unsuccessful");
 		}
-		
 		return "student/studentRegistration";
 	}
 	

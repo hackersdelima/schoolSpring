@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include.jsp"></jsp:include>
 
@@ -30,9 +31,10 @@
 					</li>
 				</ul>
 
-				<form method="get" action="updateStudent" id="form"></form>
+			
+				<form method="get" action="<spring:url value="/student/updateStudent"></spring:url>" id="form"></form>
 				<button type="submit" class="btn btn-success " form="form">
-					<i class="fa fa-check"></i> SUBMIT
+					<i class="fa fa-check"></i> Update
 				</button>
 				<div class="clearfix"></div>
 

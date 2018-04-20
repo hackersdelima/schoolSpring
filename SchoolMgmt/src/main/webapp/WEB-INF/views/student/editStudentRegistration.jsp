@@ -34,7 +34,7 @@
 					</li>
 				</ul>
 
-				<form method="get" action="updateStudent" id="form"></form>
+				<form method="get" action="student/updateStudent" id="form"></form>
 				<button type="submit" class="btn btn-success " form="form">
 					<i class="fa fa-check"></i> SUBMIT
 				</button>

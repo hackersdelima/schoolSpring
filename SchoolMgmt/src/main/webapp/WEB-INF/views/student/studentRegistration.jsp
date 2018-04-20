@@ -1,5 +1,6 @@
 
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include.jsp"></jsp:include>
 
@@ -29,7 +30,7 @@
 					</li>
 				</ul>
 				
-				<form method="post" action="studentRegistration" id="form"></form>
+				<form method="post" action="<spring:url value="/student/studentRegistration"></spring:url>" id="form"></form>
 				<button type="submit" class="btn btn-success " form="form">
 					<i class="fa fa-check"></i> SUBMIT
 				</button>

@@ -56,21 +56,21 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="view/dashboard.jsp" target="iframe_a">Dashboard</a></li>
+                      <li><a href="nav/dashboard" target="iframe_a">Dashboard</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Student <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="studentAdmission" target="iframe_a">Student Admission</a></li>
-                      <li><a href="listStudents" target="iframe_a">Students List</a></li>
+                      <li><a href="nav/studentAdmission" target="iframe_a">Student Admission</a></li>
+                      <li><a href="nav/listStudents" target="iframe_a">Students List</a></li>
                     </ul>
                   </li>
                    <li><a><i class="fa fa-edit"></i> Exam <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                    	 <li><a href="createExam" target="iframe_a">Create Exam</a>
+                    	 <li><a href="nav/createExam" target="iframe_a">Create Exam</a>
                             </li>
-                      <li><a href="createMarksReport" target="iframe_a">Create Marks Report</a></li>
-                       <li><a href="marksReportSearch" target="iframe_a">Search Report</a>
+                      <li><a href="nav/createMarksReport" target="iframe_a">Create Marks Report</a></li>
+                       <li><a href="nav/marksReportSearch" target="iframe_a">Search Report</a>
                             </li>
                     </ul>
                   </li>
@@ -81,12 +81,12 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-sitemap"></i> Settings <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                    <li ><a href="generalSettings" target="iframe_a">General Settings</a>
+                    <li ><a href="nav/generalSettings" target="iframe_a">General Settings</a>
                         <li><a>Academic Settings<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li ><a href="subjects" target="iframe_a">Subjects</a>
+                            <li ><a href="nav/subjects" target="iframe_a">Subjects</a>
                             </li>
-                            <li><a href="assignSubjects" target="iframe_a">Assign Subjects</a>
+                            <li><a href="nav/assignSubjects" target="iframe_a">Assign Subjects</a>
                             </li>
                           </ul>
                         </li>
@@ -97,7 +97,7 @@
                             
                           </ul>
                         </li>
-                        <li><a href="initialDetails" target="iframe_a">Set Initial Details</a>
+                        <li><a href="nav/initialDetails" target="iframe_a">Set Initial Details</a>
                         </li>
                     </ul>
                   </li>                  
@@ -118,7 +118,7 @@
               <a data-toggle="tooltip" data-placement="top" title="Lock">
                 <i class="fa fa-eye-slash" aria-hidden="true"></i>
               </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="logout">
+              <a data-toggle="tooltip" data-placement="top" title="Logout" href="nav/logout">
                 <i class="fa fa-sign-out" aria-hidden="true"></i>
               </a>
             </div>
@@ -136,19 +136,19 @@
 
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <a href="nav/javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <img src="resources/images/user.jpg" alt="">Username
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="profileSettings" target="iframe_a"> Profile</a></li>
+                    <li><a href="nav/profileSettings" target="iframe_a"> Profile</a></li>
                     <li>
-                      <a href="javascript:;">
+                      <a href="nav/javascript:;">
                         <span>Settings</span>
                       </a>
                     </li>
-                    <li><a href="javascript:;">Help</a></li>
-                    <li><a href="logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="nav/javascript:;">Help</a></li>
+                    <li><a href="nav/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
               </ul>
@@ -159,7 +159,7 @@
 
         <!-- page content -->
      <div class="right_col" role="main">
-          <iframe height="1400px" width="100%" src="<%=request.getContextPath()%>/dashboard" id="Iframe" name="iframe_a"  style="border:none;" >
+          <iframe    height="1400px" width="100%" src="<%=request.getContextPath()%>/nav/dashboard" id="Iframe" name="iframe_a"  style="border:none;" >
 		</iframe>
      </div>
         <!-- /page content -->

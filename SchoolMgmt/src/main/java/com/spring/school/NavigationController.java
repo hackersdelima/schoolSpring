@@ -15,6 +15,7 @@ import com.spring.model.FormDetails;
 import com.spring.model.StudentModel;
 
 @Controller
+@RequestMapping("/nav")
 public class NavigationController {
 	@Autowired
 	private StudentDao studentDao;
