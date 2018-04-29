@@ -46,6 +46,7 @@ public class OperationDaoImpl implements OperationDao {
 	public boolean insertTableDetail(String tablename,String columns, String value){
 		boolean status=false;
 		String sql="INSERT INTO "+tablename+" "+columns+"  VALUES ('"+value+"')";
+		System.out.println(sql);
 		int i=jdbcTemplate.update(sql);
 		if(i>0){
 			status=true;
@@ -73,7 +74,7 @@ public class OperationDaoImpl implements OperationDao {
 		
 	}
 	public List<ExamModel> getExamList(){
-		 String sql="SELECT * FROM EXAM JOIN EXAM_TYPE USING(EXAMTYPEID)";
+		 String sql="SELECT * FROM exam JOIN exam_type USING(examtypeid)";
 			return jdbcTemplate.query(sql, new ExamList());
 	}
 	public static final class ExamList implements RowMapper<ExamModel>{
@@ -83,8 +84,10 @@ public class OperationDaoImpl implements OperationDao {
 			ExamModel e=new ExamModel();
 			ExamTypeModel em=new ExamTypeModel();
 			e.setExamcode(rs.getString("examcode"));
+			e.setExamid(rs.getString("examid"));
 			e.setExamname(rs.getString("examname"));
 			e.setStartdate(rs.getString("startdate"));
+			em.setExamtypeid(rs.getString("examtypeid"));
 			em.setExamtypename(rs.getString("examtypename"));
 			em.setDescription(rs.getString("description"));
 			e.setExamTypeModel(em);
@@ -93,7 +96,7 @@ public class OperationDaoImpl implements OperationDao {
 		
 	}
 	 public List<FormDetails> getSubjectList(){
-		 String sql="SELECT * FROM SUBJECTLIST";
+		 String sql="SELECT * FROM subjectlist";
 			return jdbcTemplate.query(sql, new SubjectList());
 	 }
 	 public static final class SubjectList implements RowMapper<FormDetails>{

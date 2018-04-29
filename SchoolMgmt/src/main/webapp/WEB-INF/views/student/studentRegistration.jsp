@@ -1,4 +1,3 @@
-
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -809,7 +808,7 @@
 											</h6> <select class="form-control" name="section" form="form">
 												<option selected value="">Select section</option>
 												<c:forEach items="${section}" var="sec">
-												<option value="${sec.sectionid}">${sec.sectionname }</option>
+												<option value="${sec.sectionname}">${sec.sectionname }</option>
 												
 												</c:forEach>
 

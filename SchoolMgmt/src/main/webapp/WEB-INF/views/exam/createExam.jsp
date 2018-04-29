@@ -1,5 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include.jsp"></jsp:include>
+<spring:url value="/operation/insertExam" var="formUrl"/>
+
 <html>
 <head></head>
 <body class="background">
@@ -29,7 +35,7 @@
 				<button type="submit" class="btn btn-success" form="form">
 					<i class="fa fa-check"></i> Save
 				</button>
-				<form method="post" action="insertExam" id="form"></form>
+				<form:form action="${formUrl }" id="form"></form:form>
 				<table class="table">
 					<tbody>
 						<tr>
@@ -43,6 +49,9 @@
 							<td><h6>Exam Type *</h6> <select class="form-control"
 								name="examtype" form="form" required>
 									<option value="" selected>Select exam type</option>
+									<c:forEach items="${examlist}" var="exam">
+										<option value="${exam.examTypeModel.examtypeid }">${exam.examTypeModel.examtypename }</option>
+									</c:forEach>
 
 							</select></td>
 							<td><h6>Start Date(B.S) *</h6> <input type="text"
@@ -82,7 +91,7 @@
 							<th>Exam Name</th>
 							<th>Exam Type</th>
 							<th>Start Date</th>
-							<th><i class="fa fa-cog" aria-hidden="true"></i></th>
+							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -91,6 +100,7 @@
 								<td>${elist.examname }</td>
 								<td>${elist.examTypeModel.examtypename }</td>
 								<td>${elist.startdate }</td>
+								<td><a href="#">Edit</a></td>
 
 							</tr>
 						</c:forEach>
@@ -99,13 +109,8 @@
 			</div>
 		</div>
 	</div>
-
+<jsp:include page="../msgmodal.jsp"></jsp:include>
 	<script>
-		$(document).ready(function() {
-	<%if (request.getAttribute("msg") != null) {%>
-		$('#myModal').modal('show');
-	<%}%>
-		});
 		$('#form').submit(function() {
 			return confirm('CONFIRM SAVE?');
 		});

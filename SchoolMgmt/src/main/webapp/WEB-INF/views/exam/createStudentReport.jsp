@@ -1,4 +1,10 @@
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include.jsp"></jsp:include>
+<spring:url value="/student/studentName" var="studentNameUrl"/>
+<spring:url value="/exam/setMarks" var="setMarksUrl"/>
+<spring:url value="/exam/addMarks" var="formUrl"/>
 <html>
 <head>
 <style>
@@ -9,6 +15,8 @@
 	</style>
 </head>
 <body class="background">
+<input type="hidden" value="${studentNameUrl }" id="url">
+<input type="hidden" value="${setMarksUrl }" id="setmarksurl">
 	<div class="col-md-12 col-sm-12 col-xs-12">
 
 		<div class="x_panel">
@@ -17,7 +25,7 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-				<form action="studentMarks.add" method="post"
+				<form:form action="${formUrl }" 
 					style="margin-top: 10px;" class="form">
 					<div role="tabpanel" class="tab-pane" aria-labelledby="profile-tab">
 					<div class="form-group">
@@ -37,8 +45,12 @@
 								<h6>
 									<strong>Exam*</strong>
 								</h6>
-								<select class="form-control" name="examid" required>
+								<select class="form-control" name="examid" >
 									<option value="">Select Exam</option>
+									<c:forEach items="${examlist }" var="exam">
+										<option value="${exam.examid }">${exam.examname }</option>
+									</c:forEach>
+									
 								</select>
 							</div>
 							<div class="col-md-3">
@@ -47,6 +59,9 @@
 								</h6>
 								<select class="form-control" name="classid" id="class" required>
 									<option value="">Select Class</option>
+									<c:forEach items="${classlist }" var="cl">
+									<option value="${cl.classid }">${cl.classname }</option>
+									</c:forEach>
 									
 									
 								</select>
@@ -57,6 +72,9 @@
 								</h6>
 								<select class="form-control" name="sectionid" id="section">
 									<option value="">Select Section</option>
+									<c:forEach items="${section }" var="sec">
+									<option value="${sec.sectionname }">${sec.sectionname}</option>
+									</c:forEach>
 								</select>
 							</div>
 							<div class="col-md-3">
@@ -70,7 +88,7 @@
 						</div>
 					</div>
 					<div id="markstable"></div>
-				</form>
+				</form:form>
 			</div>
 		</div>
 	</div>
@@ -80,12 +98,13 @@
 		return confirm("CONFIRM?");
 	});
 		$("#class").change(function() {
+			var url=$("#setmarksurl").val()
 			var id = $(this).val();
-			var dataString = 'id=' + id;
+			var dataString = 'gradeid=' + id;
 
 			$.ajax({
 				type : "POST",
-				url : "getMarksInputTable.click",
+				url : url,
 				data : dataString,
 				cache : false,
 				success : function(html) {
@@ -93,13 +112,15 @@
 				}
 			});
 		});
-		$("#validate").click(function() {
+		
+		 $("#validate").click(function() {
 			var classname = $("#class").val();
 			var section = $("#section").val();
 			var rollno = $("#rollno").val();
+			var url=$("#url").val();
 			$.ajax({
 				type : "POST",
-				url : "getstudentname.click",
+				url : url,
 				data : {"classname": classname, "section": section, "rollno":rollno},
 				cache : false,
 				success : function(html) {

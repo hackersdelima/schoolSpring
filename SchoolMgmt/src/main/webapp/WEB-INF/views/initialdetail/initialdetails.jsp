@@ -1,21 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-	<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
-<%-- <%@page import="com.controller.student.classes.StudentOperations"%>
-<%@page import="java.sql.*"%>
-<%
-	if (session.getAttribute("userdetail") != null) {
-%>
-<%
-	StudentOperations s = new StudentOperations();
-		ResultSet language = s.getlanguage();
-		ResultSet section = s.getsection();
-		ResultSet housegroup = s.gethousegroup();
-		ResultSet caste = s.getcaste();
-		ResultSet specialinterest = s.getspecialinterest();
-		ResultSet classlist = s.selectclass();
-		ResultSet examtype = s.selectexamtype();
-%> --%>
 <jsp:include page="../include.jsp"></jsp:include>
+<spring:url value="/operation/initialdetailadd" var="formUrl"/>
 <html>
 <head></head>
 <body class="background">
@@ -27,6 +16,7 @@
 				<li class="breadcrumb-item active" aria-current="page">Settings</li>
 				<li class="breadcrumb-item active" aria-current="page">Set
 					Initial Details</li>
+					<spring:url value=""></spring:url>
 			</ol>
 		</nav>
 	</div>
@@ -69,7 +59,7 @@
 					<div id="myTabContent" class="tab-content">
 						<div role="tabpanel" class="tab-pane fade active in"
 							id="tab_content1" aria-labelledby="home-tab">
-							<form:form  class="form" method="post" action="operation/initialdetailadd" 
+							<form:form  class="form" action="${formUrl }" 
 								style="width: 20%; margin-top: 10px;">
 								<h6>
 									<strong>Language Name:</strong>
@@ -81,7 +71,7 @@
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="tab_content2"
 							aria-labelledby="profile-tab">
-							<form action="initialdetailadd" method="post"
+							<form action="${formUrl }" method="post"
 								style="width: 20%; margin-top: 10px;" class="form">
 								<h6>
 									<strong>Section Name:</strong>
@@ -93,7 +83,7 @@
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="tab_content3"
 							aria-labelledby="profile-tab">
-							<form action="initialdetailadd" method="post"
+							<form action="${formUrl }" method="post"
 								style="width: 20%; margin-top: 10px;" class="form">
 								<h6>
 									<strong>House Group Name:</strong>
@@ -105,7 +95,7 @@
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="tab_content4"
 							aria-labelledby="profile-tab">
-							<form action="initialdetailadd" method="post"
+							<form action="${formUrl }" method="post"
 								style="width: 20%; margin-top: 10px;" class="form">
 								<h6>
 									<strong>Ethnic Group Name:</strong>
@@ -117,7 +107,7 @@
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="tab_content5"
 							aria-labelledby="profile-tab">
-							<form action="initialdetailadd" method="post"
+							<form action="${formUrl }" method="post"
 								style="width: 20%; margin-top: 10px;" class="form">
 								<h6>
 									<strong>Special Interest Name:</strong>
@@ -130,7 +120,7 @@
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="tab_content6"
 							aria-labelledby="profile-tab">
-							<form action="initialdetailadd" method="post"
+							<form action="${formUrl }" method="post"
 								style="width: 20%; margin-top: 10px;" class="form">
 								<h6>
 									<strong>Academic Class Name:</strong>
@@ -142,7 +132,7 @@
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="tab_content7"
 							aria-labelledby="profile-tab">
-							<form action="initialdetailadd" method="post"
+							<form action="${formUrl }" method="post"
 								style="width: 20%; margin-top: 10px;" class="form"
 								id="examtypeform">
 								<h6>
@@ -269,10 +259,6 @@
 	</div>
 	<jsp:include page="../msgmodal.jsp"></jsp:include>
 	<script>
-		
-	<%if (request.getAttribute("msg") != null) {%>
-		$('#myModal').modal('show');
-	<%}%>
 		$('.form').submit(function() {
 			return confirm('CONFIRM SUBMIT?');
 		});

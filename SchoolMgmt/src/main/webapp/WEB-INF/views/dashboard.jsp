@@ -20,16 +20,16 @@ String totalstd=s.totalstudents(); %> --%>
 <body class="background">
 
 <div class="row">
-        <div class="col-lg-3 col-xs-3"">
+        <div class="col-lg-3 col-xs-3">
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>365</h3>
+              <h3></h3>
 
               <p>Total Students</p>
             </div>
             <div class="icon">
-              <i class="fa fa-shopping-cart"></i>
+               <i class="fa fa-users"></i>
             </div>
             <a href="#" class="small-box-footer">
               More info <i class="fa fa-arrow-circle-right"></i>
@@ -41,12 +41,12 @@ String totalstd=s.totalstudents(); %> --%>
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px"></sup></h3>
+              <h3><sup style="font-size: 20px"></sup></h3>
 
               <p>Total Teachers</p>
             </div>
             <div class="icon">
-              <i class="fa fa-dropbox"></i>
+               <i class="fa fa-users"></i>
             </div>
             <a href="#" class="small-box-footer">
               More info <i class="fa fa-arrow-circle-right"></i>
@@ -58,7 +58,7 @@ String totalstd=s.totalstudents(); %> --%>
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
+              <h3></h3>
 
               <p>Total Users</p>
             </div>
@@ -75,7 +75,7 @@ String totalstd=s.totalstudents(); %> --%>
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>65</h3>
+              <h3></h3>
 
               <p>Current Branch</p>
             </div>
@@ -106,24 +106,24 @@ String totalstd=s.totalstudents(); %> --%>
               <div class="row">
                 <div class="col-sm-4 border-right">
                   <div class="description-block">
-                    <h5 class="description-header">3,200</h5>
-                    <span class="description-text">SALES</span>
+                    <h5 class="description-header"></h5>
+                    <span class="description-text"></span>
                   </div>
                   <!-- /.description-block -->
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-4 border-right">
                   <div class="description-block">
-                    <h5 class="description-header">13,000</h5>
-                    <span class="description-text">FOLLOWERS</span>
+                    <h5 class="description-header"></h5>
+                    <span class="description-text"></span>
                   </div>
                   <!-- /.description-block -->
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-4">
                   <div class="description-block">
-                    <h5 class="description-header">35</h5>
-                    <span class="description-text">PRODUCTS</span>
+                    <h5 class="description-header"></h5>
+                    <span class="description-text"></span>
                   </div>
                   <!-- /.description-block -->
                 </div>

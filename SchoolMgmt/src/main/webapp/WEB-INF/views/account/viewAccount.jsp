@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include.jsp"></jsp:include>
 <html>
@@ -46,24 +48,24 @@ display:none;}
 							<th>Account Type</th>
 							<th>Account Name</th>
 							<th>Balance</th>
-							<th><i class="fa fa-cog" aria-hidden="true"></i></th>
+							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${accountlist }" var="list">
 							<tr>
-								<td>${list.pid }</td>
+								<td>${list.studentModel.studentid }</td>
 								<td>${list.accountNumber }</td>
-								<td>${list.accountType }</td>
+								<td>${list.accountTypeModel.accountType }</td>
 								<td>${list.accountName }</td>
-								<td>${list.openingBal }</td>
+								<td></td>
 								<td><a
-									href="accounteditdisplayform.click?id=${list.accountNumber }"
-									 class="btn btn-primary btn-xs">Edit</a>
+									href="<spring:url value="/account/edit/${list.accountNumber}" />">Edit</a>
 										<%-- <a href="account.del?id=${list.accountNumber }"
 									class="clickbtn btn btn-danger btn-xs">Remove</a> --%></td>
 							</tr>
 						</c:forEach>
+						
 					</tbody>
 				</table>
 			</div>

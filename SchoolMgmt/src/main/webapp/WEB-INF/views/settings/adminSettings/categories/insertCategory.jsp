@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@page import="java.sql.*"%>
+
 <jsp:include page="../../../include.jsp"></jsp:include>
+<spring:url value="/category/add" var="formUrl"/>
 
 <html>
 <head>
@@ -29,11 +32,11 @@ h5 {
 			</ol>
 		</nav>
 	</div>
-	<div class="col-md-12 col-sm-12 col-xs-12">
+	<div class="col-md-8 col-sm-8 col-xs-8">
 
 		<div class="x_panel">
 			<div class="x_title">
-				<h2>ADD CATEGORY</h2>
+				<h2>ADD CATEGORY${msg }</h2>
 				<ul class="nav navbar-right panel_toolbox">
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 					</li>
@@ -41,14 +44,14 @@ h5 {
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-				<form class="form-horizontal" method="post" action="category.add">
-
+				<form:form class="form-horizontal" action="${formUrl }">
+								
+								<input type="submit" class="btn btn-success"
+									value="Save">
+								
 					<table class="table borderless">
 						<tbody>
-							<tr>
-								<td><input type="submit" class="btn btn-success"
-									value="Save"></td>
-							</tr>
+						
 							<tr>
 								<td>
 									<h5>Category ID</h5> <input type="text" class="form-control"
@@ -61,18 +64,19 @@ h5 {
 								<td>
 									<h5>Account Type</h5> <select class="form-control"
 									name="accountType" required>
-
+<option value="">Select Account Type</option>
 										<c:forEach items="${accounttype}" var="at">
-											<option value="${at.accountType }">${at.accountHead }</option>
+											<option value="${at.accountType }">${at.accountTypeHead }</option>
 										</c:forEach>
 								</select>
 								</td>
+								
 
 							</tr>
 
 						</tbody>
 					</table>
-				</form>
+				</form:form>
 			</div>
 		</div>
 	</div>
@@ -96,9 +100,21 @@ h5 {
 							<th>Category Id</th>
 							<th>Category Head</th>
 							<th>Account Type</th>
+							<th>Account Type Head</th>
 							<th>Action</th>
 						</tr>
 					</thead>
+					<tbody>
+						<c:forEach items="${categorylist }" var="cat">
+						<tr>
+							<td>${cat.categoryId }</td>
+							<td>${cat.categoryHead }</td>
+							<td>${cat.accountTypeModel.accountType }</td>
+							<td>${cat.accountTypeModel.accountTypeHead }</td>
+							<td><a href="category/edit?id=${cat.categoryId }">Edit</a></td>
+							</tr>
+						</c:forEach>
+					</tbody>
 				</table>
 			</div>
 		</div>
@@ -106,10 +122,11 @@ h5 {
 	<div class="categorymodal"></div>
 
 	<jsp:include page="../../../msgmodal.jsp"></jsp:include>
-	<script type="text/javascript" src="template/js/form.js"></script>
+	
 	<script type="text/javascript">
 	$(document).ready(function(){
-		 $('#categorytbl').DataTable( {
+		 $('#categorytbl').DataTable();
+		/*  $('#categorytbl').DataTable( {
 		        
 		        "ajax": "getCategoriesDetail.click",
 		        "columns":[
@@ -123,7 +140,7 @@ h5 {
 		        	    }
 		        	},
 		        ]
-		    } );
+		    } ); */
 		} );
 	$('.categoryid').click(function(){
 		var id=$(this).html();

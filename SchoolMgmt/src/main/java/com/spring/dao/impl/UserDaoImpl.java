@@ -43,7 +43,7 @@ public class UserDaoImpl implements UserDao{
 		
 		boolean userexists=false;
 		
-		String sql="SELECT COUNT(*) FROM USERTBL WHERE USERNAME='"+user.getUsername()+"' AND PASSWORD='"+user.getPassword()+"'";
+		String sql="SELECT COUNT(*) FROM usertbl WHERE username='"+user.getUsername()+"' AND password='"+user.getPassword()+"'";
 		System.out.println(sql);
 		System.out.println(jdbcTemplate+"jdnds");
 		int rowcount= jdbcTemplate.queryForObject(sql, Integer.class);
@@ -55,7 +55,7 @@ public class UserDaoImpl implements UserDao{
 		
 	}
 	public UserModel getUserDetails(UserModel user){
-		String sql="SELECT * FROM USERTBL WHERE USERNAME='"+user.getUsername()+"' AND PASSWORD='"+user.getPassword()+"'";
+		String sql="SELECT * FROM usertbl WHERE username='"+user.getUsername()+"' AND password='"+user.getPassword()+"'";
 		return jdbcTemplate.queryForObject(sql, new ClassMapper());
 	}
 	

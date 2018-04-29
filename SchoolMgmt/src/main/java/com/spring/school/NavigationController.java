@@ -7,8 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.spring.dao.AccountDao;
+import com.spring.dao.CategoryDao;
 import com.spring.dao.OperationDao;
 import com.spring.dao.StudentDao;
 import com.spring.model.FormDetails;
@@ -21,17 +22,26 @@ public class NavigationController {
 	private StudentDao studentDao;
 	@Autowired
 	private OperationDao operationDao;
+	@Autowired
+	private AccountDao accountDao;
+	@Autowired
+	private CategoryDao categoryDao;
+	
+@ModelAttribute
+private void commonModels(Model model){
+	model.addAttribute("language",studentDao.getLanguages());
+	model.addAttribute("interest", studentDao.SpecialInterest());
+	model.addAttribute("housegroup", studentDao.HouseGroup());
+	model.addAttribute("section", studentDao.getSection());
+	model.addAttribute("classlist", studentDao.getAdmissionClass());
+	model.addAttribute("dislist", studentDao.getDistricts());
+	model.addAttribute("disabledlist", studentDao.getDisabledType());
+	model.addAttribute("caste",studentDao.getCaste());
+	model.addAttribute("specialinterest",studentDao.SpecialInterest());
 
+}
 	@RequestMapping(value = "/studentAdmission")
 	public String studentForm(Model model) {
-		System.out.println(studentDao.getAdmissionClass());
-		model.addAttribute("interest", studentDao.SpecialInterest());
-		model.addAttribute("housegroup", studentDao.HouseGroup());
-		model.addAttribute("section", studentDao.getSection());
-		model.addAttribute("classlist", studentDao.getAdmissionClass());
-		model.addAttribute("dislist", studentDao.getDistricts());
-		model.addAttribute("disabledlist", studentDao.getDisabledType());
-
 		return "student/studentRegistration";
 	}
 
@@ -71,11 +81,6 @@ public class NavigationController {
 	
 	@RequestMapping(value="/initialDetails")
 	public String initialDetails(Model model){
-		model.addAttribute("language",studentDao.getLanguages());
-		model.addAttribute("section",studentDao.getSection());
-		model.addAttribute("housegroup",studentDao.HouseGroup());
-		model.addAttribute("caste",studentDao.getCaste());
-		model.addAttribute("specialinterest",studentDao.SpecialInterest());
 		model.addAttribute("adclass",studentDao.getAdmissionClass());
 		model.addAttribute("examtype",studentDao.getExamType());
 		return "initialdetail/initialdetails";
@@ -98,17 +103,47 @@ public class NavigationController {
 		return "academics/subjects/assignsubjects";
 	}
 	
-	@RequestMapping("/dashboard")
+	@RequestMapping(value="/dashboard")
 	public String dashboard(){
 		return "dashboard";
 	}
-	@RequestMapping("/createMarksReport")
-	public String createMarksReport(){
+	@RequestMapping(value="/createMarksReport")
+	public String createMarksReport(Model model){
+		model.addAttribute("examlist",operationDao.getExamList());
 		return "exam/createStudentReport";
 	}
-	@RequestMapping("/marksReportSearch")
-	public String marksReportSearch(){
+	@RequestMapping(value="/marksReportSearch")
+	public String marksReportSearch(Model model){
+		model.addAttribute("examlist",operationDao.getExamList());
 		return "exam/marksSearchBox";
+	}
+	
+	@RequestMapping(value="/category")
+	public String category(Model model){
+		model.addAttribute("accounttype", accountDao.getAccountType());
+		model.addAttribute("categorylist",categoryDao.getCategories());
+		
+		return "settings/adminSettings/categories/insertCategory";
+	}
+	
+	@RequestMapping(value="/account")
+	public String account(Model model){
+		model.addAttribute("categorylist",categoryDao.getCategories());
+		return "account/insertAccount";
+	}
+	@RequestMapping(value="/viewAccount")
+	public String viewAccount(Model model){
+		model.addAttribute("accountlist",accountDao.getAccount());
+		return "account/viewAccount";
+	}
+	
+	@RequestMapping(value = "/fundTransfer")
+	public String fundTransfer(){
+		return "generalTransaction/fundsTransfer/insert";
+	}
+	@RequestMapping(value = "/invoice")
+	public String invoice(){
+		return "invoice/invoice";
 	}
 }
 

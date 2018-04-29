@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.dao.OperationDao;
-import com.spring.dao.impl.StudentDaoImpl.Exam;
 import com.spring.model.ExamModel;
 import com.spring.model.SettingsModel;
 import com.spring.model.Subjects;
@@ -51,12 +49,11 @@ public class OperationController {
 		List<UserModel> systemdetail = operationDao.getSystemDetails();
 		model.addAttribute("systemdetail", systemdetail);
 		model.addAttribute("msg","Update Successful!");
-		System.out.println("reached");
 		return "settings/generalSettings";
 	}
 
 	@RequestMapping(value="/initialdetailadd", method=RequestMethod.POST)
-	public String insertInitialDetail(@ModelAttribute SettingsModel model, Model attr){
+	public String insertInitialDetail(@ModelAttribute SettingsModel model, ModelMap attr){
 		String tablename="";
 		String value="";
 		String columns="";
@@ -97,12 +94,15 @@ public class OperationController {
 		}
 		boolean status=operationDao.insertTableDetail(tablename,columns,value);
 		if(status){
+			
 			attr.addAttribute("msg","Save Successful!");
+			
 		}
 		else{
 			attr.addAttribute("msg","Save Failed!");
 		}
-		return "redirect: initialDetails";
+
+		return "redirect: ../nav/initialDetails";
 	}
 	
 	@RequestMapping(value="/addsubject", method=RequestMethod.POST)
@@ -125,11 +125,11 @@ public class OperationController {
 		}
 		}
 		redirectAttributes.addAttribute("msg",msg);
-		return "redirect: subjects";
+		return "redirect: ../nav/subjects";
 	}
 	
 	@RequestMapping(value="/assignsubjects",method=RequestMethod.POST)
-	public String assignSubject(@ModelAttribute Subjects sub, @RequestParam("subjectid") String[] subjectid, ModelAndView model){
+	public String assignSubject(@ModelAttribute Subjects sub, @RequestParam("subjectid") String[] subjectid, ModelMap model){
 		String tablename="coursetbl";
 		String columns="(subjectid, gradeid)";
 		String value="";
@@ -139,8 +139,8 @@ public class OperationController {
 			operationDao.insertTableDetail(tablename, columns, value);
 		}
 		String msg="Save Successful!";
-		model.addObject("msg", msg);
-		return "redirect: assignSubjects";
+		model.addAttribute("msg",msg);
+		return "redirect: ../nav/assignSubjects";
 	}
 	
 	// Examination
@@ -158,7 +158,7 @@ public class OperationController {
 			msg="Create Failed!";
 		}
 		model.addAttribute("msg",msg);
-		return "redirect: createEam";
+		return "redirect: ../nav/createExam";
 	}
 	
 }

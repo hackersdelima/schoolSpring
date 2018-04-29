@@ -1,8 +1,44 @@
 package com.spring.model;
 
 public class ExamModel {
-	private String examname,examcode, examtype,startdate, studentid,subjectid,companydb,classid,settings_id, type, description;
+	private String examid, examname,examcode, examtype,startdate, studentid,subjectid,companydb,classid,settings_id, type, description, totalmarks;
+	
+	public String getTotalmarks() {
+		return totalmarks;
+	}
+
+	public void setTotalmarks(String totalmarks) {
+		this.totalmarks = totalmarks;
+	}
+
+	public String getExamid() {
+		return examid;
+	}
+
+	public void setExamid(String examid) {
+		this.examid = examid;
+	}
+
 	private ExamTypeModel examTypeModel;
+	private Subjects subjects;
+	
+	public Subjects getSubjects() {
+		return subjects;
+	}
+
+	public void setSubjects(Subjects subjects) {
+		this.subjects = subjects;
+	}
+
+	public StudentModel getStudentModel() {
+		return studentModel;
+	}
+
+	public void setStudentModel(StudentModel studentModel) {
+		this.studentModel = studentModel;
+	}
+
+	private StudentModel studentModel;
 	
 
 	public ExamTypeModel getExamTypeModel() {
@@ -100,4 +136,14 @@ public class ExamModel {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	@Override
+	public String toString() {
+		return "ExamModel [examid=" + examid + ", examname=" + examname + ", examcode=" + examcode + ", examtype="
+				+ examtype + ", startdate=" + startdate + ", studentid=" + studentid + ", subjectid=" + subjectid
+				+ ", companydb=" + companydb + ", classid=" + classid + ", settings_id=" + settings_id + ", type="
+				+ type + ", description=" + description + ", examTypeModel=" + examTypeModel + ", subjects=" + subjects
+				+ ", studentModel=" + studentModel + "]";
+	}
+	
 }

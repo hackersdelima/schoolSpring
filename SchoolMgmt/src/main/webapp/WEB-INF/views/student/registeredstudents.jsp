@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -79,12 +81,7 @@ tfoot input {
 								<td>${s.studentid }</td>
 								<td>${s.admissiondate }</td>
 								<td>
-								
-								<a data-value="${s.studentid }" class="viewdetail"><i class="fa fa-eye" aria-hidden="true" style="color:blue"></i></a>&nbsp;&nbsp;&nbsp;
-
-								<a href="<spring:url value="/student/editStudent/${s.studentid }" />"><i class="fa fa-pencil-square-o"></i></a>
-
-										<a href=""><i class="fa fa-trash" aria-hidden="true" style="color: red;"></i></a>
+								<a href="<spring:url value="/student/editStudent/${s.studentid }" />">Edit</a>
 								</td>
 							</tr>
 							<%sn++;%>

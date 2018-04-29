@@ -1,17 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%-- <%@page import="com.controller.student.classes.StudentOperations"%>
-<%@page import="java.util.*"%>
-<%@page import="java.sql.*"%>
-
-<%
-	if ((session.getAttribute("userdetail")) != null) {
-		StudentOperations s = new StudentOperations();
-		ResultSet subjects = s.selectsubject();
-		ResultSet section = s.getsection();
-		ResultSet classlist = s.selectclass();
-%> --%>
-
 <jsp:include page="../../include.jsp"></jsp:include>
+<spring:url value="/operation/assignsubjects" var="formUrl"/>
+
+
 <body class="background">
 	<div class="breadcrumb-line">
 		<nav aria-label="breadcrumb" role="navigation">
@@ -37,7 +32,7 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-				<form method="post" action="assignsubjects" id="form"
+				<form:form method="post" action="${formUrl }" id="form"
 					style="width: 60%">
 					<button type="submit" class="btn btn-success" form="form">
 						<i class="fa fa-check"></i> Save
@@ -66,16 +61,13 @@
 							</tr>
 						</tbody>
 					</table>
-				</form>
+				</form:form>
 			</div>
 		</div>
 	</div>
 	
 	<jsp:include page="../../msgmodal.jsp"></jsp:include>
 	<script>
-	<%if (request.getAttribute("msg") != null) {%>
-	   $('#myModal').modal('show');
-	   <%}%>
 $('#form').submit(function() {
     return confirm('CONFIRM SUBJECT SAVE?'); 
 });

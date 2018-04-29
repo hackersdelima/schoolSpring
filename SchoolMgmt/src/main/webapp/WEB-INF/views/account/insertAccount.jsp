@@ -1,7 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <jsp:include page="../include.jsp"></jsp:include>
+<spring:url value="/account/add" var="formUrl"></spring:url>
 <html>
 <head>
 <style>
@@ -10,8 +12,6 @@ h5 {
 	font-weight: bold;
 }
 </style>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
 </head>
 <body class="background">
 	<div class="breadcrumb-line">
@@ -26,13 +26,10 @@ h5 {
 		</nav>
 	</div>
 	<div class="col-md-12 col-sm-12 col-xs-12">
-
-		
-			
 			<div class="col-md-8 col-xs-12">
 		<div class="x_panel">
-			<form class="form-horizontal form-label-left input_mask"
-				method="post" action="account.add">
+			<form:form class="form-horizontal form-label-left input_mask"
+				action="${formUrl }">
 
 				<div class="x_title">
 					<h2>Add New Account</h2>
@@ -59,7 +56,7 @@ h5 {
 						<label class="control-label col-md-2 col-sm-2 col-xs-12">Admission No</label>
 						<div class="col-md-2 col-sm-2 col-xs-12">
 							 <input type="text" id="memberid"
-									class="form-control sharecertmemberid memberid" name="pid"
+									class="form-control sharecertmemberid memberid" name="studentModel.studentid"
 									value="" data-validation="number" data-validation-error-msg=" " required>
 						</div>
 						<div class="col-md-8 col-sm-8 col-xs-12 ">
@@ -71,7 +68,7 @@ h5 {
 							No</label>
 						<div class="col-md-4 col-sm-4 col-xs-12">
 							 <input type="text"
-									class="form-control accountNumber"id="accountno" name="accountNumber"
+									class="form-control accountNumber" id="accountno" name="accountNumber"
 									value="" data-validation="number"
 									data-validation-error-msg=" " required readonly>
 						</div>
@@ -81,7 +78,7 @@ h5 {
 							Account No</label>
 						<div class="col-md-4 col-sm-4 col-xs-12">
 							<input type="text" 
-									class="form-control" name="alternativeAccounId" value=""
+									class="form-control" name="alternativeAccountId" value=""
 									data-validation="number"  >
 						</div>
 						<div class="col-md-6 col-sm-6 col-xs-12 ">
@@ -92,8 +89,7 @@ h5 {
 						<label class="control-label col-md-2 col-sm-2 col-xs-12">
 							Category</label>
 						<div class="col-md-4 col-sm-4 col-xs-12">
-							<select class="form-control categoryid"
-									name="categoryId" id="categories">
+							<select class="form-control categoryId" name="categoryModel.categoryId" id="categories">
 										<option value="">Select Category</option>
 										<c:forEach items="${categorylist }" var="c">
 											<option value="${c.categoryId }">${c.categoryHead }</option>
@@ -110,7 +106,7 @@ h5 {
 							Account Type</label>
 						<div class="col-md-4 col-sm-4 col-xs-12">
 							<select class="form-control"
-									name="accountType" id="accounttype">
+									name="accountTypeModel.accountType" id="accounttype">
 										<option value="">Select Account Type</option>
 								</select>
 
@@ -122,9 +118,6 @@ h5 {
 						<div class="col-md-3 col-sm-3 col-xs-12">
 							<input type="text"
 									class="form-control memberid" name="accountName" id="accountname" value="">
-
-							
-							
 						</div>
 					</div>
 					<div class="form-group">
@@ -134,62 +127,22 @@ h5 {
 									class="form-control" name="limitRef" value="">
 						</div>
 					</div>
-				
-				
-
-
 				</div>
-			</form>
+			</form:form>
 		</div>
-
-									
-									
 							</div>
-							
-
-	</div>
-
-			<div id="1" class="tab-pane fade in active"></div>
-		</div>
 	</div>
 	<jsp:include page="../msgmodal.jsp"></jsp:include>
-	<div class="modal fade" id="memberidmsgmodal" role="dialog">
-		<div class="modal-dialog modal-sm">
-			<div class="modal-content">
-				<div class="modal-body">
-					<p id="modalmsg"></p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<input type="hidden" class="memberidstatus" value="">
-	<script type="text/javascript" src="assets/js/autoSelection.js"></script>
-	<script type="text/javascript" src="assets/js/form.js"></script>
-	<script>
-
-	  
-</script>
-	<!-- <script>
-  $.validate({
-    lang: 'en',
-    modules : 'date,toggleDisabled',
-	  disabledFormFilter : 'form.toggle-disabled',
-	 showErrorDialogs : false
-
-    });
-</script> -->
+	
 <script>
-$("#validate").click(function()
+ $("#validate").click(function()
 		{
 		var id=$('.memberid').val();
 		var dataString = 'id='+ id;
 		$.ajax
 		({
 		type: "POST",
-		url: "getmembername.click",
+		url: "../account/membername",
 		data: dataString,
 		cache: false,
 		success: function(html)
@@ -199,7 +152,7 @@ $("#validate").click(function()
 		$("#accountno").val(id);
 		} 
 		});
-		});
+		}); 
 $("#categories").change(function()
 		{
 		var id=$(this).val();
@@ -208,7 +161,7 @@ $("#categories").change(function()
 		$.ajax
 		({
 		type: "POST",
-		url: "showaccounttype.click",
+		url: "../category/getAccountType",
 		
 		data: dataString,
 		cache: false,
@@ -219,23 +172,7 @@ $("#categories").change(function()
 		});
 
 		});
-$("#validate").click(function()
-		 
-        {
- var id=$('.memberid').val();
- var dataString = 'memberid='+ id;
- $.ajax
-    ({
-    type: "POST",
-    url: "generateaccountno.click",
-    data: dataString,
-    cache: false,
-    success: function(html)
-    {
-    $(".accountNumber").val(html);
-    } 
-    });
-});
+
 </script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-	<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include.jsp"></jsp:include>
 <html>
@@ -21,8 +22,7 @@
 
 	<div class="col-md-8 col-xs-12">
 		<div class="x_panel">
-			<form:form class="form-horizontal form-label-left input_mask"
-				method="post" action="operation/updateGeneralSetting">
+			<form method="post" action="<spring:url value="/operation/updateGeneralSetting"/>" class="form-horizontal form-label-left input_mask" >
 
 				<div class="x_title">
 					<h2>SYSTEM SETTINGS</h2>
@@ -51,16 +51,10 @@
 
 
 				</div>
-			</form:form>
+			</form>
 		</div>
 	</div>
 	<jsp:include page="../msgmodal.jsp"></jsp:include>
-	<script>
-		
-	<%if (request.getAttribute("msg") != null) {%>
-		$('#myModal').modal('show');
-	<%}%>
-		
-	</script>
+	
 </body>
 </html>

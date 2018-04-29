@@ -1,7 +1,89 @@
 package com.spring.model;
 
+import java.util.List;
+
 public class Subjects {
 private String subjectid, subjectname, subjecttype, subjectcode, classid, sectionid, studentid, subjecttypeid, thmarks, prmarks, totalmarks,examtype,totalgrade,remarks,fullmarks, passmarks, fullmarks_pr, passmarks_pr;
+private List<String> subjectidlist, subjecttypelist,fullmarkslist, fullmarks_prlist, passmarkslist, passmarks_prlist, thmarkslist, prmarkslist, totalgradelist, remarkslist ;
+public List<String> getSubjecttypelist() {
+	return subjecttypelist;
+}
+
+public void setSubjecttypelist(List<String> subjecttypelist) {
+	this.subjecttypelist = subjecttypelist;
+}
+
+public List<String> getFullmarkslist() {
+	return fullmarkslist;
+}
+
+public void setFullmarkslist(List<String> fullmarkslist) {
+	this.fullmarkslist = fullmarkslist;
+}
+
+public List<String> getFullmarks_prlist() {
+	return fullmarks_prlist;
+}
+
+public void setFullmarks_prlist(List<String> fullmarks_prlist) {
+	this.fullmarks_prlist = fullmarks_prlist;
+}
+
+public List<String> getPassmarkslist() {
+	return passmarkslist;
+}
+
+public void setPassmarkslist(List<String> passmarkslist) {
+	this.passmarkslist = passmarkslist;
+}
+
+public List<String> getPassmarks_prlist() {
+	return passmarks_prlist;
+}
+
+public void setPassmarks_prlist(List<String> passmarks_prlist) {
+	this.passmarks_prlist = passmarks_prlist;
+}
+
+public List<String> getThmarkslist() {
+	return thmarkslist;
+}
+
+public void setThmarkslist(List<String> thmarkslist) {
+	this.thmarkslist = thmarkslist;
+}
+
+public List<String> getPrmarkslist() {
+	return prmarkslist;
+}
+
+public void setPrmarkslist(List<String> prmarkslist) {
+	this.prmarkslist = prmarkslist;
+}
+
+public List<String> getTotalgradelist() {
+	return totalgradelist;
+}
+
+public void setTotalgradelist(List<String> totalgradelist) {
+	this.totalgradelist = totalgradelist;
+}
+
+public List<String> getRemarkslist() {
+	return remarkslist;
+}
+
+public void setRemarkslist(List<String> remarkslist) {
+	this.remarkslist = remarkslist;
+}
+
+public List<String> getSubjectidlist() {
+	return subjectidlist;
+}
+
+public void setSubjectidlist(List<String> subjectidlist) {
+	this.subjectidlist = subjectidlist;
+}
 
 public String getFullmarks() {
 	return fullmarks;
@@ -146,5 +228,21 @@ public String getSubjectname() {
 public void setSubjectname(String subjectname) {
 	this.subjectname = subjectname;
 }
+
+@Override
+public String toString() {
+	return "Subjects [subjectid=" + subjectid + ", subjectname=" + subjectname + ", subjecttype=" + subjecttype
+			+ ", subjectcode=" + subjectcode + ", classid=" + classid + ", sectionid=" + sectionid + ", studentid="
+			+ studentid + ", subjecttypeid=" + subjecttypeid + ", thmarks=" + thmarks + ", prmarks=" + prmarks
+			+ ", totalmarks=" + totalmarks + ", examtype=" + examtype + ", totalgrade=" + totalgrade + ", remarks="
+			+ remarks + ", fullmarks=" + fullmarks + ", passmarks=" + passmarks + ", fullmarks_pr=" + fullmarks_pr
+			+ ", passmarks_pr=" + passmarks_pr + ", subjectidlist=" + subjectidlist + ", subjecttypelist="
+			+ subjecttypelist + ", fullmarkslist=" + fullmarkslist + ", fullmarks_prlist=" + fullmarks_prlist
+			+ ", passmarkslist=" + passmarkslist + ", passmarks_prlist=" + passmarks_prlist + ", thmarkslist="
+			+ thmarkslist + ", prmarkslist=" + prmarkslist + ", totalgradelist=" + totalgradelist + ", remarkslist="
+			+ remarkslist + "]";
+}
+
+
 
 }

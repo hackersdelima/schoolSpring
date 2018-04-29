@@ -74,6 +74,51 @@
                             </li>
                     </ul>
                   </li>
+                  <li><a><span class="fa fa-chevron-down"></span><i class="fa fa-user"></i>Account</a>
+											<ul class="nav child_menu">
+												<li id="i"><a href="nav/account" target="iframe_a">Open
+														New member Account</a></li>
+												<!-- 	<li><a href="pageNotFound.jsp" target="iframe_a">Open New
+														Shareholder Account</a> -->
+												<li id="v"><a href="nav/viewAccount" target="iframe_a">Amendment
+														of member Account</a></li>
+											</ul></li>
+											<li id="generaltransaction"><a><i class="fa fa-tasks" aria-hidden="true"></i> General
+										Transaction <span class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+										<li><a><span class="fa fa-chevron-down"></span>Funds
+												Transfer</a>
+											<ul class="nav child_menu">
+												<li id="i"><a href="nav/fundTransfer" target="iframe_a">New
+														Account Transfer </a></li>
+												<li id="e"><a href="viewtransaction.click" target="iframe_a">Amend
+														Account Transfer</a></li>
+												<li><a href="a" target="iframe_a">Authorize Account
+														Transfer</a></li>
+
+											</ul></li>
+										
+											
+										<li><a><span class="fa fa-chevron-down"></span>
+												Journal Entry (Multiple Debit - Multiple Credit) </a>
+											<ul class="nav child_menu">
+												<li id="i"><a href="insertMultiTxn.click" target="iframe_a">New
+														Journal Entry </a></li>
+												<li id="v"><a href="viewMultiTxn.click" target="iframe_a">Amend
+														Journal Entry </a></li>
+												<li id="a"><a href="pageNotFound.jsp" target="iframe_a"> Authorize
+														Journal Entry </a></li>
+
+											</ul></li>
+											
+									</ul></li>
+									<li><a><span class="fa fa-chevron-down"></span>Invoice</a>
+											<ul class="nav child_menu">
+										<li id="a"><a href="nav/invoice" target="iframe_a"> Invoice </a></li>
+										</ul>
+										</li>
+										
+								
                 </ul>
               </div>
               <div class="menu_section">
@@ -92,7 +137,7 @@
                         </li>
                          <li><a>Admin Settings<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li ><a href="initialDetails" target="iframe_a">Category</a>
+                            <li ><a href="nav/category" target="iframe_a">Category</a>
                             </li>
                             
                           </ul>

@@ -35,7 +35,7 @@ private JdbcTemplate jdbcTemplate;
 	 }
 	 
 	 public List<FormDetails> getDistricts(){
-		 String sql="SELECT * FROM DISTRICTCODES";
+		 String sql="SELECT * FROM districtcodes";
 			return jdbcTemplate.query(sql, new ClassMapper());
 	 }
 	 public static final class ClassMapper implements RowMapper<FormDetails>{
@@ -49,7 +49,7 @@ private JdbcTemplate jdbcTemplate;
 			}
 	 }
 	 public List<FormDetails> getDisabledType(){
-		 String sql="SELECT * FROM DISABLEDTYPE";
+		 String sql="SELECT * FROM disabledtype";
 			return jdbcTemplate.query(sql, new DisabledType());
 	 }
 	 public static final class DisabledType implements RowMapper<FormDetails>{
@@ -64,7 +64,7 @@ private JdbcTemplate jdbcTemplate;
 	
 
 	 public List<FormDetails> getAdmissionClass(){
-		 String sql="SELECT * FROM CLASSLIST";
+		 String sql="SELECT * FROM classlist";
 			return jdbcTemplate.query(sql, new AdmissionClass());
 	 }
 	 public static final class AdmissionClass implements RowMapper<FormDetails>{
@@ -120,7 +120,7 @@ private JdbcTemplate jdbcTemplate;
 			}
 	 }
 	 public List<FormDetails> getLanguages(){
-		 String sql="SELECT * FROM LANGUAGETBL";
+		 String sql="SELECT * FROM languagetbl";
 			return jdbcTemplate.query(sql, new Languages());
 	 }
 	 public static final class Languages implements RowMapper<FormDetails>{
@@ -135,7 +135,7 @@ private JdbcTemplate jdbcTemplate;
 		 
 	 }
 	 public List<FormDetails> getCaste(){
-		 String sql="SELECT * FROM CASTETBL";
+		 String sql="SELECT * FROM castetbl";
 			return jdbcTemplate.query(sql, new Caste());
 	 }
 	 public static final class Caste implements RowMapper<FormDetails>{
@@ -148,7 +148,7 @@ private JdbcTemplate jdbcTemplate;
 		}
 	 }
 	 public List<FormDetails> getExamType(){
-		 String sql="SELECT * FROM EXAM_TYPE";
+		 String sql="SELECT * FROM exam_type";
 			return jdbcTemplate.query(sql, new Exam());
 	 }
 	 public static final class Exam implements RowMapper<FormDetails>{
@@ -226,9 +226,16 @@ private JdbcTemplate jdbcTemplate;
 			}
 			
 		}
-		public StudentModel getStudentDetail(String id, String tablename)
+		public StudentModel getStudentDetail(String id)
 		{
-			String query="select * from "+tablename+" where studentid='"+id+"'";
+			String query="select * from studentdetail where studentid='"+id+"'";
+			return jdbcTemplate.queryForObject(query, new StudentMapper());
+			
+		}
+		public StudentModel getStudentDetail(String classname, String section, String rollno)
+		{
+			String query="select * from studentdetail where admissionclass='"+classname+"' and section='"+section+"' and rollno='"+rollno+"'";
+			System.out.println(query);
 			return jdbcTemplate.queryForObject(query, new StudentMapper());
 			
 		}

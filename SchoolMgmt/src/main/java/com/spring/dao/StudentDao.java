@@ -18,7 +18,8 @@ public interface StudentDao {
 	public int insertStudent(StudentModel student);
 	 public boolean insertStudentOtherDetails(StudentModel s, int studentid);
 	public List<StudentModel> getAllStudents();
-	public StudentModel getStudentDetail(String id, String tablename);
+	public StudentModel getStudentDetail(String id);
+	public StudentModel getStudentDetail(String classname, String section, String rollno);
 
 	public boolean updateStudent(StudentModel student);
 

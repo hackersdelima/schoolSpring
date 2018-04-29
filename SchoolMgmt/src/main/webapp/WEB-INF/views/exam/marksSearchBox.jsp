@@ -1,6 +1,12 @@
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<spring:url value="/student/studentName" var="studentNameUrl"/>
+<spring:url value="/exam/searchMarksReport" var="formUrl"/>
 <jsp:include page="../include.jsp"></jsp:include>
 <html>
 <body class="background">
+<input type="hidden" value="${studentNameUrl }" id="url">
 	<div class="breadcrumb-line">
 		<nav aria-label="breadcrumb" role="navigation">
 			<ol class="breadcrumb">
@@ -20,47 +26,91 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-				<form method="post" action="specificStudentReport.view" >
-				<table class="table">
-					<tbody>
-						<tr>
-
-							<td><h6>Exam*</h6> <select class="form-control"
-								name="examid"  required>
-									<option value="" selected>Select exam</option>
-								
-							</select></td>
-							<td><h6>Class*</h6> 	<select class="form-control" name="classname" id="class" required>
+			<form:form action="${formUrl }" 
+					style="margin-top: 10px;" class="form">
+					<div role="tabpanel" class="tab-pane" aria-labelledby="profile-tab">
+					<div class="form-group">
+						<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+							<button class="btn btn-info" type="button" id="validate">Validate</button>
+							<button class="btn btn-primary" type="reset">Reset</button>
+							<input type="submit" class="btn btn-success" value="Submit">
+						</div>
+					</div><br>
+					<div class="ln_solid"></div>
+					<div class="col-md-3">
+								<input type="text" class="form-control" id="studentname"
+									placeholder="Std. Name" readonly> <br>
+							</div>
+						<div class="col-md-12">
+						<div class="col-md-3">
+								<h6>
+									<strong>Exam*</strong>
+								</h6>
+								<select class="form-control" name="examid" required>
+									<option value="">Select Exam</option>
+									<c:forEach items="${examlist }" var="exam">
+										<option value="${exam.examid }">${exam.examname }</option>
+									</c:forEach>
+									
+								</select>
+							</div>
+							<div class="col-md-3">
+								<h6>
+									<strong>Class*</strong>
+								</h6>
+								<select class="form-control" name="classid" id="class" required>
 									<option value="">Select Class</option>
-								
-								</select></td>
-							<td><h6>Section</h6>  	<select class="form-control" name="section" id="section">
+									<c:forEach items="${classlist }" var="cl">
+									<option value="${cl.classid }">${cl.classname }</option>
+									</c:forEach>
+								</select>
+							</div>
+							<div class="col-md-3">
+								<h6>
+									<strong>Section</strong>
+								</h6>
+								<select class="form-control" name="sectionid" id="section" required>
 									<option value="">Select Section</option>
-								</select></td>
-							<td><h6>Roll No*</h6> <input type="text"
-								class="form-control" name="rollno" required></td>
-							<!-- <td><h6>Student ID*</h6> <input type="text"
-								class="form-control" name="studentid" form="form" required></td> -->
-
-						</tr>
-						<tr>
-							<td>
-								<button type="submit" class="btn btn-success" >
-									<i class="fa fa-check"></i> Search
-								</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				</form>
+									<c:forEach items="${section }" var="sec">
+									<option value="${sec.sectionname }">${sec.sectionname}</option>
+									</c:forEach>
+								</select>
+							</div>
+							<div class="col-md-3">
+								<h6>
+									<strong>Roll No</strong>
+								</h6>
+								<input type="text" class="form-control" name="rollno" id="rollno"
+									placeholder="" required>
+									<br>
+							</div>
+						</div>
+					</div>
+					<div id="markstable"></div>
+				</form:form>
 			</div>
 		</div>
 	</div>
 	
 	<script type="text/javascript">
-	<%if (request.getAttribute("msg") != null) {%>
-	$('#myModal').modal('show');
-<%}%>
+	$('form').submit(function() {
+		return confirm("CONFIRM?");
+	});
+	 $("#validate").click(function() {
+			var classname = $("#class").val();
+			var section = $("#section").val();
+			var rollno = $("#rollno").val();
+			var url=$("#url").val();
+			$.ajax({
+				type : "POST",
+				url : url,
+				data : {"classname": classname, "section": section, "rollno":rollno},
+				cache : false,
+				success : function(html) {
+					$("#studentname").val(html);
+				}
+			});
+		});
 	</script>
 
 </body>
