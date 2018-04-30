@@ -1,35 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-   xmlns:context="http://www.springframework.org/schema/context"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="
-   http://www.springframework.org/schema/beans
-   http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-   http://www.springframework.org/schema/context
-   http://www.springframework.org/schema/context/spring-context-4.0.xsd">
-   
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
 		<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource" />
 		</bean>
 
-	<bean id="operationDao" class="com.spring.dao.impl.OperationDaoImpl">
-		<property name="jdbcTemplate" ref="jdbcTemplate" />
-	</bean>
+
 
 	<bean id="userDao" class="com.spring.dao.impl.UserDaoImpl">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
 	<bean id="studentDao" class="com.spring.dao.impl.StudentDaoImpl">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
-	</bean>
-	<bean id="accountDao" class="com.spring.dao.impl.AccountDaoImpl">
-		<property name="jdbcTemplate" ref="jdbcTemplate"/>
-	</bean>
-	<bean id="categoryDao" class="com.spring.dao.impl.CategoryDaoImpl">
-		<property name="jdbcTemplate" ref="jdbcTemplate"/>
-	</bean>
-	<bean id="examDao" class="com.spring.dao.impl.ExamDaoImpl">
-		<property name="jdbcTemplate" ref="jdbcTemplate"/>
 	</bean>
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="dataSource"
