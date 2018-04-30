@@ -73,56 +73,59 @@
 		<table id="items">
 		
 		  <tr>
+		  	<th>S.No</th>
 		      <th>Category</th>
 		      <th>Description</th>
 		      <th>Charges</th>
 		      <th>Payment</th>
 		      <th>Balance</th>
 		  </tr>
-		  <c:forEach items="${sessionScope.feeInvoice.description }"> 
+		  <c:forEach items="${sessionScope.feeInvoice.description }" var="desc" varStatus="descIndex"> 
 		  <tr class="item-row">
+		  <td>${descIndex.index +1 }</td>
 		      <td class="item-name">cateogry name</td>
-		      <td class="description">${sessionScope.feeInvoice.description }</td>
-		      <td><p class="cost">${sessionScope.feeInvoice.charges }</p></td>
-		      <td><p class="qty">${sessionScope.feeInvoice.payments }</p></td>
-		      <td><span class="price">${sessionScope.feeInvoice.balance }</span></td>
+		      <td class="description">${desc }</td>
+		      <td><p class="cost">${sessionScope.feeInvoice.charges[descIndex.index] }</p></td>
+		      <td><p class="qty">${sessionScope.feeInvoice.payments[descIndex.index] }</p></td>
+		      <td><span class="price">${sessionScope.feeInvoice.balance[descIndex.index] }</span></td>
 		  </tr>
 		  </c:forEach>
 		  
 		  <tr>
-		      <td colspan="2" class="blank"> </td>
+		  
+		      <td colspan="3" class="blank"> </td>
 		      <td colspan="2" class="total-line">Subtotal</td>
 		      <td class="total-value"><div id="subtotal">${sessionScope.feeInvoice.subTotal }</div></td>
 		  </tr>
 		   <tr>
-		      <td colspan="2" class="blank"> </td>
+		      <td colspan="3" class="blank"> </td>
 		      <td colspan="2" class="total-line">Discount</td>
 		      <td class="total-value"><div id="subtotal">${sessionScope.feeInvoice.discountAmount }</div></td>
 		  </tr>
 		   <tr>
 
-		      <td colspan="2" class="blank"> </td>
+		      <td colspan="3" class="blank"> </td>
 		      <td colspan="2" class="total-line">Total</td>
 		      <td class="total-value"><div id="total">${sessionScope.feeInvoice.total }</div></td>
 		  </tr>
 		   <tr>
-		      <td colspan="2" class="blank"> </td>
+		      <td colspan="3" class="blank"> </td>
 		      <td colspan="2" class="total-line">Tax Amount</td>
 		      <td class="total-value"><div id="subtotal">${sessionScope.feeInvoice.taxAmount }</div></td>
 		  </tr>
 		  <tr>
 
-		      <td colspan="2" class="blank"> </td>
+		      <td colspan="3" class="blank"> </td>
 		      <td colspan="2" class="total-line">Grand Total</td>
 		      <td class="total-value"><div id="total">${sessionScope.feeInvoice.grandTotal }</div></td>
 		  </tr>
 		  <tr>
-		      <td colspan="2" class="blank"> </td>
+		      <td colspan="3" class="blank"> </td>
 		      <td colspan="2" class="total-line">Amount Paid</td>
 		      <td class="total-value"><p id="paid">${sessionScope.feeInvoice.amountPaid }</p></td>
 		  </tr>
 		  <tr>
-		      <td colspan="2" class="blank"> </td>
+		      <td colspan="3" class="blank"> </td>
 		      <td colspan="2" class="total-line balance">Balance Due</td>
 		      <td class="total-value balance"><div class="due">${sessionScope.feeInvoice.balanceDue }</div></td>
 		  </tr>

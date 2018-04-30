@@ -29,7 +29,7 @@ public class FeeInvoiceController {
 	@RequestMapping(value = "/review")
 	public String review(@ModelAttribute FeeInvoiceModel feeInvoice, ModelMap model){
 		
-		System.out.println(feeInvoice.getStudent().getStudentid());
+		System.out.println(feeInvoice);
 		System.out.println("invoking review()");
 		model.addAttribute("feeInvoice",feeInvoice);
 		return "invoice/printableInvoice";
