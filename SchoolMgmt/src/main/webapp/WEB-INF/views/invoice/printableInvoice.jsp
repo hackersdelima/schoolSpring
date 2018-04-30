@@ -48,21 +48,21 @@
                 </tr>
                 <tr>
                     <td class="meta-head">Invoice Date</td>
-                    <td><p id="date">${fromDateEn }</p></td>
+                    <td><p id="date">${sessionScope.feeInvoice.invoiceDateEn }</p></td>
                 </tr>
                 <tr>
 
                     <td class="meta-head">Date From</td>
-                    <td><p id="date">${fromDateEn }</p></td>
+                    <td><p id="date">${sessionScope.feeInvoice.fromDateEn }</p></td>
                 </tr>
                 <tr>
 
                     <td class="meta-head">Date To</td>
-                    <td><p id="date">${toDateEn }</p></td>
+                    <td><p id="date">${sessionScope.feeInvoice.toDateEn }</p></td>
                 </tr>
                 <tr>
                     <td class="meta-head">Amount Due</td>
-                    <td><div class="due">875.00</div></td>
+                    <td><div class="due">${sessionScope.feeInvoice.balanceDue }</div></td>
                 </tr>
 
             </table>
@@ -90,46 +90,46 @@
 		  <tr>
 		      <td colspan="2" class="blank"> </td>
 		      <td colspan="2" class="total-line">Subtotal</td>
-		      <td class="total-value"><div id="subtotal">$875.00</div></td>
+		      <td class="total-value"><div id="subtotal">${sessionScope.feeInvoice.subTotal }</div></td>
 		  </tr>
 		   <tr>
 		      <td colspan="2" class="blank"> </td>
 		      <td colspan="2" class="total-line">Discount</td>
-		      <td class="total-value"><div id="subtotal">$875.00</div></td>
+		      <td class="total-value"><div id="subtotal">${sessionScope.feeInvoice.discountAmount }</div></td>
 		  </tr>
 		   <tr>
 
 		      <td colspan="2" class="blank"> </td>
 		      <td colspan="2" class="total-line">Total</td>
-		      <td class="total-value"><div id="total">$875.00</div></td>
+		      <td class="total-value"><div id="total">${sessionScope.feeInvoice.total }</div></td>
 		  </tr>
 		   <tr>
 		      <td colspan="2" class="blank"> </td>
 		      <td colspan="2" class="total-line">Tax Amount</td>
-		      <td class="total-value"><div id="subtotal">$875.00</div></td>
+		      <td class="total-value"><div id="subtotal">${sessionScope.feeInvoice.taxAmount }</div></td>
 		  </tr>
 		  <tr>
 
 		      <td colspan="2" class="blank"> </td>
 		      <td colspan="2" class="total-line">Grand Total</td>
-		      <td class="total-value"><div id="total">$875.00</div></td>
+		      <td class="total-value"><div id="total">${sessionScope.feeInvoice.grandTotal }</div></td>
 		  </tr>
 		  <tr>
 		      <td colspan="2" class="blank"> </td>
 		      <td colspan="2" class="total-line">Amount Paid</td>
-		      <td class="total-value"><p id="paid">$0.00</p></td>
+		      <td class="total-value"><p id="paid">${sessionScope.feeInvoice.amountPaid }</p></td>
 		  </tr>
 		  <tr>
 		      <td colspan="2" class="blank"> </td>
 		      <td colspan="2" class="total-line balance">Balance Due</td>
-		      <td class="total-value balance"><div class="due">$875.00</div></td>
+		      <td class="total-value balance"><div class="due">${sessionScope.feeInvoice.balanceDue }</div></td>
 		  </tr>
 		
 		</table>
 		
 		<div id="terms">
-		  <h5>Terms</h5>
-		  <textarea>NET 30 Days. Finance Charge of 1.5% will be made on unpaid balances after 30 days.</textarea>
+		  <h5>Remarks</h5>
+		  <p>${sessionScope.feeInvoice.remarks }</p>
 		</div>
 	
 	</div>
