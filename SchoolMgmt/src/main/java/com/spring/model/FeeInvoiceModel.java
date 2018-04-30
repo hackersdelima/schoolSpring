@@ -1,7 +1,15 @@
 package com.spring.model;
 
+import java.util.List;
+
 public class FeeInvoiceModel {
-	private String fromDateEn, fromDateNep, toDateEn, toDateNep, invoiceNo, invoiceDateEn, invoiceDateNep, description, charges, payments, balance, subTotal, discountPercentage, discountAmount, total, taxPercentage, taxAmount, grandTotal, amountPaid, balanceDue, inwords, remarks;
+	private String fromDateEn, fromDateNep, toDateEn, toDateNep, invoiceNo, invoiceDateEn, invoiceDateNep, subTotal, discountPercentage, discountAmount, total, taxPercentage, taxAmount, grandTotal, amountPaid, balanceDue, inwords, remarks;
+	private List<String> description;
+	private List<String> charges;
+	private List<String> payments;
+	private List<String> balance;
+	
+	
 	public String getFromDateEn() {
 		return fromDateEn;
 	}
@@ -44,28 +52,29 @@ public class FeeInvoiceModel {
 	public void setInvoiceDateNep(String invoiceDateNep) {
 		this.invoiceDateNep = invoiceDateNep;
 	}
-	public String getDescription() {
+	
+	public List<String> getDescription() {
 		return description;
 	}
-	public void setDescription(String description) {
+	public void setDescription(List<String> description) {
 		this.description = description;
 	}
-	public String getCharges() {
+	public List<String> getCharges() {
 		return charges;
 	}
-	public void setCharges(String charges) {
+	public void setCharges(List<String> charges) {
 		this.charges = charges;
 	}
-	public String getPayments() {
+	public List<String> getPayments() {
 		return payments;
 	}
-	public void setPayments(String payments) {
+	public void setPayments(List<String> payments) {
 		this.payments = payments;
 	}
-	public String getBalance() {
+	public List<String> getBalance() {
 		return balance;
 	}
-	public void setBalance(String balance) {
+	public void setBalance(List<String> balance) {
 		this.balance = balance;
 	}
 	public String getSubTotal() {

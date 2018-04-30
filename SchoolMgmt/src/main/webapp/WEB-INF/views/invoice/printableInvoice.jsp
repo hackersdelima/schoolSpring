@@ -1,4 +1,5 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <head>
 	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 	
@@ -78,14 +79,15 @@
 		      <th>Payment</th>
 		      <th>Balance</th>
 		  </tr>
-		  
+		  <c:forEach items="${sessionScope.feeInvoice.description }"> 
 		  <tr class="item-row">
 		      <td class="item-name">cateogry name</td>
-		      <td class="description">Description</td>
-		      <td><p class="cost">650.00</p></td>
-		      <td><p class="qty">1.00</p></td>
-		      <td><span class="price">649.00</span></td>
+		      <td class="description">${sessionScope.feeInvoice.description }</td>
+		      <td><p class="cost">${sessionScope.feeInvoice.charges }</p></td>
+		      <td><p class="qty">${sessionScope.feeInvoice.payments }</p></td>
+		      <td><span class="price">${sessionScope.feeInvoice.balance }</span></td>
 		  </tr>
+		  </c:forEach>
 		  
 		  <tr>
 		      <td colspan="2" class="blank"> </td>
