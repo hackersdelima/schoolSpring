@@ -21,10 +21,4 @@
 			$('#billDateEnglish1').val(BS2AD($('#billDateNepali1').val()));
 		});
 //---------------------------------------AUTO - ON DATE TYPING------------------------
-		$("#nepaliDate, #englishDate, #billDateEnglish, #billDateNepali, #dateEnglish, #dateNepali,  #dateEnglish1, #dateNepali1").keyup(function(){
-	           if ($(this).val().length == 4){
-	               $(this).val($(this).val() + "-");
-	           }else if ($(this).val().length == 7){
-	               $(this).val($(this).val() + "-");
-	           }
-	       });
+		
