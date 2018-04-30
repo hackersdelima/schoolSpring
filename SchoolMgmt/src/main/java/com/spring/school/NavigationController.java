@@ -141,10 +141,6 @@ private void commonModels(Model model){
 	public String fundTransfer(){
 		return "generalTransaction/fundsTransfer/insert";
 	}
-	@RequestMapping(value = "/invoice")
-	public String invoice(Model model){
-		model.addAttribute("categorylist",categoryDao.getCategories());
-		return "invoice/printableInvoice";
-	}
+	
 }
 

@@ -1,6 +1,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<spring:url value="/invoice/review" var="formUrl"/>
 <jsp:include page="../include.jsp"></jsp:include>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,8 +36,7 @@
 
 		<div class="col-md-12">
 			<header class="clearfix">
-				<form id="addBillForm" method="post" action="addPurchase"
-					target="_blank"></form>
+				<form id="addBillForm" method="post" action="${formUrl }"></form>
 				<div id="logo"></div>
 				<center>
 					<h2 class="name">
@@ -45,30 +45,30 @@
 				</center>
 				<div id="seller">
 					<div>
-						<span class="label label-default ">From Date(English)*</span> <br>
+						<span class="label label-default">From Date(English)*</span> <br>
 						<input type="text" maxlength="10" id="englishDate"
-							class="form-control date" name="fromDate" form="addBillForm"
-							placeholder="yyyy-mm-dd" required>
+							class="form-control date" name="fromDateEn" form="addBillForm" value="${sessionScope.feeInvoice.fromDateEn }"
+							placeholder="yyyy-mm-dd" >
 					</div>
 					<br>
 					<div>
 						<span class="label label-default ">From Date(Nepali)*</span> <br>
-						<input type="text" maxlength="10" id="nepaliDate"
-							class="form-control date" placeholder="yyyy-mm-dd" required>
+						<input type="text" maxlength="10" id="nepaliDate" name="fromDateNep"
+							class="form-control date" placeholder="yyyy-mm-dd"  value="${sessionScope.feeInvoice.fromDateNep }">
 					</div>
 				</div>
 				<div id="client">
 					<div>
 						<span class="label label-default ">To Date(English)*</span> <br>
 						<input type="text" maxlength="10" id="englishDate1"
-							class="form-control date" name="toDate" form="addBillForm"
-							placeholder="yyyy-mm-dd" required>
+							class="form-control date" name="toDateEn" form="addBillForm"
+							placeholder="yyyy-mm-dd" value="${sessionScope.feeInvoice.toDateEn }">
 					</div>
 					<br>
 					<div>
 						<span class="label label-default ">To Date(Nepali)*</span> <br>
-						<input type="text" maxlength="10" id="nepaliDate1"
-							class="form-control date" placeholder="yyyy-mm-dd" required>
+						<input type="text" maxlength="10" id="nepaliDate1" name="toDateNep"
+							class="form-control date" placeholder="yyyy-mm-dd" value="${sessionScope.feeInvoice.toDateNep }" >
 					</div>
 					<br>
 				</div>
@@ -82,13 +82,13 @@
 					<h4 class="name">
 						<span class="label label-default">Invoice No*</span><input
 							type="text" class="form-control " name="invoiceNo"
-							form="addBillForm" required>
+							form="addBillForm" value="${sessionScope.feeInvoice.invoiceNo }">
 					</h4>
 
 					<h4 class="name">
 						<span class="label label-default">Student Admission No*</span><input
-							type="text" class="form-control " name="studentid"
-							form="addBillForm" required>
+							type="text" class="form-control " name="student.studentid" value="${sessionScope.feeInvoice.student.studentid }"
+							form="addBillForm" >
 					</h4>
 				</div>
 				<div id="client">
@@ -96,14 +96,14 @@
 					<div class="date">
 						<span class="label label-default">Bill Date(English)*</span> <input
 							type="text" maxlength="10" id="billDateEnglish"
-							class="form-control date" name="billDate" form="addBillForm"
-							placeholder="yyyy-mm-dd" required>
+							class="form-control date" name="invoiceDateEn" form="addBillForm"
+							placeholder="yyyy-mm-dd" value="${sessionScope.feeInvoice.invoiceDateEn }" >
 					</div>
 					<br>
 					<div class="date">
 						<span class="label label-default">Bill Date(Nepali)*</span> <input
-							type="text" maxlength="10" id="billDateNepali"
-							class="form-control date" placeholder="yyyy-mm-dd" required>
+							type="text" maxlength="10" id="billDateNepali" name="invoiceDateNep"
+							class="form-control date" placeholder="yyyy-mm-dd" value="${sessionScope.feeInvoice.invoiceDateNep }">
 					</div>
 				</div>
 
@@ -127,24 +127,24 @@
 					<tr id="tablerow">
 						<td><button onclick="deleteRow(this)" class="removebutton">X</button></td>
 						<td colspan="1"><select class="form-control"
-							name="categoryId" form="addBillForm" required>
+							name="category.categoryId" form="addBillForm" >
 								<option value="">Select</option>
 								<c:forEach items="${categorylist }" var="c">
 									<option value="${c.categoryId }">${c.categoryHead }</option>
 								</c:forEach>
 						</select></td>
 						<td class="desc" colspan="4"><input type="text"
-							class="form-control input" name="description" form="addBillForm"
-							required></td>
+							class="form-control input" name="description" form="addBillForm" value=""
+							></td>
 						<td class="desc" colspan="1"><input type="text"
 							class="form-control one" name="charges" form="addBillForm"
-							required></td>
+							></td>
 						<td class="desc" colspan="1"><input type="text"
 							class="form-control two" name="payments" id="itemName"
-							form="addBillForm" required></td>
+							form="addBillForm" ></td>
 						<td class="total" colspan="1"><input
-							class="form-control balance" type="number" step="any" min=1
-							name="balance" form="addBillForm" required></td>
+							class="form-control balance" type="number" step="any"
+							name="balance" form="addBillForm" ></td>
 
 
 					</tr>
@@ -156,72 +156,72 @@
 						<td colspan="7"></td>
 						<td colspan="1">SUB-TOTAL(Rs)</td>
 						<td><input class="form-control subtotal" type="number"
-							step="any" min=1 name="subTotal" form="addBillForm" readonly
-							required></td>
+							step="any"  name="subTotal" value="${sessionScope.feeInvoice.subTotal }" form="addBillForm" readonly
+							></td>
 					</tr>
 					<tr>
 						<td colspan="7"></td>
 						<td colspan="1"><span class="label label-default">Discount
 								%*</span><br> <input form="addBillForm" name="discountPercentage"
 							type="number" step="any" min=0 max=100
-							class="form-control discountPercentage inputdetails " required></td>
+							class="form-control discountPercentage inputdetails " value="${sessionScope.feeInvoice.discountPercentage }"></td>
 
 						<td><span class="label label-default">Discount(Rs)</span> <input
 							value="0" form="addBillForm" name="discountAmount" type="number"
-							step="any" min=1 class="form-control discountAmount " readonly
-							required></td>
+							step="any"  class="form-control discountAmount " value="${sessionScope.feeInvoice.discountAmount }" readonly
+							></td>
 					</tr>
 					<tr>
 						<td colspan="7"></td>
 						<td colspan="1">TOTAL(Rs)</td>
 						<td><input class="form-control resulttotal" type="number"
-							step="any" min=1 form="addBillForm" name="totalAmount" required
+							step="any"  form="addBillForm" name="total" value="${sessionScope.feeInvoice.total }"
 							readonly></td>
 					</tr>
 					<tr>
 						<td colspan="7"></td>
 						<td colspan="1"><span class="label label-default">TAX
-								%*</span><br> <input name="vatPercentage" form="addBillForm"
+								%*</span><br> <input name="taxPercentage" form="addBillForm"
 							step="any" type="number" min=0 max=100
-							class="form-control taxPercentage inputdetails" required></td>
+							class="form-control taxPercentage inputdetails" value="${sessionScope.feeInvoice.taxPercentage }"></td>
 						<td><span class="label label-default">TAX Amount(Rs)</span> <input
-							value="0" name="vatAmount" form="addBillForm" type="number"
-							step="any" min=1 class="form-control taxAmount" required></td>
+							value="0" name="taxAmount" form="addBillForm" type="number"
+							step="any"  class="form-control taxAmount" value="${sessionScope.feeInvoice.taxAmount }"></td>
 					</tr>
 
 					<tr>
 						<td colspan="7"></td>
 						<td colspan="1">GRAND TOTAL(Rs)</td>
 						<td><input name="grandTotal" id="grand-total" form="addBillForm"
-							type="number" step="any" min=1 class="form-control grandTotal"
-							required readonly></td>
+							type="number" step="any"  class="form-control grandTotal" value="${sessionScope.feeInvoice.grandTotal }"
+							 readonly></td>
 					</tr>
 					<tr>
 						<td colspan="7"></td>
 						<td colspan="1">AMOUNT PAID(Rs)</td>
 						<td><input name="amountPaid" id="number" form="addBillForm"
-							type="number" step="any" min=1 class="form-control"
-							required></td>
+							type="number" step="any"  class="form-control" value="${sessionScope.feeInvoice.amountPaid }"
+							></td>
 					</tr>
 					<tr>
 						<td colspan="7"></td>
 						<td colspan="1">BALANCE DUE(Rs)</td>
 						<td><input name="balanceDue" id="balance-due" form="addBillForm"
-							type="number" step="any" min=1 class="form-control"
-							required></td>
+							type="number" step="any"  class="form-control" value="${sessionScope.feeInvoice.balanceDue }"
+							></td>
 					</tr>
 					<tr>
 						<td colspan="6"></td>
 						<td colspan="1"><h5>IN WORDS</h5></td>
 						<td colspan="2"><textarea id="result" cols="30"
-								name="grandTotalInWords" form="addBillForm" class="form-control"
+								name="inwords" form="addBillForm" class="form-control" value="${sessionScope.feeInvoice.inwords }"
 								rows="3" readonly></textarea></td>
 					</tr>
 					<tr>
 						<td colspan="6"></td>
 						<td colspan="1"><h5>REMARKS</h5></td>
 						<td colspan="2"><textarea id="remarks" cols="30"
-								name="remarks" form="addBillForm" class="form-control" rows="3"></textarea></td>
+								name="remarks" form="addBillForm" class="form-control" rows="3" value="${sessionScope.feeInvoice.remarks }"></textarea></td>
 					</tr>
 				</tfoot>
 			</table>

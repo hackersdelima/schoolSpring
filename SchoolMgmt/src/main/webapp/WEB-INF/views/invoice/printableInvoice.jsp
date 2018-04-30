@@ -1,3 +1,4 @@
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <head>
 	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 	
@@ -9,7 +10,8 @@
 </head>
 
 <body>
-
+<a href="<spring:url value="/invoice/add" />">Edit</a>
+<a href="<spring:url value="/invoice/save" />">Save</a>
 	<div id="page-wrap">
 
 		<textarea id="header">INVOICE</textarea>
@@ -36,7 +38,7 @@
 
             <p id="customer-title">
             Ramesh Karki<br>
-            Admission No: 203
+            Admission No: ${sessionScope.feeInvoice.toDateEn }
            </p>
 
             <table id="meta">
@@ -46,17 +48,17 @@
                 </tr>
                 <tr>
                     <td class="meta-head">Invoice Date</td>
-                    <td><p id="date">2074/11/11</p></td>
+                    <td><p id="date">${fromDateEn }</p></td>
                 </tr>
                 <tr>
 
                     <td class="meta-head">Date From</td>
-                    <td><p id="date">2074/11/11</p></td>
+                    <td><p id="date">${fromDateEn }</p></td>
                 </tr>
                 <tr>
 
                     <td class="meta-head">Date To</td>
-                    <td><p id="date">2074/12/11</p></td>
+                    <td><p id="date">${toDateEn }</p></td>
                 </tr>
                 <tr>
                     <td class="meta-head">Amount Due</td>
