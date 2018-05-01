@@ -31,6 +31,8 @@ public class CategoryDaoImpl implements CategoryDao{
 		return jdbcTemplate.query(query, new Categories());
 	}
 	
+	
+	
 	public static final class Categories implements RowMapper<CategoryModel>{
 
 		@Override
@@ -50,7 +52,5 @@ public class CategoryDaoImpl implements CategoryDao{
 		}
 		
 	}
-	
-	
 	
 }
