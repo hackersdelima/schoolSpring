@@ -122,7 +122,7 @@
 				<table border="0" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
-							<th class="desc"><a onclick="addRow()" id="newrow">Add Row+</a></th>
+							<th class="desc"><a onclick="addRow()" id="newrow" >Add Row+</a></th>
 							<th colspan="1">Category</th>
 							<th class="desc" colspan="4">DESCRIPTION</th>
 							<th class="desc" colspan="1">CHARGES</th>
@@ -135,7 +135,7 @@
 						<c:choose>
 							<c:when test="${empty sessionScope.feeInvoice.description}">
 								<tr id="tablerow">
-									<td><button onclick="deleteRow(this)" class="removebutton">X</button></td>
+									<td><a onclick="deleteRow(this)" class="removebutton">X</a></td>
 									<td colspan="1"><select class="form-control"
 										name="category.categoryId" >
 											<option value="">Select</option>
