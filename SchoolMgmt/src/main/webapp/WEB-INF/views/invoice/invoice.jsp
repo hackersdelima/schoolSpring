@@ -31,7 +31,7 @@
 </style>
 </head>
 <body class="background">
-	<form action="${formUrl }">
+	<form action="${formUrl }" method="post">
 		<div class="row">
 
 			<div class="col-md-12">
@@ -122,7 +122,7 @@
 				<table border="0" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
-							<th class="desc"><button class="btn btn-default add">+</button></th>
+							<th class="desc"><a onclick="addRow()" id="newrow">Add Row+</a></th>
 							<th colspan="1">Category</th>
 							<th class="desc" colspan="4">DESCRIPTION</th>
 							<th class="desc" colspan="1">CHARGES</th>
@@ -347,6 +347,10 @@
 				$(this).val($(this).val() + "-");
 			}
 		});
+		 function addRow() {
+			   var tbody = $("table tbody");
+			   tbody.find("tr:eq(0)").clone().appendTo(tbody).find("input").val("");
+			};
 	</script>
 </body>
 

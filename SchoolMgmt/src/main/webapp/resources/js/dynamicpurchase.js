@@ -1,13 +1,10 @@
 
 //----------------------------------------ADD AND REMOVE TABLE ROW DYNAMICALLY-------------------------------------------------
- $("button.add").on("click", function() {
-	   var tbody = $("table tbody");
-	   tbody.find("tr:eq(0)").clone().appendTo(tbody).find("input").val("");
-	});
+
  function deleteRow(btn) {
 	  var row = btn.parentNode.parentNode;
 	  row.parentNode.removeChild(row);
-	}
+	};
 //----------------------------------------------SUM OF TWO INPUTS WITH SAME NAME IN DYNAMIC ROW-------------------------------- 
 	
 //------------------------------------------------SUB TOTAL OF DYNAMIC ADDED INPUT'S SUM(TOTAL)-------------------------------- 

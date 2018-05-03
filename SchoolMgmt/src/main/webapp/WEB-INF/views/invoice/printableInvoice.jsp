@@ -56,14 +56,14 @@
 		<div id="customer">
 
 			<p id="customer-title">
-				Ramesh Karki<br> Admission No:
-				${sessionScope.feeInvoice.toDateEn }
+			<br> Admission No:
+				${sessionScope.feeInvoice.student.studentid }
 			</p>
 
 			<table id="meta">
 				<tr>
 					<td class="meta-head">Invoice #</td>
-					<td><p>000123</p></td>
+					<td><p>${sessionScope.feeInvoice.invoiceNo }</p></td>
 				</tr>
 				<tr>
 					<td class="meta-head">Invoice Date</td>

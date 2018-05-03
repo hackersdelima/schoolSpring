@@ -1,19 +1,18 @@
 package com.spring.school;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.spring.dao.CategoryDao;
-import com.spring.model.CategoryModel;
+import com.spring.dao.FeeInvoiceDao;
 import com.spring.model.FeeInvoiceModel;
 
 @Controller
@@ -23,6 +22,8 @@ public class FeeInvoiceController {
 	
 	@Autowired
 	CategoryDao categoryDao;
+	@Autowired
+	FeeInvoiceDao feeInvoiceDao;
 	
 	@RequestMapping(value = "/add")
 	public String add(Model model){
@@ -40,12 +41,12 @@ public class FeeInvoiceController {
 	}
 	
 	@RequestMapping(value = "/save")
+	@ResponseBody
 	public String save(@ModelAttribute FeeInvoiceModel feeInvoice, SessionStatus status){
-		System.out.println("invoking save()");
-		
+		//boolean saveStatus = feeInvoiceDao.insertFeeInvoice(feeInvoice);
 		//operations
 		status.setComplete();
-		return "redirect:/invoice/add";
+		return "<h3>Data Saved!</h3>";
 	}
 	
 	@RequestMapping(value = "/cancel")
@@ -53,6 +54,12 @@ public class FeeInvoiceController {
 	public String cancel(@ModelAttribute FeeInvoiceModel feeInvoice, SessionStatus status){
 		status.setComplete();
 		return "Invoice Canceled!";
+	}
+	
+	@RequestMapping(value = "/search/{id}")
+	public String search(@PathVariable String id){
+		
+		return "";
 	}
 	
 	
