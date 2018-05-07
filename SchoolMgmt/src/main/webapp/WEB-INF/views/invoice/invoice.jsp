@@ -43,11 +43,30 @@
 							<strong>STUDENT FEE INVOICE</strong>
 						</h2>
 					</center>
+					<hr>
+					<div class="col-md-12">
+					
+					<table>
+						<tbody>
+						<tr>
+							<td>Student Name:</td>
+							<td>Shishir Karki</td>
+							<td>Class:</td>
+							<td>1</td>
+							<td>Roll No:</td>
+							<td>53</td>
+						</tr>
+						</tbody>
+
+					</table>
+					<hr>
+					</div>
+					
 					<div id="seller">
 						<div>
 							<span class="label label-default">From Date(English)*</span> <br>
 							<input type="text" maxlength="10" id="englishDate"
-								class="form-control date" name="fromDateEn" 
+								class="form-control date" name="fromDateEn"
 								value="${sessionScope.feeInvoice.fromDateEn }"
 								placeholder="yyyy-mm-dd">
 						</div>
@@ -56,7 +75,7 @@
 							<span class="label label-default ">From Date(Nepali)*</span> <br>
 							<input type="text" maxlength="10" id="nepaliDate"
 								name="fromDateNep" class="form-control date"
-								placeholder="yyyy-mm-dd" 
+								placeholder="yyyy-mm-dd"
 								value="${sessionScope.feeInvoice.fromDateNep }">
 						</div>
 					</div>
@@ -64,7 +83,7 @@
 						<div>
 							<span class="label label-default ">To Date(English)*</span> <br>
 							<input type="text" maxlength="10" id="englishDate1"
-								class="form-control date" name="toDateEn" 
+								class="form-control date" name="toDateEn"
 								placeholder="yyyy-mm-dd"
 								value="${sessionScope.feeInvoice.toDateEn }">
 						</div>
@@ -73,7 +92,7 @@
 							<span class="label label-default ">To Date(Nepali)*</span> <br>
 							<input type="text" maxlength="10" id="nepaliDate1"
 								name="toDateNep" class="form-control date"
-								placeholder="yyyy-mm-dd" 
+								placeholder="yyyy-mm-dd"
 								value="${sessionScope.feeInvoice.toDateNep }">
 						</div>
 						<br>
@@ -88,14 +107,13 @@
 						<h4 class="name">
 							<span class="label label-default">Invoice No*</span><input
 								type="text" class="form-control " name="invoiceNo"
-								 value="${sessionScope.feeInvoice.invoiceNo }">
+								value="${sessionScope.feeInvoice.invoiceNo }">
 						</h4>
 
 						<h4 class="name">
 							<span class="label label-default">Student Admission No*</span><input
-								type="text" class="form-control " name="student.studentid"
-								value="${sessionScope.feeInvoice.student.studentid }"
-								>
+								type="text" class="form-control " id="studentid" name="student.studentid"
+								value="${sessionScope.feeInvoice.student.studentid }">
 						</h4>
 					</div>
 					<div id="client">
@@ -104,7 +122,7 @@
 							<span class="label label-default">Bill Date(English)*</span> <input
 								type="text" maxlength="10" id="billDateEnglish"
 								class="form-control date" name="invoiceDateEn"
-								 placeholder="yyyy-mm-dd"
+								placeholder="yyyy-mm-dd"
 								value="${sessionScope.feeInvoice.invoiceDateEn }">
 						</div>
 						<br>
@@ -112,7 +130,7 @@
 							<span class="label label-default">Bill Date(Nepali)*</span> <input
 								type="text" maxlength="10" id="billDateNepali"
 								name="invoiceDateNep" class="form-control date"
-								placeholder="yyyy-mm-dd" 
+								placeholder="yyyy-mm-dd"
 								value="${sessionScope.feeInvoice.invoiceDateNep }">
 						</div>
 					</div>
@@ -122,7 +140,8 @@
 				<table border="0" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
-							<th class="desc"><a onclick="addRow()" id="newrow" >Add Row+</a></th>
+							<th class="desc"><a onclick="addRow()" id="newrow">Add
+									Row+</a></th>
 							<th colspan="1">Category</th>
 							<th class="desc" colspan="4">DESCRIPTION</th>
 							<th class="desc" colspan="1">CHARGES</th>
@@ -137,24 +156,22 @@
 								<tr id="tablerow">
 									<td><a onclick="deleteRow(this)" class="removebutton">X</a></td>
 									<td colspan="1"><select class="form-control"
-										name="category.categoryId" >
+										name="category.categoryId">
 											<option value="">Select</option>
 											<c:forEach items="${categorylist }" var="c">
 												<option value="${c.categoryId }">${c.categoryHead }</option>
 											</c:forEach>
 									</select></td>
 									<td class="desc" colspan="4"><input type="text"
-										class="form-control input" name="description"
-										 value=""></td>
+										class="form-control input" name="description" value=""></td>
 									<td class="desc" colspan="1"><input type="text"
-										class="form-control one" name="charges" 
-										value=""></td>
+										class="form-control one" name="charges" value=""></td>
 									<td class="desc" colspan="1"><input type="text"
 										class="form-control two" name="payments" id="itemName"
-										value="" ></td>
+										value=""></td>
 									<td class="total" colspan="1"><input
 										class="form-control balance" type="number" step="any" value=""
-										name="balance" ></td>
+										name="balance"></td>
 
 
 								</tr>
@@ -167,7 +184,7 @@
 										<td><button onclick="deleteRow(this)"
 												class="removebutton">X</button></td>
 										<td colspan="1"><select class="form-control"
-											name="category.categoryId" >
+											name="category.categoryId">
 												<option value="">Select</option>
 												<c:forEach items="${categorylist }" var="c">
 													<option value="${c.categoryId }">${c.categoryHead }</option>
@@ -175,18 +192,17 @@
 										</select></td>
 										<td class="desc" colspan="4"><input type="text"
 											class="form-control input" name="description"
-											 value="${desc }"></td>
+											value="${desc }"></td>
 										<td class="desc" colspan="1"><input type="text"
-											class="form-control one" name="charges" 
+											class="form-control one" name="charges"
 											value="${sessionScope.feeInvoice.charges[descIndex.index] }"></td>
 										<td class="desc" colspan="1"><input type="text"
 											class="form-control two" name="payments" id="itemName"
-											value="${sessionScope.feeInvoice.payments[descIndex.index] }"
-											></td>
+											value="${sessionScope.feeInvoice.payments[descIndex.index] }"></td>
 										<td class="total" colspan="1"><input
 											class="form-control balance" type="number" step="any"
 											value="${sessionScope.feeInvoice.balance[descIndex.index] }"
-											name="balance" ></td>
+											name="balance"></td>
 
 
 									</tr>
@@ -201,76 +217,73 @@
 							<td colspan="1">SUB-TOTAL(Rs)</td>
 							<td><input class="form-control subtotal" type="number"
 								step="any" name="subTotal"
-								value="${sessionScope.feeInvoice.subTotal }" 
-								readonly></td>
+								value="${sessionScope.feeInvoice.subTotal }" readonly></td>
 						</tr>
 						<tr>
 							<td colspan="7"></td>
 							<td colspan="1"><span class="label label-default">Discount
-									%*</span><br> <input  name="discountPercentage"
-								type="number" step="any" min=0 max=100
+									%*</span><br> <input name="discountPercentage" type="number"
+								step="any" min=0 max=100
 								class="form-control discountPercentage inputdetails "
 								value="${sessionScope.feeInvoice.discountPercentage }"></td>
 
 							<td><span class="label label-default">Discount(Rs)</span> <input
-								value="0"  name="discountAmount" type="number"
-								step="any" class="form-control discountAmount "
+								value="0" name="discountAmount" type="number" step="any"
+								class="form-control discountAmount "
 								value="${sessionScope.feeInvoice.discountAmount }" readonly></td>
 						</tr>
 						<tr>
 							<td colspan="7"></td>
 							<td colspan="1">TOTAL(Rs)</td>
 							<td><input class="form-control resulttotal" type="number"
-								step="any"  name="total"
+								step="any" name="total"
 								value="${sessionScope.feeInvoice.total }" readonly></td>
 						</tr>
 						<tr>
 							<td colspan="7"></td>
 							<td colspan="1"><span class="label label-default">TAX
-									%*</span><br> <input name="taxPercentage" 
-								step="any" type="number" min=0 max=100
+									%*</span><br> <input name="taxPercentage" step="any"
+								type="number" min=0 max=100
 								class="form-control taxPercentage inputdetails"
 								value="${sessionScope.feeInvoice.taxPercentage }"></td>
 							<td><span class="label label-default">TAX Amount(Rs)</span>
-								<input value="0" name="taxAmount" 
-								type="number" step="any" class="form-control taxAmount"
+								<input value="0" name="taxAmount" type="number" step="any"
+								class="form-control taxAmount"
 								value="${sessionScope.feeInvoice.taxAmount }"></td>
 						</tr>
 
 						<tr>
 							<td colspan="7"></td>
 							<td colspan="1">GRAND TOTAL(Rs)</td>
-							<td><input name="grandTotal" id="grand-total"
-								 type="number" step="any"
-								class="form-control grandTotal"
+							<td><input name="grandTotal" id="grand-total" type="number"
+								step="any" class="form-control grandTotal"
 								value="${sessionScope.feeInvoice.grandTotal }" readonly></td>
 						</tr>
 						<tr>
 							<td colspan="7"></td>
 							<td colspan="1">AMOUNT PAID(Rs)</td>
-							<td><input name="amountPaid" id="number" 
-								type="number" step="any" class="form-control"
+							<td><input name="amountPaid" id="number" type="number"
+								step="any" class="form-control"
 								value="${sessionScope.feeInvoice.amountPaid }"></td>
 						</tr>
 						<tr>
 							<td colspan="7"></td>
 							<td colspan="1">BALANCE DUE(Rs)</td>
-							<td><input name="balanceDue" id="balance-due"
-								 type="number" step="any" class="form-control"
+							<td><input name="balanceDue" id="balance-due" type="number"
+								step="any" class="form-control"
 								value="${sessionScope.feeInvoice.balanceDue }"></td>
 						</tr>
 						<tr>
 							<td colspan="6"></td>
 							<td colspan="1"><h5>IN WORDS</h5></td>
 							<td colspan="2"><textarea id="result" cols="30"
-									name="inwords"  class="form-control" rows="3"
-									readonly>${sessionScope.feeInvoice.inwords }</textarea></td>
+									name="inwords" class="form-control" rows="3" readonly>${sessionScope.feeInvoice.inwords }</textarea></td>
 						</tr>
 						<tr>
 							<td colspan="6"></td>
 							<td colspan="1"><h5>REMARKS</h5></td>
 							<td colspan="2"><textarea id="remarks" cols="30"
-									name="remarks"  class="form-control" rows="3">${sessionScope.feeInvoice.remarks }</textarea></td>
+									name="remarks" class="form-control" rows="3">${sessionScope.feeInvoice.remarks }</textarea></td>
 						</tr>
 					</tfoot>
 				</table>
@@ -278,12 +291,12 @@
 				<div id="notices">
 					<div class="form-group">
 						<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-						
+
 							<button class="btn btn-info" type="button" id="validate">Validate</button>
-							<a class="btn btn-danger" id="cancel" href="<spring:url value="/invoice/cancel" />">Cancel</a>
-							<input type="submit" class="btn btn-success" 
-								value="Submit">
-								
+							<a class="btn btn-danger" id="cancel"
+								href="<spring:url value="/invoice/cancel" />">Cancel</a> <input
+								type="submit" class="btn btn-success" value="Submit">
+
 						</div>
 					</div>
 
@@ -318,7 +331,10 @@
 			$(".subtotal").val(sum);
 
 		}
-
+$("#studentid").blur(function(){
+	
+	
+});
 		$("#balance-due").focus(function() {
 			var grandTotal = $("#grand-total").val();
 			var amountPaid = $("#number").val();

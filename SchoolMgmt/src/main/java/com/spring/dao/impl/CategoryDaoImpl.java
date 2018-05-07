@@ -30,9 +30,20 @@ public class CategoryDaoImpl implements CategoryDao{
 		String query="select categories.*, accounttype.accountTypeHead from categories join accounttype using(accountType);";
 		return jdbcTemplate.query(query, new Categories());
 	}
+
+	public CategoryModel getCategory(String id){
+		String query="select categories.*, accounttype.accountTypeHead from categories join accounttype using(accountType) where categories.categoryId='"+id+"'";
+		return jdbcTemplate.queryForObject(query, new Categories());
+	}
 	
-	
-	
+	public int delete(String id){
+		String query = "delete from categories where categoryId = '"+id+"'";
+		return jdbcTemplate.update(query);
+	}
+	public int update(CategoryModel category){
+		String query = "update categories set categoryId = '"+category.getCategoryId()+"', categoryHead = '"+category.getCategoryHead()+"', accountType = '"+category.getAccountType()+"' where categoryId = '"+category.getPreviousid()+"'";
+		return jdbcTemplate.update(query);
+	}
 	public static final class Categories implements RowMapper<CategoryModel>{
 
 		@Override

@@ -29,6 +29,12 @@
 	<bean id="feeInvoiceDao" class="com.spring.dao.impl.FeeInvoiceDaoImpl">
 		<property name="jdbcTemplate" ref="jdbcTemplate"/>
 	</bean>
+	<bean id="roleDao" class="com.spring.dao.impl.RoleDaoImpl">
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+	</bean>
+	<bean id="branchDao" class="com.spring.dao.impl.BranchDaoImpl">
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+	</bean>
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">

@@ -1,3 +1,5 @@
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -25,22 +27,31 @@
 	<div>
 		<a class="hiddenanchor" id="signup"></a> <a class="hiddenanchor"
 			id="signin"></a>
-		
+
 		<div class="login_wrapper">
 			<div class="animate form login_form">
 				<section class="login_content">
 					<form method="post" action="login">
 						<h1>Login Form</h1>
+						<c:if test="${msg!='' }">
+						<div class="alert alert-danger">
+							${msg }
+						</div>
+						</c:if>
+						<div>
+							<input type="password" name="staffCode" class="form-control"
+								placeholder="Staff Code" required />
+						</div>
 						<div>
 							<input type="password" name="username" class="form-control"
-								placeholder="Username" required="" />
+								placeholder="Username" required/>
 						</div>
 						<div>
 							<input type="password" name="password" class="form-control"
-								placeholder="Password" required="" />
+								placeholder="Password" required />
 						</div>
-						
-						
+
+
 						<div>
 							<button class="btn btn-default submit">Log in</button>
 							<a class="reset_pass" href="#">Lost your password?</a>
@@ -58,9 +69,7 @@
 						<br />
 
 						<div>
-							<h1>
-								Digi Nepal.
-							</h1>
+							<h1>Digi Nepal.</h1>
 							<p>Copyright 2018 All Rights Reserved.</p>
 						</div>
 					</div>
@@ -72,7 +81,7 @@
 				<section class="login_content">
 					<form>
 						<h1>Create Account</h1>
-						
+
 						<p>Contact us for the new account.</p>
 
 						<div class="clearfix"></div>

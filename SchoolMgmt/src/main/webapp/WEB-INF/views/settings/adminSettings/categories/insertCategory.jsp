@@ -5,7 +5,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <jsp:include page="../../../include.jsp"></jsp:include>
-<spring:url value="/category/add" var="formUrl"/>
 
 <html>
 <head>
@@ -44,6 +43,9 @@ h5 {
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
+			
+			<spring:url value="/category/add" var="formUrl"/>
+			
 				<form:form class="form-horizontal" action="${formUrl }">
 								
 								<input type="submit" class="btn btn-success"
@@ -111,7 +113,7 @@ h5 {
 							<td>${cat.categoryHead }</td>
 							<td>${cat.accountTypeModel.accountType }</td>
 							<td>${cat.accountTypeModel.accountTypeHead }</td>
-							<td><a href="category/edit?id=${cat.categoryId }">Edit</a></td>
+							<td><a href="<spring:url value="/category/edit/${cat.categoryId }"/>">Edit</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>

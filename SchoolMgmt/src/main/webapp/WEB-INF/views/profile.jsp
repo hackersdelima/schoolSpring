@@ -77,11 +77,11 @@
                   <li><a><span class="fa fa-chevron-down"></span><i class="fa fa-user"></i>Account</a>
 											<ul class="nav child_menu">
 												<li id="i"><a href="nav/account" target="iframe_a">Open
-														New member Account</a></li>
+														New Account</a></li>
 												<!-- 	<li><a href="pageNotFound.jsp" target="iframe_a">Open New
 														Shareholder Account</a> -->
 												<li id="v"><a href="nav/viewAccount" target="iframe_a">Amendment
-														of member Account</a></li>
+														of Account</a></li>
 											</ul></li>
 											<li id="generaltransaction"><a><i class="fa fa-tasks" aria-hidden="true"></i> General
 										Transaction <span class="fa fa-chevron-down"></span></a>
@@ -127,6 +127,15 @@
                   <li><a><i class="fa fa-sitemap"></i> Settings <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                     <li ><a href="nav/generalSettings" target="iframe_a">General Settings</a>
+                    <li><a><span class="fa fa-chevron-down"></span>User</a>
+											<ul class="nav child_menu">
+
+												<li ><a href="nav/addUser" target="iframe_a">
+														Manage User </a></li>
+												<li ><a href="addusergroup.user" target="iframe_a">
+														Create user Group</a></li>
+												<li ><a href="pageNotFound.jsp" target="iframe_a"> Authorize user </a></li>
+											</ul></li>
                         <li><a>Academic Settings<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
                             <li ><a href="nav/subjects" target="iframe_a">Subjects</a>

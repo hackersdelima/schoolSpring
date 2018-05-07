@@ -208,7 +208,7 @@ private JdbcTemplate jdbcTemplate;
 		 return status; 
 	 }
 	 public List<StudentModel> getAllStudents(){
-		 String query="select * from studentinfo";
+		 String query="select * from studentdetail";
 		 return jdbcTemplate.query(query, new StudentMapper());
 	 }
 		public static final class StudentMapper implements RowMapper<StudentModel>{
@@ -216,11 +216,17 @@ private JdbcTemplate jdbcTemplate;
 			@Override
 			public StudentModel mapRow(ResultSet rs, int rowNum) throws SQLException {
 				StudentModel s=new StudentModel();
+				s.setLegacyId(rs.getString("legacyId"));
 				s.setStudentname(rs.getString("studentname"));
+				s.setDob(rs.getString("dob"));
+				s.setDoben(rs.getString("doben"));
+				s.setBirthcertificateno(rs.getString("sbirthcertificateno"));
+				s.setBirthcertificateissuedby(rs.getString("birthcertificateissuedby"));
 				s.setAdmissionclass(rs.getString("admissionclass"));
 				s.setSection(rs.getString("section"));
 				s.setStudentid(rs.getString("studentid"));
 				s.setRollno(rs.getString("rollno"));
+				s.setAdmissiondate(rs.getString("admissiondate"));
 				
 				return s;
 			}

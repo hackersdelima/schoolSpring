@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.dao.AccountDao;
+import com.spring.dao.BranchDao;
 import com.spring.dao.CategoryDao;
 import com.spring.dao.OperationDao;
+import com.spring.dao.RoleDao;
 import com.spring.dao.StudentDao;
+import com.spring.dao.UserDao;
 import com.spring.model.FormDetails;
 import com.spring.model.StudentModel;
 
@@ -26,6 +29,12 @@ public class NavigationController {
 	private AccountDao accountDao;
 	@Autowired
 	private CategoryDao categoryDao;
+	@Autowired
+	private RoleDao roleDao;
+	@Autowired
+	private BranchDao branchDao;
+	@Autowired
+	private UserDao userDao;
 	
 @ModelAttribute
 private void commonModels(Model model){
@@ -140,6 +149,14 @@ private void commonModels(Model model){
 	@RequestMapping(value = "/fundTransfer")
 	public String fundTransfer(){
 		return "generalTransaction/fundsTransfer/insert";
+	}
+	@RequestMapping(value = "/addUser")
+	public String addUser(Model model){
+		model.addAttribute("userList",userDao.getUsers());
+		model.addAttribute("branchlist",branchDao.getBranches());
+		model.addAttribute("rolelist",roleDao.getRoles());
+		
+		return "usersettings/adduser";
 	}
 	
 }

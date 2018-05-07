@@ -88,19 +88,23 @@
 										<td>
 											<h6>
 												<strong>Mother Language</strong>
-											</h6> <select class="form-control" name="Language" form="form">
+											</h6> <select class="form-control" name="smotherlanguage" form="form">
 												<option value="" selected>Select mother language</option>
 
-
+<c:forEach items="${language }" var="lan">
+														<option value="${lan.languageid }">${lan.languagename }</option>
+													</c:forEach>
 										</select>
 										</td>
 										<td>
 											<h6>
 												<strong>Ethnic Group</strong>
-											</h6> <select class="form-control" name="sCast" form="form">
+											</h6> <select class="form-control" name="sethinicgroup" form="form">
 												<option value="" selected>Select ethnic group</option>
-
-												<option value=""></option>
+					<c:forEach items="${caste }" var="caste">
+														<option value="${caste.casteid }">${caste.castename }</option>
+													</c:forEach>
+												
 
 										</select>
 										</td>

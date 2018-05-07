@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.dao.OperationDao;
 import com.spring.dao.UserDao;
@@ -30,12 +31,6 @@ import com.spring.model.UserModel;
 
 public class HomeController {
 
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-
 	@Autowired
 	private UserDao dao;
 
@@ -43,21 +38,13 @@ public class HomeController {
 	private OperationDao operationDao;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
-
+	public String home(Model model, @ModelAttribute(value="msg") String msg) {
+		model.addAttribute("msg",msg);
 		return "index";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@ModelAttribute UserModel user, ModelMap model, BindingResult result) {
+	public String login(@ModelAttribute UserModel user, ModelMap model, BindingResult result, RedirectAttributes attributes) {
 
 		boolean status = dao.verifyUser(user);
 		if (status) {
@@ -67,7 +54,8 @@ public class HomeController {
 			model.put("systemdetail", systemdetail);
 			return "profile";
 		} else {
-			return "index";
+			attributes.addFlashAttribute("msg","Invalid Login Credentials!");
+			return "redirect:/";
 		}
 
 	}

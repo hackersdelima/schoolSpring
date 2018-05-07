@@ -1,7 +1,15 @@
 package com.spring.model;
 
 public class CategoryModel {
-	private String categoryId, categoryHead, accountType, inputter,authorizer;
+	private String previousid, categoryId, categoryHead, accountType, inputter,authorizer;
+	public String getPreviousid() {
+		return previousid;
+	}
+
+	public void setPreviousid(String previousid) {
+		this.previousid = previousid;
+	}
+
 	private AccountTypeModel accountTypeModel;
 
 	public AccountTypeModel getAccountTypeModel() {
@@ -52,4 +60,12 @@ public class CategoryModel {
 		this.authorizer = authorizer;
 	}
 
+	@Override
+	public String toString() {
+		return "CategoryModel [previousid=" + previousid + ", categoryId=" + categoryId + ", categoryHead="
+				+ categoryHead + ", accountType=" + accountType + ", inputter=" + inputter + ", authorizer="
+				+ authorizer + ", accountTypeModel=" + accountTypeModel + "]";
+	}
+
+	
 }
