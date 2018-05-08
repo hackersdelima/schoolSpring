@@ -1,7 +1,27 @@
 package com.spring.model;
 
+import java.util.List;
+
 public class CategoryModel {
 	private String previousid, categoryId, categoryHead, accountType, inputter,authorizer;
+	private List<String> categoryIdList;
+	private List<String> categoryHeadList;
+	public List<String> getCategoryIdList() {
+		return categoryIdList;
+	}
+
+	public void setCategoryIdList(List<String> categoryIdList) {
+		this.categoryIdList = categoryIdList;
+	}
+
+	public List<String> getCategoryHeadList() {
+		return categoryHeadList;
+	}
+
+	public void setCategoryHeadList(List<String> categoryHeadList) {
+		this.categoryHeadList = categoryHeadList;
+	}
+
 	public String getPreviousid() {
 		return previousid;
 	}

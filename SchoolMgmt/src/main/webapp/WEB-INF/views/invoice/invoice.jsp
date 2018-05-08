@@ -32,6 +32,8 @@
 </head>
 <body class="background">
 	<form action="${formUrl }" method="post">
+	<input type="hidden" name="receivedby" value="${sessionScope.userDetail.username }">
+	
 		<div class="row">
 
 			<div class="col-md-12">
@@ -136,9 +138,10 @@
 						<c:choose>
 							<c:when test="${empty sessionScope.feeInvoice.charges}">
 								<tr id="tablerow">
+								
 									<td><a onclick="deleteRow(this)" class="removebutton">X</a></td>
-									<td colspan="1"><select class="form-control"
-										name="category.categoryId">
+									<td colspan="1"><input type="hidden" name="category.categoryHeadList" class="categoryHead" value=""><select class="form-control category" 
+										name="category.categoryIdList">
 											<option value="">Select</option>
 											<c:forEach items="${categorylist }" var="c">
 												<option value="${c.categoryId }">${c.categoryHead }</option>
@@ -164,9 +167,9 @@
 									<tr id="tablerow">
 										<td><button onclick="deleteRow(this)"
 												class="removebutton">X</button></td>
-										<td colspan="1"><select class="form-control"
-											name="category.categoryId">
-												<option value="">Select</option>
+										<td colspan="1"><input type="hidden" name="category.categoryHeadList" class="categoryHead" value="${sessionScope.feeInvoice.category.categoryHeadList[descIndex.index] }"><select class="form-control category"
+											name="category.categoryIdList">
+												<option value="${sessionScope.feeInvoice.category.categoryIdList[descIndex.index] }" selected>${sessionScope.feeInvoice.category.categoryHeadList[descIndex.index] }</option>
 												<c:forEach items="${categorylist }" var="c">
 													<option value="${c.categoryId }">${c.categoryHead }</option>
 												</c:forEach>
@@ -176,8 +179,8 @@
 											class="form-control one" name="charges"
 											value="${sessionScope.feeInvoice.charges[descIndex.index] }"></td>
 										<td class="desc" colspan="1"><input type="text"
-											class="form-control two" name="payments" id="itemName"
-											value="${sessionScope.feeInvoice.payments[descIndex.index] }"></td>
+											class="form-control two" name="discount" id="itemName"
+											value="${sessionScope.feeInvoice.discount[descIndex.index] }"></td>
 										<td class="total" colspan="1"><input
 											class="form-control balance" type="number" step="any"
 											value="${sessionScope.feeInvoice.balance[descIndex.index] }"
@@ -298,6 +301,11 @@
 			var balance = one - two; /*  //calculate total */
 			tableRow.find(".balance").val(balance);
 		});
+		$("table").on("change","select",function(){
+			var tableRow = $(this).closest("tr");
+			var categoryHead = tableRow.find(".category :selected").text();
+			tableRow.find(".categoryHead").val(categoryHead);
+		});
 
 		$(document).on('blur', "input", function() {
 			calculateSubTotal();
@@ -344,8 +352,9 @@ $("#studentid").blur(function(){
 		});
 		 function addRow() {
 			   var tbody = $("table tbody");
-			   tbody.find("tr:eq(0)").clone().appendTo(tbody).find("input").val("");
+			   tbody.find("tr:eq(0)").clone().appendTo(tbody).find("input, select").val("");
 			};
+		
 	</script>
 </body>
 

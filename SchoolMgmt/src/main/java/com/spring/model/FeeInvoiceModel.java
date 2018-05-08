@@ -3,10 +3,21 @@ package com.spring.model;
 import java.util.List;
 
 public class FeeInvoiceModel {
-	private String fromDateEn, fromDateNep, toDateEn, toDateNep, invoiceNo, invoiceDateEn, invoiceDateNep, subTotal, discountPercentage, discountAmount, total, taxPercentage, taxAmount, grandTotal, amountPaid, balanceDue, inwords, remarks;
-	private List<String> description;
+	private String receivedby, fee_invoice_id, fromDateEn, fromDateNep, toDateEn, toDateNep, invoiceNo, invoiceDateEn, invoiceDateNep, subTotal, discountPercentage, discountAmount, total, taxPercentage, taxAmount, grandTotal, amountPaid, balanceDue, inwords, remarks;
+	public String getReceivedby() {
+		return receivedby;
+	}
+	public void setReceivedby(String receivedby) {
+		this.receivedby = receivedby;
+	}
+	public String getFee_invoice_id() {
+		return fee_invoice_id;
+	}
+	public void setFee_invoice_id(String fee_invoice_id) {
+		this.fee_invoice_id = fee_invoice_id;
+	}
 	private List<String> charges;
-	private List<String> payments;
+	private List<String> discount;
 	private List<String> balance;
 	
 	
@@ -53,23 +64,19 @@ public class FeeInvoiceModel {
 		this.invoiceDateNep = invoiceDateNep;
 	}
 	
-	public List<String> getDescription() {
-		return description;
-	}
-	public void setDescription(List<String> description) {
-		this.description = description;
-	}
+
 	public List<String> getCharges() {
 		return charges;
 	}
 	public void setCharges(List<String> charges) {
 		this.charges = charges;
 	}
-	public List<String> getPayments() {
-		return payments;
+	
+	public List<String> getDiscount() {
+		return discount;
 	}
-	public void setPayments(List<String> payments) {
-		this.payments = payments;
+	public void setDiscount(List<String> discount) {
+		this.discount = discount;
 	}
 	public List<String> getBalance() {
 		return balance;
@@ -159,15 +166,19 @@ public class FeeInvoiceModel {
 	private CategoryModel category;
 	@Override
 	public String toString() {
-		return "FeeInvoiceModel [fromDateEn=" + fromDateEn + ", fromDateNep=" + fromDateNep + ", toDateEn=" + toDateEn
-				+ ", toDateNep=" + toDateNep + ", invoiceNo=" + invoiceNo + ", invoiceDateEn=" + invoiceDateEn
-				+ ", invoiceDateNep=" + invoiceDateNep + ", description=" + description + ", charges=" + charges
-				+ ", payments=" + payments + ", balance=" + balance + ", subTotal=" + subTotal + ", discountPercentage="
-				+ discountPercentage + ", discountAmount=" + discountAmount + ", total=" + total + ", taxPercentage="
-				+ taxPercentage + ", taxAmount=" + taxAmount + ", grandTotal=" + grandTotal + ", amountPaid="
-				+ amountPaid + ", balanceDue=" + balanceDue + ", inwords=" + inwords + ", remarks=" + remarks
-				+ ", student=" + student + ", category=" + category + "]";
+		return "FeeInvoiceModel [receivedby=" + receivedby + ", fee_invoice_id=" + fee_invoice_id + ", fromDateEn="
+				+ fromDateEn + ", fromDateNep=" + fromDateNep + ", toDateEn=" + toDateEn + ", toDateNep=" + toDateNep
+				+ ", invoiceNo=" + invoiceNo + ", invoiceDateEn=" + invoiceDateEn + ", invoiceDateNep=" + invoiceDateNep
+				+ ", subTotal=" + subTotal + ", discountPercentage=" + discountPercentage + ", discountAmount="
+				+ discountAmount + ", total=" + total + ", taxPercentage=" + taxPercentage + ", taxAmount=" + taxAmount
+				+ ", grandTotal=" + grandTotal + ", amountPaid=" + amountPaid + ", balanceDue=" + balanceDue
+				+ ", inwords=" + inwords + ", remarks=" + remarks + ", charges=" + charges + ", discount=" + discount
+				+ ", balance=" + balance + ", student=" + student + ", category=" + category + "]";
 	}
+
+
+	
+	
 	
 
 }

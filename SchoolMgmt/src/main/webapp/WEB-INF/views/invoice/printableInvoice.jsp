@@ -4,16 +4,19 @@
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 
 <title>Editable Invoice</title>
-<link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"
+	rel="stylesheet">
 <link rel='stylesheet' type='text/css'
 	href='${pageContext.request.contextPath}/resources/css/style.css' />
 <link rel='stylesheet' type='text/css'
 	href='${pageContext.request.contextPath}/resources/css/print.css'
 	media="print" />
-	<style type="text/css">
-	.background{
-	background-color: transparent;}
-	</style>
+<style type="text/css">
+.background {
+	background-color: transparent;
+}
+</style>
 
 </head>
 
@@ -21,11 +24,12 @@
 	<div class="form-group">
 		<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
 
-			<a class="btn btn-info" type="button" href="<spring:url value="/invoice/add" />">Edit</a>
-			<a class="btn btn-danger" id="cancel"
-				href="<spring:url value="/invoice/cancel" />">Cancel</a> 
-				<a class="btn btn-success" href="<spring:url value="/invoice/save" />">Save</a>
-				<a class="btn btn-primary" href="#">Save & Print</a>
+			<a class="btn btn-info" type="button"
+				href="<spring:url value="/invoice/add" />">Edit</a> <a
+				class="btn btn-danger" id="cancel"
+				href="<spring:url value="/invoice/cancel" />">Cancel</a> <a
+				class="btn btn-success" href="<spring:url value="/invoice/save" />">Save</a>
+			<a class="btn btn-primary" href="#">Save & Print</a>
 
 		</div>
 	</div>
@@ -35,7 +39,7 @@
 
 		<div id="identity">
 
-			<p id="address">${sessionScope.systemdetail[0].settingsdescription },<br>
+			<p id="address" style="font-size: 150%">${sessionScope.systemdetail[0].settingsdescription },<br>
 				${sessionScope.systemdetail[2].settingsdescription },<br>
 				Phone: ${sessionScope.systemdetail[3].settingsdescription }
 			</p>
@@ -55,10 +59,9 @@
 
 		<div id="customer">
 
-			<p id="customer-title">
-			<br> Admission No:
-				${sessionScope.feeInvoice.student.studentid }
-			</p>
+			<h4>
+				<br> Admission No: ${sessionScope.feeInvoice.student.studentid }
+			</h4>
 
 			<table id="meta">
 				<tr>
@@ -98,14 +101,14 @@
 				<th>Payment</th>
 				<th>Balance</th>
 			</tr>
-			<c:forEach items="${sessionScope.feeInvoice.description }" var="desc"
+			<c:forEach items="${sessionScope.feeInvoice.charges }" var="desc"
 				varStatus="descIndex">
 				<tr class="item-row">
 					<td>${descIndex.index +1 }</td>
-					<td class="item-name">cateogry name</td>
+					<td class="item-name">${sessionScope.feeInvoice.category.categoryHeadList[descIndex.index] }</td>
 					<td class="description">${desc }</td>
 					<td><p class="cost">${sessionScope.feeInvoice.charges[descIndex.index] }</p></td>
-					<td><p class="qty">${sessionScope.feeInvoice.payments[descIndex.index] }</p></td>
+					<td><p class="qty">${sessionScope.feeInvoice.discount[descIndex.index] }</p></td>
 					<td><span class="price">${sessionScope.feeInvoice.balance[descIndex.index] }</span></td>
 				</tr>
 			</c:forEach>
@@ -150,14 +153,31 @@
 			</tr>
 
 		</table>
+		<div>
+			<div class="col-md-6">
+				<div id="terms">
+					<h5>Remarks</h5>
+					<p>${sessionScope.feeInvoice.remarks }</p>
+				</div>
 
-		<div id="terms">
-			<h5>Remarks</h5>
-			<p>${sessionScope.feeInvoice.remarks }</p>
+			</div>
+			<div class="col-md-6">
+				<div id="terms">
+					<h5>In Words</h5>
+					<p>${sessionScope.feeInvoice.inwords }</p>
+				</div>
+
+			</div>
+			<div class="col-md-12">
+			<div id="terms">
+					<h5>Received By</h5>
+					<p>${sessionScope.userDetail.fullName}</p>
+				</div>
+			</div>
+
+
 		</div>
-
 	</div>
-
 </body>
 
 </html>

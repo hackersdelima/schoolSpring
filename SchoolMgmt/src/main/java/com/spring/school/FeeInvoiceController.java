@@ -1,5 +1,7 @@
 package com.spring.school;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,8 +44,9 @@ public class FeeInvoiceController {
 	
 	@RequestMapping(value = "/save")
 	@ResponseBody
-	public String save(@ModelAttribute FeeInvoiceModel feeInvoice, SessionStatus status){
-		//boolean saveStatus = feeInvoiceDao.insertFeeInvoice(feeInvoice);
+	public String save(HttpSession session, SessionStatus status){
+		FeeInvoiceModel feeInvoice = (FeeInvoiceModel)session.getAttribute("feeInvoice");
+		boolean saveStatus = feeInvoiceDao.insertFeeInvoice(feeInvoice);
 		//operations
 		status.setComplete();
 		return "<h3>Data Saved!</h3>";
