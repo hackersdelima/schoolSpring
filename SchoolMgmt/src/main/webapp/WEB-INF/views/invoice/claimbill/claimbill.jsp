@@ -1,7 +1,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<spring:url value="/invoice/review" var="formUrl" />
+<spring:url value="/claimbill/review" var="formUrl" />
 <jsp:include page="../../include.jsp"></jsp:include>
 <!DOCTYPE html>
 <html lang="en">
