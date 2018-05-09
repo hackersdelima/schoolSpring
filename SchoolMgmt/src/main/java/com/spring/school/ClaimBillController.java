@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.spring.dao.CategoryDao;
+import com.spring.dao.ClaimBillDao;
 import com.spring.model.ClaimBillModel;
 import com.spring.model.FeeInvoiceModel;
 
@@ -25,6 +26,8 @@ public class ClaimBillController {
 	
 	@Autowired
 	CategoryDao categoryDao;
+	@Autowired
+	ClaimBillDao claimBillDao;
 	
 	@RequestMapping(value="/add")
 	public String viewClaimBill(Model model)
@@ -43,9 +46,23 @@ public class ClaimBillController {
 	@RequestMapping(value = "/save")
 	@ResponseBody
 	public String save(HttpSession session, SessionStatus status) {
-		//operation
+		ClaimBillModel claimBill = (ClaimBillModel) session.getAttribute("claimBill");
+		boolean invoiceSaveStatus = claimBillDao.insertClaimBill(claimBill);
+		if (invoiceSaveStatus) {
+			String maxClaimBillId = claimBillDao.maxClaimBillId();
+			claimBill.setClaim_bill_id(maxClaimBillId);
+
+			int size = claimBill.getCategory().getCategoryIdList().size();
+			for (int i = 0; i < size; i++) {
+				claimBillDao.insertClaimBillContent(claimBill, i);
+			}
+			status.setComplete();
+			return "Data Saved!";
+		}
+		else{
 		status.setComplete();
-		return "";
+		return "Data Save Failed!";
+		}
 	}
 	
 	@RequestMapping(value = "/cancel")
