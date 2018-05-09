@@ -50,7 +50,7 @@
 							<span class="label label-default">From Date(English)*</span> <br>
 							<input type="text" maxlength="10" id="englishDate"
 								class="form-control date" name="fromDateEn"
-								value="${sessionScope.feeInvoice.fromDateEn }"
+								value="${sessionScope.claimBill.fromDateEn }"
 								placeholder="yyyy-mm-dd">
 						</div>
 						<br>
@@ -59,7 +59,7 @@
 							<input type="text" maxlength="10" id="nepaliDate"
 								name="fromDateNep" class="form-control date"
 								placeholder="yyyy-mm-dd"
-								value="${sessionScope.feeInvoice.fromDateNep }">
+								value="${sessionScope.claimBill.fromDateNep }">
 						</div>
 					</div>
 					<div id="client">
@@ -68,7 +68,7 @@
 							<input type="text" maxlength="10" id="englishDate1"
 								class="form-control date" name="toDateEn"
 								placeholder="yyyy-mm-dd"
-								value="${sessionScope.feeInvoice.toDateEn }">
+								value="${sessionScope.claimBill.toDateEn }">
 						</div>
 						<br>
 						<div>
@@ -76,7 +76,7 @@
 							<input type="text" maxlength="10" id="nepaliDate1"
 								name="toDateNep" class="form-control date"
 								placeholder="yyyy-mm-dd"
-								value="${sessionScope.feeInvoice.toDateNep }">
+								value="${sessionScope.claimBill.toDateNep }">
 						</div>
 						<br>
 					</div>
@@ -90,13 +90,13 @@
 						<h4 class="name">
 							<span class="label label-default">Invoice No*</span><input
 								type="text" class="form-control " name="invoiceNo"
-								value="${sessionScope.feeInvoice.invoiceNo }">
+								value="${sessionScope.claimBill.invoiceNo }">
 						</h4>
 
 						<h4 class="name">
 							<span class="label label-default">Student Admission No*</span><input
 								type="text" class="form-control " id="studentid" name="student.studentid"
-								value="${sessionScope.feeInvoice.student.studentid }">
+								value="${sessionScope.claimBill.student.studentid }">
 						</h4>
 					</div>
 					<div id="client">
@@ -106,7 +106,7 @@
 								type="text" maxlength="10" id="billDateEnglish"
 								class="form-control date" name="invoiceDateEn"
 								placeholder="yyyy-mm-dd"
-								value="${sessionScope.feeInvoice.invoiceDateEn }">
+								value="${sessionScope.claimBill.invoiceDateEn }">
 						</div>
 						<br>
 						<div class="date">
@@ -114,7 +114,7 @@
 								type="text" maxlength="10" id="billDateNepali"
 								name="invoiceDateNep" class="form-control date"
 								placeholder="yyyy-mm-dd"
-								value="${sessionScope.feeInvoice.invoiceDateNep }">
+								value="${sessionScope.claimBill.invoiceDateNep }">
 						</div>
 					</div>
 
@@ -134,11 +134,11 @@
 					</thead>
 					<tbody>
 						<c:choose>
-							<c:when test="${empty sessionScope.feeInvoice.charges}">
+							<c:when test="${empty sessionScope.claimBill.category.categoryIdList}">
 								<tr id="tablerow">
 									<td><a onclick="deleteRow(this)" class="removebutton">X</a></td>
-									<td colspan="1"><select class="form-control"
-										name="category.categoryId">
+									<td colspan="1"><input type="hidden" name="category.categoryHeadList" class="categoryHead" value=""><select class="form-control category" 
+										name="category.categoryIdList">
 											<option value="">Select</option>
 											<c:forEach items="${categorylist }" var="c">
 												<option value="${c.categoryId }">${c.categoryHead }</option>
@@ -146,42 +146,42 @@
 									</select></td>
 									
 									<td class="desc" colspan="1"><input type="text"
-										class="form-control one" name="charges" value=""></td>
+										class="form-control one" name="nontaxableamount" value=""></td>
 									<td class="desc" colspan="1"><input type="text"
-										class="form-control two" name="discount"
+										class="form-control two" name="taxableamount"
 										value=""></td>
 									<td class="total" colspan="1"><input
 										class="form-control balance" type="text"  value=""
-										name="balance"></td>
+										name="totalamount"></td>
 
 
 								</tr>
 							</c:when>
 							<c:otherwise>
-								<c:forEach items="${sessionScope.feeInvoice.charges }"
+								<c:forEach items="${sessionScope.claimBill.category.categoryIdList }"
 									var="desc" varStatus="descIndex">
 
 									<tr id="tablerow">
 										<td><button onclick="deleteRow(this)"
 												class="removebutton">X</button></td>
-										<td colspan="1"><select class="form-control"
-											name="category.categoryId">
-												<option value="">Select</option>
+										<td colspan="1"><input type="hidden" name="category.categoryHeadList" class="categoryHead" value="${sessionScope.claimBill.category.categoryHeadList[descIndex.index] }"><select class="form-control category"
+											name="category.categoryIdList">
+												<option value="${sessionScope.claimBill.category.categoryIdList[descIndex.index] }" selected>${sessionScope.claimBill.category.categoryHeadList[descIndex.index] }</option>
 												<c:forEach items="${categorylist }" var="c">
 													<option value="${c.categoryId }">${c.categoryHead }</option>
 												</c:forEach>
 										</select></td>
 									
 										<td class="desc" colspan="1"><input type="text"
-											class="form-control one" name="charges"
-											value="${sessionScope.feeInvoice.charges[descIndex.index] }"></td>
+											class="form-control one" name="nontaxableamount"
+											value="${sessionScope.claimBill.nontaxableamount[descIndex.index] }"></td>
 										<td class="desc" colspan="1"><input type="text"
-											class="form-control two" name="payments" id="itemName"
-											value="${sessionScope.feeInvoice.payments[descIndex.index] }"></td>
+											class="form-control two" name="taxableamount" id="taxableamount"
+											value="${sessionScope.claimBill.taxableamount[descIndex.index] }"></td>
 										<td class="total" colspan="1"><input
 											class="form-control balance" type="text" 
-											value="${sessionScope.feeInvoice.balance[descIndex.index] }"
-											name="balance"></td>
+											value="${sessionScope.claimBill.totalamount[descIndex.index] }"
+											name="totalamount"></td>
 
 
 									</tr>
@@ -192,41 +192,39 @@
 					<tfoot>
 <tr>
 <td colspan="2">Total Fees</td>
-<td ><input type="text" value="" class="form-control nontaxabletotal"></td>
-<td ><input type="text" value="" class="form-control taxabletotal"></td>
-<td class="total"><input type="text" value=""  class="form-control subtotal " readonly></td>
+<td ><input type="text" value="${sessionScope.claimBill.nontaxable_totalfees }" name="nontaxable_totalfees" class="form-control nontaxabletotal"></td>
+<td ><input type="text" value="${sessionScope.claimBill.taxable_totalfees }" name="taxable_totalfees" class="form-control taxabletotal"></td>
+<td class="total"><input type="text" value="${sessionScope.claimBill.totalfees }" name="totalfees" class="form-control subtotal " readonly></td>
 </tr>
 <tr>
 <td colspan="2">Less:Scholarship/Discount</td>
-<td><input class="form-control  col1discount" type="text"  value=""></td>
-<td><input class="form-control col2discount" type="text"  value=""></td>
-<td class="total"><input class="form-control totaldiscount" type="text" value=""></td>
+<td><input class="form-control  col1discount" type="text"  name="nontaxable_discount" value="${sessionScope.claimBill.nontaxable_discount }"></td>
+<td><input class="form-control col2discount" type="text" name="taxable_discount" value="${sessionScope.claimBill.taxable_discount }"></td>
+<td class="total"><input class="form-control totaldiscount" type="text" name="totaldiscount"  value="${sessionScope.claimBill.totaldiscount}"></td>
 </tr>
 <tr>
 <td colspan="2">Total Amount</td>
-<td ><input class="form-control col1_total" type="text" value=""></td>
-<td ><input class="form-control col2_total" type="text" value=""></td>
-<td ><input class="form-control col3_total" type="text" value=""></td>
+<td ><input class="form-control col1_total" type="text" name="nontaxable_total" value="${sessionScope.claimBill.nontaxable_total }"></td>
+<td ><input class="form-control col2_total" type="text" name="taxable_total" value="${sessionScope.claimBill.taxable_total }"></td>
+<td ><input class="form-control col3_total" type="text" name="total" value="${sessionScope.claimBill.total }"></td>
 </tr>
 <tr>
 <td colspan="3">Education Service Tax(%)</td>
-<td><input name="taxPercentage" type="number" min=0 max=100
-								class="form-control taxPercentage inputdetails"
-								value="${sessionScope.feeInvoice.taxPercentage }"></td>
-<td ><input type="text" class="taxAmount" value=""></td>
+<td><input type="number" min=0 max=100 class="form-control taxPercentage inputdetails" name="tax_percentage" value="${sessionScope.claimBill.tax_percentage }"></td>
+<td ><input type="text" class="taxAmount" name="tax_amount" value="${sessionScope.claimBill.tax_amount }"></td>
 </tr>
 
 <tr>
 <td colspan="4">Grand Total</td>
-<td><input type="text" class="gtotal"></td>
+<td><input type="text" class="gtotal" name="grand_total" value="${sessionScope.claimBill.grand_total }"></td>
 </tr>
 <tr>
 <td colspan="4">Dr/Cr Previous Balance</td>
-<td><input type="text" class="preBalance form-control"></td>
+<td><input type="text" class="preBalance form-control" name="drcr_previous_balance" value="${sessionScope.claimBill.drcr_previous_balance }"></td>
 </tr>
 <tr>
 <td colspan="4">Total Receivable</td>
-<td><input type="text" class="totalReceivable form-control"></td>
+<td><input type="text" class="totalReceivable form-control" name="total_receivable" value="${sessionScope.claimBill.total_receivable }"></td>
 </tr>
 					</tfoot>
 				</table>
@@ -255,6 +253,11 @@
 	<script src="<spring:url value="/resources/js/dynamicpurchase.js"/>"></script>
 	<script src="<spring:url value="/resources/js/dateAction.js"/>"></script>
 	<script>
+	$("table").on("change","select",function(){
+		var tableRow = $(this).closest("tr");
+		var categoryHead = tableRow.find(".category :selected").text();
+		tableRow.find(".categoryHead").val(categoryHead);
+	});
 		$("table").on("keyup", "input", function() { /* //use event delegation */
 			var tableRow = $(this).closest("tr"); /* //from input find row */
 		

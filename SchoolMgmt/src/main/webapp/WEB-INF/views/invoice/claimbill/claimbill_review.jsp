@@ -25,9 +25,9 @@
 		<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
 
 			<a class="btn btn-info" type="button"
-				href="<spring:url value="/invoice/add" />">Edit</a> <a
+				href="<spring:url value="/claimbill/add" />">Edit</a> <a
 				class="btn btn-danger" id="cancel"
-				href="<spring:url value="/invoice/cancel" />">Cancel</a> <a
+				href="<spring:url value="/claimbill/cancel" />">Cancel</a> <a
 				class="btn btn-success" href="<spring:url value="/invoice/save" />">Save</a>
 			<a class="btn btn-primary" href="#">Save & Print</a>
 
@@ -82,92 +82,73 @@
 					<td class="meta-head">Date To</td>
 					<td><p id="date">${sessionScope.claimBill.toDateEn }</p></td>
 				</tr>
-				<tr>
-					<td class="meta-head">Amount Due</td>
-					<td><div class="due">${sessionScope.claimBill.balanceDue }</div></td>
-				</tr>
 
 			</table>
 
 		</div>
 
 		<table id="items">
-
+<tbody>
 			<tr>
 				<th>S.No</th>
 				<th>Category</th>
-				<th>Description</th>
 				<th>Nontaxable Amount</th>
 				<th>Taxable Amount</th>
-				<th>Total</th>
+				<th>Total Amount</th>
 			</tr>
-			<c:forEach items="${sessionScope.claimBill.charges }" var="desc"
+			<c:forEach items="${sessionScope.claimBill.category.categoryIdList }" var="desc"
 				varStatus="descIndex">
 				<tr class="item-row">
 					<td>${descIndex.index +1 }</td>
 					<td class="item-name">${sessionScope.claimBill.category.categoryHeadList[descIndex.index] }</td>
-					<td class="description">${desc }</td>
-					<td><p class="cost">${sessionScope.claimBill.charges[descIndex.index] }</p></td>
-					<td><p class="qty">${sessionScope.claimBill.discount[descIndex.index] }</p></td>
-					<td><span class="price">${sessionScope.claimBill.balance[descIndex.index] }</span></td>
+					<td><p class="cost">${sessionScope.claimBill.nontaxableamount[descIndex.index] }</p></td>
+					<td><p class="qty">${sessionScope.claimBill.taxableamount[descIndex.index] }</p></td>
+					<td><span class="price">${sessionScope.claimBill.totalamount[descIndex.index] }</span></td>
 				</tr>
 			</c:forEach>
-
+			</tbody>
+			<tfoot>
 			<tr>
-
-				<td colspan="3" class="blank"></td>
-				<td colspan="2" class="total-line">Subtotal</td>
-				<td class="total-value"><div id="subtotal">${sessionScope.claimBill.subTotal }</div></td>
+				<td colspan="2">Total Fees</td>
+				<td>${sessionScope.claimBill.nontaxable_totalfees }</td>
+				<td>${sessionScope.claimBill.taxable_totalfees }</td>
+				<td>${sessionScope.claimBill.totalfees }</td>
 			</tr>
 			<tr>
-				<td colspan="3" class="blank"></td>
-				<td colspan="2" class="total-line">Discount</td>
-				<td class="total-value"><div id="subtotal">${sessionScope.claimBill.discountAmount }</div></td>
+				<td colspan="2">Less:Scholarship/Discount</td>
+				<td>${sessionScope.claimBill.nontaxable_discount }</td>
+				<td>${sessionScope.claimBill.taxable_discount }</td>
+				<td>${sessionScope.claimBill.totaldiscount }</td>
 			</tr>
 			<tr>
-
-				<td colspan="3" class="blank"></td>
-				<td colspan="2" class="total-line">Total</td>
-				<td class="total-value"><div id="total">${sessionScope.claimBill.total }</div></td>
+				<td colspan="2">Total Amount</td>
+				<td>${sessionScope.claimBill.nontaxable_total }</td>
+				<td>${sessionScope.claimBill.taxable_total }</td>
+				<td>${sessionScope.claimBill.total }</td>
 			</tr>
 			<tr>
-				<td colspan="3" class="blank"></td>
-				<td colspan="2" class="total-line">Tax Amount</td>
-				<td class="total-value"><div id="subtotal">${sessionScope.claimBill.taxAmount }</div></td>
+				<td colspan="3">Education Service Tax(%)</td>
+				<td>${sessionScope.claimBill.tax_percentage }</td>
+				<td>${sessionScope.claimBill.tax_amount }</td>
 			</tr>
 			<tr>
-
-				<td colspan="3" class="blank"></td>
-				<td colspan="2" class="total-line">Grand Total</td>
-				<td class="total-value"><div id="total">${sessionScope.claimBill.grandTotal }</div></td>
+				<td colspan="4">Grand Total</td>
+				<td>${sessionScope.claimBill.grand_total }</td>
+				
 			</tr>
 			<tr>
-				<td colspan="3" class="blank"></td>
-				<td colspan="2" class="total-line">Amount Paid</td>
-				<td class="total-value"><p id="paid">${sessionScope.claimBill.amountPaid }</p></td>
+				<td colspan="4">Dr/Cr Previous Balance</td>
+				<td>${sessionScope.claimBill.drcr_previous_balance }</td>
+				
 			</tr>
 			<tr>
-				<td colspan="3" class="blank"></td>
-				<td colspan="2" class="total-line balance">Balance Due</td>
-				<td class="total-value balance"><div class="due">${sessionScope.claimBill.balanceDue }</div></td>
+				<td colspan="4">Total Receivable</td>
+				<td>${sessionScope.claimBill.total_receivable }</td>
+				
 			</tr>
-
+			</tfoot>
 		</table>
 		<div>
-			<div class="col-md-6">
-				<div id="terms">
-					<h5>Remarks</h5>
-					<p>${sessionScope.claimBill.remarks }</p>
-				</div>
-
-			</div>
-			<div class="col-md-6">
-				<div id="terms">
-					<h5>In Words</h5>
-					<p>${sessionScope.claimBill.inwords }</p>
-				</div>
-
-			</div>
 			<div class="col-md-12">
 			<div id="terms">
 					<h5>Received By</h5>
