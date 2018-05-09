@@ -232,7 +232,7 @@ private JdbcTemplate jdbcTemplate;
 			}
 			
 		}
-		public StudentModel getStudentDetail(String id)
+		public StudentModel getStudentDetail(int id)
 		{
 			String query="select * from studentdetail where studentid='"+id+"'";
 			return jdbcTemplate.queryForObject(query, new StudentMapper());

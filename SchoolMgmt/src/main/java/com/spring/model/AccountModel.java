@@ -1,9 +1,15 @@
 package com.spring.model;
 
 public class AccountModel {
-private String  accountNumber,alternativeAccountId, accountName, limitRef, inputter , previousAccountNumber;
+private String  memberId, accountNumber,alternativeAccountId, accountName, inputter , previousAccountNumber;
 
 
+public String getMemberId() {
+	return memberId;
+}
+public void setMemberId(String memberId) {
+	this.memberId = memberId;
+}
 public String getPreviousAccountNumber() {
 	return previousAccountNumber;
 }
@@ -40,12 +46,7 @@ public String getAccountName() {
 public void setAccountName(String accountName) {
 	this.accountName = accountName;
 }
-public String getLimitRef() {
-	return limitRef;
-}
-public void setLimitRef(String limitRef) {
-	this.limitRef = limitRef;
-}
+
 public CategoryModel getCategoryModel() {
 	return categoryModel;
 }
@@ -66,9 +67,12 @@ private StudentModel studentModel;
 
 @Override
 public String toString() {
-	return "AccountModel [accountNumber=" + accountNumber + ", alternativeAccountId=" + alternativeAccountId
-			+ ", accountName=" + accountName + ", limitRef=" + limitRef + ", categoryModel=" + categoryModel
+	return "AccountModel [memberId=" + memberId + ", accountNumber=" + accountNumber + ", alternativeAccountId="
+			+ alternativeAccountId + ", accountName=" + accountName + ", inputter=" + inputter
+			+ ", previousAccountNumber=" + previousAccountNumber + ", categoryModel=" + categoryModel
 			+ ", accountTypeModel=" + accountTypeModel + ", studentModel=" + studentModel + "]";
 }
+
+
 
 }

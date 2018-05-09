@@ -53,10 +53,10 @@ h5 {
 						</div>
 					</div>
 					<div class="ln_solid"></div>
-						<label class="control-label col-md-2 col-sm-2 col-xs-12">Admission No</label>
+						<label class="control-label col-md-2 col-sm-2 col-xs-12">ID</label>
 						<div class="col-md-2 col-sm-2 col-xs-12">
 							 <input type="text" id="memberid"
-									class="form-control sharecertmemberid memberid" name="studentModel.studentid"
+									class="form-control memberid" name="memberId"
 									value="" data-validation="number" data-validation-error-msg=" " required>
 						</div>
 						<div class="col-md-8 col-sm-8 col-xs-12 ">
@@ -115,16 +115,9 @@ h5 {
 					<div class="form-group">
 						<label class="control-label col-md-2 col-sm-2 col-xs-12">Account Name
 						</label>
-						<div class="col-md-3 col-sm-3 col-xs-12">
+						<div class="col-md-5 col-sm-5 col-xs-12">
 							<input type="text"
 									class="form-control memberid" name="accountName" id="accountname" value="">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-md-2 col-sm-2 col-xs-12">Limit Reference </label>
-						<div class="col-md-4 col-sm-4 col-xs-12">
-							<input type="text"
-									class="form-control" name="limitRef" value="">
 						</div>
 					</div>
 				</div>
@@ -137,9 +130,13 @@ h5 {
 <script>
  $("#validate").click(function()
 		{
-		var id=$('.memberid').val();
+		membername();
+		accountno();
+		}); 
+ function membername(){
+	 var id=$('.memberid').val();
 		var dataString = 'id='+ id;
-		$.ajax
+	 $.ajax
 		({
 		type: "POST",
 		url: "../account/membername",
@@ -149,10 +146,24 @@ h5 {
 		{
 		$("#membername").val(html);
 		$("#accountname").val(html);
-		$("#accountno").val(id);
 		} 
 		});
-		}); 
+ };
+ function accountno(){
+	 var id=$('.memberid').val();
+		var dataString = 'id='+ id;
+	 $.ajax
+		({
+		type: "POST",
+		url: "../account/generateAccNo",
+		data: dataString,
+		cache: false,
+		success: function(html)
+		{
+		$("#accountno").val(html);
+		} 
+		});
+ }
 $("#categories").change(function()
 		{
 		var id=$(this).val();

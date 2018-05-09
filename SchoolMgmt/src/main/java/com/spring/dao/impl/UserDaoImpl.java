@@ -52,8 +52,8 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public UserModel getUserDetails(UserModel user) {
-		String sql = "SELECT * FROM usertbl WHERE username='" + user.getUsername() + "' AND password='"
-				+ user.getPassword() + "' and staffCode='" + user.getStaffCode() + "'";
+		String sql = "SELECT * FROM usertbl join branchtbl using(branchId) WHERE usertbl.username='" + user.getUsername() + "' AND usertbl.password='"
+				+ user.getPassword() + "' and usertbl.staffCode='" + user.getStaffCode() + "'";
 		return jdbcTemplate.queryForObject(sql, new UserMapper());
 	}
 
@@ -107,7 +107,8 @@ public class UserDaoImpl implements UserDao {
 			user.setAdditionalFunctions(rs.getString("additionalFunctions"));
 			user.setBranchAllowedFunctions(rs.getString("branchAllowedFunctions"));
 
-			branch.setBranchId(rs.getString("branchCode"));
+			branch.setBranchId(rs.getString("branchId"));
+			branch.setCompanyId(rs.getString("companyId"));
 			user.setBranch(branch);
 
 			return user;

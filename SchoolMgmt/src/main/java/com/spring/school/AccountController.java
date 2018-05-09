@@ -3,6 +3,7 @@ package com.spring.school;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import com.spring.dao.StudentDao;
 import com.spring.model.AccountModel;
 import com.spring.model.AccountTypeModel;
 import com.spring.model.StudentModel;
+import com.spring.model.UserModel;
 
 @Controller
 @RequestMapping("/account")
@@ -75,17 +77,30 @@ public class AccountController {
 	
 	
 	@RequestMapping(value = "/generateAccNo")
-	public void generateAccNo(@RequestParam Map<String, String> reqParam, HttpServletResponse response) throws Exception{
-		response.getWriter().println(reqParam.get("studentid"));
+	public void generateAccNo(@RequestParam Map<String, String> reqParam, HttpServletResponse response, HttpSession session) throws Exception{
+		UserModel userdetail = (UserModel)session.getAttribute("userDetail");
+		String branchCode = userdetail.getBranch().getBranchId();
+		String companyId=userdetail.getBranch().getCompanyId();
+		String memberid=reqParam.get("id");
+		String accountNo=companyId+branchCode+memberid;
+		
+		response.getWriter().println(accountNo);
 	}
 	
 	@RequestMapping(value = "/membername")
 	public void membername(@RequestParam Map<String, String> reqparam, HttpServletResponse response) throws Exception{
-		String studentid = reqparam.get("id");
-		StudentModel studentModel = studentDao.getStudentDetail(studentid);
-		String studentName = studentModel.getStudentname();
+		int id = Integer.parseInt(reqparam.get("id"));
+		String name;
+		if(id<1000){
+		StudentModel studentModel = studentDao.getStudentDetail(id);
+		 name = studentModel.getStudentname();
+		}
+		else{
+			name = "shishir";
+		}
+		
 
-		response.getWriter().println(studentName);
+		response.getWriter().println(name);
 	}
 	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
