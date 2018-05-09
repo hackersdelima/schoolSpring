@@ -91,12 +91,12 @@ public class AccountController {
 	public void membername(@RequestParam Map<String, String> reqparam, HttpServletResponse response) throws Exception{
 		int id = Integer.parseInt(reqparam.get("id"));
 		String name;
-		if(id<1000){
+		if(id<10000){
 		StudentModel studentModel = studentDao.getStudentDetail(id);
 		 name = studentModel.getStudentname();
 		}
 		else{
-			name = "shishir";
+			name = "staffname";
 		}
 		
 

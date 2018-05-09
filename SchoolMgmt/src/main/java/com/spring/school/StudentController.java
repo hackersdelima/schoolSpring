@@ -50,7 +50,7 @@ public class StudentController {
 		}
 		
 		@RequestMapping(value="/editStudent/{id}", method=RequestMethod.GET)
-		public String edit(@PathVariable String id, Model model)
+		public String edit(@PathVariable int id, Model model)
 		{
 			StudentModel student=studentDao.getStudentDetail(id);
 			model.addAttribute("student", student);

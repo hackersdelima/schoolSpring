@@ -21,51 +21,61 @@ import com.spring.model.FeeInvoiceModel;
 @RequestMapping("/invoice")
 @SessionAttributes("feeInvoice")
 public class FeeInvoiceController {
-	
+
 	@Autowired
 	CategoryDao categoryDao;
 	@Autowired
 	FeeInvoiceDao feeInvoiceDao;
-	
+
 	@RequestMapping(value = "/add")
-	public String add(Model model){
-		model.addAttribute("categorylist",categoryDao.getCategories());
+	public String add(Model model) {
+		model.addAttribute("categorylist", categoryDao.getCategories());
 		return "invoice/invoice";
 	}
-	
+
 	@RequestMapping(value = "/review")
-	public String review(@ModelAttribute FeeInvoiceModel feeInvoice, ModelMap model){
-		
+	public String review(@ModelAttribute FeeInvoiceModel feeInvoice, ModelMap model) {
+
 		System.out.println(feeInvoice);
 		System.out.println("invoking review()");
-		model.addAttribute("feeInvoice",feeInvoice);
+		model.addAttribute("feeInvoice", feeInvoice);
 		return "invoice/printableInvoice";
 	}
-	
+
 	@RequestMapping(value = "/save")
 	@ResponseBody
-	public String save(HttpSession session, SessionStatus status){
-		FeeInvoiceModel feeInvoice = (FeeInvoiceModel)session.getAttribute("feeInvoice");
-		boolean saveStatus = feeInvoiceDao.insertFeeInvoice(feeInvoice);
-		//operations
+	public String save(HttpSession session, SessionStatus status) {
+		FeeInvoiceModel feeInvoice = (FeeInvoiceModel) session.getAttribute("feeInvoice");
+		boolean invoiceSaveStatus = feeInvoiceDao.insertFeeInvoice(feeInvoice);
+		if (invoiceSaveStatus) {
+			String maxFeeInvoiceId = feeInvoiceDao.maxFeeInvoiceId();
+			feeInvoice.setFee_invoice_id(maxFeeInvoiceId);
+
+			int size = feeInvoice.getCategory().getCategoryIdList().size();
+			for (int i = 0; i < size; i++) {
+				feeInvoiceDao.insertFeeInvoiceContent(feeInvoice, i);
+			}
+			status.setComplete();
+			return "<h3>Data Saved!</h3>";
+
+		}
+		else{
 		status.setComplete();
-		return "<h3>Data Saved!</h3>";
+		return "<h3>Data Save Failed!</h3>";
+		}
 	}
-	
+
 	@RequestMapping(value = "/cancel")
 	@ResponseBody
-	public String cancel(@ModelAttribute FeeInvoiceModel feeInvoice, SessionStatus status){
+	public String cancel(@ModelAttribute FeeInvoiceModel feeInvoice, SessionStatus status) {
 		status.setComplete();
 		return "Invoice Canceled!";
 	}
-	
+
 	@RequestMapping(value = "/search/{id}")
-	public String search(@PathVariable String id){
-		
+	public String search(@PathVariable String id) {
+
 		return "";
 	}
-	
-	
-	
 
 }
