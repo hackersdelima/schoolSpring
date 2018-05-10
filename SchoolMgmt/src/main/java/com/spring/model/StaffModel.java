@@ -2,7 +2,7 @@ package com.spring.model;
 
 public class StaffModel {
 	
-	private String staffCode, staffName, staffAddress, post, branchCode, pid, previouspid;
+	private String staffCode, staffName, staffAddress, post, branchCode, previousStaffCode;
 
 	public String getStaffCode() {
 		return staffCode;
@@ -44,28 +44,20 @@ public class StaffModel {
 		this.branchCode = branchCode;
 	}
 
-	public String getPid() {
-		return pid;
+	public String getPreviousStaffCode() {
+		return previousStaffCode;
 	}
 
-	public void setPid(String pid) {
-		this.pid = pid;
-	}
-	
-
-	public String getPreviouspid() {
-		return previouspid;
-	}
-
-	public void setPreviouspid(String previouspid) {
-		this.previouspid = previouspid;
+	public void setPreviousStaffCode(String previousStaffCode) {
+		this.previousStaffCode = previousStaffCode;
 	}
 
 	@Override
 	public String toString() {
 		return "StaffModel [staffCode=" + staffCode + ", staffName=" + staffName + ", staffAddress=" + staffAddress
-				+ ", post=" + post + ", branchCode=" + branchCode + ", pid=" + pid + "]";
+				+ ", post=" + post + ", branchCode=" + branchCode + ", previousStaffCode=" + previousStaffCode + "]";
 	}
+
 	
 
 }

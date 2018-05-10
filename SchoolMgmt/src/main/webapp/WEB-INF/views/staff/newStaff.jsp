@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <jsp:include page="../include.jsp"></jsp:include>
-<spring:url value="/account/add" var="formUrl"></spring:url>
+<spring:url value="/staff/add" var="formUrl"></spring:url>
 <html>
 <head>
 <style>
@@ -28,15 +28,12 @@ h5 {
 	<div class="col-md-12 col-sm-12 col-xs-12">
 			<div class="col-md-8 col-xs-12">
 		<div class="x_panel">
-			<form:form class="form-horizontal form-label-left input_mask"
+			<form:form class="form-horizontal form-label-left input_mask" method="post"
 				action="${formUrl }">
 
 				<div class="x_title">
 					<h2>Add New Staff</h2>
 					<div class="col-md-4 col-sm-4 col-xs-12 pull-right">
-						<input type="text" id="membername"
-									class="form-control" name="membername"
-									value="" readonly >
 					</div>
 					<div class="clearfix"></div>
 				</div>
@@ -52,79 +49,59 @@ h5 {
 							<input type="submit" class="btn btn-success" value="Submit">
 						</div>
 					</div>
-					<div class="ln_solid"></div>
-						<label class="control-label col-md-2 col-sm-2 col-xs-12">ID</label>
-						<div class="col-md-2 col-sm-2 col-xs-12">
-							 <input type="text" id="memberid"
-									class="form-control memberid" name="memberId"
-									value="" data-validation="number" data-validation-error-msg=" " required>
-						</div>
-						<div class="col-md-8 col-sm-8 col-xs-12 ">
-							<span id="customername"></span>
-						</div>
-					</div>
+					<hr>
 					<div class="form-group">
 						<label class="control-label col-md-2 col-sm-2 col-xs-12">Staff 
-							Code</label>
+							Name</label>
 						<div class="col-md-4 col-sm-4 col-xs-12">
 							 <input type="text"
-									class="form-control accountNumber" id="staffcode" name="accountNumber"
-									value="" data-validation="number"
-									data-validation-error-msg=" " required readonly>
+									class="form-control" id="staffName" name="staffName"
+									value="" required >
 						</div>
 					</div>
 					<div class="form-group" id="cashWithdraw">
 						<label class="control-label col-md-2 col-sm-2 col-xs-12">Staff
-							Name</label>
+							Address</label>
 						<div class="col-md-4 col-sm-4 col-xs-12">
 							<input type="text" 
-									class="form-control" name="staffName" value=""
-									data-validation="number"  >
-						</div>
-						<div class="col-md-6 col-sm-6 col-xs-12 ">
-							<span class="accountName"></span>
+									class="form-control" name="staffAddress" value="">
 						</div>
 					</div>
 					<div class="form-group" id="cashDeposit">
 						<label class="control-label col-md-2 col-sm-2 col-xs-12">
-							Category</label>
+							Post</label>
 						<div class="col-md-4 col-sm-4 col-xs-12">
-							<select class="form-control categoryId" name="categoryModel.categoryId" id="categories">
-										<option value="">Select Category</option>
-										<c:forEach items="${categorylist }" var="c">
-											<option value="${c.categoryId }">${c.categoryHead }</option>
-										</c:forEach>
-								</select>
+							<input type="text" 
+									class="form-control" name="post" value=""
+									required>
 
 						</div>
-						<div class="col-md-6 col-sm-6 col-xs-12 ">
-							<span class="accountName"></span>
-						</div>
+					
 					</div>
-					<div class="form-group">
+					<div class="form-group" id="cashDeposit">
 						<label class="control-label col-md-2 col-sm-2 col-xs-12">
-							Account Type</label>
+							Branch Code</label>
 						<div class="col-md-4 col-sm-4 col-xs-12">
-							<select class="form-control"
-									name="accountTypeModel.accountType" id="accounttype">
-										<option value="">Select Account Type</option>
-								</select>
+							<input type="text" 
+									class="form-control" name="branchCode" value="${sessionScope.userDetail.branch.branchId }"
+									required>
 
 						</div>
+					
 					</div>
-					<div class="form-group">
-						<label class="control-label col-md-2 col-sm-2 col-xs-12">Account Name
-						</label>
-						<div class="col-md-5 col-sm-5 col-xs-12">
-							<input type="text"
-									class="form-control memberid" name="accountName" id="accountname" value="">
-						</div>
-					</div>
+				</div>
 				</div>
 			</form:form>
 		</div>
 							</div>
 	</div>
-	
+	<script>
+	$(".confirm").click(function(){
+		return confirm("Confirm?");
+	})
+	$("form").submit(function(){
+		return confirm("Confirm Submit?");
+	});
+</script>
 </body>
 </html>

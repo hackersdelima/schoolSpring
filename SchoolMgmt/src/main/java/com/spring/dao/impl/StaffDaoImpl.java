@@ -27,7 +27,7 @@ public class StaffDaoImpl implements StaffDao{
 	}
 	public boolean insertStaff(StaffModel s){
 		boolean status=false;
-		String sql = "insert into staff_tbl (staffCode, staffName, staffAddress, post, branchCode) values('"+s.getStaffCode()+"','"+s.getStaffName()+"','"+s.getStaffAddress()+"','"+s.getPost()+"','"+s.getBranchCode()+"')";
+		String sql = "insert into staff_tbl (staffName, staffAddress, post, branchCode) values('"+s.getStaffName()+"','"+s.getStaffAddress()+"','"+s.getPost()+"','"+s.getBranchCode()+"')";
 		int i=jdbcTemplate.update(sql);
 		if(i>0){
 			status=true;
@@ -36,16 +36,16 @@ public class StaffDaoImpl implements StaffDao{
 	}
 	public boolean updateStaff(StaffModel s){
 		boolean status=false;
-		String sql = "update staff_tbl set staffCode='"+s.getStaffCode()+"', staffName='"+s.getStaffName()+"', staffAddress='"+s.getStaffAddress()+"', post='"+s.getPost()+"', branchCode='"+s.getBranchCode()+"' where pid='"+s.getPreviouspid()+"'";
+		String sql = "update staff_tbl set staffName='"+s.getStaffName()+"', staffAddress='"+s.getStaffAddress()+"', post='"+s.getPost()+"', branchCode='"+s.getBranchCode()+"' where staffCode='"+s.getStaffCode()+"'";
 		int i=jdbcTemplate.update(sql);
 		if(i>0){
 			status=true;
 		}
 		return status;
 	}
-	public boolean deleteStaff(StaffModel s){
+	public boolean deleteStaff(String id){
 		boolean status=false;
-		String sql = "delete from staff_tbl where pid='"+s.getPid()+"'";
+		String sql = "delete from staff_tbl where staffCode='"+id+"'";
 		int i=jdbcTemplate.update(sql);
 		if(i>0){
 			status=true;
@@ -55,6 +55,10 @@ public class StaffDaoImpl implements StaffDao{
 	public List<StaffModel> listStaffs(){
 		String sql = "select * from staff_tbl";
 		return jdbcTemplate.query(sql, new StaffMapper());
+	}
+	public StaffModel staffDetail(String id){
+		String sql = "select * from staff_tbl where staffCode = '"+id+"'";
+		return jdbcTemplate.queryForObject(sql, new StaffMapper());
 	}
 	public static final class StaffMapper implements RowMapper<StaffModel>{
 
@@ -66,7 +70,6 @@ public class StaffDaoImpl implements StaffDao{
 			s.setStaffAddress(rs.getString("staffAddress"));
 			s.setPost(rs.getString("post"));
 			s.setBranchCode(rs.getString("branchCode"));
-			s.setPid(rs.getString("pid"));
 			return s;
 		}
 		
