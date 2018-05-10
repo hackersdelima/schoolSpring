@@ -17,6 +17,7 @@ import com.spring.dao.CategoryDao;
 import com.spring.dao.ClaimBillDao;
 import com.spring.model.ClaimBillModel;
 import com.spring.model.FeeInvoiceModel;
+import com.spring.model.UserModel;
 
 @Controller
 @RequestMapping("/claimbill")
@@ -47,6 +48,10 @@ public class ClaimBillController {
 	@ResponseBody
 	public String save(HttpSession session, SessionStatus status) {
 		ClaimBillModel claimBill = (ClaimBillModel) session.getAttribute("claimBill");
+		UserModel userdetail=(UserModel)session.getAttribute("userDetail");
+		System.out.println(userdetail.getUsername());
+		claimBill.setReceivedby(userdetail.getUsername());
+		
 		boolean invoiceSaveStatus = claimBillDao.insertClaimBill(claimBill);
 		if (invoiceSaveStatus) {
 			String maxClaimBillId = claimBillDao.maxClaimBillId();

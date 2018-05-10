@@ -28,7 +28,7 @@
 				href="<spring:url value="/claimbill/add" />">Edit</a> <a
 				class="btn btn-danger" id="cancel"
 				href="<spring:url value="/claimbill/cancel" />">Cancel</a> <a
-				class="btn btn-success" href="<spring:url value="/invoice/save" />">Save</a>
+				class="btn btn-success" href="<spring:url value="/claimbill/save" />">Save</a>
 			<a class="btn btn-primary" href="#">Save & Print</a>
 
 		</div>
