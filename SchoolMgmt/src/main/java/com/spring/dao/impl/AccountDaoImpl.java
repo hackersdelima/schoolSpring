@@ -58,7 +58,8 @@ private JdbcTemplate jdbcTemplate;
 	 
 	 public boolean addAccount(AccountModel am){
 			boolean status=false;
-			String sql="insert into accountstbl (accountNumber, pid, alternativeAccountId, categoryId, accountType, accountName, inputter) values ('"+am.getAccountNumber()+"','"+am.getStudentModel().getStudentid()+"','"+am.getAlternativeAccountId()+"','"+am.getCategoryModel().getCategoryId()+"','"+am.getAccountTypeModel().getAccountType()+"','"+am.getAccountName()+"','"+am.getInputter()+"')";
+			System.out.println(am);
+			String sql="insert into accountstbl (accountNumber, pid, alternativeAccountId, categoryId, accountType, accountName, inputter) values ('"+am.getAccountNumber()+"','"+am.getMemberId()+"','"+am.getAlternativeAccountId()+"','"+am.getCategoryModel().getCategoryId()+"','"+am.getAccountTypeModel().getAccountType()+"','"+am.getAccountName()+"','"+am.getInputter()+"')";
 			int i=jdbcTemplate.update(sql);
 			if(i>0){
 				status=true;
@@ -66,7 +67,7 @@ private JdbcTemplate jdbcTemplate;
 			return status;
 		}
 	 public int updateAccount(AccountModel am){
-		 String sql = "update accountstbl set accountNumber = '"+am.getAccountNumber()+"', pid = '"+am.getStudentModel().getStudentid()+"', alternativeAccountId = '"+am.getAlternativeAccountId()+"', categoryId = '"+am.getCategoryModel().getCategoryId()+"', accountType = '"+am.getAccountTypeModel().getAccountType()+"', accountName = '"+am.getAccountName()+"' where accountNumber = '"+am.getPreviousAccountNumber()+"'";
+		 String sql = "update accountstbl set accountNumber = '"+am.getAccountNumber()+"', pid = '"+am.getMemberId()+"', alternativeAccountId = '"+am.getAlternativeAccountId()+"', categoryId = '"+am.getCategoryModel().getCategoryId()+"', accountType = '"+am.getAccountTypeModel().getAccountType()+"', accountName = '"+am.getAccountName()+"' where accountNumber = '"+am.getPreviousAccountNumber()+"'";
 		 return jdbcTemplate.update(sql);
 	 }
 	 
@@ -96,13 +97,12 @@ private JdbcTemplate jdbcTemplate;
 				am.setAccountNumber(rs.getString("accountNumber"));
 				am.setAccountName(rs.getString("accountName"));
 				am.setAlternativeAccountId(rs.getString("alternativeAccountId"));
-				s.setStudentid(rs.getString("pid"));
+				am.setMemberId(rs.getString("pid"));
 				atm.setAccountType(rs.getString("accountType"));
 				cm.setCategoryHead(rs.getString("categoryHead"));
 				cm.setCategoryId(rs.getString("categoryId"));
 				
 				
-				am.setStudentModel(s);
 				am.setAccountTypeModel(atm);
 				am.setCategoryModel(cm);
 				
