@@ -54,7 +54,7 @@ display:none;}
 					<tbody>
 						<c:forEach items="${accountlist }" var="list">
 							<tr>
-								<td>${list.studentModel.studentid }</td>
+								<td>${list.memberId }</td>
 								<td>${list.accountNumber }</td>
 								<td>${list.accountTypeModel.accountType }</td>
 								<td>${list.accountName }</td>

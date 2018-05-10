@@ -60,11 +60,11 @@ h5 {
 						</div>
 					</div>
 					<div class="ln_solid"></div>
-						<label class="control-label col-md-2 col-sm-2 col-xs-12">Admission No</label>
+						<label class="control-label col-md-2 col-sm-2 col-xs-12">ID</label>
 						<div class="col-md-2 col-sm-2 col-xs-12">
 							 <input type="text" id="memberid"
-									class="form-control sharecertmemberid memberid" name="studentModel.studentid"
-									value="${accountDetail.studentModel.studentid }" data-validation="number" data-validation-error-msg=" " required>
+									class="form-control sharecertmemberid memberid" name="memberId"
+									value="${accountDetail.memberId }" required>
 						</div>
 						<div class="col-md-8 col-sm-8 col-xs-12 ">
 							<span id="customername"></span>
@@ -77,8 +77,7 @@ h5 {
 						<input type = "hidden" name= "previousAccountNumber" value="${accountDetail.accountNumber }">
 							 <input type="text"
 									class="form-control accountNumber" id="accountno" name="accountNumber"
-									value="${accountDetail.accountNumber }" data-validation="number"
-									data-validation-error-msg=" " required readonly>
+									value="${accountDetail.accountNumber }" required readonly>
 						</div>
 					</div>
 					<div class="form-group" id="cashWithdraw">
@@ -126,13 +125,6 @@ h5 {
 						<div class="col-md-3 col-sm-3 col-xs-12">
 							<input type="text"
 									class="form-control memberid" name="accountName" id="accountname" value="${accountDetail.accountName }">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-md-2 col-sm-2 col-xs-12">Limit Reference </label>
-						<div class="col-md-4 col-sm-4 col-xs-12">
-							<input type="text"
-									class="form-control" name="limitRef" value="${accountDetail.limitRef }">
 						</div>
 					</div>
 				</div>

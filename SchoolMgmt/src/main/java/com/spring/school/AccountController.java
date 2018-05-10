@@ -35,7 +35,10 @@ public class AccountController {
 	CategoryDao categoryDao;
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String addAccount(@ModelAttribute AccountModel accountModel, Model model){
+	public String addAccount(@ModelAttribute AccountModel accountModel, Model model, HttpSession session){
+		UserModel userdetail =(UserModel)session.getAttribute("userDetail");
+		accountModel.setInputter(userdetail.getUsername());
+		
 		System.out.println(accountModel);
 		boolean status = accountDao.addAccount(accountModel);
 		if(status){
@@ -91,7 +94,7 @@ public class AccountController {
 	public void membername(@RequestParam Map<String, String> reqparam, HttpServletResponse response) throws Exception{
 		int id = Integer.parseInt(reqparam.get("id"));
 		String name;
-		if(id<10000){
+		if(id<100000){
 		StudentModel studentModel = studentDao.getStudentDetail(id);
 		 name = studentModel.getStudentname();
 		}
