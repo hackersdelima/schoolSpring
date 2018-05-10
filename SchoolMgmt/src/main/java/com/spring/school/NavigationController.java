@@ -158,6 +158,14 @@ private void commonModels(Model model){
 		
 		return "usersettings/adduser";
 	}
+	@RequestMapping(value = "/newStaff")
+	public String newStaff(){
+		return "staff/newStaff";
+	}
+	@RequestMapping(value = "/staffList")
+	public String staffList(){
+		return "staff/staffList";
+	}
 	
 }
 

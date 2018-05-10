@@ -61,8 +61,14 @@
                   </li>
                   <li><a><i class="fa fa-edit"></i> Student <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="nav/studentAdmission" target="iframe_a">Student Admission</a></li>
+                      <li><a href="nav/studentAdmission" target="iframe_a">New Student</a></li>
                       <li><a href="nav/listStudents" target="iframe_a">Students List</a></li>
+                    </ul>
+                  </li>
+                   <li><a><i class="fa fa-edit"></i> Staff <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="nav/newStaff" target="iframe_a">New Staff </a></li>
+                      <li><a href="nav/staffList" target="iframe_a">Staff List</a></li>
                     </ul>
                   </li>
                    <li><a><i class="fa fa-edit"></i> Exam <span class="fa fa-chevron-down"></span></a>
