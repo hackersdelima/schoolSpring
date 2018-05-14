@@ -13,6 +13,7 @@ import com.spring.dao.BranchDao;
 import com.spring.dao.CategoryDao;
 import com.spring.dao.OperationDao;
 import com.spring.dao.RoleDao;
+import com.spring.dao.StaffDao;
 import com.spring.dao.StudentDao;
 import com.spring.dao.UserDao;
 import com.spring.model.FormDetails;
@@ -35,6 +36,8 @@ public class NavigationController {
 	private BranchDao branchDao;
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private StaffDao staffDao;
 	
 @ModelAttribute
 private void commonModels(Model model){
@@ -163,8 +166,13 @@ private void commonModels(Model model){
 		return "staff/newStaff";
 	}
 	@RequestMapping(value = "/staffList")
-	public String staffList(){
+	public String staffList(Model model){
+		model.addAttribute("staffList",staffDao.listStaffs());
 		return "staff/staffList";
+	}
+	@RequestMapping(value = "/student_photo_upload")
+	public String studentPhotoUpload(){
+		return "student/photo_upload";
 	}
 	
 }
