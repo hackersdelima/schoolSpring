@@ -227,6 +227,95 @@ private JdbcTemplate jdbcTemplate;
 				s.setStudentid(rs.getString("studentid"));
 				s.setRollno(rs.getString("rollno"));
 				s.setAdmissiondate(rs.getString("admissiondate"));
+				s.setSex(rs.getString("sex"));
+				s.setSethinicgroup(rs.getString("sethinicgroup"));
+				s.setSReligion(rs.getString("sreligion"));
+				s.setDifferentlyabledtype(rs.getString("differentlyabledtype"));
+				s.setDifferentlyabledYN(rs.getString("differentlyabledYN"));
+				s.setHousegroup(rs.getString("housegroup"));
+				s.setOldschool(rs.getString("oldschool"));
+				s.setReasonleav(rs.getString("reasonleav"));
+				s.setHobby(rs.getString("hobby"));
+				s.setSpecialinterest(rs.getString("specialinterest"));
+				s.setAdmissiondate(rs.getString("admissiondate"));
+				s.setAdmissiondateen(rs.getString("admissiondateen"));
+				s.setSmotherlanguage(rs.getString("smotherlanguage"));
+				s.setFathername(rs.getString("fathername"));
+				s.setFaddress(rs.getString("faddress"));
+				s.setFoffice(rs.getString("foffice"));
+				s.setFposition(rs.getString("fposition"));
+				s.setFincome(rs.getString("fincome"));
+				s.setFmobile(rs.getString("fmobile"));
+				s.setFtelephone(rs.getString("ftelephone"));
+				s.setFemail(rs.getString("femail"));
+				s.setFephone(rs.getString("fephone"));
+				s.setFcitizenshipno(rs.getString("fcitizenshipno"));
+				s.setFcitizenshipissuedby(rs.getString("fcitizenshipissuedby"));
+				s.setFcitizenshipissueddate(rs.getString("fcitizenshipissueddate"));
+				s.setFcitizenshipissueddateen(rs.getString("fcitizenshipissueddateen"));
+				s.setFlicenseno(rs.getString("flicenseno"));
+				s.setFlicenseissuedby(rs.getString("flicenseissuedby"));
+				s.setFlicenseissueddate(rs.getString("flicenseissueddate"));
+				s.setFlicenseissueddateen(rs.getString("flicenseissueddateen"));
+				s.setFofficialidno(rs.getString("fofficialidno"));
+				s.setFofficialidissuedby(rs.getString("fofficialidissuedby"));
+				s.setFofficialidissueddate(rs.getString("fofficialidissueddate"));
+				s.setFofficialidissueddateen(rs.getString("fofficialidissueddateen"));
+				s.setFvoteridno(rs.getString("fvoteridno"));
+				s.setFvoteridissuedby(rs.getString("fvoteridissuedby"));
+				s.setFvoteridissueddate(rs.getString("fvoteridissueddate"));
+				s.setFvoteridissueddateen(rs.getString("fvoteridissueddateen"));
+				s.setFpassportno(rs.getString("fpassportno"));
+				s.setFpassportissuedby(rs.getString("fpassportissuedby"));
+				s.setFpassportissueddate(rs.getString("fpassportissueddate"));
+				s.setFpassportissueddateen(rs.getString("fpassportissueddateen"));
+				
+				
+				s.setMothername(rs.getString("mothername"));
+				s.setMaddress(rs.getString("maddress"));
+				s.setMoffice(rs.getString("moffice"));
+				s.setMposition(rs.getString("mposition"));
+				s.setMincome(rs.getString("mincome"));
+				s.setMmobile(rs.getString("mmobile"));
+				s.setMtelephone(rs.getString("mtelephone"));
+				s.setMemail(rs.getString("memail"));
+				s.setMephone(rs.getString("mephone"));
+				s.setMcitizenshipno(rs.getString("mcitizenshipno"));
+				s.setMcitizenshipissuedby(rs.getString("mcitizenshipissuedby"));
+				s.setMcitizenshipissueddate(rs.getString("mcitizenshipissueddate"));
+				s.setMcitizenshipissueddateen(rs.getString("mcitizenshipissueddateen"));
+				s.setMlicenseno(rs.getString("mlicenseno"));
+				s.setMlicenseissuedby(rs.getString("mlicenseissuedby"));
+				s.setMlicenseissueddate(rs.getString("mlicenseissueddate"));
+				s.setMlicenseissueddateen(rs.getString("mlicenseissueddateen"));
+				s.setMofficialidno(rs.getString("mofficialidno"));
+				s.setMofficialidissuedby(rs.getString("mofficialidissuedby"));
+				s.setMofficialidissueddate(rs.getString("mofficialidissueddate"));
+				s.setMofficialidissueddateen(rs.getString("mofficialidissueddateen"));
+				s.setMvoteridno(rs.getString("mvoteridno"));
+				s.setMvoteridissuedby(rs.getString("mvoteridissuedby"));
+				s.setMvoteridissueddate(rs.getString("mvoteridissueddate"));
+				s.setMvoteridissueddateen(rs.getString("mvoteridissueddateen"));
+				s.setMpassportno(rs.getString("mpassportno"));
+				s.setMpassportissuedby(rs.getString("mpassportissuedby"));
+				s.setMpassportissueddate(rs.getString("mpassportissueddate"));
+				s.setMpassportissueddateen(rs.getString("mpassportissueddateen"));
+				s.setSpecialinterest(rs.getString("specialinterest"));
+				
+				s.setDistrict(rs.getString("district"));
+				s.setVdcMun(rs.getString("vdcMun"));
+				s.setWardNo(rs.getString("wardNo"));
+				s.setTole(rs.getString("tole"));
+				s.setTempaddress(rs.getString("tempaddress"));
+				s.setBirthcertificateno(rs.getString("sbirthcertificateno"));
+				s.setBirthcertificateissuedby(rs.getString("sbirthcertificateissuedby"));
+				s.setBirthcertificateissueddate(rs.getString("sbirthcertificateissueddate"));
+				s.setBirthcertificateissueddateen(rs.getString("sbirthcertificateissueddateen"));
+				s.setHousegroup(rs.getString("housegroup"));
+				
+				
+				
+				
 				
 				return s;
 			}
