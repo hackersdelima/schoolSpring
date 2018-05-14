@@ -105,6 +105,7 @@ h5 {
 						<label class="control-label col-md-2 col-sm-2 col-xs-12">
 							Account Type</label>
 						<div class="col-md-4 col-sm-4 col-xs-12">
+		
 							<select class="form-control"
 									name="accountTypeModel.accountType" id="accounttype">
 										<option value="">Select Account Type</option>
