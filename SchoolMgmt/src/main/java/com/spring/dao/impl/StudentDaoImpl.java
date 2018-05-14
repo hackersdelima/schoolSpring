@@ -221,7 +221,7 @@ private JdbcTemplate jdbcTemplate;
 				s.setDob(rs.getString("dob"));
 				s.setDoben(rs.getString("doben"));
 				s.setBirthcertificateno(rs.getString("sbirthcertificateno"));
-				s.setBirthcertificateissuedby(rs.getString("birthcertificateissuedby"));
+				s.setBirthcertificateissuedby(rs.getString("sbirthcertificateissuedby"));
 				s.setAdmissionclass(rs.getString("admissionclass"));
 				s.setSection(rs.getString("section"));
 				s.setStudentid(rs.getString("studentid"));

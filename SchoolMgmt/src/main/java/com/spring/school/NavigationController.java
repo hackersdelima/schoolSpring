@@ -170,6 +170,10 @@ private void commonModels(Model model){
 		model.addAttribute("staffList",staffDao.listStaffs());
 		return "staff/staffList";
 	}
+	@RequestMapping(value = "/student_photo_upload")
+	public String studentPhotoUpload(){
+		return "student/photo_upload";
+	}
 	
 }
 

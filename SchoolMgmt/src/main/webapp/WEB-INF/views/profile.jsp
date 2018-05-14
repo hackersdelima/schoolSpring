@@ -63,6 +63,7 @@
                     <ul class="nav child_menu">
                       <li><a href="nav/studentAdmission" target="iframe_a">New Student</a></li>
                       <li><a href="nav/listStudents" target="iframe_a">Students List</a></li>
+                       <li><a href="nav/student_photo_upload" target="iframe_a">Upload Photo</a></li>
                     </ul>
                   </li>
                    <li><a><i class="fa fa-edit"></i> Staff <span class="fa fa-chevron-down"></span></a>
@@ -220,7 +221,7 @@
 
         <!-- page content -->
      <div class="right_col" role="main">
-          <iframe    height="1400px" width="100%" src="<%=request.getContextPath()%>/nav/dashboard" id="Iframe" name="iframe_a"  style="border:none;" >
+          <iframe    height="2000px" width="100%" src="<%=request.getContextPath()%>/nav/dashboard" id="Iframe" name="iframe_a"  style="border:none;" >
 		</iframe>
      </div>
         <!-- /page content -->

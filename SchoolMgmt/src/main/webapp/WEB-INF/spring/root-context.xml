@@ -3,9 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-		<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource" />
-		</bean>
+	</bean>
 
 	<bean id="operationDao" class="com.spring.dao.impl.OperationDaoImpl">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
@@ -18,28 +18,32 @@
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
 	<bean id="accountDao" class="com.spring.dao.impl.AccountDaoImpl">
-		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
 	<bean id="categoryDao" class="com.spring.dao.impl.CategoryDaoImpl">
-		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
 	<bean id="examDao" class="com.spring.dao.impl.ExamDaoImpl">
-		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
 	<bean id="feeInvoiceDao" class="com.spring.dao.impl.FeeInvoiceDaoImpl">
-		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
 	<bean id="roleDao" class="com.spring.dao.impl.RoleDaoImpl">
-		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
 	<bean id="branchDao" class="com.spring.dao.impl.BranchDaoImpl">
-		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
 	<bean id="claimBillDao" class="com.spring.dao.impl.ClaimBillDaoImpl">
-		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
 	<bean id="staffDao" class="com.spring.dao.impl.StaffDaoImpl">
-		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="268435456" />
 	</bean>
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="dataSource"
