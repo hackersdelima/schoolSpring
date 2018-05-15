@@ -249,7 +249,7 @@
 												<strong>Municipality or Village Council</strong>
 											</h6> <select class="form-control vdcmun" name="vdcMun"
 											form="form">
-												<option value="" selected>Select muncipality or VDC</option>
+												<option value="" >Select muncipality or VDC</option>
 										</select>
 										</td>
 										<td>
@@ -807,7 +807,6 @@
 												<option selected value="">Select admission class</option>
 												<c:forEach items="${classlist}" var="cl">
 													<option value="${cl.classid}">${cl.classname }</option>
-
 												</c:forEach>
 
 										</select>
@@ -819,7 +818,6 @@
 												<option selected value="">Select section</option>
 												<c:forEach items="${section}" var="sec">
 													<option value="${sec.sectionname}">${sec.sectionname }</option>
-
 												</c:forEach>
 
 										</select>
@@ -840,7 +838,6 @@
 
 												<c:forEach items="${housegroup}" var="h">
 													<option value="${h.housegroupid}">${h.housegroupname }</option>
-
 												</c:forEach>
 										</select>
 										</td>
@@ -872,7 +869,6 @@
 												<option value="" selected>Select special interest</option>
 												<c:forEach items="${interest}" var="i">
 													<option value="${i.specialInterestId}">${i.specialInterestName}</option>
-
 												</c:forEach>
 
 										</select>

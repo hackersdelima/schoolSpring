@@ -78,8 +78,10 @@ public class StudentController {
 		public String update(@ModelAttribute StudentModel student, Model model)
 		{
 
+			System.out.println("reached herh");
 			boolean status=studentDao.updateStudent(student);
-			return "student/registeredstudents";
+			System.out.println(status);
+			return "redirect:/nav/listStudents";
 		}
 		
 	

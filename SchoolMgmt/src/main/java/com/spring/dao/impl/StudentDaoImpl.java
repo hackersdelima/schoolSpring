@@ -341,9 +341,9 @@ private JdbcTemplate jdbcTemplate;
 			
 			
 			String sqlf="update sfatherdetailtbl set fathername='"+s.getFathername()+"',faddress='"+s.getFaddress()+"',foffice='"+s.getFoffice()+"',fposition='"+s.getFposition()+"',fincome='"+s.getFincome()+"',fmobile='"+s.getFmobile()+"', ftelephone='"+s.getFtelephone()+"',femail='"+s.getFemail()+"',fephone='"+s.getFephone()+"' where studentid='"+s.getStudentid()+"'";
-			String sqlm="update smotherdetailtbl set mothername='"+s.getMothername()+"',maddress='"+s.getMaddress()+"',moffice='"+s.getMoffice()+"',mposition='"+s.getMposition()+"',mincome='"+s.getMincome()+"',mmobile='"+s.getMmobile()+"', mtelephone='"+s.getMtelephone()+"',femail='"+s.getMemail()+"',mephone='"+s.getMephone()+"' where studentid='"+s.getStudentid()+"'";
+			String sqlm="update smotherdetailtbl set mothername='"+s.getMothername()+"',maddress='"+s.getMaddress()+"',moffice='"+s.getMoffice()+"',mposition='"+s.getMposition()+"',mincome='"+s.getMincome()+"',mmobile='"+s.getMmobile()+"', mtelephone='"+s.getMtelephone()+"',memail='"+s.getMemail()+"',mephone='"+s.getMephone()+"' where studentid='"+s.getStudentid()+"'";
 			String sqlL="update slocalguardiantbl set localguardianname='"+s.getLocalguardianname()+"',localadd='"+s.getLocaladd()+"',relationtype='"+s.getRelationtype()+"',localmob='"+s.getLocalmob()+"' where studentid='"+s.getStudentid()+"'";
-		//	String sqls="update studentinfo set"
+			String sqls="update studentinfo set legacyid='"+s.getLegacyId()+"',studentname='"+s.getStudentname()+"',sex='"+s.getSex()+"',smotherlanguage='"+s.getSmotherlanguage()+"',sethinicgroup='"+s.getSethinicgroup()+"',sreligion='"+s.getsReligion()+"',dob='"+s.getDob()+"',doben='"+s.getDoben()+"',differentlyabledYN='"+s.getDifferentlyabledYN()+"',differentlyabledtype='"+s.getDifferentlyabledtype()+"',admissionclass='"+s.getAdmissionclass()+"',section='"+s.getSection()+"',rollno='"+s.getRollno()+"',housegroup='"+s.getHousegroup()+"',oldschool='"+s.getOldschool()+"',reasonleav='"+s.getReasonleav()+"',hobby='"+s.getHobby()+"',specialinterest='"+s.getSpecialinterest()+"',inputter='"+s.getInputter()+"',entrydate=now(),admissiondate='"+s.getAdmissiondate()+"',admissiondateen='"+s.getAdmissiondateen()+"' where studentid='"+s.getStudentid()+"'";
 			
 			
 			Statement stmt=null;
@@ -355,6 +355,7 @@ private JdbcTemplate jdbcTemplate;
 			stmt.addBatch(sqlf);
 			stmt.addBatch(sqlm);
 			stmt.addBatch(sqlL);
+			stmt.addBatch(sqls);
 			stmt.executeBatch();
 			}catch(Exception e){
 				System.out.println(e);

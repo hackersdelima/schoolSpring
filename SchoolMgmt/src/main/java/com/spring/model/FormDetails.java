@@ -7,7 +7,6 @@ public class FormDetails {
 	private String subjectid,subjectname,subjecttype,subjectCode;
 	private String languageid, languagename, casteid, castename, examtypeid, examtypename, description;
 	private Subjects subjects;
-	
 
 	public Subjects getSubjects() {
 		return subjects;
