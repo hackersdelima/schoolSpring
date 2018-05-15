@@ -1,5 +1,5 @@
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include.jsp"></jsp:include>
 
@@ -28,8 +28,10 @@
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 					</li>
 				</ul>
-				
-				<form method="post" action="<spring:url value="/student/studentRegistration"></spring:url>" id="form"></form>
+
+				<form method="post"
+					action="<spring:url value="/student/studentRegistration"></spring:url>"
+					id="form"></form>
 				<button type="submit" class="btn btn-success " form="form">
 					<i class="fa fa-check"></i> SUBMIT
 				</button>
@@ -64,7 +66,7 @@
 										<td>
 											<h6>
 												<strong>Student Legacy ID</strong>
-											</h6> <input type="text" class="form-control" name="LegacyId"
+											</h6> <input type="text" class="form-control" name="legacyId"
 											form="form">
 										</td>
 										<td>
@@ -88,23 +90,25 @@
 										<td>
 											<h6>
 												<strong>Mother Language</strong>
-											</h6> <select class="form-control" name="smotherlanguage" form="form">
+											</h6> <select class="form-control" name="smotherlanguage"
+											form="form">
 												<option value="" selected>Select mother language</option>
 
-<c:forEach items="${language }" var="lan">
-														<option value="${lan.languageid }">${lan.languagename }</option>
-													</c:forEach>
+												<c:forEach items="${language }" var="lan">
+													<option value="${lan.languageid }">${lan.languagename }</option>
+												</c:forEach>
 										</select>
 										</td>
 										<td>
 											<h6>
 												<strong>Ethnic Group</strong>
-											</h6> <select class="form-control" name="sethinicgroup" form="form">
+											</h6> <select class="form-control" name="sethinicgroup"
+											form="form">
 												<option value="" selected>Select ethnic group</option>
-					<c:forEach items="${caste }" var="caste">
-														<option value="${caste.casteid }">${caste.castename }</option>
-													</c:forEach>
-												
+												<c:forEach items="${caste }" var="caste">
+													<option value="${caste.casteid }">${caste.castename }</option>
+												</c:forEach>
+
 
 										</select>
 										</td>
@@ -124,7 +128,8 @@
 										<td>
 											<h6>
 												<strong>Differently-able?</strong>
-											</h6> <select class="form-control" name="differentlyabledYN" form="form">
+											</h6> <select class="form-control" name="differentlyabledYN"
+											form="form">
 												<option value="n">No</option>
 												<option value="y">Yes</option>
 										</select>
@@ -133,7 +138,8 @@
 											<h5 style="color: blue">
 												<strong>If Differently-able yes</strong>
 												</h6>
-												<select class="form-control" name="differentlyabledtype" form="form">
+												<select class="form-control" name="differentlyabledtype"
+													form="form">
 													<option value="" selected>Select disabled type</option>
 
 													<c:forEach items="${disabledlist }" var="disabled">
@@ -800,8 +806,8 @@
 											form="form" required>
 												<option selected value="">Select admission class</option>
 												<c:forEach items="${classlist}" var="cl">
-												<option value="${cl.classid}">${cl.classname }</option>
-												
+													<option value="${cl.classid}">${cl.classname }</option>
+
 												</c:forEach>
 
 										</select>
@@ -812,8 +818,8 @@
 											</h6> <select class="form-control" name="section" form="form">
 												<option selected value="">Select section</option>
 												<c:forEach items="${section}" var="sec">
-												<option value="${sec.sectionname}">${sec.sectionname }</option>
-												
+													<option value="${sec.sectionname}">${sec.sectionname }</option>
+
 												</c:forEach>
 
 										</select>
@@ -831,10 +837,10 @@
 												<strong>House Group</strong>
 											</h6> <select class="form-control" name="housegroup" form="form">
 												<option value="" selected>Select house group</option>
-				
+
 												<c:forEach items="${housegroup}" var="h">
-												<option value="${h.housegroupid}">${h.housegroupname }</option>
-												
+													<option value="${h.housegroupid}">${h.housegroupname }</option>
+
 												</c:forEach>
 										</select>
 										</td>
@@ -865,8 +871,8 @@
 											form="form">
 												<option value="" selected>Select special interest</option>
 												<c:forEach items="${interest}" var="i">
-												<option value="${i.specialInterestId}">${i.specialInterestName}</option>
-												
+													<option value="${i.specialInterestId}">${i.specialInterestName}</option>
+
 												</c:forEach>
 
 										</select>
@@ -882,7 +888,7 @@
 		</div>
 	</div>
 	<jsp:include page="../msgmodal.jsp"></jsp:include>
-	
+
 </body>
 </html>
 

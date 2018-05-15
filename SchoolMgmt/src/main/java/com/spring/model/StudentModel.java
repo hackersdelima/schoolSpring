@@ -1,7 +1,28 @@
 package com.spring.model;
 public class StudentModel {
-String studentid, admissiondate, admissiondateen,LegacyId, studentname, sex, smotherlanguage, sethinicgroup, SReligion, dob, doben, differentlyabledYN,differentlyabledtype, District, VdcMun, WardNo, tole, tempaddress, fathername, faddress, foffice, fposition, fincome,fmobile, ftelephone, femail, fephone, mothername,maddress,moffice,mposition,mincome,mmobile,mtelephone,memail,mephone,local1,localadd1,localmob1,local2,localadd2,localmob2,admissionclass,section,rollno,housegroup,oldschool,reasonleav,hobby,specialinterest,inputter, relaiontype1, relationtype2,birthcertificateno,birthcertificateissuedby,birthcertificateissueddate,birthcertificateissueddateen,fcitizenshipno,fcitizenshipissuedby, fcitizenshipissueddate, fcitizenshipissueddateen,flicenseno,flicenseissuedby,flicenseissueddate, flicenseissueddateen,fofficialidno, fofficialidissuedby,fofficialidissueddate,fofficialidissueddateen,fvoteridno,fvoteridissuedby,fvoteridissueddate,fvoteridissueddateen,fpassportno,fpassportissuedby,fpassportissueddate,fpassportissueddateen,mcitizenshipno,mcitizenshipissuedby, mcitizenshipissueddate, mcitizenshipissueddateen,mlicenseno,mlicenseissuedby,mlicenseissueddate, mlicenseissueddateen,mofficialidno, mofficialidissuedby,mofficialidissueddate,mofficialidissueddateen,mvoteridno,mvoteridissuedby,mvoteridissueddate,mvoteridissueddateen,mpassportno,mpassportissuedby,mpassportissueddate,mpassportissueddateen;
-String slocalguardianid, localguardianname, localadd, relationtype, localmob;
+private String studentid, admissiondate, admissiondateen,legacyId, studentname, sex, smotherlanguage, sethinicgroup, sReligion, dob, doben, differentlyabledYN,differentlyabledtype, district, VdcMun, WardNo, tole, tempaddress, fathername, faddress, foffice, fposition, fincome,fmobile, ftelephone, femail, fephone, mothername,maddress,moffice,mposition,mincome,mmobile,mtelephone,memail,mephone,local1,localadd1,localmob1,local2,localadd2,localmob2,admissionclass,section,rollno,housegroup,oldschool,reasonleav,hobby,specialinterest,inputter, relaiontype1, relationtype2,birthcertificateno,birthcertificateissuedby,birthcertificateissueddate,birthcertificateissueddateen,fcitizenshipno,fcitizenshipissuedby, fcitizenshipissueddate, fcitizenshipissueddateen,flicenseno,flicenseissuedby,flicenseissueddate, flicenseissueddateen,fofficialidno, fofficialidissuedby,fofficialidissueddate,fofficialidissueddateen,fvoteridno,fvoteridissuedby,fvoteridissueddate,fvoteridissueddateen,fpassportno,fpassportissuedby,fpassportissueddate,fpassportissueddateen,mcitizenshipno,mcitizenshipissuedby, mcitizenshipissueddate, mcitizenshipissueddateen,mlicenseno,mlicenseissuedby,mlicenseissueddate, mlicenseissueddateen,mofficialidno, mofficialidissuedby,mofficialidissueddate,mofficialidissueddateen,mvoteridno,mvoteridissuedby,mvoteridissueddate,mvoteridissueddateen,mpassportno,mpassportissuedby,mpassportissueddate,mpassportissueddateen;
+public String getsReligion() {
+	return sReligion;
+}
+
+public void setsReligion(String sReligion) {
+	this.sReligion = sReligion;
+}
+
+private String slocalguardianid, localguardianname, localadd, relationtype, localmob;
+
+FormDetails formdetail;
+
+
+
+public FormDetails getFormdetail() {
+	return formdetail;
+}
+
+public void setFormdetail(FormDetails formdetail) {
+	this.formdetail = formdetail;
+}
+
 public String getSlocalguardianid() {
 	return slocalguardianid;
 }
@@ -114,12 +135,13 @@ public void setRelationtype2(String relationtype2) {
 	this.relationtype2 = relationtype2;
 }
 
+
 public String getLegacyId() {
-	return LegacyId;
+	return legacyId;
 }
 
 public void setLegacyId(String legacyId) {
-	LegacyId = legacyId;
+	this.legacyId = legacyId;
 }
 
 public String getStudentname() {
@@ -137,9 +159,7 @@ public String getSex() {
 public void setSex(String sex) {
 	this.sex = sex;
 }
-public String getSReligion() {
-	return SReligion;
-}
+
 
 public String getSmotherlanguage() {
 	return smotherlanguage;
@@ -477,9 +497,7 @@ public void setMpassportissueddateen(String mpassportissueddateen) {
 	this.mpassportissueddateen = mpassportissueddateen;
 }
 
-public void setSReligion(String sReligion) {
-	SReligion = sReligion;
-}
+
 
 public String getDob() {
 	return dob;
@@ -513,12 +531,14 @@ public void setDifferentlyabledtype(String differentlyabledtype) {
 	this.differentlyabledtype = differentlyabledtype;
 }
 
+
+
 public String getDistrict() {
-	return District;
+	return district;
 }
 
 public void setDistrict(String district) {
-	District = district;
+	this.district = district;
 }
 
 public String getVdcMun() {
