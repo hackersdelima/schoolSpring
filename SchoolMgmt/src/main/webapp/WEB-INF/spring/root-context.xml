@@ -41,6 +41,9 @@
 	<bean id="staffDao" class="com.spring.dao.impl.StaffDaoImpl">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
+	<bean id="generator" class="com.spring.extras.Generator">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="268435456" />
@@ -49,9 +52,9 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/aranikodb" />
+		<property name="url" value="jdbc:mysql://localhost:3306/schooltestingdb" />
 		<property name="username" value="root" />
-		<property name="password" value="" />
+		<property name="password" value="centos" />
 	</bean>
 
 </beans>

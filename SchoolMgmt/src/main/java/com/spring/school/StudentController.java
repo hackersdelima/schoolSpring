@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.dao.StudentDao;
+import com.spring.extras.Generator;
 import com.spring.model.StudentModel;
 
 @Controller
@@ -29,6 +30,8 @@ import com.spring.model.StudentModel;
 public class StudentController {
 	@Autowired
 	private StudentDao studentDao;
+	@Autowired
+	Generator generator;
 
 	@RequestMapping(value = "/studentRegistration", method = RequestMethod.POST)
 	public String insert(@ModelAttribute StudentModel student, Model model) {
@@ -60,6 +63,9 @@ public class StudentController {
 		public String edit(@PathVariable int id, Model model)
 		{
 			StudentModel student=studentDao.getStudentDetail(id);
+			String image = generator.imageUploadPath()+"/"+Integer.toString(id)+".png";
+			
+			model.addAttribute("image",image);
 			model.addAttribute("student", student);
 			
 			return "student/editStudentRegistration";
@@ -98,7 +104,7 @@ public class StudentController {
 			String fileLocation=null; 
 			if (!file.getOriginalFilename().isEmpty()) {
 				saveFileName=studentid+".png";
-				fileLocation="D:/image";
+				fileLocation=generator.imageUploadPath();
 				
 				//File upload location from database
 				 //can be taken from database
