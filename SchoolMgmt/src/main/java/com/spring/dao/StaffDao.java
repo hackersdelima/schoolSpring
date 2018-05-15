@@ -10,5 +10,6 @@ public interface StaffDao {
 	public boolean deleteStaff(String id);
 	public List<StaffModel> listStaffs();
 	public StaffModel staffDetail(String id);
+	public StaffModel recentlyInsertedStaff();
 
 }

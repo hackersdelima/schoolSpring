@@ -63,7 +63,7 @@ public class StudentController {
 		public String edit(@PathVariable int id, Model model)
 		{
 			StudentModel student=studentDao.getStudentDetail(id);
-			String image = generator.imageUploadPath()+"/"+Integer.toString(id)+".png";
+			String image = generator.imageDownloadPath()+"/"+Integer.toString(id)+".png";
 			
 			model.addAttribute("image",image);
 			model.addAttribute("student", student);

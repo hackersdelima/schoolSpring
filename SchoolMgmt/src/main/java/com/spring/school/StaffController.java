@@ -20,10 +20,14 @@ public class StaffController {
 	
 	@RequestMapping(value="/add", method = RequestMethod.POST)
 	@ResponseBody
-	public String add(@ModelAttribute StaffModel staffModel){
+	public String add(@ModelAttribute StaffModel staffModel, Model model){
 		boolean status = staffDao.insertStaff(staffModel);
 		if(status){
-		return "Data Saved!";
+			StaffModel s = staffDao.recentlyInsertedStaff();
+		return "<p>Data Saved!</p>"
+				+ "<p>Staff Code: "+s.getStaffCode()+"</p>"
+						+ "<p>Staff Name: "+s.getStaffName()+"</p>"
+								+ "<p>Post: "+s.getPost()+"</p>";
 		}
 		else{
 			return "Data Save Failed!";

@@ -7,7 +7,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<style>
 
+img {
+  width: auto;
+  height : auto;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+</style>
 </head>
 
 <body class="background">
@@ -897,8 +906,8 @@
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="tab_content6"
 							aria-labelledby="profile-tab">
-							<div class="col-md-4">
-							<img src="${image }">
+							<div class="col-md-6" style="height:250px;">
+							<img src="${image }" class="img-thumbnail" >
 							</div>
 							</div>
 					</div>

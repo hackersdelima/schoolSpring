@@ -38,5 +38,9 @@ private JdbcTemplate jdbcTemplate;
 		String sql="select description from administrator_settings where type='image_upload_path'";
 		return jdbcTemplate.queryForObject(sql, String.class);
 	}
+	public String imageDownloadPath(){
+		String sql="select description from administrator_settings where type='image_download_path'";
+		return jdbcTemplate.queryForObject(sql, String.class);
+	}
 
 }
