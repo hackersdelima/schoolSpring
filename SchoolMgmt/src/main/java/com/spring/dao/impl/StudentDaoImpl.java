@@ -17,7 +17,6 @@ import org.springframework.jdbc.core.RowMapper;
 import com.spring.dao.StudentDao;
 import com.spring.model.FormDetails;
 import com.spring.model.StudentModel;
-import com.spring.model.UserModel;
 
 public class StudentDaoImpl implements StudentDao {
 private JdbcTemplate jdbcTemplate;
@@ -167,7 +166,7 @@ private JdbcTemplate jdbcTemplate;
 	 {
 		 String inputter="inputter";
 		 boolean status=false;
-		String sql="insert into studentinfo(LegacyId,studentname,sex,smotherlanguage,sethinicgroup,sreligion,dob,doben,differentlyabledYN,differentlyabledtype,admissionclass,section,rollno,housegroup,oldschool,reasonleav,hobby,specialinterest,inputter,entrydate,admissiondate,admissiondateen)values('"+s.getLegacyId()+"','"+s.getStudentname()+"','"+s.getSex()+"','"+s.getSmotherlanguage()+"','"+s.getSethinicgroup()+"','"+s.getSReligion()+"','"+s.getDob()+"','"+s.getDoben()+"','"+s.getDifferentlyabledYN()+"','"+s.getDifferentlyabledtype()+"','"+s.getAdmissionclass()+"','"+s.getSection()+"','"+s.getRollno()+"','"+s.getHousegroup()+"','"+s.getOldschool()+"','"+s.getReasonleav()+"','"+s.getHobby()+"','"+s.getSpecialinterest()+"','"+inputter+"',CURDATE(),'"+s.getAdmissiondate()+"','"+s.getAdmissiondateen()+"')";
+		String sql="insert into studentinfo(LegacyId,studentname,sex,smotherlanguage,sethinicgroup,sreligion,dob,doben,differentlyabledYN,differentlyabledtype,admissionclass,section,rollno,housegroup,oldschool,reasonleav,hobby,specialinterest,inputter,entrydate,admissiondate,admissiondateen)values('"+s.getLegacyId()+"','"+s.getStudentname()+"','"+s.getSex()+"','"+s.getSmotherlanguage()+"','"+s.getSethinicgroup()+"','"+s.getsReligion()+"','"+s.getDob()+"','"+s.getDoben()+"','"+s.getDifferentlyabledYN()+"','"+s.getDifferentlyabledtype()+"','"+s.getAdmissionclass()+"','"+s.getSection()+"','"+s.getRollno()+"','"+s.getHousegroup()+"','"+s.getOldschool()+"','"+s.getReasonleav()+"','"+s.getHobby()+"','"+s.getSpecialinterest()+"','"+inputter+"',CURDATE(),'"+s.getAdmissiondate()+"','"+s.getAdmissiondateen()+"')";
 		String sql1="select max(studentid) from studentinfo";
 		jdbcTemplate.update(sql);
 		return jdbcTemplate.queryForObject(sql1, Integer.class);
@@ -216,6 +215,7 @@ private JdbcTemplate jdbcTemplate;
 			@Override
 			public StudentModel mapRow(ResultSet rs, int rowNum) throws SQLException {
 				StudentModel s=new StudentModel();
+				FormDetails f=new FormDetails();
 				s.setLegacyId(rs.getString("legacyId"));
 				s.setStudentname(rs.getString("studentname"));
 				s.setDob(rs.getString("dob"));
@@ -229,7 +229,7 @@ private JdbcTemplate jdbcTemplate;
 				s.setAdmissiondate(rs.getString("admissiondate"));
 				s.setSex(rs.getString("sex"));
 				s.setSethinicgroup(rs.getString("sethinicgroup"));
-				s.setSReligion(rs.getString("sreligion"));
+				s.setsReligion(rs.getString("sReligion"));
 				s.setDifferentlyabledtype(rs.getString("differentlyabledtype"));
 				s.setDifferentlyabledYN(rs.getString("differentlyabledYN"));
 				s.setHousegroup(rs.getString("housegroup"));
@@ -313,10 +313,8 @@ private JdbcTemplate jdbcTemplate;
 				s.setBirthcertificateissueddateen(rs.getString("sbirthcertificateissueddateen"));
 				s.setHousegroup(rs.getString("housegroup"));
 				
-				
-				
-				
-				
+				f.setLanguageid(rs.getString("languageid"));
+				s.setFormdetail(f);
 				return s;
 			}
 			

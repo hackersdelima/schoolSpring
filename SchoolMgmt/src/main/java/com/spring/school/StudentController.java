@@ -51,12 +51,15 @@ public class StudentController {
 	//For COmmon Attributes
 		@ModelAttribute
 		public void CommonModels(Model model){
+			model.addAttribute("language",studentDao.getLanguages());
 			model.addAttribute("interest", studentDao.SpecialInterest());
 			model.addAttribute("housegroup", studentDao.HouseGroup());
 			model.addAttribute("section", studentDao.getSection());
 			model.addAttribute("classlist", studentDao.getAdmissionClass());
 			model.addAttribute("dislist", studentDao.getDistricts());
 			model.addAttribute("disabledlist", studentDao.getDisabledType());
+			model.addAttribute("caste",studentDao.getCaste());
+			model.addAttribute("specialinterest",studentDao.SpecialInterest());
 		}
 		
 		@RequestMapping(value="/editStudent/{id}", method=RequestMethod.GET)
