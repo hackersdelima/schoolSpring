@@ -312,11 +312,6 @@ private JdbcTemplate jdbcTemplate;
 				s.setBirthcertificateissueddate(rs.getString("sbirthcertificateissueddate"));
 				s.setBirthcertificateissueddateen(rs.getString("sbirthcertificateissueddateen"));
 				s.setHousegroup(rs.getString("housegroup"));
-				
-				
-				
-				
-				
 				return s;
 			}
 			
