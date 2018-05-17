@@ -124,18 +124,18 @@
 												class="removebutton">X</button></td>
 										<td colspan="1">
 										<input type="text"
-											class="form-control" name="accountNo"
+											class="form-control" name="paymentVoucherAccount.accountNo"
 											value="">
 										</td>
 
 										<td class="desc" colspan="1"><select 
-											class="form-control one" name="drcr" required>
+											class="form-control one" name="paymentVoucherAccount.drcr" required>
 											<option value="">None</option>
 											<option value="dr">Dr.</option>
 											<option value="cr">Cr.</option>
 											</select></td>
 										<td class="desc" colspan="1"><input type="text"
-											class="form-control two" name="amount" id="amount"
+											class="form-control two" name="paymentVoucherAccount.amount" id="amount"
 											value=""></td>
 									</tr>
 					</tbody>
