@@ -32,6 +32,7 @@
 			<div class="animate form login_form">
 				<section class="login_content">
 					<form method="post" action="login">
+					<h1>School Management System</h1><br>
 						<h1>Login Form</h1>
 						<c:if test="${msg!='' }">
 						<div class="alert alert-danger">

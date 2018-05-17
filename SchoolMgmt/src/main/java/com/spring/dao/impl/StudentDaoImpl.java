@@ -303,7 +303,7 @@ private JdbcTemplate jdbcTemplate;
 				s.setSpecialinterest(rs.getString("specialinterest"));
 				
 				s.setDistrict(rs.getString("district"));
-				s.setVdcMun(rs.getString("vdcMun"));
+				s.setVdcMun(rs.getString("VdcMun"));
 				s.setWardNo(rs.getString("wardNo"));
 				s.setTole(rs.getString("tole"));
 				s.setTempaddress(rs.getString("tempaddress"));

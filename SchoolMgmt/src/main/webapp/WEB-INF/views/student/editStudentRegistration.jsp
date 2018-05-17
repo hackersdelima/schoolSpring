@@ -267,7 +267,7 @@ img {
 										<td>
 											<h6>
 												<strong>District</strong>
-											</h6> <select class="form-control selectpicker district"
+											</h6> <select class="form-control selectpicker edistrict"
 											data-show-subtext="true" data-live-search="true"
 											name="district" form="form">
 												<option value="">Select district</option>
@@ -283,10 +283,12 @@ img {
 										<td>
 											<h6>
 												<strong>Municipality or Village Council</strong>
-											</h6> <select class="form-control vdcmun" name="vdcMun"
+											</h6> <select class="form-control evdcmun" name="vdcMun"
 											form="form">
-												<option value="" selected="">Select muncipality or
+												<option value="" >Select muncipality or
 													VDC</option>
+													<option value="${student.vdcMun }" selected="">${student.vdcMun }</option>
+													
 										</select>
 										</td>
 										<td>
@@ -294,7 +296,8 @@ img {
 												<strong>Ward No.</strong>
 											</h6> <select class="form-control wardno" name="wardNo"
 											form="form">
-												<option value="0" selected="">Select ward no.</option>
+												<option value="0" >Select ward no.</option>
+												<option value="${student.wardNo }" selected>${student.wardNo }</option>
 										</select>
 										</td>
 									</tr>
@@ -973,7 +976,44 @@ img {
 			</div>
 		</div>
 	</div>
+<script>
+$(document).ready(function()
+		{
+	$(".edistrict").change(function()
+	{
+	var id=$(this).val();
+	var dataString = 'id='+ id;
+	$.ajax
+	({
+	type: "POST",
+	url: "../../nav/viewMuncipality",
+	data: dataString,
+	cache: false,
+	success: function(html)
+	{
+	$(".evdcmun").html(html);
+	} 
+	});
+});
+	$(".evdcmun").change(function()
+			{
+			var id=$(this).val();
+			var dataString = 'id='+ id;
+			$.ajax
+			({
+			type: "POST",
+			url: "../../nav/viewWardNo",
+			data: dataString,
+			cache: false,
+			success: function(html)
+			{
+			$(".wardno").html(html);
+			} 
+			});
+			});
+	});
 
+</script>
 </body>
 </html>
 
