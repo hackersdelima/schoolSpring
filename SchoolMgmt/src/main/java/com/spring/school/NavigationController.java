@@ -175,5 +175,16 @@ private void commonModels(Model model){
 		return "student/photo_upload";
 	}
 	
+	@RequestMapping(value = "/accountType")
+	public String accountType(Model model){
+		model.addAttribute("accounttypelist",accountDao.getAccountType());
+		return "settings/adminSettings/accountType/insert";
+	}
+	
+	@RequestMapping(value = "/paymentVoucher")
+	public String paymentVoucher(){
+		return "generalTransaction/fundsTransfer/paymentVoucher/insert";
+	}
+	
 }
 

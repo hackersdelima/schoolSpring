@@ -20,7 +20,13 @@
 	<bean id="accountDao" class="com.spring.dao.impl.AccountDaoImpl">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
+	<bean id="accountTypeDao" class="com.spring.dao.impl.AccountTypeDaoImpl">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
 	<bean id="categoryDao" class="com.spring.dao.impl.CategoryDaoImpl">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
+	<bean id="paymentVoucherDao" class="com.spring.dao.impl.PaymentVoucherDaoImpl">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
 	<bean id="examDao" class="com.spring.dao.impl.ExamDaoImpl">
