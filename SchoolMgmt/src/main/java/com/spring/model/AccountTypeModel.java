@@ -1,14 +1,24 @@
 package com.spring.model;
 
 public class AccountTypeModel {
-	private String accountType, accountTypeHead, inputter, authorizer, alternativeAccountId;
+	private String previousAccountType, accountType, accountTypeHead,drcr, inputter, authorizer;
 
-	public String getAlternativeAccountId() {
-		return alternativeAccountId;
+
+
+	public String getPreviousAccountType() {
+		return previousAccountType;
 	}
 
-	public void setAlternativeAccountId(String alternativeAccountId) {
-		this.alternativeAccountId = alternativeAccountId;
+	public void setPreviousAccountType(String previousAccountType) {
+		this.previousAccountType = previousAccountType;
+	}
+
+	public String getDrcr() {
+		return drcr;
+	}
+
+	public void setDrcr(String drcr) {
+		this.drcr = drcr;
 	}
 
 	public String getAccountType() {

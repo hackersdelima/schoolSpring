@@ -48,6 +48,7 @@ private JdbcTemplate jdbcTemplate;
 			AccountTypeModel am=new AccountTypeModel();
 			am.setAccountType(rs.getString("accountType"));
 			am.setAccountTypeHead(rs.getString("accountTypeHead"));
+			am.setDrcr(rs.getString("drcr"));
 			/*am.setAuthorizer(rs.getString("authorizer"));
 			am.setInputter(rs.getString("inputter"));*/
 			
