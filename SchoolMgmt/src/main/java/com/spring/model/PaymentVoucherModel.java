@@ -3,8 +3,22 @@ package com.spring.model;
 import java.util.List;
 
 public class PaymentVoucherModel {
-	private String transactionId, referenceNo, bookingDateen, bookingDate, valueDateen, valueDate, narration,totalDebitAmount,totalCreditAmount, inwords, preparedBy, checkedBy, approvedBy ;
-	private List<String> accountNo, drcr, amount;
+	private String payment_voucher_id,transactionId, referenceNo, bookingDateen, bookingDate, valueDateen, valueDate, narration,totalDebitAmount,totalCreditAmount, inwords, preparedBy, checkedBy, approvedBy ;
+	private PaymentVoucherAccount paymentVoucherAccount;
+	
+	public PaymentVoucherAccount getPaymentVoucherAccount() {
+		return paymentVoucherAccount;
+	}
+	public void setPaymentVoucherAccount(PaymentVoucherAccount paymentVoucherAccount) {
+		this.paymentVoucherAccount = paymentVoucherAccount;
+	}
+	public String getPayment_voucher_id() {
+		return payment_voucher_id;
+	}
+	public void setPayment_voucher_id(String payment_voucher_id) {
+		this.payment_voucher_id = payment_voucher_id;
+	}
+
 	public String getTransactionId() {
 		return transactionId;
 	}
@@ -83,24 +97,5 @@ public class PaymentVoucherModel {
 	public void setApprovedBy(String approvedBy) {
 		this.approvedBy = approvedBy;
 	}
-	public List<String> getAccountNo() {
-		return accountNo;
-	}
-	public void setAccountNo(List<String> accountNo) {
-		this.accountNo = accountNo;
-	}
-	public List<String> getDrcr() {
-		return drcr;
-	}
-	public void setDrcr(List<String> drcr) {
-		this.drcr = drcr;
-	}
-	public List<String> getAmount() {
-		return amount;
-	}
-	public void setAmount(List<String> amount) {
-		this.amount = amount;
-	} 
-	
 
 }

@@ -20,8 +20,13 @@ private JdbcTemplate jdbcTemplate;
 		this.jdbcTemplate=new JdbcTemplate(dataSource);
 	}
 
-	public int add(PaymentVoucherModel paymentVoucher){
-		String sql = "";
+	public int add(PaymentVoucherModel p){
+		
+		//	private String  paymentVoucherId,transactionId, referenceNo, bookingDateen, bookingDate, valueDateen,
+		//valueDate, narration,totalDebitAmount,totalCreditAmount, inwords, preparedBy, checkedBy, approvedBy ;
+
+		String sql = "insert into payment_voucher(transactionId, referenceNo, bookingDateen, bookingDate, valueDateen, valueDate, narration,totalDebitAmount,totalCreditAmount, inwords, preparedBy, checkedBy, approvedBy)"
+				+ "values('"+p.getTransactionId()+"','"+p.getReferenceNo()+"','"+p.getBookingDateen()+"','"+p.getBookingDate()+"','"+p.getValueDateen()+"','"+p.getValueDate()+"','"+p.getNarration()+"','"+p.getTotalDebitAmount()+"','"+p.getTotalCreditAmount()+"','"+p.getInwords()+"','"+p.getPreparedBy()+"','"+p.getCheckedBy()+"','"+p.getApprovedBy()+"')";
 		return jdbcTemplate.update(sql);
 	}
 

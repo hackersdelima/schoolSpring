@@ -14,6 +14,7 @@ public class PaymentVoucherController {
 	@Autowired
 	PaymentVoucherDao paymentVoucherDao;
 	@RequestMapping(value = "/add")
+	
 	public String add(@ModelAttribute PaymentVoucherModel paymentVoucher){
 		int status = paymentVoucherDao.add(paymentVoucher);
 		
