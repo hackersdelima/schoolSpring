@@ -1,7 +1,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<spring:url value="/paymentVoucher/add" var="formUrl" />
+<spring:url value="/paymentVoucher/review" var="formUrl" />
 <jsp:include page="../../../include.jsp"></jsp:include>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,7 +92,7 @@
 							<span class="label label-default">Booking nep Date*</span> <input
 								type="text" maxlength="10" id="bookingDate" name="bookingDate"
 								class="form-control date" placeholder="yyyy-mm-dd"
-								value="${sessionScope.paymentVoucher.bookingDate">
+								value="${sessionScope.paymentVoucher.bookingDate}">
 						</div>
 					</div>
 					<div id="client">
@@ -101,7 +101,7 @@
 								type="text" maxlength="10" id="valueDateen"
 								class="form-control date" name="valueDateen"
 								placeholder="yyyy-mm-dd"
-								value="${sessionScope.paymentVoucher.valueDateen">
+								value="${sessionScope.paymentVoucher.valueDateen}">
 						</div>
 						<br>
 						<div class="date">
@@ -126,7 +126,7 @@
 					</thead>
 					<tbody>
 						<c:choose>
-							<c:when test="${empty sessionScope.paymentVoucher.accountNo}">
+							<c:when test="${empty sessionScope.paymentVoucher.paymentVoucherAccount.accountNo}">
 								<tr id="tablerow">
 									<td><button onclick="deleteRow(this)" class="removebutton">X</button></td>
 									<td colspan="1"><input type="text" class="form-control"
@@ -145,27 +145,28 @@
 								</tr>
 							</c:when>
 							<c:otherwise>
-								<c:forEach items="${sessionScope.paymentVoucher.accountNo }"
+								<c:forEach items="${sessionScope.paymentVoucher.paymentVoucherAccount.accountNo }"
 									var="desc" varStatus="descIndex">
-								</c:forEach>
+								
 								<tr id="tablerow">
 									<td><button onclick="deleteRow(this)" class="removebutton">X</button></td>
 									<td colspan="1"><input type="text" class="form-control"
 										name="paymentVoucherAccount.accountNo"
-										value="${sessionScope.paymentVoucher.accountNo[descIndex.index] }"></td>
+										value="${sessionScope.paymentVoucher.paymentVoucherAccount.accountNo[descIndex.index] }"></td>
 
 									<td class="desc" colspan="1"><select class="form-control"
 										name="paymentVoucherAccount.drcr" required>
 											<option value="dr"
-												<c:if ${sessionScope.paymentVoucher.accountNo[descIndex.index] eq 'dr' }>selected</c:if>>Dr.</option>
+												<c:if test="${sessionScope.paymentVoucher.paymentVoucherAccount.drcr[descIndex.index] eq 'dr' }">selected</c:if>>Dr.</option>
 											<option value="cr"
-												<c:if ${sessionScope.paymentVoucher.accountNo[descIndex.index] eq 'cr' }>selected</c:if>>Cr.</option>
+												<c:if test="${sessionScope.paymentVoucher.paymentVoucherAccount.drcr[descIndex.index] eq 'cr' }">selected</c:if>>Cr.</option>
 									</select></td>
 									<td class="desc" colspan="1"><input type="text"
 										class="form-control two" name="paymentVoucherAccount.amount"
 										id="amount"
-										value="${sessionScope.paymentVoucher.amount[descIndex.index] }"></td>
+										value="${sessionScope.paymentVoucher.paymentVoucherAccount.amount[descIndex.index] }"></td>
 								</tr>
+								</c:forEach>
 							</c:otherwise>
 						</c:choose>
 					</tbody>
@@ -226,7 +227,7 @@
 
 							<button class="btn btn-info" type="button" id="validate">Validate</button>
 							<a class="btn btn-danger" id="cancel"
-								href="<spring:url value="/invoice/cancel" />">Cancel</a> <input
+								href="<spring:url value="/paymentVoucher/cancel" />">Cancel</a> <input
 								type="submit" class="btn btn-success" value="Submit">
 
 						</div>

@@ -25,10 +25,11 @@
 		<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
 
 			<a class="btn btn-info" type="button"
-				href="<spring:url value="/invoice/add" />">Edit</a> <a
+				href="<spring:url value="/paymentVoucher/edit" />">Edit</a> <a
 				class="btn btn-danger" id="cancel"
 				href="<spring:url value="/invoice/cancel" />">Cancel</a> <a
 				class="btn btn-success" href="<spring:url value="/invoice/save" />">Save</a>
+				<a class="btn btn-danger" id="cancel" href="<spring:url value="/paymentVoucher/cancel" />">Cancel</a>
 			<a class="btn btn-primary" href="#">Save & Print</a>
 
 		</div>

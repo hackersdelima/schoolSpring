@@ -25,8 +25,10 @@
 		<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
 
 			<a class="btn btn-info" type="button"
-				href="<spring:url value="/paymentVoucher/edit/" />">Edit</a> 
-			<a class="btn btn-primary" href="#">Print</a>
+				href="<spring:url value="/nav/paymentVoucher" />">Edit</a> 
+				<a class="btn btn-danger" id="cancel" href="<spring:url value="/paymentVoucher/cancel" />">Cancel</a>
+			<a class="btn btn-primary" href="#">Save & Print</a>
+			<a class="btn btn-success" href="<spring:url value="/paymentVoucher/add"/>" >Save</a>
 
 		</div>
 	</div>
@@ -58,35 +60,35 @@
 		<div id="customer">
 
 			<h4>
-				<br> Admission No: ${sessionScope.feeInvoice.student.studentid }
+				<br> Admission No: 
 			</h4>
 
 			<table id="meta">
 				<tr>
 					<td class="meta-head">Transaction Id #</td>
-					<td><p></p></td>
+					<td><p>${paymentVoucher.transactionId }</p></td>
 				</tr>
 				<tr>
 					<td class="meta-head">Reference No</td>
-					<td><p id="date"></p></td>
+					<td><p id="date">${paymentVoucher.referenceNo }</p></td>
 				</tr>
 				<tr>
 
 					<td class="meta-head">Value Eng Date</td>
-					<td><p id="date"></p></td>
+					<td><p id="date">${paymentVoucher.valueDateen }</p></td>
 				</tr>
 				<tr>
 
 					<td class="meta-head">Value Nep Date</td>
-					<td><p id="date"></p></td>
+					<td><p id="date">${paymentVoucher.valueDate }</p></td>
 				</tr>
 				<tr>
 					<td class="meta-head">Booking Eng Date</td>
-					<td><div class="due"></div></td>
+					<td><div class="due">${paymentVoucher.bookingDateen }</div></td>
 				</tr>
 				<tr>
 					<td class="meta-head">Booking Nep Date</td>
-					<td><div class="due"></div></td>
+					<td><div class="due">${paymentVoucher.bookingDate }</div></td>
 				</tr>
 
 			</table>
@@ -101,14 +103,15 @@
 					<th>Dr/Cr</th>
 					<th>Amount</th>
 				</tr>
-
+<c:forEach items="${paymentVoucher.paymentVoucherAccount.accountNo }" var="desc"
+				varStatus="descIndex">
 				<tr class="item-row">
-					<td></td>
-					<td class="item-name"></td>
-					<td class="description"></td>
-					<td><p class="cost"></p></td>
+					<td>${descIndex.index +1 }</td>
+					<td class="item-name">${paymentVoucher.paymentVoucherAccount.accountNo[descIndex.index] }</td>
+					<td class="description">${paymentVoucher.paymentVoucherAccount.drcr[descIndex.index] }</td>
+					<td><p class="cost">${paymentVoucher.paymentVoucherAccount.amount[descIndex.index] }</p></td>
 				</tr>
-
+</c:forEach>
 			</tbody>
 			<tfoot>
 				<tr>
