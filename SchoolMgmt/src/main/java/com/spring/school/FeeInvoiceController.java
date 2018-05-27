@@ -9,10 +9,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.spring.dao.AccountDao;
 import com.spring.dao.CategoryDao;
 import com.spring.dao.FeeInvoiceDao;
 import com.spring.model.FeeInvoiceModel;
@@ -23,12 +25,16 @@ import com.spring.model.FeeInvoiceModel;
 public class FeeInvoiceController {
 
 	@Autowired
+	AccountDao accountDao;
+	@Autowired
 	CategoryDao categoryDao;
 	@Autowired
 	FeeInvoiceDao feeInvoiceDao;
 
 	@RequestMapping(value = "/add")
-	public String add(Model model) {
+	public String add(Model model, @RequestParam("studentid") String pid) {
+		model.addAttribute("pid",pid);
+		model.addAttribute("scategory",accountDao.getStudentAccount(pid));
 		model.addAttribute("categorylist", categoryDao.getCategories());
 		return "invoice/invoice";
 	}
@@ -76,6 +82,12 @@ public class FeeInvoiceController {
 	public String search(@PathVariable String id) {
 
 		return "";
+	}
+	
+	@RequestMapping(value="/search")
+	public String invoiceSearch(Model model)
+	{
+		return "/invoice/invoicesearch";
 	}
 
 }

@@ -88,6 +88,7 @@ public class StudentController {
 		@RequestMapping(value="/studentName", method=RequestMethod.POST)
 		public void studentName(@RequestParam Map<String, String> requestParams, HttpServletResponse response) throws Exception
 		{
+			System.out.println("reached");
 			PrintWriter out=response.getWriter();
 			String classname=requestParams.get("classname");
 			String section=requestParams.get("section");
@@ -101,10 +102,11 @@ public class StudentController {
 		}
 		@RequestMapping(value = "/photo_upload", method = RequestMethod.POST)
 		@ResponseBody
-		public String photoUpload(@RequestParam("file") MultipartFile file, @RequestParam("studentid") String studentid, Model model, HttpSession session) throws IOException {
+		public String photoUpload(@RequestParam("file") MultipartFile file, @RequestParam("classid") String classid, @RequestParam("sectionid") String sectionid,  @RequestParam("rollno") String rollno, Model model, HttpSession session) throws IOException {
 			//operations
-			System.out.println("reached");
 			// Save file on system
+			String studentid=studentDao.getStudentDetail(classid, sectionid, rollno).getStudentid();
+			
 			String saveFileName=null;
 			String fileLocation=null; 
 			if (!file.getOriginalFilename().isEmpty()) {

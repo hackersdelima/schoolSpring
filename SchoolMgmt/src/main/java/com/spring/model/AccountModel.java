@@ -1,8 +1,13 @@
 package com.spring.model;
 
 public class AccountModel {
-private String  memberId, accountNumber,alternativeAccountId, accountName, inputter , previousAccountNumber;
+private String  memberId, accountNumber,alternativeAccountId, accountName, inputter , previousAccountNumber,workingBal;
 
+
+
+private CategoryModel categoryModel;
+private AccountTypeModel accountTypeModel;
+private StudentModel studentModel;
 
 public String getMemberId() {
 	return memberId;
@@ -60,9 +65,15 @@ public void setAccountTypeModel(AccountTypeModel accountTypeModel) {
 	this.accountTypeModel = accountTypeModel;
 }
 
-private CategoryModel categoryModel;
-private AccountTypeModel accountTypeModel;
-private StudentModel studentModel;
+public String getWorkingBal() {
+	return workingBal;
+}
+public void setWorkingBal(String workingBal) {
+	this.workingBal = workingBal;
+}
+
+
+
 
 
 @Override

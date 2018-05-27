@@ -3,6 +3,12 @@ package com.spring.model;
 import java.util.List;
 
 public class FeeInvoiceModel {
+	private StudentModel student;
+	private CategoryModel category;
+	private List<String> charges;
+	private List<String> discount;
+	private List<String> balance;
+	
 	private String receivedby, fee_invoice_id, fromDateEn, fromDateNep, toDateEn, toDateNep, invoiceNo, invoiceDateEn, invoiceDateNep, subTotal, discountPercentage, discountAmount, total, taxPercentage, taxAmount, grandTotal, amountPaid, balanceDue, inwords, remarks;
 	public String getReceivedby() {
 		return receivedby;
@@ -16,10 +22,7 @@ public class FeeInvoiceModel {
 	public void setFee_invoice_id(String fee_invoice_id) {
 		this.fee_invoice_id = fee_invoice_id;
 	}
-	private List<String> charges;
-	private List<String> discount;
-	private List<String> balance;
-	
+
 	
 	public String getFromDateEn() {
 		return fromDateEn;
@@ -162,8 +165,7 @@ public class FeeInvoiceModel {
 	public void setCategory(CategoryModel category) {
 		this.category = category;
 	}
-	private StudentModel student;
-	private CategoryModel category;
+
 	@Override
 	public String toString() {
 		return "FeeInvoiceModel [receivedby=" + receivedby + ", fee_invoice_id=" + fee_invoice_id + ", fromDateEn="

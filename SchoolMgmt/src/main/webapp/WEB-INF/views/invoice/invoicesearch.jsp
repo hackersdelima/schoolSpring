@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <jsp:include page="../include.jsp"></jsp:include>
-<spring:url value="/staff/add" var="formUrl"></spring:url>
+<spring:url value="/invoice/add" var="formUrl"></spring:url>
 <html>
 <head>
 <style>
@@ -19,7 +19,7 @@ h5 {
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><i class="fa fa-home"
 					aria-hidden="true"></i>&nbsp;<a href="#">Home</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Staff</li>
+				<li class="breadcrumb-item active" aria-current="page">Account</li>
 				<li class="breadcrumb-item active" aria-current="page">Add
 					Account</li>
 			</ol>
@@ -32,7 +32,7 @@ h5 {
 				action="${formUrl }">
 
 				<div class="x_title">
-					<h2>Add New Staff</h2>
+					<h2>Student Invoice</h2>
 					<div class="col-md-4 col-sm-4 col-xs-12 pull-right">
 					</div>
 					<div class="clearfix"></div>
@@ -51,58 +51,21 @@ h5 {
 					</div>
 					<hr>
 					<div class="form-group">
-						<label class="control-label col-md-2 col-sm-2 col-xs-12">Staff 
-							Name</label>
+						<label class="control-label col-md-2 col-sm-2 col-xs-12">Student  
+							Admission Number</label>
 						<div class="col-md-4 col-sm-4 col-xs-12">
 							 <input type="text"
-									class="form-control" id="staffName" name="staffName"
+									class="form-control" id="staffName" name="studentid"
 									value="" required >
 						</div>
 					</div>
-					<div class="form-group" id="cashWithdraw">
-						<label class="control-label col-md-2 col-sm-2 col-xs-12">Staff
-							Address</label>
-						<div class="col-md-4 col-sm-4 col-xs-12">
-							<input type="text" 
-									class="form-control" name="staffAddress" value="">
-						</div>
-					</div>
-					<div class="form-group" id="cashDeposit">
-						<label class="control-label col-md-2 col-sm-2 col-xs-12">
-							Post</label>
-						<div class="col-md-4 col-sm-4 col-xs-12">
-							<input type="text" 
-									class="form-control" name="post" value=""
-									required>
-
-						</div>
 					
-					</div>
-					<div class="form-group" id="cashDeposit">
-						<label class="control-label col-md-2 col-sm-2 col-xs-12">
-							Branch Code</label>
-						<div class="col-md-4 col-sm-4 col-xs-12">
-
-							<input type="text" 
-									class="form-control" name="branchCode" value="${sessionScope.userDetail.branch.branchId }"
-									required>
-
-						</div>
-					
-					</div>
 				</div>
 				</div>
 			</form:form>
 		</div>
 							</div>
 	</div>
-	<script>
-	$(".confirm").click(function(){
-		return confirm("Confirm?");
-	})
-	$("form").submit(function(){
-		return confirm("Confirm Submit?");
-	});
-</script>
+
 </body>
 </html>

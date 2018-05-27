@@ -18,5 +18,8 @@ public interface AccountDao {
 	 public AccountModel getAccount(String accountNo);
 	 
 	public int deleteAccount(String id);
+	public List<AccountModel> getStudentAccount(String id);
+	public boolean checkIfUserExists(String memberid);
+	public String acccountnogen(String memberid);
 
 }

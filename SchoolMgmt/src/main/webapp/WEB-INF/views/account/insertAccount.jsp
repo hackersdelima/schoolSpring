@@ -130,8 +130,9 @@ h5 {
 <script>
  $("#validate").click(function()
 		{
+	 	accountno();
 		membername();
-		accountno();
+		
 		}); 
  function membername(){
 	 var id=$('.memberid').val();

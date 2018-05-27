@@ -9,7 +9,7 @@ public interface StaffDao {
 	public boolean updateStaff(StaffModel s);
 	public boolean deleteStaff(String id);
 	public List<StaffModel> listStaffs();
-	public StaffModel staffDetail(String id);
+	public StaffModel staffDetail(int id);
 	public StaffModel recentlyInsertedStaff();
 
 }

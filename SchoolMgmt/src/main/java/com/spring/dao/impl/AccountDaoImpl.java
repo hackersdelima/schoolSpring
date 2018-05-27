@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.spring.dao.AccountDao;
+import com.spring.dao.impl.CategoryDaoImpl.Categories;
 import com.spring.model.AccountModel;
 import com.spring.model.AccountTypeModel;
 import com.spring.model.CategoryModel;
@@ -41,6 +42,11 @@ private JdbcTemplate jdbcTemplate;
 		 return jdbcTemplate.queryForObject(query, new AccountType());
 	 }
 	 
+		public List<AccountModel> getStudentAccount(String id){
+			String query="select categories.categoryHead, accountstbl.* from categories join accountstbl using(categoryId) where pid='"+id+"'";
+			return jdbcTemplate.query(query, new AccountRow());
+		}
+		
 	 public static final class AccountType implements RowMapper<AccountTypeModel>{
 
 		@Override
@@ -96,6 +102,7 @@ private JdbcTemplate jdbcTemplate;
 				CategoryModel cm = new CategoryModel();
 				
 				am.setAccountNumber(rs.getString("accountNumber"));
+				am.setWorkingBal(rs.getString("workingBal"));
 				am.setAccountName(rs.getString("accountName"));
 				am.setAlternativeAccountId(rs.getString("alternativeAccountId"));
 				am.setMemberId(rs.getString("pid"));
@@ -112,6 +119,24 @@ private JdbcTemplate jdbcTemplate;
 			}
 			 
 		 }
+	 public boolean checkIfUserExists(String memberid)
+	 {
+		 boolean userexists = false;
+		 String query="select count(*) from studentinfo where studentid='"+memberid+"'";
+		 int rowcount=jdbcTemplate.queryForObject(query, Integer.class);
+		 if(rowcount>0)
+		 {
+			 userexists=true;
+		 }
+		return userexists;
+		 
+	 }
 	 
+	 public String acccountnogen(String memberid)
+	 {
+			String query="select max(accountNumber)+1 as accountNumber from accountstbl where pid='"+memberid+"'";
+			return jdbcTemplate.queryForObject(query, String.class);
+			
+	 }
 
 }
