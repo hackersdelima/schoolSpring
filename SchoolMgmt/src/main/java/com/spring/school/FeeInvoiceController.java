@@ -52,11 +52,44 @@ public class FeeInvoiceController {
 	@ResponseBody
 	public String save(HttpSession session, SessionStatus status) {
 		FeeInvoiceModel feeInvoice = (FeeInvoiceModel) session.getAttribute("feeInvoice");
+		System.out.println(feeInvoice+" Fee InVoice");
 		boolean invoiceSaveStatus = feeInvoiceDao.insertFeeInvoice(feeInvoice);
 		if (invoiceSaveStatus) {
 			String maxFeeInvoiceId = feeInvoiceDao.maxFeeInvoiceId();
 			feeInvoice.setFee_invoice_id(maxFeeInvoiceId);
+			
+			//for deducting amount from individual account
+			int sizeOfAccount=feeInvoice.getAccount().size();
+			int totalPaid=Integer.parseInt(feeInvoice.getAmountPaid());
+			System.out.println(" Total Paid ="+totalPaid);
+			for(int i=0;i<sizeOfAccount;i++)
+			{
+				int oldWorkingBal=Integer.parseInt(accountDao.getCurWorkingBalance(feeInvoice.getAccount().get(i)));
+				System.out.println(feeInvoice.getAccount().get(i)+"="+(oldWorkingBal));
+				
+				int balAfterDiscount=Integer.parseInt(feeInvoice.getBalance().get(i));
+				System.out.println("Balance After Discount "+balAfterDiscount);
+				
+				if(totalPaid>=balAfterDiscount)
+				{
+					totalPaid=totalPaid-balAfterDiscount;
+					int newWorkingBal=oldWorkingBal-balAfterDiscount;
+					System.out.println(newWorkingBal);
+					System.out.println("Remaining Total "+ totalPaid);
+					int stats=accountDao.updateWorkingBal(feeInvoice.getAccount().get(i),newWorkingBal);
+						
+				}
+				else
+				{
+					System.out.println("Unsufficent Balance "+ totalPaid);
+					int newWorkingBal=oldWorkingBal-totalPaid;
+					int stats=accountDao.updateWorkingBal(feeInvoice.getAccount().get(i),newWorkingBal);
+				}
+			}
 
+			
+			
+	//-------------------------------------------------------------------------------------------------//
 			int size = feeInvoice.getCategory().getCategoryIdList().size();
 			for (int i = 0; i < size; i++) {
 				feeInvoiceDao.insertFeeInvoiceContent(feeInvoice, i);

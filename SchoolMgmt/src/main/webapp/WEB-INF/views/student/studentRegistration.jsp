@@ -154,7 +154,7 @@
 											<h6>
 												<strong>DOB(YYYY-MM-DD) B.S.</strong>
 											</h6> <input type="text" class="form-control" name="dob"
-											maxlength="10" id="nepaliDate1" form="form"
+											maxlength="10" id="nepaliDate1" form="form" onblur="nepaliToEnglish('.dob','.doben')"
 											placeholder="2051-07-25">
 										</td>
 										<td>
@@ -606,6 +606,46 @@
 		</div>
 	</div>
 	<jsp:include page="../msgmodal.jsp"></jsp:include>
+	<script>
+	function nepaliToEnglish(nepalidate,englishdate){
+		alert("error occuredn");
+				var date = $(nepalidate).val();
+				var dataString = {
+					'nepalidate' : date
+				};
+				
+				$.ajax({
+					type : "POST",
+					url : "../../nav/nepaliToEnglish",
+					data : dataString,
+					cache : false,
+					success : function(html) {
+						$(englishdate).val(html);
+					},
+					error : function() {
+						$alert("error occured");
+					}
+				});
+			}
+			function englishToNepali(nepalidate,englishdate){
+				var date = $(englishdate).val();
+				var dataString = {
+					'englishdate' : date
+				};
+				$.ajax({
+					type : "POST",
+					url : "/nav/englishToNepali",
+					data : dataString,
+					cache : false,
+					success : function(html) {
+						$(nepalidate).val(html);
+					},
+					error : function() {
+						$alert("error occured");
+					}
+				});
+			}
+	</script>
 
 </body>
 </html>

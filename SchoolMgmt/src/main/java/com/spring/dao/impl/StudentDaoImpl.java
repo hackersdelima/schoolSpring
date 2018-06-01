@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -323,10 +324,14 @@ private JdbcTemplate jdbcTemplate;
 		}
 		public StudentModel getStudentDetail(String classname, String section, String rollno)
 		{
+			try{
 			String query="select * from studentdetail where admissionclass='"+classname+"' and section='"+section+"' and rollno='"+rollno+"'";
-			System.out.println(query);
 			return jdbcTemplate.queryForObject(query, new StudentMapper());
 			
+		}catch(Exception e)
+			{
+			return null;
+			}
 		}
 
 		public boolean updateStudent(StudentModel s)

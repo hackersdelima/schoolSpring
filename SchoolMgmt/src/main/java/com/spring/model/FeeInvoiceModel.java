@@ -8,7 +8,15 @@ public class FeeInvoiceModel {
 	private List<String> charges;
 	private List<String> discount;
 	private List<String> balance;
+	private List<String> account;
 	
+	public List<String> getAccount() {
+		return account;
+	}
+	public void setAccount(List<String> account) {
+		this.account = account;
+	}
+
 	private String receivedby, fee_invoice_id, fromDateEn, fromDateNep, toDateEn, toDateNep, invoiceNo, invoiceDateEn, invoiceDateNep, subTotal, discountPercentage, discountAmount, total, taxPercentage, taxAmount, grandTotal, amountPaid, balanceDue, inwords, remarks;
 	public String getReceivedby() {
 		return receivedby;
@@ -165,18 +173,20 @@ public class FeeInvoiceModel {
 	public void setCategory(CategoryModel category) {
 		this.category = category;
 	}
-
 	@Override
 	public String toString() {
-		return "FeeInvoiceModel [receivedby=" + receivedby + ", fee_invoice_id=" + fee_invoice_id + ", fromDateEn="
-				+ fromDateEn + ", fromDateNep=" + fromDateNep + ", toDateEn=" + toDateEn + ", toDateNep=" + toDateNep
-				+ ", invoiceNo=" + invoiceNo + ", invoiceDateEn=" + invoiceDateEn + ", invoiceDateNep=" + invoiceDateNep
-				+ ", subTotal=" + subTotal + ", discountPercentage=" + discountPercentage + ", discountAmount="
-				+ discountAmount + ", total=" + total + ", taxPercentage=" + taxPercentage + ", taxAmount=" + taxAmount
-				+ ", grandTotal=" + grandTotal + ", amountPaid=" + amountPaid + ", balanceDue=" + balanceDue
-				+ ", inwords=" + inwords + ", remarks=" + remarks + ", charges=" + charges + ", discount=" + discount
-				+ ", balance=" + balance + ", student=" + student + ", category=" + category + "]";
+		return "FeeInvoiceModel [student=" + student + ", category=" + category + ", charges=" + charges + ", discount="
+				+ discount + ", balance=" + balance + ", account=" + account + ", receivedby=" + receivedby
+				+ ", fee_invoice_id=" + fee_invoice_id + ", fromDateEn=" + fromDateEn + ", fromDateNep=" + fromDateNep
+				+ ", toDateEn=" + toDateEn + ", toDateNep=" + toDateNep + ", invoiceNo=" + invoiceNo
+				+ ", invoiceDateEn=" + invoiceDateEn + ", invoiceDateNep=" + invoiceDateNep + ", subTotal=" + subTotal
+				+ ", discountPercentage=" + discountPercentage + ", discountAmount=" + discountAmount + ", total="
+				+ total + ", taxPercentage=" + taxPercentage + ", taxAmount=" + taxAmount + ", grandTotal=" + grandTotal
+				+ ", amountPaid=" + amountPaid + ", balanceDue=" + balanceDue + ", inwords=" + inwords + ", remarks="
+				+ remarks + "]";
 	}
+
+	
 
 
 	

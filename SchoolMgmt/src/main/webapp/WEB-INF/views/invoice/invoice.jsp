@@ -201,14 +201,14 @@
 					<tfoot>
 
 						<tr>
-							<td colspan="3"></td>
+							<td colspan="4"></td>
 							<td colspan="1">SUB-TOTAL(Rs)</td>
 							<td><input class="form-control subtotal" type="number"
 								step="any" name="subTotal"
 								value="${sessionScope.feeInvoice.subTotal }" readonly></td>
 						</tr>
 						<tr>
-							<td colspan="3"></td>
+							<td colspan="4"></td>
 							<td colspan="1"><span class="label label-default">Overall Discount
 									%*</span><br> <input name="discountPercentage" type="number"
 								step="any" min=0 max=100
@@ -221,14 +221,14 @@
 								value="${sessionScope.feeInvoice.discountAmount }" readonly></td>
 						</tr>
 						<tr>
-							<td colspan="3"></td>
+							<td colspan="4"></td>
 							<td colspan="1">TOTAL(Rs)</td>
 							<td><input class="form-control resulttotal" type="number"
 								step="any" name="total"
 								value="${sessionScope.feeInvoice.total }" readonly></td>
 						</tr>
 						<tr>
-							<td colspan="3"></td>
+							<td colspan="4"></td>
 							<td colspan="1"><span class="label label-default">TAX
 									%*</span><br> <input name="taxPercentage" step="any"
 								type="number" min=0 max=100
@@ -241,21 +241,21 @@
 						</tr>
 
 						<tr>
-							<td colspan="3"></td>
+							<td colspan="4"></td>
 							<td colspan="1">GRAND TOTAL(Rs)</td>
 							<td><input name="grandTotal"  id="number" type="number"
 								step="any" class="form-control grandTotal"
 								value="${sessionScope.feeInvoice.grandTotal }" readonly></td>
 						</tr>
 						<tr>
-							<td colspan="3"></td>
+							<td colspan="4"></td>
 							<td colspan="1">AMOUNT PAID(Rs)</td>
 							<td><input name="amountPaid" type="number" id="amount-paid"
 								step="any" class="form-control"
 								value="${sessionScope.feeInvoice.amountPaid }"></td>
 						</tr>
 						<tr>
-							<td colspan="3"></td>
+							<td colspan="4"></td>
 							<td colspan="1">BALANCE DUE(Rs)</td>
 							<td><input name="balanceDue" id="balance-due" type="number"
 								step="any" class="form-control"

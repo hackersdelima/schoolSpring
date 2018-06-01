@@ -88,16 +88,22 @@ public class StudentController {
 		@RequestMapping(value="/studentName", method=RequestMethod.POST)
 		public void studentName(@RequestParam Map<String, String> requestParams, HttpServletResponse response) throws Exception
 		{
-			System.out.println("reached");
 			PrintWriter out=response.getWriter();
 			String classname=requestParams.get("classname");
 			String section=requestParams.get("section");
 			String rollno = requestParams.get("rollno");
 			
 			StudentModel studentModel = studentDao.getStudentDetail(classname, section, rollno);
-			String studentname = studentModel.getStudentname();
-			out.println(studentname);
 			
+			if(studentModel!=null){
+			String studentname = studentModel.getStudentname();
+			
+			out.println(studentname);
+			}
+			else
+			{
+				out.println("Student Id Not Found");
+			}
 		
 		}
 		@RequestMapping(value = "/photo_upload", method = RequestMethod.POST)
@@ -105,8 +111,15 @@ public class StudentController {
 		public String photoUpload(@RequestParam("file") MultipartFile file, @RequestParam("classid") String classid, @RequestParam("sectionid") String sectionid,  @RequestParam("rollno") String rollno, Model model, HttpSession session) throws IOException {
 			//operations
 			// Save file on system
-			String studentid=studentDao.getStudentDetail(classid, sectionid, rollno).getStudentid();
 			
+			
+			
+			
+			StudentModel s=studentDao.getStudentDetail(classid, sectionid, rollno);
+			if(s!=null){
+			String studentid=s.getStudentid();
+			
+		
 			String saveFileName=null;
 			String fileLocation=null; 
 			if (!file.getOriginalFilename().isEmpty()) {
@@ -132,8 +145,14 @@ public class StudentController {
 			} else {
 				return "please select file";
 			}
-
-		}
+			}
+			else
+			{
+				return "Student Id Not Found!! Please Validate First";
+			}
 		
+
+		
+		}
 
 }

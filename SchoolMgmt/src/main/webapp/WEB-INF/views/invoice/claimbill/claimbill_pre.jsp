@@ -123,9 +123,9 @@
 				<table border="0" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
-							<th >Account No</th>
-							<th>Category Id</th>
-							<th>Category Head</th>
+							<th class="desc"><a onclick="addRow()" id="newrow">Add
+									Row+</a></th>
+							<th colspan="1">Fee Description</th>
 							<th class="desc" colspan="1">Non Taxable Amount</th>
 							<th class="desc" colspan="1">Taxable Amount</th>
 							<th class="total itemdetailinput " colspan="1">Total Amount</th>
@@ -135,18 +135,15 @@
 					<tbody>
 						<c:choose>
 							<c:when test="${empty sessionScope.claimBill.category.categoryIdList}">
-							<c:forEach items="${categorylist}" var="c">
 								<tr id="tablerow">
-									
-										<td><input type="text"
-										class="form-control" name="account" value="${s.accountNumber }"></td>
-										<td><input type="text"
-										class="form-control" name="category.categoryIdList" value="${c.categoryId }"></td>
-										<td><input type="text"
-										class="form-control" name="category.categoryHeadList" value="${c.categoryHead }"></td>
-									
-									
-									
+									<td><a onclick="deleteRow(this)" class="removebutton">X</a></td>
+									<td colspan="1"><input type="hidden" name="category.categoryHeadList" class="categoryHead" value=""><select class="form-control category" 
+										name="category.categoryIdList">
+											<option value="">Select</option>
+											<c:forEach items="${categorylist }" var="c">
+												<option value="${c.categoryId }">${c.categoryHead }</option>
+											</c:forEach>
+									</select></td>
 									
 									<td class="desc" colspan="1"><input type="text"
 										class="form-control one" name="nontaxableamount" value=""></td>
@@ -159,21 +156,22 @@
 
 
 								</tr>
-								</c:forEach>
 							</c:when>
 							<c:otherwise>
 								<c:forEach items="${sessionScope.claimBill.category.categoryIdList }"
 									var="desc" varStatus="descIndex">
 
 									<tr id="tablerow">
+										<td><button onclick="deleteRow(this)"
+												class="removebutton">X</button></td>
+										<td colspan="1"><input type="hidden" name="category.categoryHeadList" class="categoryHead" value="${sessionScope.claimBill.category.categoryHeadList[descIndex.index] }"><select class="form-control category"
+											name="category.categoryIdList">
+												<option value="${sessionScope.claimBill.category.categoryIdList[descIndex.index] }" selected>${sessionScope.claimBill.category.categoryHeadList[descIndex.index] }</option>
+												<c:forEach items="${categorylist }" var="c">
+													<option value="${c.categoryId }">${c.categoryHead }</option>
+												</c:forEach>
+										</select></td>
 									
-									
-										<td><input type="text"
-										class="form-control" name="account" value="${s.accountNumber }"></td>
-										<td><input type="text"
-										class="form-control" name="category.categoryIdList" value="${c.categoryId }"></td>
-										<td><input type="text"
-										class="form-control" name="category.categoryHeadList" value="${c.categoryHead }"></td>
 										<td class="desc" colspan="1"><input type="text"
 											class="form-control one" name="nontaxableamount"
 											value="${sessionScope.claimBill.nontaxableamount[descIndex.index] }"></td>
@@ -193,39 +191,39 @@
 					</tbody>
 					<tfoot>
 <tr>
-<td colspan="3">Total Fees</td>
+<td colspan="2">Total Fees</td>
 <td ><input type="text" value="${sessionScope.claimBill.nontaxable_totalfees }" name="nontaxable_totalfees" class="form-control nontaxabletotal"></td>
 <td ><input type="text" value="${sessionScope.claimBill.taxable_totalfees }" name="taxable_totalfees" class="form-control taxabletotal"></td>
 <td class="total"><input type="text" value="${sessionScope.claimBill.totalfees }" name="totalfees" class="form-control subtotal " readonly></td>
 </tr>
 <tr>
-<td colspan="3">Less:Scholarship/Discount</td>
+<td colspan="2">Less:Scholarship/Discount</td>
 <td><input class="form-control  col1discount" type="text"  name="nontaxable_discount" value="${sessionScope.claimBill.nontaxable_discount }"></td>
 <td><input class="form-control col2discount" type="text" name="taxable_discount" value="${sessionScope.claimBill.taxable_discount }"></td>
 <td class="total"><input class="form-control totaldiscount" type="text" name="totaldiscount"  value="${sessionScope.claimBill.totaldiscount}"></td>
 </tr>
 <tr>
-<td colspan="3">Total Amount</td>
+<td colspan="2">Total Amount</td>
 <td ><input class="form-control col1_total" type="text" name="nontaxable_total" value="${sessionScope.claimBill.nontaxable_total }"></td>
 <td ><input class="form-control col2_total" type="text" name="taxable_total" value="${sessionScope.claimBill.taxable_total }"></td>
 <td ><input class="form-control col3_total" type="text" name="total" value="${sessionScope.claimBill.total }"></td>
 </tr>
 <tr>
-<td colspan="4">Education Service Tax(%)</td>
+<td colspan="3">Education Service Tax(%)</td>
 <td><input type="number" min=0 max=100 class="form-control taxPercentage inputdetails" name="tax_percentage" value="${sessionScope.claimBill.tax_percentage }"></td>
 <td ><input type="text" class="taxAmount" name="tax_amount" value="${sessionScope.claimBill.tax_amount }"></td>
 </tr>
 
 <tr>
-<td colspan="5">Grand Total</td>
+<td colspan="4">Grand Total</td>
 <td><input type="text" class="gtotal" name="grand_total" value="${sessionScope.claimBill.grand_total }"></td>
 </tr>
 <tr>
-<td colspan="5">Dr/Cr Previous Balance</td>
+<td colspan="4">Dr/Cr Previous Balance</td>
 <td><input type="text" class="preBalance form-control" name="drcr_previous_balance" value="${sessionScope.claimBill.drcr_previous_balance }"></td>
 </tr>
 <tr>
-<td colspan="5">Total Receivable</td>
+<td colspan="4">Total Receivable</td>
 <td><input type="text" class="totalReceivable form-control" name="total_receivable" value="${sessionScope.claimBill.total_receivable }"></td>
 </tr>
 					</tfoot>
