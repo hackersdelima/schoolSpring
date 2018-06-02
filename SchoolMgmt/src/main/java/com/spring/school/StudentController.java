@@ -94,17 +94,32 @@ public class StudentController {
 			String rollno = requestParams.get("rollno");
 			
 			StudentModel studentModel = studentDao.getStudentDetail(classname, section, rollno);
-			String studentname = studentModel.getStudentname();
-			out.println(studentname);
 			
+			if(studentModel!=null){
+			String studentname = studentModel.getStudentname();
+			
+			out.println(studentname);
+			}
+			else
+			{
+				out.println("Student Id Not Found");
+			}
 		
 		}
 		@RequestMapping(value = "/photo_upload", method = RequestMethod.POST)
 		@ResponseBody
-		public String photoUpload(@RequestParam("file") MultipartFile file, @RequestParam("studentid") String studentid, Model model, HttpSession session) throws IOException {
+		public String photoUpload(@RequestParam("file") MultipartFile file, @RequestParam("classid") String classid, @RequestParam("sectionid") String sectionid,  @RequestParam("rollno") String rollno, Model model, HttpSession session) throws IOException {
 			//operations
-			System.out.println("reached");
 			// Save file on system
+			
+			
+			
+			
+			StudentModel s=studentDao.getStudentDetail(classid, sectionid, rollno);
+			if(s!=null){
+			String studentid=s.getStudentid();
+			
+		
 			String saveFileName=null;
 			String fileLocation=null; 
 			if (!file.getOriginalFilename().isEmpty()) {
@@ -130,8 +145,14 @@ public class StudentController {
 			} else {
 				return "please select file";
 			}
-
-		}
+			}
+			else
+			{
+				return "Student Id Not Found!! Please Validate First";
+			}
 		
+
+		
+		}
 
 }

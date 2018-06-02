@@ -98,7 +98,7 @@
 						<h4 class="name">
 							<span class="label label-default">Student Admission No*</span><input
 								type="text" class="form-control " id="studentid" name="student.studentid"
-								value="${pid}" readonly>
+								value="${sessionScope.feeInvoice.student.studentid }">
 						</h4>
 					</div>
 					<div id="client">
@@ -125,10 +125,10 @@
 				<table border="0" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
-							<th>Account Number </th>
-							<th>Category Id</th>
-							<th>Category Head</th>
-							<th class="desc" colspan="1">Working Balance</th>
+							<th class="desc"><a onclick="addRow()" id="newrow">Add
+									Row+</a></th>
+							<th colspan="1">Category</th>
+							<th class="desc" colspan="1">FEE AMOUNT</th>
 							<th class="desc" colspan="1">DISCOUNT</th>
 							<th class="total itemdetailinput " colspan="1">BALANCE</th>
 
@@ -137,23 +137,19 @@
 					<tbody>
 						<c:choose>
 							<c:when test="${empty sessionScope.feeInvoice.charges}">
-							
-								<c:forEach items="${scategory }" var="s">
-								
-								<c:if test="${not empty s.workingBal }">
 								<tr id="tablerow">
 								
-								
-										<td><input type="text"
-										class="form-control" name="account" value="${s.accountNumber }"></td>
-										<td><input type="text"
-										class="form-control" name="category.categoryIdList" value="${s.categoryModel.categoryId }"></td>
-										<td><input type="text"
-										class="form-control" name="category.categoryHeadList" value="${s.categoryModel.categoryHead }"></td>
+									<td><a onclick="deleteRow(this)" class="removebutton">X</a></td>
+									<td colspan="1"><input type="hidden" name="category.categoryHeadList" class="categoryHead" value=""><select class="form-control category" 
+										name="category.categoryIdList">
+											<option value="">Select</option>
+											<c:forEach items="${categorylist }" var="c">
+												<option value="${c.categoryId }">${c.categoryHead }</option>
+											</c:forEach>
+									</select></td>
 									
-										
-										<td class="desc" colspan="1"><input type="text"
-										class="form-control one" name="charges" value="${s.workingBal }"></td>
+									<td class="desc" colspan="1"><input type="text"
+										class="form-control one" name="charges" value=""></td>
 									<td class="desc" colspan="1"><input type="text"
 										class="form-control two" name="discount"
 										value=""></td>
@@ -163,37 +159,35 @@
 
 
 								</tr>
-								</c:if>
-								</c:forEach>
 							</c:when>
-						
 							<c:otherwise>
 								<c:forEach items="${sessionScope.feeInvoice.charges }"
 									var="desc" varStatus="descIndex">
 
+									<tr id="tablerow">
+										<td><button onclick="deleteRow(this)"
+												class="removebutton">X</button></td>
+										<td colspan="1"><input type="hidden" name="category.categoryHeadList" class="categoryHead" value="${sessionScope.feeInvoice.category.categoryHeadList[descIndex.index] }"><select class="form-control category"
+											name="category.categoryIdList">
+												<option value="${sessionScope.feeInvoice.category.categoryIdList[descIndex.index] }" selected>${sessionScope.feeInvoice.category.categoryHeadList[descIndex.index] }</option>
+												<c:forEach items="${categorylist }" var="c">
+													<option value="${c.categoryId }">${c.categoryHead }</option>
+												</c:forEach>
+										</select></td>
 									
-											<tr id="tablerow">
-								
-								
-										<td><input type="text"
-										class="form-control " name="account" value="${s.accountNumber }"></td>
-										<td><input type="text"
-										class="form-control " name="category.categoryIdList" value="${sessionScope.feeInvoice.category.categoryIdList[descIndex.index] }"></td>
-										<td><input type="text"
-										class="form-control " name="category.categoryHeadList" value="${sessionScope.feeInvoice.category.categoryHeadList[descIndex.index] }"></td>
-									
-										
 										<td class="desc" colspan="1"><input type="text"
-										class="form-control one" name="charges" value="${s.workingBal }"></td>
-									<td class="desc" colspan="1"><input type="text"
-										class="form-control two" name="discount"
-										value=""></td>
-									<td class="total" colspan="1"><input
-										class="form-control balance" type="number" step="any" value=""
-										name="balance"></td>
+											class="form-control one" name="charges"
+											value="${sessionScope.feeInvoice.charges[descIndex.index] }"></td>
+										<td class="desc" colspan="1"><input type="text"
+											class="form-control two" name="discount" id="itemName"
+											value="${sessionScope.feeInvoice.discount[descIndex.index] }"></td>
+										<td class="total" colspan="1"><input
+											class="form-control balance" type="number" step="any"
+											value="${sessionScope.feeInvoice.balance[descIndex.index] }"
+											name="balance"></td>
 
 
-								</tr>
+									</tr>
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
@@ -201,14 +195,14 @@
 					<tfoot>
 
 						<tr>
-							<td colspan="4"></td>
+							<td colspan="3"></td>
 							<td colspan="1">SUB-TOTAL(Rs)</td>
 							<td><input class="form-control subtotal" type="number"
 								step="any" name="subTotal"
 								value="${sessionScope.feeInvoice.subTotal }" readonly></td>
 						</tr>
 						<tr>
-							<td colspan="4"></td>
+							<td colspan="3"></td>
 							<td colspan="1"><span class="label label-default">Overall Discount
 									%*</span><br> <input name="discountPercentage" type="number"
 								step="any" min=0 max=100
@@ -221,14 +215,14 @@
 								value="${sessionScope.feeInvoice.discountAmount }" readonly></td>
 						</tr>
 						<tr>
-							<td colspan="4"></td>
+							<td colspan="3"></td>
 							<td colspan="1">TOTAL(Rs)</td>
 							<td><input class="form-control resulttotal" type="number"
 								step="any" name="total"
 								value="${sessionScope.feeInvoice.total }" readonly></td>
 						</tr>
 						<tr>
-							<td colspan="4"></td>
+							<td colspan="3"></td>
 							<td colspan="1"><span class="label label-default">TAX
 									%*</span><br> <input name="taxPercentage" step="any"
 								type="number" min=0 max=100
@@ -241,21 +235,21 @@
 						</tr>
 
 						<tr>
-							<td colspan="4"></td>
+							<td colspan="3"></td>
 							<td colspan="1">GRAND TOTAL(Rs)</td>
 							<td><input name="grandTotal"  id="number" type="number"
 								step="any" class="form-control grandTotal"
 								value="${sessionScope.feeInvoice.grandTotal }" readonly></td>
 						</tr>
 						<tr>
-							<td colspan="4"></td>
+							<td colspan="3"></td>
 							<td colspan="1">AMOUNT PAID(Rs)</td>
 							<td><input name="amountPaid" type="number" id="amount-paid"
 								step="any" class="form-control"
 								value="${sessionScope.feeInvoice.amountPaid }"></td>
 						</tr>
 						<tr>
-							<td colspan="4"></td>
+							<td colspan="3"></td>
 							<td colspan="1">BALANCE DUE(Rs)</td>
 							<td><input name="balanceDue" id="balance-due" type="number"
 								step="any" class="form-control"
@@ -334,42 +328,12 @@ $("#studentid").blur(function(){
 			var balanceDue = grandTotal - amountPaid;
 			$("#balance-due").val(balanceDue);
 		});
-		 $("#validate").click(function()
-					{
-					membername();
-					accountno();
-					}); 
-			 function membername(){
-				 var id=$('.memberid').val();
-					var dataString = 'id='+ id;
-				 $.ajax
-					({
-					type: "POST",
-					url: "../account/membername",
-					data: dataString,
-					cache: false,
-					success: function(html)
-					{
-					$("#membername").val(html);
-					$("#accountname").val(html);
-					} 
-					});
-			 };
-			 function accountno(){
-				 var id=$('.memberid').val();
-					var dataString = 'id='+ id;
-				 $.ajax
-					({
-					type: "POST",
-					url: "../account/generateAccNo",
-					data: dataString,
-					cache: false,
-					success: function(html)
-					{
-					$("#accountno").val(html);
-					} 
-					});
-			 }
+		$("#validate").click(function() {
+			var grandTotal = $("#number").val();
+			var amountPaid = $("#amount-paid").val();
+			var balanceDue = grandTotal - amountPaid;
+			$("#balance-due").val(balanceDue);
+		});
 
 		$('#englishDate1').change(function() {
 			$('#nepaliDate1').val(AD2BS($('#englishDate1').val()));

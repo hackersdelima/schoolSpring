@@ -27,10 +27,11 @@ public class CategoryDaoImpl implements CategoryDao{
 	}
 
 	public List<CategoryModel> getCategories(){
-		String query="select categories.*, accounttype.accountTypeHead from categories join accounttype using(accountType);";
+		String query="select categories.*, accounttype.accountTypeHead from categories join accounttype using(accountType) where categoryId like '222%'";
 		return jdbcTemplate.query(query, new Categories());
 	}
 
+	
 	public CategoryModel getCategory(String id){
 		String query="select categories.*, accounttype.accountTypeHead from categories join accounttype using(accountType) where categories.categoryId='"+id+"'";
 		return jdbcTemplate.queryForObject(query, new Categories());

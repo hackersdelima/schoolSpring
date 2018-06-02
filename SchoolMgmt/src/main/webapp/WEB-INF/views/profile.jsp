@@ -117,7 +117,7 @@
 									</ul></li>
 									<li><a><span class="fa fa-chevron-down"></span>Invoice</a>
 											<ul class="nav child_menu">
-										<li id="a"><a href="invoice/add" target="iframe_a"> Invoice </a></li>
+										<li id="a"><a href="invoice/search" target="iframe_a"> Invoice </a></li>
 										<li id="a"><a href="claimbill/add" target="iframe_a"> Claim Bill </a></li>
 										</ul>
 										</li>

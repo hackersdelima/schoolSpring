@@ -2,23 +2,28 @@ package com.spring.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.spring.dao.AccountDao;
 import com.spring.model.AccountModel;
 import com.spring.model.AccountTypeModel;
 import com.spring.model.CategoryModel;
+import com.spring.model.FeeInvoiceModel;
 import com.spring.model.StudentModel;
 
 public class AccountDaoImpl implements AccountDao{
 	
 private JdbcTemplate jdbcTemplate;
+
 	
 
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -29,6 +34,7 @@ private JdbcTemplate jdbcTemplate;
 	 private void setDataSource(DataSource dataSource)
 	 {
 		 this.jdbcTemplate=new JdbcTemplate(dataSource);
+
 		 
 	 }
 	 
@@ -41,6 +47,11 @@ private JdbcTemplate jdbcTemplate;
 		 return jdbcTemplate.queryForObject(query, new AccountType());
 	 }
 	 
+		public List<AccountModel> getStudentAccount(String id){
+			String query="select categories.categoryHead, accountstbl.* from categories join accountstbl using(categoryId) where pid='"+id+"'";
+			return jdbcTemplate.query(query, new AccountRow());
+		}
+		
 	 public static final class AccountType implements RowMapper<AccountTypeModel>{
 
 		@Override
@@ -96,15 +107,16 @@ private JdbcTemplate jdbcTemplate;
 				CategoryModel cm = new CategoryModel();
 				
 				am.setAccountNumber(rs.getString("accountNumber"));
+				am.setWorkingBal(rs.getString("workingBal"));
 				am.setAccountName(rs.getString("accountName"));
 				am.setAlternativeAccountId(rs.getString("alternativeAccountId"));
 				am.setMemberId(rs.getString("pid"));
 				atm.setAccountType(rs.getString("accountType"));
+				am.setAccountTypeModel(atm);
+				
 				cm.setCategoryHead(rs.getString("categoryHead"));
 				cm.setCategoryId(rs.getString("categoryId"));
 				
-				
-				am.setAccountTypeModel(atm);
 				am.setCategoryModel(cm);
 				
 				
@@ -112,6 +124,39 @@ private JdbcTemplate jdbcTemplate;
 			}
 			 
 		 }
+	 public boolean checkIfUserExists(String memberid)
+	 {
+		 boolean userexists = false;
+		 String query="select count(*) from studentinfo where studentid='"+memberid+"'";
+		 int rowcount=jdbcTemplate.queryForObject(query, Integer.class);
+		 if(rowcount>0)
+		 {
+			 userexists=true;
+		 }
+		return userexists;
+		 
+	 }
 	 
+	 public String acccountnogen(String memberid)
+	 {
+			String query="select max(accountNumber)+1 as accountNumber from accountstbl where pid='"+memberid+"'";
+			return jdbcTemplate.queryForObject(query, String.class);
+			
+	 }
+
+	@Override
+	public String getCurWorkingBalance(String accountNo) {
+		String sql="select workingBal from accountstbl where accountNumber='"+accountNo+"'";
+		 return jdbcTemplate.queryForObject(sql, String.class);
+	
+	}
+
+	@Override
+	public int updateWorkingBal(String accountNo,int newWorkingBal) {
+		String sql="update accountstbl set workingBal='"+newWorkingBal+"' where accountNumber='"+accountNo+"'";
+		
+		return jdbcTemplate.update(sql);
+		
+	}
 
 }

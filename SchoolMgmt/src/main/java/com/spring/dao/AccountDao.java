@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.spring.model.AccountModel;
 import com.spring.model.AccountTypeModel;
+import com.spring.model.FeeInvoiceModel;
 
 public interface AccountDao {
 	 public List<AccountTypeModel> getAccountType();
@@ -18,5 +19,10 @@ public interface AccountDao {
 	 public AccountModel getAccount(String accountNo);
 	 
 	public int deleteAccount(String id);
+	public List<AccountModel> getStudentAccount(String id);
+	public boolean checkIfUserExists(String memberid);
+	public String acccountnogen(String memberid);
+	public String getCurWorkingBalance(String accountNo);
+	public int updateWorkingBal(String accountNo,int balAfterDiscount);
 
 }

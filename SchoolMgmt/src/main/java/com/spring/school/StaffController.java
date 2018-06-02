@@ -47,7 +47,7 @@ public class StaffController {
 	}
 	@RequestMapping(value="/edit/{id}", method = RequestMethod.GET)
 	public String edit(@PathVariable String id, Model model){
-		model.addAttribute("staff",staffDao.staffDetail(id));
+		model.addAttribute("staff",staffDao.staffDetail(Integer.parseInt(id)));
 		return "staff/editStaff";
 	}
 	

@@ -60,7 +60,7 @@ public class StaffDaoImpl implements StaffDao{
 		String sql = "select * from staff_tbl where staffCode = (SELECT max(staffCode) from staff_tbl)";
 		return jdbcTemplate.queryForObject(sql, new StaffMapper());
 	}
-	public StaffModel staffDetail(String id){
+	public StaffModel staffDetail(int id){
 		String sql = "select * from staff_tbl where staffCode = '"+id+"'";
 		return jdbcTemplate.queryForObject(sql, new StaffMapper());
 	}

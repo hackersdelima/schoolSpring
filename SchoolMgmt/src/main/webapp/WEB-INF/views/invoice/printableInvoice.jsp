@@ -106,7 +106,7 @@
 				varStatus="descIndex">
 				<tr class="item-row">
 					<td>${descIndex.index +1 }</td>
-					<td class="item-name">${sessionScope.feeInvoice.category.categoryHeadList[descIndex.index] }</td>
+					<td class="item-name">${sessionScope.feeInvoice.category.categoryHeadList[descIndex.index]}</td>
 					<td class="description">${desc }</td>
 					<td><p class="cost">${sessionScope.feeInvoice.charges[descIndex.index] }</p></td>
 					<td><p class="qty">${sessionScope.feeInvoice.discount[descIndex.index] }</p></td>
