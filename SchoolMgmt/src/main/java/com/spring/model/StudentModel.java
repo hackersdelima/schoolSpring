@@ -1,6 +1,13 @@
 package com.spring.model;
+
+import java.util.List;
+
 public class StudentModel {
-private String studentid, admissiondate, admissiondateen,legacyId, studentname, sex, smotherlanguage, sethinicgroup, sReligion, dob, doben, differentlyabledYN,differentlyabledtype, district, VdcMun, WardNo, tole, tempaddress, fathername, faddress, foffice, fposition, fincome,fmobile, ftelephone, femail, fephone, mothername,maddress,moffice,mposition,mincome,mmobile,mtelephone,memail,mephone,local1,localadd1,localmob1,local2,localadd2,localmob2,admissionclass,section,rollno,housegroup,oldschool,reasonleav,hobby,specialinterest,inputter, relaiontype1, relationtype2,birthcertificateno,birthcertificateissuedby,birthcertificateissueddate,birthcertificateissueddateen,fcitizenshipno,fcitizenshipissuedby, fcitizenshipissueddate, fcitizenshipissueddateen,flicenseno,flicenseissuedby,flicenseissueddate, flicenseissueddateen,fofficialidno, fofficialidissuedby,fofficialidissueddate,fofficialidissueddateen,fvoteridno,fvoteridissuedby,fvoteridissueddate,fvoteridissueddateen,fpassportno,fpassportissuedby,fpassportissueddate,fpassportissueddateen,mcitizenshipno,mcitizenshipissuedby, mcitizenshipissueddate, mcitizenshipissueddateen,mlicenseno,mlicenseissuedby,mlicenseissueddate, mlicenseissueddateen,mofficialidno, mofficialidissuedby,mofficialidissueddate,mofficialidissueddateen,mvoteridno,mvoteridissuedby,mvoteridissueddate,mvoteridissueddateen,mpassportno,mpassportissuedby,mpassportissueddate,mpassportissueddateen;
+private String studentid, admissiondate, admissiondateen,legacyId, studentname, sex, smotherlanguage, sethinicgroup, sReligion, dob, doben, differentlyabledYN,differentlyabledtype, district, VdcMun, WardNo, tole, tempaddress, fathername, faddress, foffice, fposition, fincome,fmobile, ftelephone, femail, fephone, mothername,maddress,moffice,mposition,mincome,mmobile,mtelephone,memail,mephone,local1,localadd1,localmob1,local2,localadd2,localmob2,admissionclass,section,rollno,housegroup,oldschool,reasonleav,hobby,specialinterest,inputter, relationtype1, relationtype2,birthcertificateno,birthcertificateissuedby,birthcertificateissueddate,birthcertificateissueddateen,fcitizenshipno,fcitizenshipissuedby, fcitizenshipissueddate, fcitizenshipissueddateen,flicenseno,flicenseissuedby,flicenseissueddate, flicenseissueddateen,fofficialidno, fofficialidissuedby,fofficialidissueddate,fofficialidissueddateen,fvoteridno,fvoteridissuedby,fvoteridissueddate,fvoteridissueddateen,fpassportno,fpassportissuedby,fpassportissueddate,fpassportissueddateen,mcitizenshipno,mcitizenshipissuedby, mcitizenshipissueddate, mcitizenshipissueddateen,mlicenseno,mlicenseissuedby,mlicenseissueddate, mlicenseissueddateen,mofficialidno, mofficialidissuedby,mofficialidissueddate,mofficialidissueddateen,mvoteridno,mvoteridissuedby,mvoteridissueddate,mvoteridissueddateen,mpassportno,mpassportissuedby,mpassportissueddate,mpassportissueddateen;
+private String slocalguardianid, localguardianname, localadd, relationtype, localmob;
+
+FormDetails formdetail;
+
 public String getsReligion() {
 	return sReligion;
 }
@@ -9,12 +16,6 @@ public void setsReligion(String sReligion) {
 	this.sReligion = sReligion;
 }
 
-private String slocalguardianid, localguardianname, localadd, relationtype, localmob;
-
-FormDetails formdetail;
-
-
-
 public FormDetails getFormdetail() {
 	return formdetail;
 }
@@ -22,6 +23,10 @@ public FormDetails getFormdetail() {
 public void setFormdetail(FormDetails formdetail) {
 	this.formdetail = formdetail;
 }
+
+
+
+
 
 public String getSlocalguardianid() {
 	return slocalguardianid;
@@ -119,12 +124,12 @@ public void setBirthcertificateissueddateen(String birthcertificateissueddateen)
 	this.birthcertificateissueddateen = birthcertificateissueddateen;
 }
 
-public String getRelaiontype1() {
-	return relaiontype1;
+public String getRelationtype1() {
+	return relationtype1;
 }
 
-public void setRelaiontype1(String relaiontype1) {
-	this.relaiontype1 = relaiontype1;
+public void setRelationtype1(String relationtype1) {
+	this.relationtype1 = relationtype1;
 }
 
 public String getRelationtype2() {

@@ -22,5 +22,5 @@ public interface StudentDao {
 	public StudentModel getStudentDetail(String classname, String section, String rollno);
 
 	public boolean updateStudent(StudentModel student);
-
+	public List<StudentModel> getLocalGuardian(int id);
 }

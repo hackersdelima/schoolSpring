@@ -478,7 +478,7 @@ img {
 											<h6>
 												<strong>Name 1</strong>
 											</h6> <input type="text" class="form-control" name="local1"
-											form="form" value="${student.local1}">
+											form="form" value="${localguardian[0].localguardianname}">
 										</td>
 										<td>
 											<h6>
@@ -504,13 +504,13 @@ img {
 											<h6>
 												<strong>Address 1</strong>
 											</h6> <input type="text" class="form-control" name="localadd1"
-											form="form" value="${student.localadd1}">
+											form="form" value="${localguardian[0].localadd}">
 										</td>
 										<td>
 											<h6>
 												<strong>Mobile No. 1</strong>
 											</h6> <input type="text" class="form-control" maxlength="10"
-											name="localmob1" form="form" value="${student.localmob1}">
+											name="localmob1" form="form" value="${localguardian[0].localmob}">
 										</td>
 									</tr>
 									<tr>
@@ -518,7 +518,7 @@ img {
 											<h6>
 												<strong>Name 2</strong>
 											</h6> <input type="text" class="form-control" name="local2"
-											form="form" value="${student.local2}">
+											form="form" value="${localguardian[1].localguardianname}">
 										</td>
 										<td>
 											<h6>
@@ -544,13 +544,13 @@ img {
 											<h6>
 												<strong>Address 2</strong>
 											</h6> <input type="text" class="form-control" name="localadd2"
-											form="form" value="${student.localadd2}">
+											form="form" value="${localguardian[1].localadd}">
 										</td>
 										<td>
 											<h6>
 												<strong>Mobile No. 2</strong>
 											</h6> <input type="text" class="form-control" maxlength="10"
-											name="localmob2" form="form" value="${student.localmob2}">
+											name="localmob2" form="form" value="${localguardian[1].localmob}">
 										</td>
 									</tr>
 
