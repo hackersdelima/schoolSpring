@@ -4,14 +4,15 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -179,6 +180,7 @@ private JdbcTemplate jdbcTemplate;
 			String sql2="insert into sfatherdetailtbl(studentid,fathername,faddress,foffice,fposition,fincome,fmobile,ftelephone,femail,fephone,fcitizenshipno,fcitizenshipissuedby,fcitizenshipissueddate,fcitizenshipissueddateen,flicenseno,flicenseissuedby,flicenseissueddate,flicenseissueddateen,fofficialidno,fofficialidissuedby,fofficialidissueddate,fofficialidissueddateen,fvoteridno,fvoteridissuedby,fvoteridissueddate,fvoteridissueddateen,fpassportno,fpassportissuedby,fpassportissueddate,fpassportissueddateen)values('"+studentid+"','"+s.getFathername()+"','"+s.getFaddress()+"','"+s.getFoffice()+"','"+s.getFposition()+"','"+s.getFincome()+"','"+s.getFmobile()+"','"+s.getFtelephone()+"','"+s.getFemail()+"','"+s.getFephone()+"','"+s.getFcitizenshipno()+"','"+s.getFcitizenshipissuedby()+"','"+s.getFcitizenshipissueddate()+"','"+s.getFcitizenshipissueddateen()+"','"+s.getFlicenseno()+"','"+s.getFlicenseissuedby()+"','"+s.getFlicenseissueddate()+"','"+s.getFlicenseissueddateen()+"','"+s.getFofficialidno()+"','"+s.getFofficialidissuedby()+"','"+s.getFofficialidissueddate()+"','"+s.getFofficialidissueddateen()+"','"+s.getFvoteridno()+"','"+s.getFvoteridissuedby()+"','"+s.getFvoteridissueddate()+"','"+s.getFvoteridissueddateen()+"','"+s.getFpassportno()+"','"+s.getFpassportissuedby()+"','"+s.getFpassportissueddate()+"','"+s.getFpassportissueddateen()+"')";
 			String sql3="insert into sbirthcertificatetbl(studentid,sbirthcertificateno,sbirthcertificateissuedby,sbirthcertificateissueddate,sbirthcertificateissueddateen)values('"+studentid+"','"+s.getBirthcertificateno()+"','"+s.getBirthcertificateissuedby()+"','"+s.getBirthcertificateissueddate()+"','"+s.getBirthcertificateissueddateen()+"') ";
 			String sql4="insert into slocalguardiantbl(studentid,localguardianname,localadd,relationtype,localmob)values('"+studentid+"','"+s.getLocal2()+"','"+s.getLocaladd2()+"','"+s.getRelationtype2()+"','"+s.getLocalmob2()+"')";
+			String sql5="insert into slocalguardiantbl(studentid,localguardianname,localadd,relationtype,localmob)values('"+studentid+"','"+s.getLocal1()+"','"+s.getLocaladd1()+"','"+s.getRelationtype1()+"','"+s.getLocalmob1()+"')";
 
 			ApplicationContext context=new ClassPathXmlApplicationContext("root-context.xml");
 			DataSource dataSource=(DataSource) context.getBean("dataSource");
@@ -193,11 +195,12 @@ private JdbcTemplate jdbcTemplate;
 				st.addBatch(sql2);
 				st.addBatch(sql3);
 				st.addBatch(sql4);
+				st.addBatch(sql5);
 				i=st.executeBatch();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			if(i.length==4){
+			if(i.length==5){
 				status=true;
 				
 			}
@@ -316,12 +319,36 @@ private JdbcTemplate jdbcTemplate;
 			}
 			
 		}
+		
 		public StudentModel getStudentDetail(int id)
 		{
 			String query="select * from studentdetail where studentid='"+id+"'";
 			return jdbcTemplate.queryForObject(query, new StudentMapper());
 			
 		}
+		public List<StudentModel> getLocalGuardian(int id)
+		{
+			String query="select * from slocalguardiantbl where studentid='"+id+"'";
+			return jdbcTemplate.query(query, new LocalGuardiantMapper());
+			
+		}
+		public static final class LocalGuardiantMapper implements RowMapper<StudentModel>{
+
+			@Override
+			public StudentModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+				StudentModel s=new StudentModel();
+				s.setLocalguardianname(rs.getString("localguardianname"));
+				s.setLocalmob(rs.getString("localmob"));
+				s.setLocaladd(rs.getString("localadd"));
+				s.setRelationtype(rs.getString("relationtype"));
+				s.setSlocalguardianid(rs.getString("slocalguardianid"));
+				
+				return s;
+				
+			}
+		}
+		
+		
 		public StudentModel getStudentDetail(String classname, String section, String rollno)
 		{
 			try{

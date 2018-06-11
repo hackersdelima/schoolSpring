@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -66,10 +67,13 @@ public class StudentController {
 		public String edit(@PathVariable int id, Model model)
 		{
 			StudentModel student=studentDao.getStudentDetail(id);
+			List<StudentModel> localguardian=studentDao.getLocalGuardian(id);
+			
 			String image = generator.imageDownloadPath()+"/"+Integer.toString(id)+".png";
 			
 			model.addAttribute("image",image);
 			model.addAttribute("student", student);
+			model.addAttribute("localguardian",localguardian);
 			
 			return "student/editStudentRegistration";
 		}
