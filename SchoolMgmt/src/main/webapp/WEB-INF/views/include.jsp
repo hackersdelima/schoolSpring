@@ -52,8 +52,6 @@
     
     <!-- Form Required Scripts -->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/nepaliDatePicker/nepali.datepicker.v2.2.min.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/dconverter.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/dynamicselect.js"></script>   
-	<%--  <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/dateconverter.js"></script> --%>
 </body>
 </html>
