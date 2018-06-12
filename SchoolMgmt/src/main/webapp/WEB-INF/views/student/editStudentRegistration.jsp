@@ -182,33 +182,33 @@ img {
 										<td>
 											<h6>
 												<strong>DOB(YYYY-MM-DD) B.S.</strong>
-											</h6> <input type="text" class="form-control" name="dob"
+											</h6> <input type="text" class="form-control dob" name="dob"
 											maxlength="10" id="nepaliDate1" form="form"
-											placeholder="2051-07-25" value="${student.dob}">
+											placeholder="2051-07-25" value="${student.dob}"  onblur="nepaliToEnglish('.dob','.doben')">
 										</td>
 										<td>
 											<h6>
 												<strong>DOB(YYYY-MM-DD) A.D.</strong>
-											</h6> <input type="text" class="form-control" name="doben"
+											</h6> <input type="text" class="form-control doben" name="doben"
 											maxlength="10" form="form" id="englishDate1"
-											placeholder="1994-11-11" value="${student.doben}">
+											placeholder="1994-11-11" value="${student.doben}" onblur="englishToNepali('.dob','.doben')">
 										</td>
 									</tr>
 									<tr>
 										<td>
 											<h6>
 												<strong>Admission Date(YYYY-MM-DD) B.S.</strong>
-											</h6> <input type="text" class="form-control" name="admissiondate"
+											</h6> <input type="text" class="form-control addate" name="admissiondate"
 											maxlength="10" id="nepaliDate14" form="form"
-											placeholder="2051-07-25" value="${student.admissiondate}">
+											placeholder="2051-07-25" value="${student.admissiondate}" onblur="nepaliToEnglish('.addate','.addateen')">
 										</td>
 										<td>
 											<h6>
 												<strong>Admission Date(YYYYMMDD) A.D.</strong>
-											</h6> <input type="text" class="form-control"
+											</h6> <input type="text" class="form-control addateen"
 											name="admissiondateen" maxlength="10" form="form"
 											id="englishDate14" placeholder="1994-11-11"
-											value="${student.admissiondateen}">
+											value="${student.admissiondateen}" onblur="englishToNepali('.addate','.addateen')">
 										</td>
 									</tr>
 
@@ -240,18 +240,18 @@ img {
 										<td>
 											<h6>
 												<strong>Issued Date(YYYYMMDD) B.S.</strong>
-											</h6> <input type="text" class="form-control"
+											</h6> <input type="text" class="form-control isdate"
 											name="birthcertificateissueddate" maxlength="10"
 											id="nepaliDate2" form="form" placeholder="2051-07-25"
-											value="${student.birthcertificateissueddate}">
+											value="${student.birthcertificateissueddate}" onblur="nepaliToEnglish('.isdate','.isdateen')">
 										</td>
 										<td>
 											<h6>
 												<strong>Issued Date(YYYYMMDD) A.D.</strong>
-											</h6> <input type="text" class="form-control"
+											</h6> <input type="text" class="form-control isdateen"
 											name="birthcertificateissueddateen" maxlength="10"
 											form="form" id="englishDate2" placeholder="1994-11-11"
-											value="${student.birthcertificateissueddateen}">
+											value="${student.birthcertificateissueddateen}" onblur="englishToNepali('.isdate','.isdateen')">
 										</td>
 									</tr>
 									<tr>
@@ -671,7 +671,42 @@ img {
 			</div>
 		</div>
 	</div>
-<script>
+<script>function nepaliToEnglish(nepalidate,englishdate){
+	var date = $(nepalidate).val();
+	var dataString = {'nepalidate' : date};
+	$.ajax({
+		type : "POST",
+		url : "../../nav/nepaliToEnglish",
+		data : dataString,
+		cache : false,
+		success : function(html) {
+		 	$(englishdate).val(html); 
+		},
+	error : function() {
+		alert("error occured");
+	}
+	
+	});
+}
+function englishToNepali(nepalidate,englishdate){
+	var date = $(englishdate).val();
+	var dataString = {
+		'englishdate' : date
+	};
+	$.ajax({
+		type : "POST",
+		url : "../../nav/englishToNepali",
+		data : dataString,
+		cache : false,
+		success : function(html) {
+			$(nepalidate).val(html);
+		},
+		error : function() {
+			alert("error occured");
+		}
+	});
+}
+
 $(document).ready(function()
 		{
 	$(".edistrict").change(function()

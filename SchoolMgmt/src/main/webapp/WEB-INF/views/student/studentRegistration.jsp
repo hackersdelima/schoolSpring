@@ -161,7 +161,7 @@
 											<h6>
 												<strong>DOB(YYYY-MM-DD) A.D.</strong>
 											</h6> <input type="text" class="form-control doben" name="doben"
-											maxlength="10" form="form" id="englishDate1"
+											maxlength="10" form="form" id="englishDate1" onblur="englishToNepali('.dob','.doben')"
 											placeholder="1994-11-11">
 										</td>
 									</tr>
@@ -169,16 +169,16 @@
 										<td>
 											<h6>
 												<strong>Admission Date(YYYY-MM-DD) B.S.</strong>
-											</h6> <input type="text" class="form-control" name="admissiondate"
-											maxlength="10" id="nepaliDate14" form="form"
+											</h6> <input type="text" class="form-control addate" name="admissiondate"
+											maxlength="10" id="nepaliDate14" form="form" onblur="nepaliToEnglish('.addate','.addateen')"
 											placeholder="2051-07-25" required>
 										</td>
 										<td>
 											<h6>
 												<strong>Admission Date(YYYYMMDD) A.D.</strong>
-											</h6> <input type="text" class="form-control"
+											</h6> <input type="text" class="form-control addateen"
 											name="admissiondateen" maxlength="10" form="form"
-											id="englishDate14" placeholder="1994-11-11" required>
+											id="englishDate14" placeholder="1994-11-11" onblur="englishToNepali('.addate','.addateen')" required>
 										</td>
 									</tr>
 
@@ -208,16 +208,16 @@
 										<td>
 											<h6>
 												<strong>Issued Date(YYYYMMDD) B.S.</strong>
-											</h6> <input type="text" class="form-control"
+											</h6> <input type="text" class="form-control isdate"
 											name="birthcertificateissueddate" maxlength="10"
-											id="nepaliDate2" form="form" placeholder="2051-07-25">
+											id="nepaliDate2" form="form" placeholder="2051-07-25" onblur="nepaliToEnglish('.isdate','.isdateen')">
 										</td>
 										<td>
 											<h6>
 												<strong>Issued Date(YYYYMMDD) A.D.</strong>
-											</h6> <input type="text" class="form-control"
+											</h6> <input type="text" class="form-control isdateen"
 											name="birthcertificateissueddateen" maxlength="10"
-											form="form" id="englishDate2" placeholder="1994-11-11">
+											form="form" id="englishDate2" placeholder="1994-11-11" onblur="englishToNepali('.isdate','.isdateen')">
 										</td>
 									</tr>
 									<tr>
@@ -608,44 +608,42 @@
 	<jsp:include page="../msgmodal.jsp"></jsp:include>
 	<script>
 	function nepaliToEnglish(nepalidate,englishdate){
-				var date = $(nepalidate).val();
-				var dataString = {'nepalidate' : date};
-				alert(date);
-				
-				$.ajax({
-					type : "POST",
-					url : "nepaliToEnglish",
-					data : dataString,
-					cache : false,
-					success : function(html) {
-						alert('hello');
-					/* 	$(englishdate).val(html); */
-					},
-				error : function() {
-					alert("error occured");
-				}
-				
-				});
+		var date = $(nepalidate).val();
+		var dataString = {'nepalidate' : date};
+		$.ajax({
+			type : "POST",
+			url : "nepaliToEnglish",
+			data : dataString,
+			cache : false,
+			success : function(html) {
+			 	$(englishdate).val(html); 
+			},
+		error : function() {
+			alert("error occured");
+		}
+		
+		});
+	}
+	function englishToNepali(nepalidate,englishdate){
+		var date = $(englishdate).val();
+		var dataString = {
+			'englishdate' : date
+		};
+		$.ajax({
+			type : "POST",
+			url : "englishToNepali",
+			data : dataString,
+			cache : false,
+			success : function(html) {
+				$(nepalidate).val(html);
+			},
+			error : function() {
+				alert("error occured");
 			}
-			function englishToNepali(nepalidate,englishdate){
-				var date = $(englishdate).val();
-				var dataString = {
-					'englishdate' : date
-				};
-				$.ajax({
-					type : "POST",
-					url : "/nav/englishToNepali",
-					data : dataString,
-					cache : false,
-					success : function(html) {
-						$(nepalidate).val(html);
-					},
-					error : function() {
-						alert("error occured");
-					}
-				});
-			}
+		});
+	}
 	</script>
+	
 
 </body>
 </html>

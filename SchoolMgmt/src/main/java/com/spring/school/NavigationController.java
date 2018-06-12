@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.spring.dao.AccountDao;
 import com.spring.dao.BranchDao;
 import com.spring.dao.CategoryDao;
+import com.spring.dao.DateConverterDao;
 import com.spring.dao.OperationDao;
 import com.spring.dao.RoleDao;
 import com.spring.dao.StaffDao;
@@ -44,6 +44,8 @@ public class NavigationController {
 	private UserDao userDao;
 	@Autowired
 	private StaffDao staffDao;
+	@Autowired
+	private DateConverterDao dateConverterDao;
 	
 @ModelAttribute
 private void commonModels(Model model){
@@ -196,12 +198,19 @@ private void commonModels(Model model){
 	@ResponseBody
 	public String nepaliToEnglish(@RequestParam("nepalidate") String nepalidate,HttpServletResponse response)
 	{
-		System.out.println("reached");
-		
-		System.out.println(nepalidate);
-		String convertedEnglishDate = dateConverter.DateConverter.nepaliToEnglish(nepalidate);
-		System.out.println(convertedEnglishDate);
+		String convertedEnglishDate = dateConverterDao.nepaliToEnglish(nepalidate);
+		System.out.println(nepalidate+"="+convertedEnglishDate);
 		return convertedEnglishDate;
+	
+	}
+	@RequestMapping(value="/englishToNepali", method = RequestMethod.POST)
+	@ResponseBody
+	public String englishToNepali(@RequestParam("englishdate") String englishdate,HttpServletResponse response)
+	{
+		
+		String convertedNepaliDate = dateConverterDao.englishToNepali(englishdate);
+		System.out.println(englishdate+"="+convertedNepaliDate);
+		return convertedNepaliDate;
 	
 	}
 	
