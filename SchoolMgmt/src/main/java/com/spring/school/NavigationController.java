@@ -1,7 +1,5 @@
 package com.spring.school;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -10,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.dao.AccountDao;
 import com.spring.dao.BranchDao;
@@ -191,20 +192,17 @@ private void commonModels(Model model){
 		return "generalTransaction/fundsTransfer/paymentVoucher/insert";
 	}
 	
-	@RequestMapping(value="/nepaliToEnglish")
-	public void nepToEng(Model model,@RequestParam String nepalidate,HttpServletResponse response)
+	@RequestMapping(value="/nepaliToEnglish", method = RequestMethod.POST)
+	@ResponseBody
+	public String nepaliToEnglish(@RequestParam("nepalidate") String nepalidate,HttpServletResponse response)
 	{
-		PrintWriter out = null;
-		try {
-			out = response.getWriter();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(nepalidate+"nepali date");
-		String convertedEnglishDate = dateConverter.DateConverter
-				.nepaliToEnglish(nepalidate);
-		out.println(convertedEnglishDate);
+		System.out.println("reached");
+		
+		System.out.println(nepalidate);
+		String convertedEnglishDate = dateConverter.DateConverter.nepaliToEnglish(nepalidate);
+		System.out.println(convertedEnglishDate);
+		return convertedEnglishDate;
+	
 	}
 	
 }

@@ -153,14 +153,14 @@
 										<td>
 											<h6>
 												<strong>DOB(YYYY-MM-DD) B.S.</strong>
-											</h6> <input type="text" class="form-control" name="dob"
+											</h6> <input type="text" class="form-control dob" name="dob" 
 											maxlength="10" id="nepaliDate1" form="form" onblur="nepaliToEnglish('.dob','.doben')"
 											placeholder="2051-07-25">
 										</td>
 										<td>
 											<h6>
 												<strong>DOB(YYYY-MM-DD) A.D.</strong>
-											</h6> <input type="text" class="form-control" name="doben"
+											</h6> <input type="text" class="form-control doben" name="doben"
 											maxlength="10" form="form" id="englishDate1"
 											placeholder="1994-11-11">
 										</td>
@@ -608,23 +608,23 @@
 	<jsp:include page="../msgmodal.jsp"></jsp:include>
 	<script>
 	function nepaliToEnglish(nepalidate,englishdate){
-		alert("error occuredn");
 				var date = $(nepalidate).val();
-				var dataString = {
-					'nepalidate' : date
-				};
+				var dataString = {'nepalidate' : date};
+				alert(date);
 				
 				$.ajax({
 					type : "POST",
-					url : "../../nav/nepaliToEnglish",
+					url : "nepaliToEnglish",
 					data : dataString,
 					cache : false,
 					success : function(html) {
-						$(englishdate).val(html);
+						alert('hello');
+					/* 	$(englishdate).val(html); */
 					},
-					error : function() {
-						$alert("error occured");
-					}
+				error : function() {
+					alert("error occured");
+				}
+				
 				});
 			}
 			function englishToNepali(nepalidate,englishdate){
@@ -641,7 +641,7 @@
 						$(nepalidate).val(html);
 					},
 					error : function() {
-						$alert("error occured");
+						alert("error occured");
 					}
 				});
 			}
