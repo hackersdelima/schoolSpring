@@ -33,10 +33,5 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-<<<<<<< HEAD
-	<classpathentry kind="lib" path="C:/Users/Hackersdelima/Downloads/dateConverter.jar.zip"/>
-=======
-	<classpathentry kind="lib" path="C:/Users/Sunil/Desktop/dateConverter.jar"/>
->>>>>>> branch 'master' of https://github.com/hackersdelima/schoolSpring.git
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

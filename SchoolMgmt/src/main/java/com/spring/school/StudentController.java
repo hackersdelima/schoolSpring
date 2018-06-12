@@ -92,6 +92,7 @@ public class StudentController {
 		@RequestMapping(value="/studentName", method=RequestMethod.POST)
 		public void studentName(@RequestParam Map<String, String> requestParams, HttpServletResponse response) throws Exception
 		{
+			response.setContentType("text/plain");
 			PrintWriter out=response.getWriter();
 			String classname=requestParams.get("classname");
 			String section=requestParams.get("section");
