@@ -179,9 +179,10 @@ private JdbcTemplate jdbcTemplate;
 			String sql1="insert into smotherdetailtbl(studentid,mothername,maddress,moffice,mposition,mincome,mmobile,mtelephone,memail,mephone,mcitizenshipno,mcitizenshipissuedby,mcitizenshipissueddate,mcitizenshipissueddateen,mlicenseno,mlicenseissuedby,mlicenseissueddate,mlicenseissueddateen,mofficialidno,mofficialidissuedby,mofficialidissueddate,mofficialidissueddateen,mvoteridno,mvoteridissuedby,mvoteridissueddate,mvoteridissueddateen,mpassportno,mpassportissuedby,mpassportissueddate,mpassportissueddateen)values('"+studentid+"','"+s.getMothername()+"','"+s.getMaddress()+"','"+s.getMoffice()+"','"+s.getMposition()+"','"+s.getMincome()+"','"+s.getMmobile()+"','"+s.getMtelephone()+"','"+s.getMemail()+"','"+s.getMephone()+"','"+s.getMcitizenshipno()+"','"+s.getMcitizenshipissuedby()+"','"+s.getMcitizenshipissueddate()+"','"+s.getMcitizenshipissueddateen()+"','"+s.getMlicenseno()+"','"+s.getMlicenseissuedby()+"','"+s.getMlicenseissueddate()+"','"+s.getMlicenseissueddateen()+"','"+s.getMofficialidno()+"','"+s.getMofficialidissuedby()+"','"+s.getMofficialidissueddate()+"','"+s.getMofficialidissueddateen()+"','"+s.getMvoteridno()+"','"+s.getMvoteridissuedby()+"','"+s.getMvoteridissueddate()+"','"+s.getMvoteridissueddateen()+"','"+s.getMpassportno()+"','"+s.getMpassportissuedby()+"','"+s.getMpassportissueddate()+"','"+s.getMpassportissueddateen()+"')";
 			String sql2="insert into sfatherdetailtbl(studentid,fathername,faddress,foffice,fposition,fincome,fmobile,ftelephone,femail,fephone,fcitizenshipno,fcitizenshipissuedby,fcitizenshipissueddate,fcitizenshipissueddateen,flicenseno,flicenseissuedby,flicenseissueddate,flicenseissueddateen,fofficialidno,fofficialidissuedby,fofficialidissueddate,fofficialidissueddateen,fvoteridno,fvoteridissuedby,fvoteridissueddate,fvoteridissueddateen,fpassportno,fpassportissuedby,fpassportissueddate,fpassportissueddateen)values('"+studentid+"','"+s.getFathername()+"','"+s.getFaddress()+"','"+s.getFoffice()+"','"+s.getFposition()+"','"+s.getFincome()+"','"+s.getFmobile()+"','"+s.getFtelephone()+"','"+s.getFemail()+"','"+s.getFephone()+"','"+s.getFcitizenshipno()+"','"+s.getFcitizenshipissuedby()+"','"+s.getFcitizenshipissueddate()+"','"+s.getFcitizenshipissueddateen()+"','"+s.getFlicenseno()+"','"+s.getFlicenseissuedby()+"','"+s.getFlicenseissueddate()+"','"+s.getFlicenseissueddateen()+"','"+s.getFofficialidno()+"','"+s.getFofficialidissuedby()+"','"+s.getFofficialidissueddate()+"','"+s.getFofficialidissueddateen()+"','"+s.getFvoteridno()+"','"+s.getFvoteridissuedby()+"','"+s.getFvoteridissueddate()+"','"+s.getFvoteridissueddateen()+"','"+s.getFpassportno()+"','"+s.getFpassportissuedby()+"','"+s.getFpassportissueddate()+"','"+s.getFpassportissueddateen()+"')";
 			String sql3="insert into sbirthcertificatetbl(studentid,sbirthcertificateno,sbirthcertificateissuedby,sbirthcertificateissueddate,sbirthcertificateissueddateen)values('"+studentid+"','"+s.getBirthcertificateno()+"','"+s.getBirthcertificateissuedby()+"','"+s.getBirthcertificateissueddate()+"','"+s.getBirthcertificateissueddateen()+"') ";
-			String sql4="insert into slocalguardiantbl(studentid,localguardianname,localadd,relationtype,localmob)values('"+studentid+"','"+s.getLocal2()+"','"+s.getLocaladd2()+"','"+s.getRelationtype2()+"','"+s.getLocalmob2()+"')";
-			String sql5="insert into slocalguardiantbl(studentid,localguardianname,localadd,relationtype,localmob)values('"+studentid+"','"+s.getLocal1()+"','"+s.getLocaladd1()+"','"+s.getRelationtype1()+"','"+s.getLocalmob1()+"')";
-
+			String sql4="insert into slocalguardiantbl(studentid,localguardianname,localadd,relationtype,localmob) values('"+studentid+"','"+s.getLocal2()+"','"+s.getLocaladd2()+"','"+s.getRelationtype2()+"','"+s.getLocalmob2()+"')";
+			String sql5="insert into slocalguardiantbl(studentid,localguardianname,localadd,relationtype,localmob) values('"+studentid+"','"+s.getLocal1()+"','"+s.getLocaladd1()+"','"+s.getRelationtype1()+"','"+s.getLocalmob1()+"')";
+			String sql6="insert into saddresstbl(studentid,district,vdcmun,wardno,tole,tempaddress) values('"+studentid+"','"+s.getDistrict()+"','"+s.getVdcMun()+"','"+s.getWardNo()+"','"+s.getTole()+"','"+s.getTempaddress()+"')";
+			
 			ApplicationContext context=new ClassPathXmlApplicationContext("root-context.xml");
 			DataSource dataSource=(DataSource) context.getBean("dataSource");
 			boolean status=false;
@@ -196,11 +197,12 @@ private JdbcTemplate jdbcTemplate;
 				st.addBatch(sql3);
 				st.addBatch(sql4);
 				st.addBatch(sql5);
+				st.addBatch(sql6);
 				i=st.executeBatch();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			if(i.length==5){
+			if(i.length==6){
 				status=true;
 				
 			}
@@ -370,8 +372,12 @@ private JdbcTemplate jdbcTemplate;
 			
 			String sqlf="update sfatherdetailtbl set fathername='"+s.getFathername()+"',faddress='"+s.getFaddress()+"',foffice='"+s.getFoffice()+"',fposition='"+s.getFposition()+"',fincome='"+s.getFincome()+"',fmobile='"+s.getFmobile()+"', ftelephone='"+s.getFtelephone()+"',femail='"+s.getFemail()+"',fephone='"+s.getFephone()+"' where studentid='"+s.getStudentid()+"'";
 			String sqlm="update smotherdetailtbl set mothername='"+s.getMothername()+"',maddress='"+s.getMaddress()+"',moffice='"+s.getMoffice()+"',mposition='"+s.getMposition()+"',mincome='"+s.getMincome()+"',mmobile='"+s.getMmobile()+"', mtelephone='"+s.getMtelephone()+"',memail='"+s.getMemail()+"',mephone='"+s.getMephone()+"' where studentid='"+s.getStudentid()+"'";
-			String sqlL="update slocalguardiantbl set localguardianname='"+s.getLocalguardianname()+"',localadd='"+s.getLocaladd()+"',relationtype='"+s.getRelationtype()+"',localmob='"+s.getLocalmob()+"' where studentid='"+s.getStudentid()+"'";
 			String sqls="update studentinfo set legacyid='"+s.getLegacyId()+"',studentname='"+s.getStudentname()+"',sex='"+s.getSex()+"',smotherlanguage='"+s.getSmotherlanguage()+"',sethinicgroup='"+s.getSethinicgroup()+"',sreligion='"+s.getsReligion()+"',dob='"+s.getDob()+"',doben='"+s.getDoben()+"',differentlyabledYN='"+s.getDifferentlyabledYN()+"',differentlyabledtype='"+s.getDifferentlyabledtype()+"',admissionclass='"+s.getAdmissionclass()+"',section='"+s.getSection()+"',rollno='"+s.getRollno()+"',housegroup='"+s.getHousegroup()+"',oldschool='"+s.getOldschool()+"',reasonleav='"+s.getReasonleav()+"',hobby='"+s.getHobby()+"',specialinterest='"+s.getSpecialinterest()+"',inputter='"+s.getInputter()+"',entrydate=now(),admissiondate='"+s.getAdmissiondate()+"',admissiondateen='"+s.getAdmissiondateen()+"' where studentid='"+s.getStudentid()+"'";
+			String sqla="update  saddresstbl set district='"+s.getDistrict()+"',vdcmun='"+s.getVdcMun()+"',wardno='"+s.getWardNo()+"',tole='"+s.getTole()+"',tempaddress='"+s.getTempaddress()+"' where studentid='"+s.getStudentid()+"'";
+			String sqldeletefirst="delete from slocalguardiantbl where studentid='"+s.getStudentid()+"'";
+		
+			String sqll1="insert into slocalguardiantbl(studentid,localguardianname,localadd,relationtype,localmob) values('"+s.getStudentid()+"','"+s.getLocal2()+"','"+s.getLocaladd2()+"','"+s.getRelationtype2()+"','"+s.getLocalmob2()+"')";
+			String sqll2="insert into slocalguardiantbl(studentid,localguardianname,localadd,relationtype,localmob) values('"+s.getStudentid()+"','"+s.getLocal1()+"','"+s.getLocaladd1()+"','"+s.getRelationtype1()+"','"+s.getLocalmob1()+"')";
 			
 			
 			Statement stmt=null;
@@ -380,10 +386,16 @@ private JdbcTemplate jdbcTemplate;
 			try{
 			con=dataSource.getConnection();
 			stmt=con.createStatement();
+			
 			stmt.addBatch(sqlf);
 			stmt.addBatch(sqlm);
-			stmt.addBatch(sqlL);
+			stmt.addBatch(sqldeletefirst);
+			
+			stmt.addBatch(sqll2);
+			stmt.addBatch(sqll1);
 			stmt.addBatch(sqls);
+			stmt.addBatch(sqla);
+			
 			stmt.executeBatch();
 			}catch(Exception e){
 				System.out.println(e);

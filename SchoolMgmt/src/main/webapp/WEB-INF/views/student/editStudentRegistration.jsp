@@ -485,7 +485,10 @@ img {
 												<strong>Relation Type 1</strong>
 											</h6> <select class="form-control" name="relationtype1"
 											form="form">
-												<option value="" selected="">Select relation type</option>
+											<c:if test="${not empty localguardian[0].relationtype }">
+											<option value="${localguardian[0].relationtype}" selected>${localguardian[0].relationtype}</option>
+											</c:if>
+											
 												<option value="Grand Father">Grand Father</option>
 												<option value="Grand Mother">Grand Mother</option>
 												<option value="Aunt">Aunt</option>
@@ -521,12 +524,14 @@ img {
 											form="form" value="${localguardian[1].localguardianname}">
 										</td>
 										<td>
+										
 											<h6>
 												<strong>Relation Type 2</strong>
 											</h6> <select class="form-control" name="relationtype2"
 											form="form">
-												<option selected="" value="">Select relation type</option>
-												<option value="Grand Father">Grand Father</option>
+												
+												<option value="${localguardian[1].relationtype}">${localguardian[1].relationtype}</option>
+												
 												<option value="Grand Mother">Grand Mother</option>
 												<option value="Aunt">Aunt</option>
 												<option value="Uncle">Uncle</option>
