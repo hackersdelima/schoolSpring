@@ -316,6 +316,9 @@ private JdbcTemplate jdbcTemplate;
 				s.setHousegroup(rs.getString("housegroup"));
 				
 				f.setLanguageid(rs.getString("languageid"));
+				s.setInputter(rs.getString("inputter"));
+				s.setEntrydate(rs.getString("entrydate"));
+				
 				s.setFormdetail(f);
 				return s;
 			}
@@ -328,6 +331,21 @@ private JdbcTemplate jdbcTemplate;
 			return jdbcTemplate.queryForObject(query, new StudentMapper());
 			
 		}
+		public StudentModel getStudentImage(int id)
+		{
+			String query="select * from student_image where studentid='"+id+"'";
+			return jdbcTemplate.queryForObject(query, new StudentImageMapper());
+			
+		}
+		public static final class StudentImageMapper implements RowMapper<StudentModel>{
+
+			@Override
+			public StudentModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+				StudentModel s=new StudentModel();
+				s.setImageData(rs.getBytes("imageData"));
+				return s;
+			}
+			}
 		public List<StudentModel> getLocalGuardian(int id)
 		{
 			String query="select * from slocalguardiantbl where studentid='"+id+"'";
@@ -359,6 +377,7 @@ private JdbcTemplate jdbcTemplate;
 			
 		}catch(Exception e)
 			{
+			System.out.println(e);
 			return null;
 			}
 		}
@@ -372,7 +391,7 @@ private JdbcTemplate jdbcTemplate;
 			
 			String sqlf="update sfatherdetailtbl set fathername='"+s.getFathername()+"',faddress='"+s.getFaddress()+"',foffice='"+s.getFoffice()+"',fposition='"+s.getFposition()+"',fincome='"+s.getFincome()+"',fmobile='"+s.getFmobile()+"', ftelephone='"+s.getFtelephone()+"',femail='"+s.getFemail()+"',fephone='"+s.getFephone()+"' where studentid='"+s.getStudentid()+"'";
 			String sqlm="update smotherdetailtbl set mothername='"+s.getMothername()+"',maddress='"+s.getMaddress()+"',moffice='"+s.getMoffice()+"',mposition='"+s.getMposition()+"',mincome='"+s.getMincome()+"',mmobile='"+s.getMmobile()+"', mtelephone='"+s.getMtelephone()+"',memail='"+s.getMemail()+"',mephone='"+s.getMephone()+"' where studentid='"+s.getStudentid()+"'";
-			String sqls="update studentinfo set legacyid='"+s.getLegacyId()+"',studentname='"+s.getStudentname()+"',sex='"+s.getSex()+"',smotherlanguage='"+s.getSmotherlanguage()+"',sethinicgroup='"+s.getSethinicgroup()+"',sreligion='"+s.getsReligion()+"',dob='"+s.getDob()+"',doben='"+s.getDoben()+"',differentlyabledYN='"+s.getDifferentlyabledYN()+"',differentlyabledtype='"+s.getDifferentlyabledtype()+"',admissionclass='"+s.getAdmissionclass()+"',section='"+s.getSection()+"',rollno='"+s.getRollno()+"',housegroup='"+s.getHousegroup()+"',oldschool='"+s.getOldschool()+"',reasonleav='"+s.getReasonleav()+"',hobby='"+s.getHobby()+"',specialinterest='"+s.getSpecialinterest()+"',inputter='"+s.getInputter()+"',entrydate=now(),admissiondate='"+s.getAdmissiondate()+"',admissiondateen='"+s.getAdmissiondateen()+"' where studentid='"+s.getStudentid()+"'";
+			String sqls="update studentinfo set LegacyId='"+s.getLegacyId()+"',studentname='"+s.getStudentname()+"',sex='"+s.getSex()+"',smotherlanguage='"+s.getSmotherlanguage()+"',sethinicgroup='"+s.getSethinicgroup()+"',sreligion='"+s.getsReligion()+"',dob='"+s.getDob()+"',doben='"+s.getDoben()+"',differentlyabledYN='"+s.getDifferentlyabledYN()+"',differentlyabledtype='"+s.getDifferentlyabledtype()+"',admissionclass='"+s.getAdmissionclass()+"',section='"+s.getSection()+"',rollno='"+s.getRollno()+"',housegroup='"+s.getHousegroup()+"',oldschool='"+s.getOldschool()+"',reasonleav='"+s.getReasonleav()+"',hobby='"+s.getHobby()+"',specialinterest='"+s.getSpecialinterest()+"',inputter='"+s.getInputter()+"',entrydate=now(),admissiondate='"+s.getAdmissiondate()+"',admissiondateen='"+s.getAdmissiondateen()+"' where studentid='"+s.getStudentid()+"'";
 			String sqla="update  saddresstbl set district='"+s.getDistrict()+"',vdcmun='"+s.getVdcMun()+"',wardno='"+s.getWardNo()+"',tole='"+s.getTole()+"',tempaddress='"+s.getTempaddress()+"' where studentid='"+s.getStudentid()+"'";
 			String sqldeletefirst="delete from slocalguardiantbl where studentid='"+s.getStudentid()+"'";
 		
@@ -406,6 +425,11 @@ private JdbcTemplate jdbcTemplate;
 				 return true;
 				 }
 			return false;
+		}
+		
+		public void insertImage(StudentModel s){
+			String query="insert into student_image (studentid, imageName, imageData) values('"+s.getStudentid()+"','"+s.getImageName()+"','"+s.getImageData()+"')";
+			jdbcTemplate.update(query);
 		}
 		
 	 

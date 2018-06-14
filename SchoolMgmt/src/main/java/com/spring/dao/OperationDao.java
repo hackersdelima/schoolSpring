@@ -3,6 +3,7 @@ package com.spring.dao;
 import java.util.List;
 
 import com.spring.model.ExamModel;
+import com.spring.model.ExamTypeModel;
 import com.spring.model.FormDetails;
 import com.spring.model.UserModel;
 
@@ -17,6 +18,7 @@ public interface OperationDao {
 	public boolean checkSubCode(String subjectcode);
 
 	public List<ExamModel> getExamList();
+	public List<ExamTypeModel> getExamTypeList();
 	
 
 	

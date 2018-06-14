@@ -1,13 +1,13 @@
 package com.spring.school;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.spring.dao.StudentDao;
 import com.spring.extras.Generator;
@@ -67,17 +67,32 @@ public class StudentController {
 		public String edit(@PathVariable int id, Model model)
 		{
 			StudentModel student=studentDao.getStudentDetail(id);
+			
 			List<StudentModel> localguardian=studentDao.getLocalGuardian(id);
 			
-			String image = generator.imageDownloadPath()+"/"+Integer.toString(id)+".png";
 			
-			model.addAttribute("image",image);
+			//String image = generator.imageDownloadPath()+"/"+Integer.toString(id)+".png";
+			
 			model.addAttribute("student", student);
 			model.addAttribute("localguardian",localguardian);
 			
 			return "student/editStudentRegistration";
 		}
 		
+		@RequestMapping(value="/studentImage")
+		public void studentImage(@RequestParam("id") int id, HttpServletResponse response, HttpServletRequest request) throws IOException{
+			System.out.println("student id called ="+id);	
+			try {
+				byte[] bytes=studentDao.getStudentImage(id).getImageData();
+			
+					System.out.println(bytes);
+					response.getOutputStream().write(bytes);
+					
+				} catch (Exception e) {
+					System.out.println(e);
+					e.printStackTrace();
+				}
+		}
 		@RequestMapping(value="/updateStudent")
 		public String update(@ModelAttribute StudentModel student, Model model)
 		{
@@ -113,14 +128,27 @@ public class StudentController {
 		}
 		@RequestMapping(value = "/photo_upload", method = RequestMethod.POST)
 		@ResponseBody
-		public String photoUpload(@RequestParam("file") MultipartFile file, @RequestParam("classid") String classid, @RequestParam("sectionid") String sectionid,  @RequestParam("rollno") String rollno, Model model, HttpSession session) throws IOException {
+		public String photoUpload(@RequestParam("file") CommonsMultipartFile[] file, @RequestParam("classid") String classid, @RequestParam("sectionid") String sectionid,  @RequestParam("rollno") String rollno, Model model, HttpSession session) throws IOException {
 			//operations
 			// Save file on system
-			
-			
-			
-			
 			StudentModel s=studentDao.getStudentDetail(classid, sectionid, rollno);
+			if(s!=null){
+			s.setStudentid(s.getStudentid());
+			
+			}
+			 if (file != null && file.length > 0) {
+		            for (CommonsMultipartFile aFile : file){
+		                System.out.println("Saving file: " + aFile.getOriginalFilename());
+		                s.setImageName(aFile.getOriginalFilename());
+		                s.setImageData(aFile.getBytes());
+		                studentDao.insertImage(s);               
+		            }
+		        }
+			
+		
+		return "Upload Successful!";
+			
+		/*	StudentModel s=studentDao.getStudentDetail(classid, sectionid, rollno);
 			if(s!=null){
 			String studentid=s.getStudentid();
 			
@@ -154,10 +182,10 @@ public class StudentController {
 			else
 			{
 				return "Student Id Not Found!! Please Validate First";
+			}*/
+		
+
+		
+			
 			}
-		
-
-		
-		}
-
 }

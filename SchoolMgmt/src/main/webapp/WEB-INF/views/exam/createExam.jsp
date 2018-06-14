@@ -49,8 +49,8 @@
 							<td><h6>Exam Type *</h6> <select class="form-control"
 								name="examtype" form="form" required>
 									<option value="" selected>Select exam type</option>
-									<c:forEach items="${examlist}" var="exam">
-										<option value="${exam.examTypeModel.examtypeid }">${exam.examTypeModel.examtypename }</option>
+									<c:forEach items="${examtypelist}" var="exam">
+										<option value="${exam.examtypeid }">${exam.examtypename }</option>
 									</c:forEach>
 
 							</select></td>
@@ -118,6 +118,42 @@
 			return confirm('CONFIRM EXAM DELETE?');
 		});
 		
+
+	function nepaliToEnglish(nepalidate,englishdate){
+		var date = $(nepalidate).val();
+		var dataString = {'nepalidate' : date};
+		$.ajax({
+			type : "POST",
+			url : "nepaliToEnglish",
+			data : dataString,
+			cache : false,
+			success : function(html) {
+			 	$(englishdate).val(html); 
+			},
+		error : function() {
+			alert("error occured");
+		}
+		
+		});
+	}
+	function englishToNepali(nepalidate,englishdate){
+		var date = $(englishdate).val();
+		var dataString = {
+			'englishdate' : date
+		};
+		$.ajax({
+			type : "POST",
+			url : "englishToNepali",
+			data : dataString,
+			cache : false,
+			success : function(html) {
+				$(nepalidate).val(html);
+			},
+			error : function() {
+				alert("error occured");
+			}
+		});
+	}
 	</script>
 </body>
 </html>

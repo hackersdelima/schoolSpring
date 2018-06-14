@@ -67,6 +67,7 @@ private void commonModels(Model model){
 
 	@RequestMapping(value = "/createExam")
 	public String createExam(Model model) {
+		model.addAttribute("examtypelist",operationDao.getExamTypeList());
 		model.addAttribute("examlist",operationDao.getExamList());
 		return "exam/createExam";
 	}

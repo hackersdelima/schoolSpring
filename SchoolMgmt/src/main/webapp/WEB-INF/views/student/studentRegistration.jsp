@@ -56,6 +56,7 @@
 						<li role="presentation" class=""><a href="#tab_content5"
 							role="tab" id="profile-tab4" data-toggle="tab"
 							aria-expanded="false">Academic Details</a></li>
+						
 					</ul>
 					<div id="myTabContent" class="tab-content">
 						<div role="tabpanel" class="tab-pane fade active in"
@@ -528,7 +529,7 @@
 											form="form" required>
 												<option selected value="">Select admission class</option>
 												<c:forEach items="${classlist}" var="cl">
-													<option value="${cl.classid}">${cl.classname }</option>
+													<option value="${cl.classname}">${cl.classname }</option>
 												</c:forEach>
 
 										</select>
@@ -600,6 +601,7 @@
 								</tbody>
 							</table>
 						</div>
+						
 					</div>
 				</div>
 			</div>

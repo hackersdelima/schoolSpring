@@ -73,9 +73,36 @@ public class OperationDaoImpl implements OperationDao {
 		return false;
 		
 	}
+	public List<ExamTypeModel> getExamTypeList(){
+		 String sql="SELECT * FROM exam_type";
+		 try{
+			return jdbcTemplate.query(sql, new ExamTypeList());
+		 }
+		 catch(Exception e){
+			 System.out.println(e);
+			 return null;
+		 }
+	}
+	public static final class ExamTypeList implements RowMapper<ExamTypeModel>{
+
+		@Override
+		public ExamTypeModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+			ExamTypeModel em=new ExamTypeModel();
+			em.setExamtypeid(rs.getString("examtypeid"));
+			em.setExamtypename(rs.getString("examtypename"));
+			em.setDescription(rs.getString("description"));
+			return em;
+		}
+		}
 	public List<ExamModel> getExamList(){
-		 String sql="SELECT * FROM exam JOIN exam_type USING(examtypeid)";
+		 String sql="select * from exam left join exam_type using(examtypeid)";
+		 try{
 			return jdbcTemplate.query(sql, new ExamList());
+		 }
+		 catch(Exception e){
+			 System.out.println(e);
+			 return null;
+		 }
 	}
 	public static final class ExamList implements RowMapper<ExamModel>{
 

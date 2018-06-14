@@ -124,7 +124,7 @@
 							<td>${sub.subjects.passmarks }</td>
 							<td>${sub.subjects.passmarks_pr }</td>
 							
-							<td>${msg }</td>
+							<td><a href="#">Edit</a></td>
 						</tr>
 						</c:forEach>
 					</tbody>
@@ -132,7 +132,6 @@
 			</div>
 		</div>
 	</div>
-	<jsp:include page="../../msgmodal.jsp"></jsp:include>
 	<script>
 		$('#form').submit(function() {
 			return confirm('CONFIRM SUBJECT SAVE?');

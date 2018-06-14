@@ -575,8 +575,8 @@ img {
 												<option selected="" value="">Select admission class</option>
 
 												<c:forEach items="${classlist}" var="cl">
-													<option value="${cl.classid}"
-														<c:if test="${student.admissionclass eq cl.classid }">selected</c:if>>${cl.classname }</option>
+													<option value="${cl.classname}"
+														<c:if test="${student.admissionclass eq cl.classname }">selected</c:if>>${cl.classname }</option>
 
 												</c:forEach>
 
@@ -663,7 +663,9 @@ img {
 						<div role="tabpanel" class="tab-pane fade" id="tab_content6"
 							aria-labelledby="profile-tab">
 							<div class="col-md-6" style="height: 250px;">
-								<img src="${image }" class="img-thumbnail">
+							
+								<img src="../studentImage?id=${student.studentid }" class="img-thumbnail">
+								
 							</div>
 						</div>
 					</div>

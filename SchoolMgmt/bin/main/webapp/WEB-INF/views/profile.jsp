@@ -30,7 +30,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="" class="site_title"><i class="fa fa-desktop" aria-hidden="true"></i> <span>Digi Nepal</span></a>
+              <a href="" class="site_title"><i class="fa fa-desktop" aria-hidden="true"></i> <span>Araniko</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -81,12 +81,12 @@
                             </li>
                     </ul>
                   </li>
-                  <li><a><span class="fa fa-chevron-down"></span><i class="fa fa-user"></i>Account</a>
+                  <!-- <li><a><span class="fa fa-chevron-down"></span><i class="fa fa-user"></i>Account</a>
 											<ul class="nav child_menu">
 												<li id="i"><a href="nav/account" target="iframe_a">Open
 														New Account</a></li>
-												<!-- 	<li><a href="pageNotFound.jsp" target="iframe_a">Open New
-														Shareholder Account</a> -->
+													<li><a href="pageNotFound.jsp" target="iframe_a">Open New
+														Shareholder Account</a>
 												<li id="v"><a href="nav/viewAccount" target="iframe_a">Amendment
 														of Account</a></li>
 														
@@ -120,7 +120,7 @@
 										<li id="a"><a href="invoice/search" target="iframe_a"> Invoice </a></li>
 										<li id="a"><a href="claimbill/add" target="iframe_a"> Claim Bill </a></li>
 										</ul>
-										</li>
+										</li> -->
 										
 								
                 </ul>

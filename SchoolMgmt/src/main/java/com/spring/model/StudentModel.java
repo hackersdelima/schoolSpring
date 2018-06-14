@@ -1,13 +1,51 @@
 package com.spring.model;
 
+import java.sql.Blob;
 import java.util.List;
 
 public class StudentModel {
-private String studentid, admissiondate, admissiondateen,legacyId, studentname, sex, smotherlanguage, sethinicgroup, sReligion, dob, doben, differentlyabledYN,differentlyabledtype, district, VdcMun, WardNo, tole, tempaddress, fathername, faddress, foffice, fposition, fincome,fmobile, ftelephone, femail, fephone, mothername,maddress,moffice,mposition,mincome,mmobile,mtelephone,memail,mephone,local1,localadd1,localmob1,local2,localadd2,localmob2,admissionclass,section,rollno,housegroup,oldschool,reasonleav,hobby,specialinterest,inputter, relationtype1, relationtype2,birthcertificateno,birthcertificateissuedby,birthcertificateissueddate,birthcertificateissueddateen,fcitizenshipno,fcitizenshipissuedby, fcitizenshipissueddate, fcitizenshipissueddateen,flicenseno,flicenseissuedby,flicenseissueddate, flicenseissueddateen,fofficialidno, fofficialidissuedby,fofficialidissueddate,fofficialidissueddateen,fvoteridno,fvoteridissuedby,fvoteridissueddate,fvoteridissueddateen,fpassportno,fpassportissuedby,fpassportissueddate,fpassportissueddateen,mcitizenshipno,mcitizenshipissuedby, mcitizenshipissueddate, mcitizenshipissueddateen,mlicenseno,mlicenseissuedby,mlicenseissueddate, mlicenseissueddateen,mofficialidno, mofficialidissuedby,mofficialidissueddate,mofficialidissueddateen,mvoteridno,mvoteridissuedby,mvoteridissueddate,mvoteridissueddateen,mpassportno,mpassportissuedby,mpassportissueddate,mpassportissueddateen;
-private String slocalguardianid, localguardianname, localadd, relationtype, localmob;
+private String entrydate, studentid, admissiondate, admissiondateen,legacyId, studentname, sex, smotherlanguage, sethinicgroup, sReligion, dob, doben, differentlyabledYN,differentlyabledtype, district, VdcMun, WardNo, tole, tempaddress, fathername, faddress, foffice, fposition, fincome,fmobile, ftelephone, femail, fephone, mothername,maddress,moffice,mposition,mincome,mmobile,mtelephone,memail,mephone,local1,localadd1,localmob1,local2,localadd2,localmob2,admissionclass,section,rollno,housegroup,oldschool,reasonleav,hobby,specialinterest,inputter, relationtype1, relationtype2,birthcertificateno,birthcertificateissuedby,birthcertificateissueddate,birthcertificateissueddateen,fcitizenshipno,fcitizenshipissuedby, fcitizenshipissueddate, fcitizenshipissueddateen,flicenseno,flicenseissuedby,flicenseissueddate, flicenseissueddateen,fofficialidno, fofficialidissuedby,fofficialidissueddate,fofficialidissueddateen,fvoteridno,fvoteridissuedby,fvoteridissueddate,fvoteridissueddateen,fpassportno,fpassportissuedby,fpassportissueddate,fpassportissueddateen,mcitizenshipno,mcitizenshipissuedby, mcitizenshipissueddate, mcitizenshipissueddateen,mlicenseno,mlicenseissuedby,mlicenseissueddate, mlicenseissueddateen,mofficialidno, mofficialidissuedby,mofficialidissueddate,mofficialidissueddateen,mvoteridno,mvoteridissuedby,mvoteridissueddate,mvoteridissueddateen,mpassportno,mpassportissuedby,mpassportissueddate,mpassportissueddateen;
 
+
+private String slocalguardianid, localguardianname, localadd, relationtype, localmob;
+private String imageName;
+private byte[] imageData;
+private Blob studentImage;
 FormDetails formdetail;
 
+
+
+public Blob getStudentImage() {
+	return studentImage;
+}
+
+public void setStudentImage(Blob studentImage) {
+	this.studentImage = studentImage;
+}
+
+public String getEntrydate() {
+	return entrydate;
+}
+
+public String getImageName() {
+	return imageName;
+}
+
+public void setImageName(String imageName) {
+	this.imageName = imageName;
+}
+
+public byte[] getImageData() {
+	return imageData;
+}
+
+public void setImageData(byte[] imageData) {
+	this.imageData = imageData;
+}
+
+public void setEntrydate(String entrydate) {
+	this.entrydate = entrydate;
+}
 public String getsReligion() {
 	return sReligion;
 }
