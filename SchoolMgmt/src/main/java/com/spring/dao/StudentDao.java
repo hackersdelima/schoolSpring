@@ -1,6 +1,7 @@
 package com.spring.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.spring.model.FormDetails;
 import com.spring.model.StudentModel;
@@ -28,4 +29,5 @@ public interface StudentDao {
 	public List<StudentModel> getLocalGuardian(int id);
 	
 	public void insertImage(StudentModel uploadFile);
+	public List<StudentModel> getSpecificSubjects(String classname, String section);
 }

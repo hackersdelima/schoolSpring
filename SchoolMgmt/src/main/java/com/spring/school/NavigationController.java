@@ -58,6 +58,7 @@ private void commonModels(Model model){
 	model.addAttribute("disabledlist", studentDao.getDisabledType());
 	model.addAttribute("caste",studentDao.getCaste());
 	model.addAttribute("specialinterest",studentDao.SpecialInterest());
+	model.addAttribute("subject",operationDao.getSubjectList());
 
 }
 	@RequestMapping(value = "/studentAdmission")
@@ -109,7 +110,7 @@ private void commonModels(Model model){
 	
 	@RequestMapping(value="/subjects")
 	public String subjects(Model model, @ModelAttribute("msg") String msg){
-		model.addAttribute("subject",operationDao.getSubjectList());
+		//model.addAttribute("subject",operationDao.getSubjectList());
 		return "academics/subjects/subjects";
 	}
 	@RequestMapping(value="/assignSubjects")
@@ -135,6 +136,13 @@ private void commonModels(Model model){
 	public String createMarksReport(Model model){
 		model.addAttribute("examlist",operationDao.getExamList());
 		return "exam/createStudentReport";
+	}
+	
+	@RequestMapping(value="/createReportonSubject")
+	public String createMarksReportOnSubject(Model model)
+	{
+		model.addAttribute("examlist",operationDao.getExamList());
+		return "exam/createReportOnSub";
 	}
 	@RequestMapping(value="/marksReportSearch")
 	public String marksReportSearch(Model model){
