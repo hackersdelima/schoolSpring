@@ -77,6 +77,7 @@
                     	 <li><a href="nav/createExam" target="iframe_a">Create Exam</a>
                             </li>
                       <li><a href="nav/createMarksReport" target="iframe_a">Create Marks Report</a></li>
+                      <li><a href="nav/createReportonSubject" target="iframe_a">Create Marks Subject Teacher</a></li>
                        <li><a href="nav/marksReportSearch" target="iframe_a">Search Report</a>
                             </li>
                     </ul>

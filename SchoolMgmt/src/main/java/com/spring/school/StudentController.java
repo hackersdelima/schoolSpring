@@ -1,9 +1,8 @@
 package com.spring.school;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Blob;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.support.lob.LobHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -86,6 +86,11 @@ public class StudentController {
 				byte[] bytes=studentDao.getStudentImage(id).getImageData();
 			
 					System.out.println(bytes);
+					
+					FileOutputStream fos = new FileOutputStream("C:/Users/Sunil/Desktop/test.jpg");
+					 fos.write(bytes);
+			            fos.close();
+					response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
 					response.getOutputStream().write(bytes);
 					
 				} catch (Exception e) {
@@ -103,7 +108,7 @@ public class StudentController {
 			return "redirect:/nav/listStudents";
 		}
 		
-	
+		
 		@RequestMapping(value="/studentName", method=RequestMethod.POST)
 		public void studentName(@RequestParam Map<String, String> requestParams, HttpServletResponse response) throws Exception
 		{
@@ -126,6 +131,23 @@ public class StudentController {
 			}
 		
 		}
+		
+		@RequestMapping(value="/getClassStudents", method= RequestMethod.POST)
+		@ResponseBody
+		public String getStudentClassonSub(@RequestParam Map<String,String> requestParams,Model model) 
+		{
+			System.out.println("studentSubjects reached");
+			String classname=requestParams.get("classname");
+			String section=requestParams.get("section");
+			System.out.println(classname);
+			
+			
+			List<StudentModel> student=studentDao.getSpecificSubjects(classname,section);
+			System.out.println(student);
+			
+			model.addAttribute("student",student);
+			return "exam/setStudentSubjectMarks";
+		}
 		@RequestMapping(value = "/photo_upload", method = RequestMethod.POST)
 		@ResponseBody
 		public String photoUpload(@RequestParam("file") CommonsMultipartFile[] file, @RequestParam("classid") String classid, @RequestParam("sectionid") String sectionid,  @RequestParam("rollno") String rollno, Model model, HttpSession session) throws IOException {
@@ -137,6 +159,7 @@ public class StudentController {
 			
 			}
 			 if (file != null && file.length > 0) {
+				 System.out.println(file.length+" file length");
 		            for (CommonsMultipartFile aFile : file){
 		                System.out.println("Saving file: " + aFile.getOriginalFilename());
 		                s.setImageName(aFile.getOriginalFilename());

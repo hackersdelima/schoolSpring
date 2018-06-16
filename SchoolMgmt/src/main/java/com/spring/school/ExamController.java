@@ -35,6 +35,21 @@ public class ExamController {
 		model.addAttribute("subjectslist",subjectslist);
 		return "exam/setStudentMarks";
 	}
+	@RequestMapping(value="/setSubMarks", method = RequestMethod.POST)
+	public String setSubtMarks(Model model, @RequestParam Map<String, String> requestParams){
+
+		System.out.println("examstudentSubjects reached");
+		
+		String classname=requestParams.get("classname");
+		String section=requestParams.get("section");
+		System.out.println(classname);
+		List<StudentModel> student=studentDao.getSpecificSubjects(classname,section);
+		
+		System.out.println(student+"kjkjkj");
+		
+		model.addAttribute("student",student);
+		return "exam/setStudentSubjectMarks";
+	}
 	
 	@RequestMapping(value="/addMarks", method = RequestMethod.POST)
 	public String addMarks(@ModelAttribute ExamModel exam, @RequestParam Map<String, String> reqParam, Model model){

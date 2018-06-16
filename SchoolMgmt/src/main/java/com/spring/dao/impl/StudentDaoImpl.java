@@ -21,7 +21,8 @@ import com.spring.model.FormDetails;
 import com.spring.model.StudentModel;
 
 public class StudentDaoImpl implements StudentDao {
-private JdbcTemplate jdbcTemplate;
+
+	private JdbcTemplate jdbcTemplate;
 	
 
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -432,5 +433,13 @@ private JdbcTemplate jdbcTemplate;
 			jdbcTemplate.update(query);
 		}
 		
-	 
+		public List<StudentModel> getSpecificSubjects(String classname, String section)
+		{
+			
+			String query="select studentid,studentname from studentinfo where admissionclass='"+classname+"' and section='"+section+"'";
+			System.out.println(query);
+			return jdbcTemplate.query(query, new StudentMapper());
+		}
+
+		
 }
