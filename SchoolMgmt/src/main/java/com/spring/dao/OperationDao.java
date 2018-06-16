@@ -1,6 +1,7 @@
 package com.spring.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.spring.model.ExamModel;
 import com.spring.model.ExamTypeModel;
@@ -14,6 +15,8 @@ public interface OperationDao {
 
 	public boolean insertTableDetail(String tablename,String columns, String value);
 	 public List<FormDetails> getSubjectList();
+	 
+	 public Map<String,String> getAssignedSubjects();
 
 	public boolean checkSubCode(String subjectcode);
 

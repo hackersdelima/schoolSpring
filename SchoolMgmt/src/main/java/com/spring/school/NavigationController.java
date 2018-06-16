@@ -115,8 +115,11 @@ private void commonModels(Model model){
 	@RequestMapping(value="/assignSubjects")
 	public String assignSubjects(Model model){
 		List<FormDetails>  classlist,subjectlist;
+		
 		classlist=studentDao.getAdmissionClass();
 		subjectlist=operationDao.getSubjectList();
+		
+		model.addAttribute("assignedsubjects",operationDao.getAssignedSubjects());
 		
 		model.addAttribute("classlist",classlist);
 		model.addAttribute("subjectlist",subjectlist);

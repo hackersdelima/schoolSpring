@@ -2,7 +2,10 @@ package com.spring.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -145,6 +148,18 @@ public class OperationDaoImpl implements OperationDao {
 			}
 	 }
 	
-	
+	 public Map<String,String> getAssignedSubjects(){
+		 String query="select subjectlist.subjectname, classlist.classname from coursetbl JOIN subjectlist on coursetbl.subjectid=coursetbl.subjectid join classlist on coursetbl.gradeid=classlist.classid";
+		 return jdbcTemplate.queryForObject(query, new AssignedSubjectsList());
+	 }
+	 
+	 public static final class AssignedSubjectsList implements RowMapper< Map<String,String>>{
+			@Override
+			public  Map<String,String> mapRow(ResultSet rs, int rowNum) throws SQLException {
+				HashMap<String, String> map=new HashMap<String, String>();
+				map.put(rs.getString("classname"), rs.getString("subjectname"));
+				return map;
+			}
+			}
 
 }

@@ -141,6 +141,7 @@ public class StudentController {
 		                System.out.println("Saving file: " + aFile.getOriginalFilename());
 		                s.setImageName(aFile.getOriginalFilename());
 		                s.setImageData(aFile.getBytes());
+		                
 		                studentDao.insertImage(s);               
 		            }
 		        }

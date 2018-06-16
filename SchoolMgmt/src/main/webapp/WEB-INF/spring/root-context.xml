@@ -56,6 +56,9 @@
 	<bean id="dateConverter" class="com.spring.dao.impl.DateConverterDaoImpl">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
+	<bean id="initialDetailsDao" class="com.spring.dao.impl.InitialDetailsDaoImpl">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="268435456" />

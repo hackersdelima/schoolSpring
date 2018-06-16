@@ -7,6 +7,7 @@ public class FormDetails {
 	private String subjectid,subjectname,subjecttype,subjectCode;
 	private String languageid, languagename, casteid, castename, examtypeid, examtypename, description;
 	private Subjects subjects;
+	private String previousvalue;
 
 	public Subjects getSubjects() {
 		return subjects;
@@ -198,6 +199,14 @@ public class FormDetails {
 
 	public void setDistrictName(String districtName) {
 		this.districtName = districtName;
+	}
+
+	public String getPreviousvalue() {
+		return previousvalue;
+	}
+
+	public void setPreviousvalue(String previousvalue) {
+		this.previousvalue = previousvalue;
 	}
 
 }

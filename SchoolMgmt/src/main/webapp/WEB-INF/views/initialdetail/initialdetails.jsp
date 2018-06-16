@@ -185,8 +185,8 @@
 							<td>
 								<ol>
 								<c:forEach items="${language }" var="lan">
-									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i>${lan.languagename }
+									<li><a href="<spring:url value="/initialDetails/languageEdit?id=${lan.languageid }&value=${lan.languagename }"/>"><i class="glyphicon glyphicon-edit" aria-hidden="true"
+										style="color: blue"></i> ${lan.languagename } </a>
 									</li>
 									</c:forEach>
 								</ol>
@@ -194,8 +194,8 @@
 							<td>
 								<ol>
 									<c:forEach items="${section }" var="sec">
-									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i>${sec.sectionname }
+									<li><a href="<spring:url value="/initialDetails/sectionEdit?id=${sec.sectionid }&value=${sec.sectionname}"/>"><i class="glyphicon glyphicon-edit" aria-hidden="true"
+										style="color: blue"></i>${sec.sectionname }</a>
 									</li>
 									</c:forEach>
 								</ol>
@@ -203,8 +203,8 @@
 							<td>
 								<ol>
 									<c:forEach items="${housegroup }" var="hg">
-									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i>${hg.housegroupname }
+									<li><a href="<spring:url value="/initialDetails/housegroupEdit?id=${lan.languageid }&value=${lan.languagename }"/>"><i class="glyphicon glyphicon-edit" aria-hidden="true"
+										style="color: blue"></i>${hg.housegroupname }</a>
 									</li>
 									</c:forEach>
 									
@@ -214,8 +214,8 @@
 								<ol>
 							
 									<c:forEach items="${caste }" var="cas">
-									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i>${cas.castename }
+									<li><a href="<spring:url value="/initialDetails/ethnicgroupEdit?id=${lan.languageid }&value=${lan.languagename }"/>"><i class="glyphicon glyphicon-edit" aria-hidden="true"
+										style="color: blue"></i>${cas.castename }</a>
 									</li>
 									</c:forEach>
 								
@@ -224,8 +224,8 @@
 							<td>
 								<ol>
 									<c:forEach items="${specialinterest }" var="si">
-									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i>${si.specialInterestName }
+									<li><a href="<spring:url value="/initialDetails/specialInterestEdit?id=${lan.languageid }&value=${lan.languagename }"/>"><i class="glyphicon glyphicon-edit" aria-hidden="true"
+										style="color: blue"></i>${si.specialInterestName }</a>
 									</li>
 									</c:forEach>
 								</ol>
