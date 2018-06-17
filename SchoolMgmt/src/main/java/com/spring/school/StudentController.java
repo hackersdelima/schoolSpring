@@ -132,22 +132,7 @@ public class StudentController {
 		
 		}
 		
-		@RequestMapping(value="/getClassStudents", method= RequestMethod.POST)
-		@ResponseBody
-		public String getStudentClassonSub(@RequestParam Map<String,String> requestParams,Model model) 
-		{
-			System.out.println("studentSubjects reached");
-			String classname=requestParams.get("classname");
-			String section=requestParams.get("section");
-			System.out.println(classname);
-			
-			
-			List<StudentModel> student=studentDao.getSpecificSubjects(classname,section);
-			System.out.println(student);
-			
-			model.addAttribute("student",student);
-			return "exam/setStudentSubjectMarks";
-		}
+		
 		@RequestMapping(value = "/photo_upload", method = RequestMethod.POST)
 		@ResponseBody
 		public String photoUpload(@RequestParam("file") CommonsMultipartFile[] file, @RequestParam("classid") String classid, @RequestParam("sectionid") String sectionid,  @RequestParam("rollno") String rollno, Model model, HttpSession session) throws IOException {
@@ -207,9 +192,6 @@ public class StudentController {
 			{
 				return "Student Id Not Found!! Please Validate First";
 			}*/
-		
-
-		
 			
 			}
 }

@@ -29,5 +29,4 @@ public interface StudentDao {
 	public List<StudentModel> getLocalGuardian(int id);
 	
 	public void insertImage(StudentModel uploadFile);
-	public List<StudentModel> getSpecificSubjects(String classname, String section);
 }

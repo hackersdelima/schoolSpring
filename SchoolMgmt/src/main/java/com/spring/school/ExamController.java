@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.dao.ExamDao;
 import com.spring.dao.StudentDao;
@@ -35,21 +36,7 @@ public class ExamController {
 		model.addAttribute("subjectslist",subjectslist);
 		return "exam/setStudentMarks";
 	}
-	@RequestMapping(value="/setSubMarks", method = RequestMethod.POST)
-	public String setSubtMarks(Model model, @RequestParam Map<String, String> requestParams){
 
-		System.out.println("examstudentSubjects reached");
-		
-		String classname=requestParams.get("classname");
-		String section=requestParams.get("section");
-		System.out.println(classname);
-		List<StudentModel> student=studentDao.getSpecificSubjects(classname,section);
-		
-		System.out.println(student+"kjkjkj");
-		
-		model.addAttribute("student",student);
-		return "exam/setStudentSubjectMarks";
-	}
 	
 	@RequestMapping(value="/addMarks", method = RequestMethod.POST)
 	public String addMarks(@ModelAttribute ExamModel exam, @RequestParam Map<String, String> reqParam, Model model){
@@ -74,7 +61,7 @@ public class ExamController {
 		return "message/message";
 	}
 	
-	@RequestMapping(value = "searchMarksReport", method = RequestMethod.POST)
+	@RequestMapping(value = "/searchMarksReport", method = RequestMethod.POST)
 	public String searchMarksReport(Model model, @RequestParam Map<String, String> reqParam, ExamModel exam){
 		String classname=reqParam.get("classid");
 		String section=reqParam.get("sectionid");
@@ -93,5 +80,14 @@ public class ExamController {
 		
 		return "exam/report";
 	}
-
+@RequestMapping(value="/getClassStudents", method=RequestMethod.POST)
+public String getClassStudents(Model model,@RequestParam("subjectcode") String subjectcode,@RequestParam("classname") String classname, @RequestParam("sectionname") String sectionname){
+	List<StudentModel> students=examDao.getClassStudents(classname, sectionname);
+	model.addAttribute("students", students);
+	
+	Subjects subjectdetail = examDao.getSubjectDetail(subjectcode);
+	model.addAttribute("subjectdetail",subjectdetail);
+	
+	return "exam/setStudentSubjectMarks";
+}
 }
