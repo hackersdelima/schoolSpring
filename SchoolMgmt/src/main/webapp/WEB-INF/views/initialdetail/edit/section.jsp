@@ -32,6 +32,7 @@
 					<input type="text" class="form-control" name="sectionname"
 						placeholder="Section name..." value="${sectionname }"required> <br>
 					<button type="submit" class="btn btn-success">+ Update</button>
+					<a class="btn btn-danger" href="<spring:url value="/initialDetails/deleteSection/${sectionid}"/>">X Delete</a>
 				</form>
 			</div>
 		</div>
