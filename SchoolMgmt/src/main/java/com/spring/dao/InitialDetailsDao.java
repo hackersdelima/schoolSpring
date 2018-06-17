@@ -14,4 +14,8 @@ public interface InitialDetailsDao {
 
 	public void UpdateSpecialInterest(FormDetails formDetails);
 
+	public void UpdateAdmissionClass(FormDetails formDetails);
+
+	public void UpdateExamType(FormDetails formDetails);
+
 }

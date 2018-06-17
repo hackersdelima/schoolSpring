@@ -26,22 +26,36 @@ public class InitialDetailsDaoImpl implements InitialDetailsDao {
 		 jdbcTemplate.update(query);
 	 }
 	 public void updateSection(FormDetails formDetails){
-		 String query="";
+		 String query="update sectiontbl set sectionname='"+formDetails.getSectionname()+"' where sectionid='"+formDetails.getSectionid()+"'";
 		 jdbcTemplate.update(query);
 	 }
 	 
 	 public void updateHousegroup(FormDetails formDetails){
-		 String query="";
+		 String query="update housegrouptbl set housegroupname='"+formDetails.getHousegroupname()+"' where housegroupid='"+formDetails.getHousegroupid()+"'";
+		 System.out.println(query);
 		 jdbcTemplate.update(query);
 	 }
 	 
+	 
 	 public void UpdateEthnicgroup(FormDetails formDetails){
-		 String query="";
+		 String query="update castetbl set castename='"+formDetails.getCastename()+"' where casteid='"+formDetails.getCasteid()+"'" ;
+		 System.out.println(query);
 		 jdbcTemplate.update(query);
 	 }
 	 public void UpdateSpecialInterest(FormDetails formDetails){
-		 String query="";
+		 String query="update specialinteresttbl set specialinterestname='"+formDetails.getSpecialInterestName()+"' where specialinterestid='"+formDetails.getSpecialInterestId()+"'";
 		 jdbcTemplate.update(query);
 	 }
 
+	public void UpdateAdmissionClass(FormDetails formDetails) {
+
+		String query="update classlist set classname='"+formDetails.getClassname()+"'where classid='"+formDetails.getClassid()+"'";
+		jdbcTemplate.update(query);
+	}
+
+	public void UpdateExamType(FormDetails formDetails)
+	{
+		String query="update exam_type set examtypename='"+formDetails.getExamtypename()+"' where examtypeid='"+formDetails.getExamtypeid()+"'";
+		jdbcTemplate.update(query);
+	}
 }

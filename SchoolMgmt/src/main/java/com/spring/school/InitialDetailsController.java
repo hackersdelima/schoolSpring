@@ -30,10 +30,9 @@ public class InitialDetailsController {
 	}
 	
 	@RequestMapping(value="/sectionEdit")
-	public String sectionEdit(@RequestParam("value") String value,@RequestParam("id") String id, Model model){
+	public String sectionEdit(@RequestParam("value") String value, @RequestParam("id") String id, Model model){
 		model.addAttribute("sectionname",value);
 		model.addAttribute("sectionid",id);
-		
 		return "initialdetail/edit/section";
 	}
 	@RequestMapping(value="/sectionUpdate")
@@ -49,9 +48,9 @@ public class InitialDetailsController {
 		
 		return "initialdetail/edit/housegroup";
 	}
-	@RequestMapping(value="/housegroupUpdate")
+	@RequestMapping(value="/houseGroupUpdate")
 	public String housegroupUpdate(@ModelAttribute FormDetails formDetails){
-		initialDetailsDao.updateSection(formDetails);
+		initialDetailsDao.updateHousegroup(formDetails);
 		return "redirect:/nav/initialDetails";
 	}
 	
@@ -62,7 +61,7 @@ public class InitialDetailsController {
 		
 		return "initialdetail/edit/ethnicgroup";
 	}
-	@RequestMapping(value="/ethnicgroupUpdate")
+	@RequestMapping(value="/ethnicGroupUpdate")
 	public String ethnicgroupUpdate(@ModelAttribute FormDetails formDetails){
 		initialDetailsDao.UpdateEthnicgroup(formDetails);
 		return "redirect:/nav/initialDetails";
@@ -70,14 +69,42 @@ public class InitialDetailsController {
 	
 	@RequestMapping(value="/specialInterestEdit")
 	public String specialInterestEdit(@RequestParam("value") String value,@RequestParam("id") String id, Model model){
-		model.addAttribute("specialInterest",value);
-		model.addAttribute("casteid",id);
+		model.addAttribute("specialInterestName",value);
+		model.addAttribute("specialInterestId",id);
 		
-		return "initialdetail/edit/specialInterest";
+		return "initialdetail/edit/specialinterest";
 	}
 	@RequestMapping(value="/specialInterestUpdate")
 	public String specialInterestUpdate(@ModelAttribute FormDetails formDetails){
 		initialDetailsDao.UpdateSpecialInterest(formDetails);
+		return "redirect:/nav/initialDetails";
+	}
+	
+	@RequestMapping(value="/admissionClassEdit")
+	public String admissionClassEdit(@RequestParam("value") String value, @RequestParam("id") String id, Model model)
+	{
+		model.addAttribute("classname",value);
+		model.addAttribute("classid",id);
+		
+		return "initialdetail/edit/admissionclass";
+	}
+	@RequestMapping(value="/admissionClassUpdate")
+	public String admissionClassUpdate(@ModelAttribute FormDetails formDetails){
+		initialDetailsDao.UpdateAdmissionClass(formDetails);
+		return "redirect:/nav/initialDetails";
+	}
+	
+	@RequestMapping(value="/examTypeEdit")
+	public String examTypeEdit(@RequestParam("value") String value, @RequestParam("id") String id, Model model) 
+	{
+		model.addAttribute("examtypename",value);
+		model.addAttribute("examtypeid", id);
+		return "initialdetail/edit/examtype";
+	}
+	
+	@RequestMapping(value="/examTypeUpdate")
+	public String examTypeUpdate(@ModelAttribute FormDetails formDetails){
+		initialDetailsDao.UpdateExamType(formDetails);
 		return "redirect:/nav/initialDetails";
 	}
 

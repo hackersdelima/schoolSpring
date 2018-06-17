@@ -14,7 +14,7 @@
 
 		<div class="x_panel">
 			<div class="x_title">
-				<h2>EDIT SECTION</h2>
+				<h2>EDIT SPECIAL INTEREST</h2>
 				<ul class="nav navbar-right panel_toolbox">
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 					</li>
@@ -22,15 +22,15 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-				<spring:url value="/initialDetails/sectionUpdate" var="formUrl" />
+				<spring:url value="/initialDetails/specialInterestUpdate" var="formUrl" />
 				<form action="${formUrl }" method="post"
 					style="width: 20%; margin-top: 10px;" class="form">
 					<h6>
-						<strong>Section Name:</strong>
+						<strong>House Group Name:</strong>
 					</h6>
-					<input type="hidden" value="${sectionid }" name="sectionid">
-					<input type="text" class="form-control" name="sectionname"
-						placeholder="Section name..." value="${sectionname }"required> <br>
+					<input type="hidden" value="${specialInterestId }" name="specialInterestId">
+					<input type="text" class="form-control" name="specialInterestName"
+						placeholder="House Group name..." value="${specialInterestName }"required> <br>
 					<button type="submit" class="btn btn-success">+ Update</button>
 				</form>
 			</div>
