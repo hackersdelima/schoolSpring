@@ -203,7 +203,7 @@
 							<td>
 								<ol>
 									<c:forEach items="${housegroup }" var="hg">
-									<li><a href="<spring:url value="/initialDetails/housegroupEdit?id=${lan.languageid }&value=${lan.languagename }"/>"><i class="glyphicon glyphicon-edit" aria-hidden="true"
+									<li><a href="<spring:url value="/initialDetails/housegroupEdit?id=${hg.housegroupid }&value=${hg.housegroupname }"/>"><i class="glyphicon glyphicon-edit" aria-hidden="true"
 										style="color: blue"></i>${hg.housegroupname }</a>
 									</li>
 									</c:forEach>
@@ -214,7 +214,7 @@
 								<ol>
 							
 									<c:forEach items="${caste }" var="cas">
-									<li><a href="<spring:url value="/initialDetails/ethnicgroupEdit?id=${lan.languageid }&value=${lan.languagename }"/>"><i class="glyphicon glyphicon-edit" aria-hidden="true"
+									<li><a href="<spring:url value="/initialDetails/ethnicgroupEdit?id=${cas.casteid}&value=${cas.castename }"/>"><i class="glyphicon glyphicon-edit" aria-hidden="true"
 										style="color: blue"></i>${cas.castename }</a>
 									</li>
 									</c:forEach>
@@ -224,7 +224,7 @@
 							<td>
 								<ol>
 									<c:forEach items="${specialinterest }" var="si">
-									<li><a href="<spring:url value="/initialDetails/specialInterestEdit?id=${lan.languageid }&value=${lan.languagename }"/>"><i class="glyphicon glyphicon-edit" aria-hidden="true"
+									<li><a href="<spring:url value="/initialDetails/specialInterestEdit?id=${si.specialInterestId }&value=${si.specialInterestName}"/>"><i class="glyphicon glyphicon-edit" aria-hidden="true"
 										style="color: blue"></i>${si.specialInterestName }</a>
 									</li>
 									</c:forEach>
@@ -234,9 +234,10 @@
 								<ol>
 								
 									<c:forEach items="${adclass }" var="ac">
-									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i>${ac.classname }
+									<li><a href="<spring:url value="/initialDetails/admissionClassEdit?id=${ac.classid }&value=${ac.classname}"/>"><i class="glyphicon glyphicon-edit" aria-hidden="true"
+										style="color: blue"></i>${ac.classname }</a>
 									</li>
+									
 									</c:forEach>
 								
 								</ol>
@@ -244,10 +245,9 @@
 							<td>
 								<ol>
 									<c:forEach items="${examtype }" var="exam">
-									<li><i class="fa fa-trash-o" aria-hidden="true"
-										style="color: red"></i> <a href="" data-toggle="tooltip"
-										title="${exam.description }"
-										style="color: black;">${exam.examtypename }</a></li>
+										<li><a href="<spring:url value="/initialDetails/examTypeEdit?id=${exam.examtypeid }&value=${exam.examtypename }"/>"><i class="glyphicon glyphicon-edit" aria-hidden="true"
+										style="color: blue"></i>${exam.examtypename }</a>
+									</li>
 										</c:forEach>
 								</ol>
 							</td>
