@@ -23,6 +23,7 @@
 			</div>
 			<div class="x_content">
 <spring:url value="/initialDetails/languageUpdate" var="formUrl"/>
+<spring:url value="/initailDetails/deleteLanguage" var="delUrl"></spring:url>
 	<form:form class="form" action="${formUrl }"
 		style="width: 20%; margin-top: 10px;">
 		<h6>
@@ -33,7 +34,7 @@
 			placeholder="Language name..." value="${languagename }" required>
 		<br>
 		<button type="submit" class="btn btn-success">+ UPDATE</button>
-		<button type="submit" class="btn btn-danger">X DELETE</button>
+		<a class="btn btn-danger" href="${delUrl }/${languageid }">X DELETE</a>
 	</form:form>
 	</div>
 	</div>

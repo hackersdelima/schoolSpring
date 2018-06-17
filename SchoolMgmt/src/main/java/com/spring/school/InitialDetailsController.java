@@ -108,4 +108,6 @@ public class InitialDetailsController {
 		return "redirect:/nav/initialDetails";
 	}
 
+	
+
 }

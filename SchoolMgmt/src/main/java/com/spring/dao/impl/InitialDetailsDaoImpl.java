@@ -58,4 +58,9 @@ public class InitialDetailsDaoImpl implements InitialDetailsDao {
 		String query="update exam_type set examtypename='"+formDetails.getExamtypename()+"' where examtypeid='"+formDetails.getExamtypeid()+"'";
 		jdbcTemplate.update(query);
 	}
+	
+	public void deleteLanguage(FormDetails formDetails)
+	{
+		
+	}
 }
