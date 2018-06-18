@@ -129,7 +129,11 @@ private void commonModels(Model model){
 	}
 	
 	@RequestMapping(value="/dashboard")
-	public String dashboard(){
+	public String dashboard(Model model){
+		model.addAttribute("totalstudents",studentDao.getTotalStudents());
+		model.addAttribute("totaluser",studentDao.getTotalUser());
+		model.addAttribute("totalteacher",studentDao.getTotalTeacher());
+		model.addAttribute("currentBranch",studentDao.getCurrentBranch());
 		return "dashboard";
 	}
 	@RequestMapping(value="/createMarksReport")

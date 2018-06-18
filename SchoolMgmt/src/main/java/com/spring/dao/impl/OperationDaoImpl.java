@@ -149,7 +149,13 @@ public class OperationDaoImpl implements OperationDao {
 	
 	 public Map<String,String> getAssignedSubjects(){
 		 String query="select subjectlist.subjectname, classlist.classname from coursetbl JOIN subjectlist on coursetbl.subjectid=coursetbl.subjectid join classlist on coursetbl.gradeid=classlist.classid";
+		 try{
 		 return jdbcTemplate.queryForObject(query, new AssignedSubjectsList());
+		 }
+		 catch(Exception e){
+			 System.out.println(e);
+			 return null;
+		 }
 	 }
 	 public boolean editSubject(String id,Subjects sub)
 	 {

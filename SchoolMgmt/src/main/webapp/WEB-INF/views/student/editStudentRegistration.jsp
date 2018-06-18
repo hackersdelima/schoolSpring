@@ -46,7 +46,7 @@ img {
 				<button type="submit" class="btn btn-success " form="form">
 					<i class="fa fa-check"></i> Update
 				</button>
-				<a href="<spring:url value="/student/deleteStudent/${studentid }"></spring:url>" class="btn btn-danger">X Delete</a>
+				<a href="<spring:url value="/student/deleteStudent/${studentid }"></spring:url>" class="btn btn-danger delete">X Delete</a>
 				<div class="clearfix"></div>
 
 			</div>
@@ -746,7 +746,9 @@ $(document).ready(function()
 			});
 			});
 	});
-
+$(".delete").click(function(){
+	return confirm('Delete Confirm?');
+});
 </script>
 </body>
 </html>

@@ -137,7 +137,6 @@ public class StudentController {
 		
 		}
 		
-<<<<<<< HEAD
 		@RequestMapping(value="/getClassStudents", method= RequestMethod.POST)
 		@ResponseBody
 		public String getStudentClassonSub(@RequestParam Map<String,String> requestParams,Model model) 
@@ -164,8 +163,7 @@ public class StudentController {
 		
 		
 		
-=======
->>>>>>> branch 'master' of https://github.com/hackersdelima/schoolSpring.git
+
 		
 		@RequestMapping(value = "/photo_upload", method = RequestMethod.POST)
 		@ResponseBody
