@@ -440,6 +440,10 @@ public class StudentDaoImpl implements StudentDao {
 			System.out.println(query);
 			return jdbcTemplate.query(query, new StudentMapper());
 		}
+		public boolean deleteStudent(String id)
+		{
+			return false;
+		}
 
 		
 }

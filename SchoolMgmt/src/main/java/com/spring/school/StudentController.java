@@ -1,7 +1,9 @@
 package com.spring.school;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
@@ -75,6 +77,7 @@ public class StudentController {
 			
 			model.addAttribute("student", student);
 			model.addAttribute("localguardian",localguardian);
+			model.addAttribute("studentid",id);
 			
 			return "student/editStudentRegistration";
 		}
@@ -91,6 +94,8 @@ public class StudentController {
 					 fos.write(bytes);
 			            fos.close();
 					response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+					
+					int length=bytes.length;
 					response.getOutputStream().write(bytes);
 					
 				} catch (Exception e) {
@@ -148,6 +153,17 @@ public class StudentController {
 			model.addAttribute("student",student);
 			return "exam/setStudentSubjectMarks";
 		}
+		@RequestMapping(value="/deleteStudent/{id}")
+		public String deleteStudent(@PathVariable String id)
+		{
+			boolean status=studentDao.deleteStudent(id);
+			return "redirect:/nav/listStudents";
+		}
+		
+		
+		
+		
+		
 		@RequestMapping(value = "/photo_upload", method = RequestMethod.POST)
 		@ResponseBody
 		public String photoUpload(@RequestParam("file") CommonsMultipartFile[] file, @RequestParam("classid") String classid, @RequestParam("sectionid") String sectionid,  @RequestParam("rollno") String rollno, Model model, HttpSession session) throws IOException {
@@ -212,4 +228,6 @@ public class StudentController {
 		
 			
 			}
+		
+		
 }

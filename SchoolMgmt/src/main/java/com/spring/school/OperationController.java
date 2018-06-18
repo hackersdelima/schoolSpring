@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -160,5 +161,26 @@ public class OperationController {
 		model.addAttribute("msg",msg);
 		return "redirect: ../nav/createExam";
 	}
+	
+	
+	
+	@RequestMapping(value="/viewEditSubject/{id}")
+	public String viewEditSubject(@PathVariable String id, Model model)
+	{
+		Subjects sub=operationDao.getSubjectForEdit(id);
+		model.addAttribute("sub",sub);
+		model.addAttribute("subject",operationDao.getSubjectList());
+		return "academics/subjects/subjects";
+	}
+
+
+	@RequestMapping(value="/editSubject/{id}")
+	public String editSubject(@ModelAttribute Subjects sub,@PathVariable String id, Model model)
+	{
+		operationDao.editSubject(id,sub);
+		System.out.println("eksldjf");
+		return "redirect:/nav/subjects";
+	}
+	
 	
 }

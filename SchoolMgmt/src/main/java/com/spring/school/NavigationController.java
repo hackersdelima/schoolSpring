@@ -110,7 +110,7 @@ private void commonModels(Model model){
 	
 	@RequestMapping(value="/subjects")
 	public String subjects(Model model, @ModelAttribute("msg") String msg){
-		//model.addAttribute("subject",operationDao.getSubjectList());
+	    model.addAttribute("subject",operationDao.getSubjectList());
 		return "academics/subjects/subjects";
 	}
 	@RequestMapping(value="/assignSubjects")
