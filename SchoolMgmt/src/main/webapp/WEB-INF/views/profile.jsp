@@ -131,7 +131,7 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-sitemap"></i> Settings <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                    <li ><a href="nav/generalSettings" target="iframe_a">General Settings</a>
+                    <li ><a href="nav/generalSettings" target="iframe_a">Office Settings</a>
                     <li><a><span class="fa fa-chevron-down"></span>User</a>
 											<ul class="nav child_menu">
 
@@ -141,7 +141,7 @@
 														Create user Group</a></li>
 												<li ><a href="pageNotFound.jsp" target="iframe_a"> Authorize user </a></li>
 											</ul></li>
-                        <li><a>Academic Settings<span class="fa fa-chevron-down"></span></a>
+                        <li><a>Subject Settings<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
                             <li ><a href="nav/subjects" target="iframe_a">Subjects</a>
                             </li>
@@ -149,7 +149,7 @@
                             </li>
                           </ul>
                         </li>
-                         <li><a>Admin Settings<span class="fa fa-chevron-down"></span></a>
+                         <li><a>Account Settings<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
                             <li ><a href="nav/category" target="iframe_a">Category</a>
                              <li ><a href="nav/accountType" target="iframe_a">Account Type</a>
@@ -157,7 +157,7 @@
                             
                           </ul>
                         </li>
-                        <li><a href="nav/initialDetails" target="iframe_a">Set Initial Details</a>
+                        <li><a href="nav/initialDetails" target="iframe_a">Basic Details</a>
                         </li>
                     </ul>
                   </li>                  
