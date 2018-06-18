@@ -2,9 +2,7 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include.jsp"></jsp:include>
-<spring:url value="/exam/setSubMarks" var="getClassStudents"/>
-<spring:url value="/exam/setSubMarks" var="setMarksUrl"/>
-<spring:url value="/exam/addMarks" var="formUrl"/>
+<spring:url value="/exam/getClassStudents" var="getClassStudents"/>
 <html>
 <head>
 <style>
@@ -15,8 +13,7 @@
 	</style>
 </head>
 <body class="background">
-<input type="hidden" value="${getClassStudents }" id="url">
-<input type="hidden" value="${setMarksUrl }" id="setmarksurl">
+<input type="hidden" value="${getClassStudents }" id="getClassStudents">
 	<div class="col-md-12 col-sm-12 col-xs-12">
 
 		<div class="x_panel">
@@ -103,15 +100,15 @@
 		
 		 $("#validate").click(function() {
 			var classname = $("#class").val();
-			var section = $("#section").val();
-			var url=$("#url").val();
+			var sectionname=$("#section").val();
+			var subjectcode=$("#subject").val();
+			var url=$("#getClassStudents").val();
 			$.ajax({
 				type : "POST",
 				url : url,
-				data : {"classname": classname, "section": section},
+				data : {"classname": classname,"sectionname": sectionname, "subjectcode": subjectcode},
 				cache : false,
 				success : function(html) {
-					alert('fsda');
 					$("#markstable").html(html);
 				}
 			});

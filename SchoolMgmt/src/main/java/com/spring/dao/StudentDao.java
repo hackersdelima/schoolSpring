@@ -29,6 +29,9 @@ public interface StudentDao {
 	public List<StudentModel> getLocalGuardian(int id);
 	
 	public void insertImage(StudentModel uploadFile);
+<<<<<<< HEAD
 	public List<StudentModel> getSpecificSubjects(String classname, String section);
 	public boolean deleteStudent(String id);
+=======
+>>>>>>> branch 'master' of https://github.com/hackersdelima/schoolSpring.git
 }

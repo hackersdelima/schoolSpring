@@ -5,7 +5,7 @@
 	<thead>
 
 		<tr style="background-color:white; color:black">
-			<th colspan="3" style="text-align:center">SUBJECT</th>
+			<th colspan="2" style="text-align:center">STUDENT NAME</th>
 			<th colspan="2">FULL MARKS</th>
 			<th colspan="2">PASS MARKS</th>
 			<th colspan="3">OBTAINED MARKS</th>
@@ -14,8 +14,7 @@
 		</tr>
 		<tr class="headings">
 			<th>Name</th>
-			<th>Code</th>
-			<th>Type</th>
+			<th>Roll No</th>
 			
 			<th>Th. Marks</th>
 			<th>Pr. Marks</th>
@@ -29,13 +28,12 @@
 		</tr>
 	</thead>
 	<tbody>
-	<c:forEach items="${student }" var="s">
+	<c:forEach items="${students }" var="std">
 		<tr>
-		<td><input type="text" name="subjects.subjectidlist" value="${s.studentid }" >${sublist.subjectname }</td>
-			<td></td>
-			<td><input type="text" name="subjects.subjecttypelist" value="" hidden></td>
+		<td>${std.studentname }</td>
+			<td>${std.rollno }</td>
 			
-			<td><input type="text" name="subjects.fullmarkslist" value="" class="form-control" /></td>
+			<td><input type="text" name="subjects.fullmarkslist" value="${subjectdetail.fullmarks }" class="form-control" /></td>
 				<td><input type="text" name="subjects.fullmarks_prlist" value=""class="form-control" /></td>
 				
 			<td><input type="text" name="subjects.passmarkslist" value="" class="form-control" /></td>
@@ -48,9 +46,8 @@
 			<td><input type="text" name="subjects.remarkslist" class="form-control" /></td>
 			
 		</tr>
+		</c:forEach>
 		
-		
-	</c:forEach>
 	</tbody>
 	
 </table>

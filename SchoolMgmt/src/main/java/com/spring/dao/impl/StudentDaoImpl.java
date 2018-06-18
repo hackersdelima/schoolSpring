@@ -433,6 +433,7 @@ public class StudentDaoImpl implements StudentDao {
 			jdbcTemplate.update(query);
 		}
 		
+<<<<<<< HEAD
 		public List<StudentModel> getSpecificSubjects(String classname, String section)
 		{
 			
@@ -445,5 +446,7 @@ public class StudentDaoImpl implements StudentDao {
 			return false;
 		}
 
+=======
+>>>>>>> branch 'master' of https://github.com/hackersdelima/schoolSpring.git
 		
 }

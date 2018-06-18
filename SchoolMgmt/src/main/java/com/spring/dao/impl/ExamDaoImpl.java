@@ -52,6 +52,12 @@ public class ExamDaoImpl implements ExamDao {
 				+ gradeid + "'";
 		return jdbcTemplate.query(query, new ClassSubjects());
 	}
+	public Subjects getSubjectDetail(String gradeid) {
+		String query = "select subjectlist.* from coursetbl join subjectlist on coursetbl.subjectid=subjectlist.subjectid where coursetbl.gradeid='"
+				+ gradeid + "'";
+		System.out.println(query);
+		return jdbcTemplate.queryForObject(query, new ClassSubjects());
+	}
 
 	public static final class ClassSubjects implements RowMapper<Subjects> {
 
@@ -133,4 +139,20 @@ public class ExamDaoImpl implements ExamDao {
 			return esm;
 		}
 	}
+	public List<StudentModel> getClassStudents(String classname, String sectionname){
+		String query="select studentid, studentname from studentinfo where admissionclass='"+classname+"' and section='"+sectionname+"'";
+		System.out.println(query);
+		return jdbcTemplate.query(query, new StudentMapper());
+	}
+	public static final class StudentMapper implements RowMapper<StudentModel> {
+
+		@Override
+		public StudentModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+			StudentModel s=new StudentModel();
+			s.setStudentid(rs.getString("studentid"));
+			s.setStudentname(rs.getString("studentname"));
+			s.setRollno(rs.getString("rollno"));
+			return s;
+		}
+		}
 }
