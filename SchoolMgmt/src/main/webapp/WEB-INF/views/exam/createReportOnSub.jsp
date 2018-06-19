@@ -2,6 +2,7 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include.jsp"></jsp:include>
+<spring:url value="/exam/addMarks" var="formUrl"/>
 <spring:url value="/exam/getClassStudents" var="getClassStudents"/>
 <html>
 <head>
@@ -78,16 +79,16 @@
 								<select class="form-control" name="subject" id="subject">
 									<option value="">Select Subject</option>
 									<c:forEach items="${subject }" var="sec">
-									<option value="${sec.subjectCode }">${sec.subjectname}</option>
+									<option value="${sec.subjectid }">${sec.subjectname}</option>
 									</c:forEach>
 								</select>
 								
 							</div>
 						</div>
 					</div>
-					
+					<div id="markstable"></div>
 				</form:form>
-				<div id="markstable"></div>
+				
 			</div>
 		</div>
 	</div>

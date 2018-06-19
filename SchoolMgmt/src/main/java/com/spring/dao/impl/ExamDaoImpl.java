@@ -52,9 +52,9 @@ public class ExamDaoImpl implements ExamDao {
 				+ gradeid + "'";
 		return jdbcTemplate.query(query, new ClassSubjects());
 	}
-	public Subjects getSubjectDetail(String gradeid) {
-		String query = "select subjectlist.* from coursetbl join subjectlist on coursetbl.subjectid=subjectlist.subjectid where coursetbl.gradeid='"
-				+ gradeid + "'";
+	public Subjects getSubjectDetail(String id) {
+		String query = "select * from subjectlist where subjectid='"
+				+ id + "'";
 		System.out.println(query);
 		return jdbcTemplate.queryForObject(query, new ClassSubjects());
 	}
@@ -140,7 +140,7 @@ public class ExamDaoImpl implements ExamDao {
 		}
 	}
 	public List<StudentModel> getClassStudents(String classname, String sectionname){
-		String query="select studentid, studentname from studentinfo where admissionclass='"+classname+"' and section='"+sectionname+"'";
+		String query="select studentid, studentname, rollno from studentinfo where admissionclass='"+classname+"' and section='"+sectionname+"'";
 		System.out.println(query);
 		return jdbcTemplate.query(query, new StudentMapper());
 	}
