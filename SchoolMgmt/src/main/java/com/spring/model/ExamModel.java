@@ -1,8 +1,22 @@
 package com.spring.model;
 
+import java.util.List;
+
 public class ExamModel {
 	private String examid, examname,examcode, examtype,startdate, studentid,subjectid,companydb,classid,settings_id, type, description, totalmarks;
 	
+	private List<String> studentidlist;
+	
+	
+
+	public List<String> getStudentidlist() {
+		return studentidlist;
+	}
+
+	public void setStudentidlist(List<String> studentidlist) {
+		this.studentidlist = studentidlist;
+	}
+
 	public String getTotalmarks() {
 		return totalmarks;
 	}

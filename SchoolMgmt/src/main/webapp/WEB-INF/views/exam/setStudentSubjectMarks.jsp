@@ -30,20 +30,20 @@
 	<tbody>
 	<c:forEach items="${students }" var="std">
 		<tr>
-		<td>${std.studentname }</td>
+		<td>${std.studentname }<input type="hidden" name="studentidlist" value="${std.studentid }"></td>
 			<td>${std.rollno }</td>
 			
 			<td><input type="text" name="subjects.fullmarkslist" value="${subjectdetail.fullmarks }" class="form-control" /></td>
-				<td><input type="text" name="subjects.fullmarks_prlist" value=""class="form-control" /></td>
+				<td><input type="text" name="subjects.fullmarks_prlist" value="${subjectdetail.fullmarks_pr }"class="form-control" /></td>
 				
-			<td><input type="text" name="subjects.passmarkslist" value="" class="form-control" /></td>
-			<td><input type="text" name="subjects.passmarks_prlist" value="" class="form-control" /></td>
+			<td><input type="text" name="subjects.passmarkslist" value="${subjectdetail.passmarks }" class="form-control" /></td>
+			<td><input type="text" name="subjects.passmarks_prlist" value="${subjectdetail.passmarks_pr}" class="form-control" /></td>
 			
-			<td><input type="text" name="subjects.thmarkslist" class="form-control"/></td>
-			<td><input type="text" name="subjects.prmarkslist" class="form-control" /></td>
-			<td><input type="text" name="subjects.totalgradelist" class="form-control" /></td>
+			<td><input type="text" name="subjects.thmarkslist" value="" class="form-control"/></td>
+			<td><input type="text" name="subjects.prmarkslist" value="" class="form-control" /></td>
+			<td><input type="text" name="subjects.totalgradelist" value="" class="form-control" /></td>
 			
-			<td><input type="text" name="subjects.remarkslist" class="form-control" /></td>
+			<td><input type="text" name="subjects.remarkslist" value="" class="form-control" /></td>
 			
 		</tr>
 		</c:forEach>

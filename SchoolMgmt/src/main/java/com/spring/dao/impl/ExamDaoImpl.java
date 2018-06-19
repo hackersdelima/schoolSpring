@@ -36,7 +36,7 @@ public class ExamDaoImpl implements ExamDao {
 	public boolean addMarks(ExamModel exam, String studentid, int i) {
 		String tablename = "exam_marks_tbl";
 		String columns = "(studentid,examid,subjectid,prmarks,thmarks,totalgrade,remarks,inputDate, fullmarks, passmarks,totalmarks, fullmarks_pr, passmarks_pr)";
-		String value = studentid + "','" + exam.getExamid() + "','" + exam.getSubjects().getSubjectidlist().get(i)
+		String value = studentid + "','" + exam.getExamid() + "','" + exam.getSubjects().getSubjectid()
 				+ "','" + exam.getSubjects().getPrmarkslist().get(i) + "','"
 				+ exam.getSubjects().getThmarkslist().get(i) + "','" + exam.getSubjects().getTotalgradelist().get(i)
 				+ "','" + exam.getSubjects().getRemarkslist().get(i) + "',NOW()," + "'"
@@ -46,17 +46,38 @@ public class ExamDaoImpl implements ExamDao {
 		System.out.println(value);
 		return insertTableDetail(tablename, columns, value);
 	}
-
+	
+	public boolean addMarks(ExamModel exam, int i) {
+		String tablename = "exam_marks_tbl";
+		String columns = "(studentid,examid,subjectid,prmarks,thmarks,totalgrade,remarks,input_datetime, fullmarks, passmarks,totalmarks, fullmarks_pr, passmarks_pr)";
+		String value = exam.getStudentidlist().get(i) + "','" + exam.getExamid() + "','" + exam.getSubjects().getSubjectid()
+				+ "','" + exam.getSubjects().getPrmarkslist().get(i) + "','"
+				+ exam.getSubjects().getThmarkslist().get(i) + "','" + exam.getSubjects().getTotalgradelist().get(i)
+				+ "','" + exam.getSubjects().getRemarkslist().get(i) + "',NOW() ," + "'"
+				+ exam.getSubjects().getFullmarkslist().get(i) + "','" + exam.getSubjects().getPassmarkslist().get(i)
+				+ "','" + exam.getSubjects().getTotalmarks() + "','" + exam.getSubjects().getFullmarks_prlist().get(i)
+				+ "','" + exam.getSubjects().getPassmarks_prlist().get(i);
+		System.out.println(value);
+		return insertTableDetail(tablename, columns, value);
+	}
+	
 	public List<Subjects> getClassSubjects(String gradeid) {
 		String query = "select subjectlist.* from coursetbl join subjectlist on coursetbl.subjectid=subjectlist.subjectid where coursetbl.gradeid='"
 				+ gradeid + "'";
 		return jdbcTemplate.query(query, new ClassSubjects());
 	}
-	public Subjects getSubjectDetail(String gradeid) {
-		String query = "select subjectlist.* from coursetbl join subjectlist on coursetbl.subjectid=subjectlist.subjectid where coursetbl.gradeid='"
-				+ gradeid + "'";
+	public Subjects getSubjectDetail(String subjectid) {
+		try{
+		String query = "select * from subjectlist where subjectid='"
+				+ subjectid + "'";
 		System.out.println(query);
 		return jdbcTemplate.queryForObject(query, new ClassSubjects());
+		}
+		catch(Exception e){
+			System.out.println(e);
+			return null;
+			
+		}
 	}
 
 	public static final class ClassSubjects implements RowMapper<Subjects> {
@@ -140,10 +161,21 @@ public class ExamDaoImpl implements ExamDao {
 		}
 	}
 	public List<StudentModel> getClassStudents(String classname, String sectionname){
-		String query="select studentid, studentname from studentinfo where admissionclass='"+classname+"' and section='"+sectionname+"'";
+		String query="select studentid, studentname, rollno from studentinfo where admissionclass='"+classname+"' and section='"+sectionname+"'";
 		System.out.println(query);
 		return jdbcTemplate.query(query, new StudentMapper());
 	}
+	public boolean checkStudentSubAvailability(ExamModel exammodel, int i){
+		boolean status=false;
+		String query="select count(*) from exam_marks_tbl where studentid='"+exammodel.getStudentidlist().get(i)+"' and subjectid='"+exammodel.getSubjects().getSubjectid()+"'";
+	
+		int count=jdbcTemplate.queryForObject(query, Integer.class);
+		 if(count>0){
+			 status=true;
+		 }
+			return status;
+	}
+
 	public static final class StudentMapper implements RowMapper<StudentModel> {
 
 		@Override

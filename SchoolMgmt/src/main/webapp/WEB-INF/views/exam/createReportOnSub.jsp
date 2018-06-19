@@ -2,7 +2,8 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include.jsp"></jsp:include>
-<spring:url value="/exam/getClassStudents" var="getClassStudents"/>
+<spring:url value="/exam/getClassStudents" var="getStudents"/>
+<spring:url value="/exam/addSubMarks" var="formUrl"/>
 <html>
 <head>
 <style>
@@ -13,7 +14,7 @@
 	</style>
 </head>
 <body class="background">
-<input type="hidden" value="${getClassStudents }" id="getClassStudents">
+<input type="hidden" value="${getStudents }" id="getClassStudents">
 	<div class="col-md-12 col-sm-12 col-xs-12">
 
 		<div class="x_panel">
@@ -22,8 +23,8 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-				<form:form action="${formUrl }" 
-					style="margin-top: 10px;" class="form">
+				<form:form action="${formUrl }" method="post" 
+					style="margin-top: 10px;" class="form" modelAttribute="examModel">
 					<div role="tabpanel" class="tab-pane" aria-labelledby="profile-tab">
 					<div class="form-group">
 						<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
@@ -51,7 +52,7 @@
 								<h6>
 									<strong>Class*</strong>
 								</h6>
-								<select class="form-control" name="classid" id="class" required>
+								<select class="form-control" name="classname" id="class" required>
 									<option value="">Select Class</option>
 									<c:forEach items="${classlist }" var="cl">
 									<option value="${cl.classname }">${cl.classname }</option>
@@ -64,7 +65,7 @@
 								<h6>
 									<strong>Section</strong>
 								</h6>
-								<select class="form-control" name="sectionid" id="section">
+								<select class="form-control" name="sectionname" id="section">
 									<option value="">Select Section</option>
 									<c:forEach items="${section }" var="sec">
 									<option value="${sec.sectionname }">${sec.sectionname}</option>
@@ -75,19 +76,19 @@
 								<h6>
 									<strong>Subject</strong>
 								</h6>
-								<select class="form-control" name="subject" id="subject">
+								<select class="form-control" name="subjects.subjectid" id="subject">
 									<option value="">Select Subject</option>
-									<c:forEach items="${subject }" var="sec">
-									<option value="${sec.subjectCode }">${sec.subjectname}</option>
+									<c:forEach items="${subject }" var="sub">
+									<option value="${sub.subjectid }">${sub.subjectname}</option>
 									</c:forEach>
 								</select>
 								
 							</div>
 						</div>
 					</div>
-					
+					<div id="markstable"></div>
 				</form:form>
-				<div id="markstable"></div>
+				
 			</div>
 		</div>
 	</div>

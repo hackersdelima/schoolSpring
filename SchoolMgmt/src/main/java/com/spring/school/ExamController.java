@@ -60,7 +60,25 @@ public class ExamController {
 		
 		return "message/message";
 	}
-	
+	@RequestMapping(value="/addSubMarks", method = RequestMethod.POST)
+	@ResponseBody
+	public String addSubMarks(@ModelAttribute("examModel") ExamModel exammodel){
+		List<String> studentidlist=exammodel.getStudentidlist();
+		System.out.println(studentidlist);
+		int num=studentidlist.size();
+		for(int i=0; i<num; i++){
+			Double totalmarks = Double.parseDouble(exammodel.getSubjects().getThmarkslist().get(i))+Double.parseDouble(exammodel.getSubjects().getPrmarkslist().get(i));
+			
+			exammodel.getSubjects().setTotalmarks(totalmarks.toString());
+		
+			if(!examDao.checkStudentSubAvailability(exammodel, i)==true){
+			System.out.println("chiryo");
+				examDao.addMarks(exammodel, i);
+		}
+		}
+		
+		return "Successfull";
+	}
 	@RequestMapping(value = "/searchMarksReport", method = RequestMethod.POST)
 	public String searchMarksReport(Model model, @RequestParam Map<String, String> reqParam, ExamModel exam){
 		String classname=reqParam.get("classid");
@@ -82,10 +100,12 @@ public class ExamController {
 	}
 @RequestMapping(value="/getClassStudents", method=RequestMethod.POST)
 public String getClassStudents(Model model,@RequestParam("subjectcode") String subjectcode,@RequestParam("classname") String classname, @RequestParam("sectionname") String sectionname){
+	System.out.println("reached here");
 	List<StudentModel> students=examDao.getClassStudents(classname, sectionname);
 	model.addAttribute("students", students);
 	
 	Subjects subjectdetail = examDao.getSubjectDetail(subjectcode);
+	System.out.println(subjectdetail);
 	model.addAttribute("subjectdetail",subjectdetail);
 	
 	return "exam/setStudentSubjectMarks";
