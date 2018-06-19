@@ -1,6 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<br>
-<br>
 
 <table class="table jambo_table table-striped table-bordered dt-responsive nowrap display"
 	cellspacing="0" width="100%" style="font-size: 95%;'">
@@ -87,7 +85,7 @@
 	</tbody>
 
 </table>
-<<script type="text/javascript">
+<script type="text/javascript">
 $("#fullmarks, #fullmarks_pr, #passmarks, #passmarks_pr").blur(function(){
 	 var fullmarks = $("#fullmarks").val();
 	 var fullmarks_pr = $("#fullmarks_pr").val();
