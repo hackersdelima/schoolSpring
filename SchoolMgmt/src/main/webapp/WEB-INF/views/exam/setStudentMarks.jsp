@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <table id="datatable-buttons"
 	class="table jambo_table table-striped table-bordered dt-responsive nowrap display"
 	cellspacing="0" width="100%" style="font-size: 95%;'">

@@ -89,6 +89,7 @@
 							</div>
 						</div>
 					</div>
+					
 					<div id="markstable"></div>
 				</form:form>
 				
@@ -117,6 +118,7 @@
 				}
 			});
 		});
+		
 	</script>
 </body>
 </html>
