@@ -2,13 +2,9 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include.jsp"></jsp:include>
-<<<<<<< HEAD
-<spring:url value="/exam/addMarks" var="formUrl"/>
-<spring:url value="/exam/getClassStudents" var="getClassStudents"/>
-=======
+
 <spring:url value="/exam/getClassStudents" var="getStudents"/>
 <spring:url value="/exam/addSubMarks" var="formUrl"/>
->>>>>>> branch 'master' of https://github.com/hackersdelima/schoolSpring.git
 <html>
 <head>
 <style>
@@ -83,13 +79,10 @@
 								</h6>
 								<select class="form-control" name="subjects.subjectid" id="subject">
 									<option value="">Select Subject</option>
-<<<<<<< HEAD
-									<c:forEach items="${subject }" var="sec">
-									<option value="${sec.subjectid }">${sec.subjectname}</option>
-=======
+
 									<c:forEach items="${subject }" var="sub">
 									<option value="${sub.subjectid }">${sub.subjectname}</option>
->>>>>>> branch 'master' of https://github.com/hackersdelima/schoolSpring.git
+
 									</c:forEach>
 								</select>
 								

@@ -72,7 +72,6 @@ public class ExamController {
 			exammodel.getSubjects().setTotalmarks(totalmarks.toString());
 		
 			if(!examDao.checkStudentSubAvailability(exammodel, i)==true){
-			System.out.println("chiryo");
 				examDao.addMarks(exammodel, i);
 		}
 		}
