@@ -32,6 +32,7 @@
 					<input type="text" class="form-control" name="examtypename"
 						placeholder="Ethnic Group name..." value="${examtypename }"required> <br>
 					<button type="submit" class="btn btn-success">+ Update</button>
+					<a class="btn btn-danger" href="<spring:url value="/initialDetails/deleteExamType/${examtypeid}"/>">X Delete</a>
 				</form>
 			</div>
 		</div>

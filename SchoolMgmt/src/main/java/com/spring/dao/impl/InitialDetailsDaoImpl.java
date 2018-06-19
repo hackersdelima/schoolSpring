@@ -4,6 +4,9 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.dao.InitialDetailsDao;
 import com.spring.model.FormDetails;
@@ -59,8 +62,45 @@ public class InitialDetailsDaoImpl implements InitialDetailsDao {
 		jdbcTemplate.update(query);
 	}
 	
-	public void deleteLanguage(FormDetails formDetails)
+	
+	public void deleteLanguage(String id)
 	{
-		
+		String query="delete from languagetbl where languageid='"+id+"'";
+		jdbcTemplate.update(query);
 	}
+	public void deleteSection(String id)
+	{
+		String query="delete from sectiontbl where sectionid='"+id+"'";
+		jdbcTemplate.update(query);
+	}
+	public void deleteHousegroup(String id)
+	{
+		String query="delete from housegrouptbl where housegroupid='"+id+"'";
+		jdbcTemplate.update(query);
+	}
+	public void deleteEthnicgroup(String id)
+	{
+		String query="delete from castetbl where casteid='"+id+"'";
+		jdbcTemplate.update(query);
+	}
+	public void deleteSpecialInterest(String id)
+	{
+		String query="delete from specialinteresttbl where specialinterestid='"+id+"'";
+		jdbcTemplate.update(query);
+	}
+	public void deleteAdmissionClass(String id)
+	{
+		String query="delete from classlist where classid='"+id+"'";
+		jdbcTemplate.update(query);
+	}
+	
+	public void deleteExamType(String id) {
+		String query="delete from exam_type where examtypeid='"+id+"'";
+		jdbcTemplate.update(query);		
+	}
+	
+	
+	
+	
+	
 }

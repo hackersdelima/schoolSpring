@@ -32,6 +32,7 @@
 					<input type="text" class="form-control" name="housegroupname"
 						placeholder="House Group name..." value="${housegroupname }"required> <br>
 					<button type="submit" class="btn btn-success">+ Update</button>
+					<a class="btn btn-danger" href="<spring:url value="/initialDetails/deleteHousegroup/${housegroupid}"/>">X Delete</a>
 				</form>
 			</div>
 		</div>

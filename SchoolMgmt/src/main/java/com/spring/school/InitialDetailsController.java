@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -108,6 +109,60 @@ public class InitialDetailsController {
 		return "redirect:/nav/initialDetails";
 	}
 
+	
+	
+	
+	@RequestMapping(value="/deleteLanguage/{id}")
+	public String deleteLanguage(@PathVariable String id, Model model)
+	{
+		initialDetailsDao.deleteLanguage(id);
+        return "redirect:/nav/initialDetails";
+		
+	}
+	@RequestMapping(value="/deleteSection/{id}")
+	public String deleteSection(@PathVariable String id, Model model)
+	{
+		initialDetailsDao.deleteSection(id);
+        return "redirect:/nav/initialDetails";
+		
+	}
+	@RequestMapping(value="/deleteHousegroup/{id}")
+	public String deleteHousegroup(@PathVariable String id, Model model)
+	{
+		initialDetailsDao.deleteHousegroup(id);
+        return "redirect:/nav/initialDetails";
+		
+	}
+	@RequestMapping(value="/deleteEthnicgroup/{id}")
+	public String deleteEthnicgroup(@PathVariable String id, Model model)
+	{
+		initialDetailsDao.deleteEthnicgroup(id);
+        return "redirect:/nav/initialDetails";
+		
+	}
+	@RequestMapping(value="/deleteSpecialInterest/{id}")
+	public String deleteSpecialInterest(@PathVariable String id, Model model)
+	{
+		initialDetailsDao.deleteSpecialInterest(id);
+        return "redirect:/nav/initialDetails";
+		
+	}
+	@RequestMapping(value="/deleteAdmissionClass/{id}")
+	public String deleteAdmissionClass(@PathVariable String id, Model model)
+	{
+		initialDetailsDao.deleteAdmissionClass(id);
+        return "redirect:/nav/initialDetails";
+		
+	}
+	
+	@RequestMapping(value="/deleteExamType/{id}")
+	public String deleteExamType(@PathVariable String id, Model model)
+	{
+		initialDetailsDao.deleteExamType(id);
+        return "redirect:/nav/initialDetails";
+		
+	}
+	
 	
 
 }

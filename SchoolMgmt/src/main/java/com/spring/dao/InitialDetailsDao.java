@@ -18,4 +18,21 @@ public interface InitialDetailsDao {
 
 	public void UpdateExamType(FormDetails formDetails);
 
+	public void deleteLanguage(String id);
+
+	public void deleteSection(String id);
+
+	public void deleteHousegroup(String id);
+
+	public void deleteEthnicgroup(String id);
+
+	public void deleteSpecialInterest(String id);
+
+	public void deleteAdmissionClass(String id);
+	
+	public void deleteExamType(String id);
+	
+	
+	
+
 }

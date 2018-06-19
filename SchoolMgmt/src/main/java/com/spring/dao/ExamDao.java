@@ -12,11 +12,14 @@ public interface ExamDao {
 	public Subjects getSubjectDetail(String gradeid);
 	public boolean addMarks(ExamModel exam, String studentid, int i);
 	
+	public boolean addMarks(ExamModel exam, int i);
 	 public boolean insertTableDetail(String tablename,String columns, String value);
 	 
 	public List<ExamModel> specificStudentMarksReport(ExamModel exam, String studentid);
 	
 	public ExamSummaryReportModel specificStudentExamSummary(ExamModel exam, String studentid);
 	public List<StudentModel> getClassStudents(String classname, String sectionname);
+	public boolean checkStudentSubAvailability(ExamModel exammodel, int i);
+
 
 }
