@@ -2,7 +2,6 @@ package com.spring.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -157,6 +156,45 @@ public class OperationDaoImpl implements OperationDao {
 			 System.out.println(e);
 			 return null;
 		 }
+<<<<<<< HEAD
+=======
+	 }
+	 public boolean editSubject(String id,Subjects sub)
+	 {
+		 boolean status=false;
+		 String query="update subjectlist set subjectname='"+sub.getSubjectname()+"', subjecttype='"+sub.getSubjecttype()+"',subjectCode='"+sub.getSubjectcode()+"', fullmarks='"+sub.getFullmarks()+"',passmarks='"+sub.getPassmarks()+"', fullmarks_pr='"+sub.getFullmarks_pr()+"',passmarks_pr='"+sub.getPassmarks_pr()+"' where subjectid='"+id+"'";
+		int res= jdbcTemplate.update(query);
+		if(res>0)
+		{
+			status=true;
+		}
+		 return status;
+		 
+	 }
+	 public Subjects getSubjectForEdit(String id)
+	 {
+		 String query="select * from subjectlist where subjectid='"+id+"'";
+		 return jdbcTemplate.queryForObject(query, new SubjectMapper());
+	 }
+	 
+	 public static final class SubjectMapper implements RowMapper<Subjects>{
+
+		@Override
+		public Subjects mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+			Subjects sub=new Subjects();
+			sub.setFullmarks(rs.getString("fullmarks"));
+			sub.setPassmarks(rs.getString("passmarks"));
+			sub.setFullmarks_pr(rs.getString("fullmarks_pr"));
+			sub.setPassmarks_pr(rs.getString("passmarks_pr"));
+			sub.setSubjectcode(rs.getString("subjectCode"));
+			sub.setSubjectname(rs.getString("subjectname"));
+			sub.setSubjecttype(rs.getString("subjecttype"));
+			sub.setSubjectid(rs.getString("subjectid"));
+			return sub;
+		}
+		 
+>>>>>>> branch 'master' of https://github.com/hackersdelima/schoolSpring.git
 	 }
 	 
 	 public static final class AssignedSubjectsList implements RowMapper< Map<String,String>>{

@@ -433,5 +433,66 @@ public class StudentDaoImpl implements StudentDao {
 			jdbcTemplate.update(query);
 		}
 		
+		public List<StudentModel> getSpecificSubjects(String classname, String section)
+		{
+			
+			String query="select studentid,studentname from studentinfo where admissionclass='"+classname+"' and section='"+section+"'";
+			System.out.println(query);
+			return jdbcTemplate.query(query, new StudentMapper());
+		}
+		public boolean deleteStudent(String id)
+		{
+			ApplicationContext context=new ClassPathXmlApplicationContext("root-context.xml");
+			DataSource dataSource=(DataSource) context.getBean("dataSource");
+			
+			Statement stmt=null;
+			Connection con=null;
+			
+			try{
+				String query1="delete from slocalguardiantbl where studentid='"+id+"'";
+				String query2="delete from smotherdetailtbl where studentid='"+id+"'";
+				String query3="delete from sfatherdetailtbl where studentid='"+id+"'";
+				String query4="delete from sbirthcertificatetbl where studentid='"+id+"'";
+				String query5="delete from saddresstbl where studentid='"+id+"'";
+				String query6="delete from studentinfo where studentid='"+id+"'";
+			con=dataSource.getConnection();
+			stmt=con.createStatement();
+			
+			stmt.addBatch(query1);
+			stmt.addBatch(query2);
+			stmt.addBatch(query3);
+			stmt.addBatch(query4);
+			stmt.addBatch(query5);
+			stmt.addBatch(query6);
+			stmt.executeBatch();
+			}
+			catch(Exception e){
+				System.out.println(e);
+				return false;
+			}
+			return true;
+		}
+		public int getTotalStudents(){
+			String query="select count(*) from studentinfo";
+			return jdbcTemplate.queryForObject(query, Integer.class);
+		}
 		
+		public int getTotalUser()
+		{
+			String query="select count(*)  from usertbl";
+			return jdbcTemplate.queryForObject(query, Integer.class);
+		}
+		
+		public int getTotalTeacher()
+		{
+			String query="select count(*) from staff_tbl";
+			return jdbcTemplate.queryForObject(query, Integer.class);
+			
+		}
+		public String getCurrentBranch()
+		{
+			String query="select branchName from branchtbl";
+			return jdbcTemplate.queryForObject(query, String.class);
+			
+		}
 }

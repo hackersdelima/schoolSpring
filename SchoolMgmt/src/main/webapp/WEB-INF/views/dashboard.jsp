@@ -24,12 +24,13 @@ String totalstd=s.totalstudents(); %> --%>
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3></h3>
+              <h3>${totalstudents }</h3>
 
               <p>Total Students</p>
             </div>
             <div class="icon">
                <i class="fa fa-users"></i>
+               
             </div>
             <a href="#" class="small-box-footer">
               More info <i class="fa fa-arrow-circle-right"></i>
@@ -41,7 +42,7 @@ String totalstd=s.totalstudents(); %> --%>
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3><sup style="font-size: 20px"></sup></h3>
+              <h3><sup style="font-size: 20px"></sup>${totalteacher }</h3>
 
               <p>Total Teachers</p>
             </div>
@@ -58,7 +59,7 @@ String totalstd=s.totalstudents(); %> --%>
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3></h3>
+              <h3>${totaluser }</h3>
 
               <p>Total Users</p>
             </div>
@@ -75,7 +76,7 @@ String totalstd=s.totalstudents(); %> --%>
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3></h3>
+              <h3>${currentBranch }</h3>
 
               <p>Current Branch</p>
             </div>

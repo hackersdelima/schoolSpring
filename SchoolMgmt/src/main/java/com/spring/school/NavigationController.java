@@ -110,7 +110,7 @@ private void commonModels(Model model){
 	
 	@RequestMapping(value="/subjects")
 	public String subjects(Model model, @ModelAttribute("msg") String msg){
-		//model.addAttribute("subject",operationDao.getSubjectList());
+	    model.addAttribute("subject",operationDao.getSubjectList());
 		return "academics/subjects/subjects";
 	}
 	@RequestMapping(value="/assignSubjects")
@@ -129,7 +129,11 @@ private void commonModels(Model model){
 	}
 	
 	@RequestMapping(value="/dashboard")
-	public String dashboard(){
+	public String dashboard(Model model){
+		model.addAttribute("totalstudents",studentDao.getTotalStudents());
+		model.addAttribute("totaluser",studentDao.getTotalUser());
+		model.addAttribute("totalteacher",studentDao.getTotalTeacher());
+		model.addAttribute("currentBranch",studentDao.getCurrentBranch());
 		return "dashboard";
 	}
 	@RequestMapping(value="/createMarksReport")

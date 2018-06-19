@@ -4,7 +4,7 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../../include.jsp"></jsp:include>
-<spring:url value="/operation/addsubject" var="formUrl"/>
+
 <html>
 	<head>
 		<style>
@@ -41,32 +41,54 @@
 
 			</div>
 			<div class="x_content">
+			
+			<c:if test="${empty sub }">
+			<spring:url value="/operation/addsubject" var="formUrl"/>
+			</c:if>
+				<c:if test="${not empty sub }">
+			<spring:url value="/operation/editSubject/${sub.subjectid }" var="formUrl"/>
+			</c:if>
 				<form:form action="${formUrl }" id="form">
+				
+				<c:if test="${empty sub }">
+				
 					<button type="submit" class="btn btn-success" form="form">
 						<i class="fa fa-check"></i> Save
 					</button>
+					</c:if>
+					<c:if test="${not empty sub }">
+					
+					<button type="submit" form="form"  class="btn btn-primary" >Update</button>
+					</c:if>
 
 					<table class="table">
 						<tbody>
 							<tr>
 								<td><h6>Subject Code *</h6> <input type="text"
-									class="form-control" name="subjectcode" form="form" required></td>
+									class="form-control" name="subjectcode" form="form" value="${sub.subjectcode }" required></td>
 								<td><h6>Subject Name *</h6> <input type="text"
-									class="form-control" name="subjectname" form="form" required></td>
+									class="form-control" name="subjectname" form="form"  value="${sub.subjectname }" required></td>
 								<td><h6>Subject Type *</h6> <select class="form-control"
 									name="subjecttype" form="form" required>
 										<option value="" selected>Select subject type</option>
+										<c:if test="${empty sub }">
 										<option value="common">Common</option>
 										<option value="optional">Optional</option>
+										</c:if>
+										
+										<c:if test="${not empty sub }">
+										<option value="common" <c:if test="${sub.subjecttype eq 'common' }">selected</c:if> >Common</option>
+										<option value="optional" <c:if test="${sub.subjecttype eq 'optional' }">selected</c:if>>Optional</option>
+										</c:if>
 								</select></td>
 								<td><h6>Th Full Marks*</h6> <input type="text"
-									class="form-control" name="fullmarks" form="form" required></td>
+									class="form-control" name="fullmarks" form="form" value="${sub.fullmarks }" required></td>
 								<td><h6>Pr Full Marks*</h6> <input type="text"
-									class="form-control" name="fullmarks_pr" form="form" required></td>
+									class="form-control" name="fullmarks_pr" form="form" value="${sub.fullmarks_pr }" required></td>
 								<td><h6>Th Pass Marks*</h6> <input type="text"
-									class="form-control" name="passmarks" form="form" required></td>
+									class="form-control" name="passmarks" form="form" value="${sub.passmarks }" required></td>
 								<td><h6>Pr Pass Marks*</h6> <input type="text"
-									class="form-control" name="passmarks_pr" form="form" required></td>
+									class="form-control" name="passmarks_pr" form="form" value="${sub.passmarks_pr }"  required></td>
 							</tr>
 						</tbody>
 					</table>
@@ -124,7 +146,7 @@
 							<td>${sub.subjects.passmarks }</td>
 							<td>${sub.subjects.passmarks_pr }</td>
 							
-							<td><a href="#">Edit</a></td>
+							<td><a href="<spring:url value="/operation/viewEditSubject/${sub.subjectid }"></spring:url>">Edit</a></td>
 						</tr>
 						</c:forEach>
 					</tbody>

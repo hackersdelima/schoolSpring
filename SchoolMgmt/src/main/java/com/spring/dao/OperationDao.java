@@ -6,6 +6,7 @@ import java.util.Map;
 import com.spring.model.ExamModel;
 import com.spring.model.ExamTypeModel;
 import com.spring.model.FormDetails;
+import com.spring.model.Subjects;
 import com.spring.model.UserModel;
 
 public interface OperationDao {
@@ -22,6 +23,10 @@ public interface OperationDao {
 
 	public List<ExamModel> getExamList();
 	public List<ExamTypeModel> getExamTypeList();
+
+	public boolean editSubject(String id, Subjects sub);
+
+	public Subjects getSubjectForEdit(String id);
 	
 
 	
