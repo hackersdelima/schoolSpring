@@ -102,7 +102,7 @@ public class ExamDaoImpl implements ExamDao {
 	public boolean insertTableDetail(String tablename, String columns, String value) {
 		boolean status = false;
 		String sql = "INSERT INTO " + tablename + " " + columns + "  VALUES ('" + value + "')";
-		System.out.println(sql);
+		System.out.println("query"+sql);
 		int i = jdbcTemplate.update(sql);
 		if (i > 0) {
 			status = true;
@@ -144,6 +144,7 @@ public class ExamDaoImpl implements ExamDao {
 	public ExamSummaryReportModel specificStudentExamSummary(ExamModel exam, String studentid) {
 		
 		String query = "select * from exam_summary where examid = '"+exam.getExamid()+"' and studentid = '"+studentid+"'";
+		System.out.println("query==="+query);
 		return jdbcTemplate.queryForObject(query, new ExamSummary());
 	}
 

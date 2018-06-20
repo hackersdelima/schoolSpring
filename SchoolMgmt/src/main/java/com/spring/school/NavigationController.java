@@ -223,7 +223,7 @@ private void commonModels(Model model){
 	@ResponseBody
 	public String englishToNepali(@RequestParam("englishdate") String englishdate,HttpServletResponse response)
 	{
-		
+		System.out.println(englishdate);
 		String convertedNepaliDate = dateConverterDao.englishToNepali(englishdate);
 		System.out.println(englishdate+"="+convertedNepaliDate);
 		return convertedNepaliDate;

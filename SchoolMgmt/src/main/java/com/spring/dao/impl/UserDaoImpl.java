@@ -117,7 +117,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public List<UserModel> getUsers() {
-		String sql = "select * from usertbl";
+		String sql = "SELECT * FROM usertbl join branchtbl using(branchId)";
 		return jdbcTemplate.query(sql, new UserMapper());
 	}
 
