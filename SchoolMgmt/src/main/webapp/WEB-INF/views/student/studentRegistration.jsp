@@ -30,7 +30,7 @@
 				</ul>
 
 				<form method="post"
-					action="<spring:url value="/student/studentRegistration"></spring:url>"
+					action="<spring:url value="/student/studentRegistration"/>"
 					id="form"></form>
 				<button type="submit" class="btn btn-success " form="form">
 					<i class="fa fa-check"></i> SUBMIT
@@ -74,7 +74,7 @@
 											<h6>
 												<strong>Student Name</strong>
 											</h6> <input type="text" class="form-control" name="studentname"
-											id="studentname" form="form" required>
+											id="studentname" form="form" pattern="^[a-zA-Z]{1,30}" title="only alphanumeric letters are allowed" required>
 										</td>
 									</tr>
 									<tr>
@@ -156,14 +156,14 @@
 												<strong>DOB(YYYY-MM-DD) B.S.</strong>
 											</h6> <input type="text" class="form-control dob" name="dob" 
 											maxlength="10" id="nepaliDate1" form="form" onblur="nepaliToEnglish('.dob','.doben')"
-											placeholder="2051-07-25">
+											placeholder="2051-07-25" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])">
 										</td>
 										<td>
 											<h6>
 												<strong>DOB(YYYY-MM-DD) A.D.</strong>
 											</h6> <input type="text" class="form-control doben" name="doben"
 											maxlength="10" form="form" id="englishDate1" onblur="englishToNepali('.dob','.doben')"
-											placeholder="1994-11-11">
+											placeholder="1994-11-11" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])">
 										</td>
 									</tr>
 									<tr>
@@ -172,14 +172,15 @@
 												<strong>Admission Date(YYYY-MM-DD) B.S.</strong>
 											</h6> <input type="text" class="form-control addate" name="admissiondate"
 											maxlength="10" id="nepaliDate14" form="form" onblur="nepaliToEnglish('.addate','.addateen')"
-											placeholder="2051-07-25" required>
+											placeholder="2051-07-25" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required>
 										</td>
 										<td>
 											<h6>
 												<strong>Admission Date(YYYYMMDD) A.D.</strong>
 											</h6> <input type="text" class="form-control addateen"
 											name="admissiondateen" maxlength="10" form="form"
-											id="englishDate14" placeholder="1994-11-11" onblur="englishToNepali('.addate','.addateen')" required>
+											id="englishDate14" placeholder="1994-11-11" onblur="englishToNepali('.addate','.addateen')" 
+											pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required>
 										</td>
 									</tr>
 
@@ -196,7 +197,7 @@
 											<h6>
 												<strong>Birth Certificate No.</strong>
 											</h6> <input type="text" class="form-control"
-											name="birthcertificateno" form="form">
+											name="birthcertificateno" form="form" pattern="[0-9]+" title="only numbers are allowed">
 										</td>
 										<td>
 											<h6>
@@ -211,14 +212,16 @@
 												<strong>Issued Date(YYYYMMDD) B.S.</strong>
 											</h6> <input type="text" class="form-control isdate"
 											name="birthcertificateissueddate" maxlength="10"
-											id="nepaliDate2" form="form" placeholder="2051-07-25" onblur="nepaliToEnglish('.isdate','.isdateen')">
+											id="nepaliDate2" form="form" placeholder="2051-07-25" onblur="nepaliToEnglish('.isdate','.isdateen')"
+											pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])">
 										</td>
 										<td>
 											<h6>
 												<strong>Issued Date(YYYYMMDD) A.D.</strong>
 											</h6> <input type="text" class="form-control isdateen"
 											name="birthcertificateissueddateen" maxlength="10"
-											form="form" id="englishDate2" placeholder="1994-11-11" onblur="englishToNepali('.isdate','.isdateen')">
+											form="form" id="englishDate2" placeholder="1994-11-11" onblur="englishToNepali('.isdate','.isdateen')"
+											pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])">
 										</td>
 									</tr>
 									<tr>
@@ -330,13 +333,13 @@
 											<h6>
 												<strong>Mobile No.</strong>
 											</h6> <input type="text" class="form-control" maxlength="10"
-											name="fmobile" form="form" value="0">
+											name="fmobile" form="form" value="0" pattern="[0-9]+">
 										</td>
 										<td>
 											<h6>
 												<strong>Telephone No.</strong>
 											</h6> <input type="text" class="form-control" maxlength="10"
-											name="ftelephone" form="form" value="0">
+											name="ftelephone" form="form" value="0" pattern="[0-9]+">
 										</td>
 										<td>
 											<h6>
@@ -348,7 +351,7 @@
 											<h6>
 												<strong>Emergency Contact No.</strong>
 											</h6> <input type="text" class="form-control" name="fephone"
-											maxlength="10" form="form" value="0">
+											maxlength="10" form="form" value="0" pattern="[0-9]+">
 										</td>
 									</tr>
 									
@@ -404,13 +407,13 @@
 										<h6>
 											<strong>Mobile No.</strong>
 										</h6> <input type="text" class="form-control" maxlength="10"
-										name="mmobile" form="form" value="0">
+										name="mmobile" form="form" value="0" pattern="[0-9]+">
 									</td>
 									<td>
 										<h6>
 											<strong>Telephone No.</strong>
 										</h6> <input type="text" class="form-control" maxlength="10"
-										name="mtelephone" form="form" value="0">
+										name="mtelephone" form="form" value="0" pattern="[0-9]+">
 									</td>
 									<td>
 										<h6>
@@ -422,7 +425,7 @@
 										<h6>
 											<strong>Emergency Contact No.</strong>
 										</h6> <input type="text" class="form-control" maxlength="10"
-										name="mephone" form="form" value="0">
+										name="mephone" form="form" value="0" pattern="[0-9]+">
 									</td>
 								</tr>
 								
@@ -470,7 +473,7 @@
 											<h6>
 												<strong>Mobile No. 1</strong>
 											</h6> <input type="text" class="form-control" maxlength="10"
-											name="localmob1" form="form" value="0">
+											name="localmob1" form="form" value="0" pattern="[0-9]+">
 										</td>
 									</tr>
 									<tr>
@@ -510,7 +513,7 @@
 											<h6>
 												<strong>Mobile No. 2</strong>
 											</h6> <input type="text" class="form-control" maxlength="10"
-											name="localmob2" form="form" value="0">
+											name="localmob2" form="form" value="0" pattern="[0-9]+">
 										</td>
 									</tr>
 
@@ -549,7 +552,7 @@
 											<h6>
 												<strong>Roll No.</strong>
 											</h6> <input type="text" class="form-control" name="rollno"
-											form="form">
+											form="form" pattern="[0-9]+">
 										</td>
 									</tr>
 									<tr>

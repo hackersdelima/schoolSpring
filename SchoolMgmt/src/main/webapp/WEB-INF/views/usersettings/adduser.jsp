@@ -71,8 +71,8 @@
 										</h6>
 											<input type="hidden"  value="${userid}"
 												name="useridforupdate"> <input type="text"
-												name="username" class="form-control"  data-validation="number"
-												value="${username }">
+												name="username" class="form-control"  
+												value="${username }" pattern="^[a-zA-Z]{1,30}">
 								</td>
 								<td>
 									<h6>Role Name</h6> <select class="form-control"
@@ -106,11 +106,11 @@
 							<tr>
 								<td>
 									<h6>Start Date</h6> <input type="text" class="form-control"
-									name="startDate">
+									name="startDate" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" placeholder="YYYY-MM-DD">
 								</td>
 								<td>
 									<h6>End Date</h6> <input type="text" class="form-control"
-									name="endDate">
+									name="endDate" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" placeholder="YYYY-MM-DD">
 								</td>
 								<td>
 									<h6>Branch Allowed</h6> <select multiple id="branches"

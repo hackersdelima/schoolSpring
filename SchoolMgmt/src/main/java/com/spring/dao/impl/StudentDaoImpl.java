@@ -4,9 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -16,6 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import com.mysql.jdbc.PreparedStatement;
 import com.spring.dao.StudentDao;
 import com.spring.model.FormDetails;
 import com.spring.model.StudentModel;
@@ -429,8 +428,25 @@ public class StudentDaoImpl implements StudentDao {
 		}
 		
 		public void insertImage(StudentModel s){
+			try {	
+			ApplicationContext context=new ClassPathXmlApplicationContext("root-context.xml");
+			DataSource dataSource=(DataSource) context.getBean("dataSource");
+			Connection con=null;
+			Statement stmt=null;
+			
+			
 			String query="insert into student_image (studentid, imageName, imageData) values('"+s.getStudentid()+"','"+s.getImageName()+"','"+s.getImageData()+"')";
-			jdbcTemplate.update(query);
+				
+				con=dataSource.getConnection();
+				stmt=con.createStatement();
+				stmt.addBatch(query);
+				stmt.executeBatch();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		
 		public List<StudentModel> getSpecificSubjects(String classname, String section)

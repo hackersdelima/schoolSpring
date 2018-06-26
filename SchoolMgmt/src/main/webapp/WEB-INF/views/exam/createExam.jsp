@@ -55,10 +55,10 @@
 
 							</select></td>
 							<td><h6>Start Date(B.S) *</h6> <input type="text"
-								pattern=".{10,10}" required title="Invalid Date Format"
+								 required title="Invalid Date Format"
 								class="form-control startdate" name="startdatenep"
 								onblur="nepaliToEnglish('.startdate','.startdateen')"
-								form="form" required></td>
+								form="form" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required></td>
 
 							<td><h6>Start Date(A.D) *</h6> <input type="text"
 								class="form-control startdateen" name="startdate"

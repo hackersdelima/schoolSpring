@@ -90,7 +90,7 @@ img {
 											<h6>
 												<strong>Student Name</strong>
 											</h6> <input type="text" class="form-control" name="studentname"
-											id="studentname" form="form" value="${student.studentname}">
+											id="studentname" form="form" value="${student.studentname}" pattern="^[a-zA-Z]{1,20}">
 										</td>
 									</tr>
 									<tr>
@@ -186,14 +186,16 @@ img {
 												<strong>DOB(YYYY-MM-DD) B.S.</strong>
 											</h6> <input type="text" class="form-control dob" name="dob"
 											maxlength="10" id="nepaliDate1" form="form"
-											placeholder="2051-07-25" value="${student.dob}"  onblur="nepaliToEnglish('.dob','.doben')">
+											placeholder="2051-07-25" value="${student.dob}"  onblur="nepaliToEnglish('.dob','.doben')"
+											pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])">
 										</td>
 										<td>
 											<h6>
 												<strong>DOB(YYYY-MM-DD) A.D.</strong>
 											</h6> <input type="text" class="form-control doben" name="doben"
 											maxlength="10" form="form" id="englishDate1"
-											placeholder="1994-11-11" value="${student.doben}" onblur="englishToNepali('.dob','.doben')">
+											placeholder="1994-11-11" value="${student.doben}" 
+											pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" onblur="englishToNepali('.dob','.doben')">
 										</td>
 									</tr>
 									<tr>
@@ -202,7 +204,8 @@ img {
 												<strong>Admission Date(YYYY-MM-DD) B.S.</strong>
 											</h6> <input type="text" class="form-control addate" name="admissiondate"
 											maxlength="10" id="nepaliDate14" form="form"
-											placeholder="2051-07-25" value="${student.admissiondate}" onblur="nepaliToEnglish('.addate','.addateen')">
+											placeholder="2051-07-25" value="${student.admissiondate}" 
+											pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" onblur="nepaliToEnglish('.addate','.addateen')">
 										</td>
 										<td>
 											<h6>
@@ -210,7 +213,8 @@ img {
 											</h6> <input type="text" class="form-control addateen"
 											name="admissiondateen" maxlength="10" form="form"
 											id="englishDate14" placeholder="1994-11-11"
-											value="${student.admissiondateen}" onblur="englishToNepali('.addate','.addateen')">
+											value="${student.admissiondateen}"
+											pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" onblur="englishToNepali('.addate','.addateen')">
 										</td>
 									</tr>
 
@@ -228,7 +232,7 @@ img {
 												<strong>Birth Certificate No.</strong>
 											</h6> <input type="text" class="form-control"
 											name="birthcertificateno" form="form"
-											value="${student.birthcertificateno}">
+											value="${student.birthcertificateno}" pattern="[0-9]+">
 										</td>
 										<td>
 											<h6>
@@ -371,13 +375,13 @@ img {
 											<h6>
 												<strong>Mobile No.</strong>
 											</h6> <input type="text" class="form-control" maxlength="10"
-											name="fmobile" form="form" value="${student.fmobile}">
+											name="fmobile" form="form" value="${student.fmobile}" pattern="[0-9]+">
 										</td>
 										<td>
 											<h6>
 												<strong>Telephone No.</strong>
 											</h6> <input type="text" class="form-control" maxlength="10"
-											name="ftelephone" form="form" value="${student.ftelephone}">
+											name="ftelephone" form="form" value="${student.ftelephone}" pattern="[0-9]+">
 										</td>
 										<td>
 											<h6>
@@ -389,7 +393,7 @@ img {
 											<h6>
 												<strong>Emergency Contact No.</strong>
 											</h6> <input type="text" class="form-control" name="fephone"
-											maxlength="10" form="form" value="${student.fephone}">
+											maxlength="10" form="form" value="${student.fephone}" pattern="[0-9]+">
 										</td>
 									</tr>
 									

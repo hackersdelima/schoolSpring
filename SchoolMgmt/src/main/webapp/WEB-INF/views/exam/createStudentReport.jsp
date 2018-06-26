@@ -82,7 +82,7 @@
 									<strong>Roll No</strong>
 								</h6>
 								<input type="text" class="form-control" name="rollno" id="rollno"
-									placeholder="" required>
+									placeholder="" pattern="[0-9]+" required>
 									<br>
 							</div>
 						</div>

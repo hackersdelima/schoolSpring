@@ -230,5 +230,13 @@ private void commonModels(Model model){
 	
 	}
 	
+	@RequestMapping(value="/pageNotFound")
+	public String pageNotFound(Model model)
+	{
+		return "pageNotFound";
+		
+		
+	}
+	
 }
 

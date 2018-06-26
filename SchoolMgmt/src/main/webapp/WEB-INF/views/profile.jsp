@@ -137,9 +137,9 @@
 
 												<li ><a href="nav/addUser" target="iframe_a">
 														Manage User </a></li>
-												<li ><a href="addusergroup.user" target="iframe_a">
+												<li ><a href="nav/pageNotFound" target="iframe_a">
 														Create user Group</a></li>
-												<li ><a href="pageNotFound.jsp" target="iframe_a"> Authorize user </a></li>
+												<li ><a href="nav/pageNotFound" target="iframe_a"> Authorize user </a></li>
 											</ul></li>
                         <li><a>Subject Settings<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">

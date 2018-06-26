@@ -82,13 +82,13 @@
 										</c:if>
 								</select></td>
 								<td><h6>Th Full Marks*</h6> <input type="text"
-									class="form-control" name="fullmarks" form="form" value="${sub.fullmarks }" required></td>
+									class="form-control" name="fullmarks" form="form" value="${sub.fullmarks }" pattern="[0-9]+" required></td>
 								<td><h6>Pr Full Marks*</h6> <input type="text"
-									class="form-control" name="fullmarks_pr" form="form" value="${sub.fullmarks_pr }" required></td>
+									class="form-control" name="fullmarks_pr" form="form" value="${sub.fullmarks_pr }"  pattern="[0-9]+"required></td>
 								<td><h6>Th Pass Marks*</h6> <input type="text"
-									class="form-control" name="passmarks" form="form" value="${sub.passmarks }" required></td>
+									class="form-control" name="passmarks" form="form" value="${sub.passmarks }" pattern="[0-9]+" required></td>
 								<td><h6>Pr Pass Marks*</h6> <input type="text"
-									class="form-control" name="passmarks_pr" form="form" value="${sub.passmarks_pr }"  required></td>
+									class="form-control" name="passmarks_pr" form="form" value="${sub.passmarks_pr }"  pattern="[0-9]+" required></td>
 							</tr>
 						</tbody>
 					</table>
