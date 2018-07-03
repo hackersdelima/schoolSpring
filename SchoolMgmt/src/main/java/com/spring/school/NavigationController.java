@@ -22,6 +22,7 @@ import com.spring.dao.RoleDao;
 import com.spring.dao.StaffDao;
 import com.spring.dao.StudentDao;
 import com.spring.dao.UserDao;
+import com.spring.model.ExamModel;
 import com.spring.model.FormDetails;
 import com.spring.model.StudentModel;
 
@@ -47,6 +48,7 @@ public class NavigationController {
 	@Autowired
 	private DateConverterDao dateConverterDao;
 	
+	
 @ModelAttribute
 private void commonModels(Model model){
 	model.addAttribute("language",studentDao.getLanguages());
@@ -67,8 +69,15 @@ private void commonModels(Model model){
 	}
 
 	@RequestMapping(value = "/createExam")
-	public String createExam(Model model) {
+	public String createExam(Model model, @ModelAttribute(value="em") ExamModel em) {
+		model.addAttribute("em",em);
 		model.addAttribute("examtypelist",operationDao.getExamTypeList());
+		
+		if(em.getStartdate()!=null){
+		String startdate=dateConverterDao.englishToNepali(em.getStartdate());
+		model.addAttribute("stdateen", startdate);
+		}
+		
 		model.addAttribute("examlist",operationDao.getExamList());
 		return "exam/createExam";
 	}

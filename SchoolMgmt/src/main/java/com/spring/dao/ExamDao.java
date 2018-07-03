@@ -20,6 +20,9 @@ public interface ExamDao {
 	public ExamSummaryReportModel specificStudentExamSummary(ExamModel exam, String studentid);
 	public List<StudentModel> getClassStudents(String classname, String sectionname);
 	public boolean checkStudentSubAvailability(ExamModel exammodel, int i);
+	public ExamModel editExam(String examId);
+	public boolean updateExam(ExamModel emodel, String examId);
+	public boolean deleteExam(String examId);
 
 
 }

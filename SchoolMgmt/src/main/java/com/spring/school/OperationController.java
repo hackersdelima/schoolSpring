@@ -149,7 +149,7 @@ public class OperationController {
 	public String insertExam(@ModelAttribute ExamModel m,Model model){
 		String tablename="exam";
 		String columns="(examtypeid,examname,startdate,examcode)";
-		String value=m.getExamtype() + "','"+ m.getExamname() + "','" + m.getStartdate() + "','"+m.getExamcode();
+		String value=m.getExamTypeModel().getExamtypeid() + "','"+ m.getExamname() + "','" + m.getStartdate() + "','"+m.getExamcode();
 		String msg="";
 		boolean status=operationDao.insertTableDetail(tablename, columns, value);
 		if(status){

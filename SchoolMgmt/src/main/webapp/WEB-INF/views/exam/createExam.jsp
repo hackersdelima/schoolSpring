@@ -4,7 +4,7 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include.jsp"></jsp:include>
-<spring:url value="/operation/insertExam" var="formUrl"/>
+
 
 <html>
 <head></head>
@@ -32,9 +32,32 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-				<button type="submit" class="btn btn-success" form="form">
+			
+			<c:if test="${empty em.examname }">
+			<spring:url value="/operation/insertExam" var="formUrl"/>
+			</c:if>
+				<c:if test="${not empty em.examname }">
+			<spring:url value="/exam/updateExam/${em.examid}" var="formUrl"/>
+			</c:if>
+				
+				
+				<c:if test="${empty em.examname }">
+			<button type="submit" class="btn btn-success" form="form">
 					<i class="fa fa-check"></i> Save
 				</button>
+			</c:if>
+			
+				<c:if test="${not empty em.examname }">
+			<button type="submit" class="btn btn-success" form="form">
+					<i class="fa fa-check"></i> Update
+				</button>
+				
+				<a href="<spring:url value="/exam/deleteExam/${em.examid}"></spring:url>" class="btn btn-danger delete" form="form">
+					<i class="fa fa-check"></i> Delete</a>
+			</c:if>
+				
+				
+			
 				<form:form action="${formUrl }" id="form"></form:form>
 				<table class="table">
 					<tbody>
@@ -44,13 +67,14 @@
 								value="${sessionScope.systemdetail[5].settingsdescription }"
 								required readonly></td>
 							<td><h6>Exam Name *</h6> <input type="text"
-								class="form-control" name="examname" form="form" required>
+								class="form-control" name="examname" form="form" value="${em.examname }" required>
 							</td>
 							<td><h6>Exam Type *</h6> <select class="form-control"
-								name="examtype" form="form" required>
-									<option value="" selected>Select exam type</option>
+								name="examTypeModel.examtypeid" form="form" required>
+									<option value="" >Select exam type</option>
+									
 									<c:forEach items="${examtypelist}" var="exam">
-										<option value="${exam.examtypeid }">${exam.examtypename }</option>
+										<option value="${exam.examtypeid }" <c:if test="${em.examTypeModel.examtypeid eq exam.examtypeid }">selected</c:if>>${exam.examtypename }</option>
 									</c:forEach>
 
 							</select></td>
@@ -58,13 +82,14 @@
 								 required title="Invalid Date Format"
 								class="form-control startdate" name="startdatenep"
 								onblur="nepaliToEnglish('.startdate','.startdateen')"
-								form="form" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required></td>
+								form="form" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" 
+							  value="${stdateen }"  required></td>
 
 							<td><h6>Start Date(A.D) *</h6> <input type="text"
 								class="form-control startdateen" name="startdate"
 								onblur="englishToNepali('.startdate','.startdateen')"
-								id="englishDate1" form="form" pattern=".{10,10}" required
-								title="Invalid Date Format" required></td>
+								id="englishDate1" form="form" pattern=".{10,10}" 
+								title="Invalid Date Format"  value="${em.startdate }" required></td>
 						</tr>
 					</tbody>
 				</table>
@@ -100,7 +125,8 @@
 								<td>${elist.examname }</td>
 								<td>${elist.examTypeModel.examtypename }</td>
 								<td>${elist.startdate }</td>
-								<td><a href="#">Edit</a></td>
+								<td><a href="<spring:url value="/exam/editExam/${elist.examid }"></spring:url>">Edit</a></td>
+
 
 							</tr>
 						</c:forEach>
@@ -154,6 +180,10 @@
 			}
 		});
 	}
+	
+	$('.delete').click(function() {
+		return confirm('CONFIRM SUBJECT DELETE?');
+	});
 	</script>
 </body>
 </html>

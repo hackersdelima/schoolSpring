@@ -14,6 +14,7 @@ import com.spring.dao.ExamDao;
 import com.spring.dao.OperationDao;
 import com.spring.model.ExamModel;
 import com.spring.model.ExamSummaryReportModel;
+import com.spring.model.ExamTypeModel;
 import com.spring.model.StudentModel;
 import com.spring.model.Subjects;
 
@@ -177,7 +178,32 @@ public class ExamDaoImpl implements ExamDao {
 		 }
 			return status;
 	}
+	public ExamModel editExam(String examId) {
+		String query="select * from exam join exam_type using (examtypeid) where examid='"+examId+"'";
+		
+		return jdbcTemplate.queryForObject(query, new ExamMapper());
+	}
 
+	public static final class ExamMapper implements RowMapper<ExamModel>{
+
+		@Override
+		public ExamModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+			ExamModel em=new ExamModel();
+			
+			ExamTypeModel etm=new ExamTypeModel();
+			etm.setExamtypeid(rs.getString("examtypeid"));
+			etm.setDescription(rs.getString("description"));
+			etm.setExamtypename(rs.getString("examtypename"));
+			em.setExamTypeModel(etm);
+			
+			em.setExamcode(rs.getString("examcode"));
+			em.setExamname(rs.getString("examname"));
+			em.setStartdate(rs.getString("startdate"));
+			em.setExamid(rs.getString("examid"));
+			return em;
+		}
+		
+	}
 	public static final class StudentMapper implements RowMapper<StudentModel> {
 
 		@Override
@@ -189,4 +215,31 @@ public class ExamDaoImpl implements ExamDao {
 			return s;
 		}
 		}
+
+	@Override
+	public boolean updateExam(ExamModel emodel, String examId) {
+		boolean status=false;
+		String query="update exam set examname='"+emodel.getExamname()+"', startdate='"+emodel.getStartdate()+"' where examid='"+examId+"'";
+		int result=jdbcTemplate.update(query);
+		if(result>0)
+		{
+			status=true;
+		}
+		
+		return status;
+	}
+
+	public boolean deleteExam(String examId) {
+		boolean status=false;
+		String query="delete from exam where examid='"+examId+"'";
+		int result=jdbcTemplate.update(query);
+		
+		if(result>0)
+		{
+			status=true;
+		}
+		return status;
+	}
+
+	
 }
