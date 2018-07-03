@@ -5,6 +5,7 @@
 	<tr>
 		<th colspan="2">FULL MARKS</th>
 		<th colspan="2">PASS MARKS</th>
+		<th>Action</th>
 	</tr>
 	<tr>
 		<th>Th. Marks</th>
@@ -13,11 +14,13 @@
 		<th>Th. Marks</th>
 		<th>Pr. Marks</th>
 	</tr>
+	
 	<tr>
 		<td><input type="text" value="${subjectdetail.fullmarks }" class="form-control" id="fullmarks" /></td>
 		<td><input type="text" value="${subjectdetail.fullmarks_pr }" class="form-control" id="fullmarks_pr"  /></td>
 					<td><input type="text" value="${subjectdetail.passmarks }" class="form-control" id="passmarks" ></td>
 					<td><input type="text" value="${subjectdetail.passmarks_pr }" class="form-control" id="passmarks_pr" /></td>
+					<td><a class="btn btn-primary buttonClick">Apply To All</a> </td>
 	</tr>
 </table>
 
@@ -83,10 +86,14 @@
 		</c:forEach>
 
 	</tbody>
+	
+	
 
 </table>
 <script type="text/javascript">
-$("#fullmarks, #fullmarks_pr, #passmarks, #passmarks_pr").blur(function(){
+
+$(".buttonClick").click(function(){
+
 	 var fullmarks = $("#fullmarks").val();
 	 var fullmarks_pr = $("#fullmarks_pr").val();
 	 var passmarks = $("#passmarks").val();
