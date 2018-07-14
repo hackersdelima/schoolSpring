@@ -74,7 +74,7 @@
 											<h6>
 												<strong>Student Name</strong>
 											</h6> <input type="text" class="form-control" name="studentname"
-											id="studentname" form="form" pattern="^[a-zA-Z]{1,30}" title="only alphanumeric letters are allowed" required>
+											id="studentname" form="form" pattern="^[a-zA-Z ][a-zA-Z ]{1,30}" title="only alphabets are allowed" required>
 										</td>
 									</tr>
 									<tr>

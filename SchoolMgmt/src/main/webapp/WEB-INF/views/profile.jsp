@@ -1,5 +1,5 @@
 
-
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
@@ -208,7 +208,9 @@
                       </a>
                     </li>
                     <li><a href="nav/javascript:;">Help</a></li>
-                    <li><a href="nav/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    
+                    
+                    <li><a href="<spring:url value="/logout"/>"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
               </ul>

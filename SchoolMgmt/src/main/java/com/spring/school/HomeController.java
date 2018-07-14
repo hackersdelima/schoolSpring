@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,5 +71,11 @@ public class HomeController {
 		System.out.println(name);
 		return "index";
 	}
+	@RequestMapping(value="/logout") 
+	public String logOut(Model model,HttpSession session) {
+		 session.invalidate();
+		 model.addAttribute("msg","Logout Successful!");
+		 return "redirect:/";
+		  }
 
 }
