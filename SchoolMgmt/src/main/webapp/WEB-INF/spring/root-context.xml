@@ -69,7 +69,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/aranikodb" />
 		<property name="username" value="root" />
-		<property name="password" value="centos" />
+		<property name="password" value="" />
 	</bean>
 
 </beans>

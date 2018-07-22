@@ -90,7 +90,7 @@ img {
 											<h6>
 												<strong>Student Name</strong>
 											</h6> <input type="text" class="form-control" name="studentname"
-											id="studentname" form="form" value="${student.studentname}" pattern="^[a-zA-Z]{1,20}">
+											id="studentname" form="form" value="${student.studentname}" pattern="^[a-zA-Z ][a-zA-Z ]{1,30}"">
 										</td>
 									</tr>
 									<tr>

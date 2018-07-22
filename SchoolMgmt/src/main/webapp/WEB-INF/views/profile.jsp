@@ -82,7 +82,7 @@
                             </li>
                     </ul>
                   </li>
-                  <!-- <li><a><span class="fa fa-chevron-down"></span><i class="fa fa-user"></i>Account</a>
+                  <li><a><span class="fa fa-chevron-down"></span><i class="fa fa-user"></i>Account</a>
 											<ul class="nav child_menu">
 												<li id="i"><a href="nav/account" target="iframe_a">Open
 														New Account</a></li>
@@ -121,7 +121,7 @@
 										<li id="a"><a href="invoice/search" target="iframe_a"> Invoice </a></li>
 										<li id="a"><a href="claimbill/add" target="iframe_a"> Claim Bill </a></li>
 										</ul>
-										</li> -->
+										</li>
 										
 								
                 </ul>

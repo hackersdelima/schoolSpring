@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <jsp:include page="../../../include.jsp"></jsp:include>
@@ -43,17 +43,16 @@ h5 {
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-			
-			<spring:url value="/category/add" var="formUrl"/>
-			
+
+				<spring:url value="/category/add" var="formUrl" />
+
 				<form:form class="form-horizontal" action="${formUrl }">
-								
-								<input type="submit" class="btn btn-success"
-									value="Save">
-								
+
+					<input type="submit" class="btn btn-success" value="Save">
+
 					<table class="table borderless">
 						<tbody>
-						
+
 							<tr>
 								<td>
 									<h5>Category ID</h5> <input type="text" class="form-control"
@@ -66,13 +65,13 @@ h5 {
 								<td>
 									<h5>Account Type</h5> <select class="form-control"
 									name="accountType" required>
-<option value="">Select Account Type</option>
+										<option value="">Select Account Type</option>
 										<c:forEach items="${accounttype}" var="at">
 											<option value="${at.accountType }">${at.accountTypeHead }</option>
 										</c:forEach>
 								</select>
 								</td>
-								
+
 
 							</tr>
 
@@ -108,12 +107,13 @@ h5 {
 					</thead>
 					<tbody>
 						<c:forEach items="${categorylist }" var="cat">
-						<tr>
-							<td>${cat.categoryId }</td>
-							<td>${cat.categoryHead }</td>
-							<td>${cat.accountTypeModel.accountType }</td>
-							<td>${cat.accountTypeModel.accountTypeHead }</td>
-							<td><a href="<spring:url value="/category/edit/${cat.categoryId }"/>">Edit</a></td>
+							<tr>
+								<td>${cat.categoryId }</td>
+								<td>${cat.categoryHead }</td>
+								<td>${cat.accountTypeModel.accountType }</td>
+								<td>${cat.accountTypeModel.accountTypeHead }</td>
+								<td><a
+									href="<spring:url value="/category/edit/${cat.categoryId }"/>">Edit</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -124,7 +124,7 @@ h5 {
 	<div class="categorymodal"></div>
 
 	<jsp:include page="../../../msgmodal.jsp"></jsp:include>
-	
+
 	<script type="text/javascript">
 	$(document).ready(function(){
 		 $('#categorytbl').DataTable();
