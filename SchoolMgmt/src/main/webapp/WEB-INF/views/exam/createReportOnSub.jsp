@@ -5,6 +5,7 @@
 
 <spring:url value="/exam/getClassStudents" var="getStudents"/>
 <spring:url value="/exam/addSubMarks" var="formUrl"/>
+<spring:url value="/exam/classSubject" var="classSubject"></spring:url>
 <html>
 <head>
 <style>
@@ -15,6 +16,7 @@
 	</style>
 </head>
 <body class="background">
+<input type="hidden" value="${classSubject}" class="getClassSubjects">
 <input type="hidden" value="${getStudents }" id="getClassStudents">
 	<div class="col-md-12 col-sm-12 col-xs-12">
 
@@ -53,10 +55,10 @@
 								<h6>
 									<strong>Class*</strong>
 								</h6>
-								<select class="form-control" name="classname" id="class" required>
+								<select class="form-control class" name="classname" id="class" required>
 									<option value="">Select Class</option>
 									<c:forEach items="${classlist }" var="cl">
-									<option value="${cl.classname }">${cl.classname }</option>
+									<option value="${cl.classid }">${cl.classname }</option>
 									</c:forEach>
 									
 									
@@ -77,13 +79,13 @@
 								<h6>
 									<strong>Subject</strong>
 								</h6>
-								<select class="form-control" name="subjects.subjectid" id="subject">
+								<select class="form-control sub" name="subjects.subjectid" id="subject">
 									<option value="">Select Subject</option>
-
+<%-- 
 									<c:forEach items="${subject }" var="sub">
 									<option value="${sub.subjectid }">${sub.subjectname}</option>
 
-									</c:forEach>
+									</c:forEach> --%>
 								</select>
 								
 							</div>
@@ -120,6 +122,26 @@
 			});
 		});
 		
+		 //for dynamic select
+		
+				$(".class").change(function()
+				{
+				var id=$(this).val();
+				var dataString = 'id='+ id;
+				$.ajax
+				({
+				type: "POST",
+				url: $(".getClassSubjects").val(),
+				data: dataString,
+				cache: false,
+				success: function(html)
+				{
+					
+				$("#subject").html(html);
+				} 
+				});
+		});
+				
 	</script>
 </body>
 </html>

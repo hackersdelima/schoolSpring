@@ -9,7 +9,9 @@ import com.spring.model.Subjects;
 
 public interface ExamDao {
 	public List<Subjects> getClassSubjects(String gradeid);
+	public List<Subjects> getSpecificClassSubjects(String gradeid);
 	public Subjects getSubjectDetail(String gradeid);
+	
 	public boolean addMarks(ExamModel exam, String studentid, int i);
 	
 	public boolean addMarks(ExamModel exam, int i);

@@ -1,9 +1,7 @@
 package com.spring.school;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.support.lob.LobHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.spring.dao.StudentDao;
+import com.spring.dao.UploadDao;
 import com.spring.extras.Generator;
 import com.spring.model.StudentModel;
 
@@ -33,16 +32,33 @@ import com.spring.model.StudentModel;
 public class StudentController {
 	@Autowired
 	private StudentDao studentDao;
+
 	@Autowired
 	Generator generator;
+	
+	@Autowired
+	UploadDao uploadDao;
 
 	@RequestMapping(value = "/studentRegistration", method = RequestMethod.POST)
-	public String insert(@ModelAttribute StudentModel student, Model model) {
+	public String insert(@RequestParam("files") MultipartFile file, @ModelAttribute StudentModel student, Model model) {
+		System.out.println("reached");
 		int studentid = studentDao.insertStudent(student);
+		
+		String saveFileName ="";
+		//String fileLocation="F:/check"; //can be taken from database
+		String fileLocation="/usr/local/tomcat7/webapps/images/araniko";
 
 		boolean otherStatus = studentDao.insertStudentOtherDetails(student, studentid);
 		if (otherStatus) {
 			model.addAttribute("msg", "Insert Successful");
+			if (!file.getOriginalFilename().isEmpty()) {
+				saveFileName=studentid+"ST"+".jpg";
+				uploadDao.upload(fileLocation, saveFileName, file);
+				
+			} 
+			else{
+				System.out.println("upload faileds");
+			}
 		}
 
 		else {

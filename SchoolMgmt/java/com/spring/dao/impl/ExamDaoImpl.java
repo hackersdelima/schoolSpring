@@ -2,6 +2,7 @@ package com.spring.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -65,6 +66,12 @@ public class ExamDaoImpl implements ExamDao {
 	public List<Subjects> getClassSubjects(String gradeid) {
 		String query = "select subjectlist.* from coursetbl join subjectlist on coursetbl.subjectid=subjectlist.subjectid where coursetbl.gradeid='"
 				+ gradeid + "'";
+		return jdbcTemplate.query(query, new ClassSubjects());
+	}
+	
+	public List<Subjects> getSpecificClassSubjects(String gradeid) {
+		String query = "select subjectlist.*,classlist.* from coursetbl join subjectlist on coursetbl.subjectid=subjectlist.subjectid join classlist on coursetbl.gradeid=classlist.classid  where classlist.classid='"+ gradeid + "'";
+		System.out.println(query);
 		return jdbcTemplate.query(query, new ClassSubjects());
 	}
 
@@ -145,7 +152,6 @@ public class ExamDaoImpl implements ExamDao {
 	public ExamSummaryReportModel specificStudentExamSummary(ExamModel exam, String studentid) {
 		
 		String query = "select * from exam_summary where examid = '"+exam.getExamid()+"' and studentid = '"+studentid+"'";
-		System.out.println("query==="+query);
 		return jdbcTemplate.queryForObject(query, new ExamSummary());
 	}
 
@@ -157,7 +163,9 @@ public class ExamDaoImpl implements ExamDao {
 			
 			esm.setTotal(rs.getString("sum(fullmarks)"));
 			esm.setTotal_obtained(rs.getString("sum(totalmarks)"));
-			esm.setPercentage(rs.getString("percentage"));
+			Double per=Double.parseDouble(rs.getString("percentage"));
+			String percentage=new DecimalFormat("##.##").format(per);
+			esm.setPercentage(percentage);
 			esm.setCurdate(rs.getString("curdate"));
 			
 			return esm;

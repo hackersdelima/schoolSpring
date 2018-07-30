@@ -30,7 +30,8 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="" class="site_title"><i class="fa fa-desktop" aria-hidden="true"></i> <span>Araniko</span></a>
+            
+              <a href="" class="site_title"> <span>${sessionScope.systemdetail[1].settingsdescription}</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -38,7 +39,9 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="resources/images/user.jpg" alt="..." class="img-circle profile_img">
+                <img src="//124.41.193.91/images/araniko/Logo.jpg" alt="..." class="img-circle profile_img">
+              <!--   <img class="img-circle profile_img" id="myImg" src="//124.41.193.91/images/araniko/Logo.jpg" /> -->
+                 
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
@@ -59,6 +62,7 @@
                       <li><a href="nav/dashboard" target="iframe_a">Dashboard</a></li>
                     </ul>
                   </li>
+                  <li><a id="printiframe">Print Frame</a></li>
                   <li><a><i class="fa fa-edit"></i> Student <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="nav/studentAdmission" target="iframe_a">New Student</a></li>
@@ -268,6 +272,13 @@
     document.getElementById('fullscreen').addEventListener('click', function() {
     	  toggleFullscreen();
     	});
+    $('#printiframe').click(function(){
+    	var frm = document.getElementById("Iframe").contentWindow;
+    	frm.focus();
+    	frm.print();
+    	return false;
+    
+    });
     </script>
     <!-- Bootstrap -->
     <script src="resources/js/bootstrap.min.js"></script>
@@ -278,6 +289,7 @@
     
     <!-- Custom Theme Scripts -->
     <script src="resources/js/custom.min.js"></script>
+ 
     
   </body>
 </html>

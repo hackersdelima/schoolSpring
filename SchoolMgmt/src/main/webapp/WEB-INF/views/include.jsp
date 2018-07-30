@@ -53,5 +53,6 @@
     <!-- Form Required Scripts -->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/nepaliDatePicker/nepali.datepicker.v2.2.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/dynamicselect.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
 </body>
 </html>

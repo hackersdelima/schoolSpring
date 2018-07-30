@@ -5,6 +5,9 @@
 
     
    
+   <bean id="uploadDao" class="com.spring.dao.impl.UploadDaoImpl">
+   		<property name="jdbcTemplate" ref="jdbcTemplate" />
+   </bean>
 	
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource" />

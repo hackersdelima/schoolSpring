@@ -1,5 +1,7 @@
 package com.spring.school;
 
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.dao.DateConverterDao;
 import com.spring.dao.ExamDao;
 import com.spring.dao.StudentDao;
 import com.spring.model.ExamModel;
@@ -29,6 +32,9 @@ public class ExamController {
 
 	@Autowired
 	StudentDao studentDao;
+	
+	@Autowired
+	DateConverterDao dateConverter;
 
 	@RequestMapping(value = "/setMarks", method = RequestMethod.POST)
 	public String setMarks(Model model, @RequestParam Map<String, String> reqParam) {
@@ -84,10 +90,13 @@ public class ExamController {
 	}
 
 	@RequestMapping(value = "/searchMarksReport", method = RequestMethod.POST)
-	public String searchMarksReport(Model model, @RequestParam Map<String, String> reqParam, ExamModel exam) {
+	public String searchMarksReport(Model model, @RequestParam Map<String, String> reqParam,@ModelAttribute ExamModel exam) {
 		String classname = reqParam.get("classid");
 		String section = reqParam.get("sectionid");
 		String rollno = reqParam.get("rollno");
+		String examid = reqParam.get("examid");
+		
+		System.out.println("exam id"+exam.getExamid());
 
 		StudentModel studentModel = studentDao.getStudentDetail(classname, section, rollno);
 		model.addAttribute("stdDetail", studentModel);
@@ -99,6 +108,18 @@ public class ExamController {
 
 		ExamSummaryReportModel examSummary = examDao.specificStudentExamSummary(exam, studentid);
 		model.addAttribute("examSummary", examSummary);
+		
+		
+	String startdate = examDao.editExam(examid).getStartdate();
+	String examtype=examDao.editExam(examid).getExamname();
+	if(startdate!=null){
+		String examdateen=dateConverter.englishToNepali(startdate);
+		model.addAttribute("examdate",examdateen);
+		model.addAttribute("examtype",examtype);
+	}
+	
+		
+		
 
 		return "exam/report";
 	}
@@ -138,5 +159,19 @@ public class ExamController {
 	{
 		boolean status=examDao.deleteExam(examId);
 		return "redirect:/nav/createExam";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/classSubject")
+	public void classSubject(@RequestParam("id") String classid, PrintWriter out){
+		System.out.println("sdflksj");
+		List<String> optionlist = new ArrayList<String>();
+		List<Subjects> classSubjects=examDao.getSpecificClassSubjects(classid);
+		System.out.println(classSubjects.size());
+		String option;
+		for(int i=0;i<classSubjects.size();i++){
+		 option ="<option value='"+classSubjects.get(i).getSubjectcode()+"'>"+classSubjects.get(i).getSubjectcode()+"-"+classSubjects.get(i).getSubjectname()+"</option>";
+	out.println(option);
+		}
 	}
 }

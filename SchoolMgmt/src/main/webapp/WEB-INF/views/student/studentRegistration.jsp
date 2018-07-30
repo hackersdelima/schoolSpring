@@ -28,10 +28,9 @@
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 					</li>
 				</ul>
-
-				<form method="post"
-					action="<spring:url value="/student/studentRegistration"/>"
-					id="form"></form>
+				<spring:url value="/student/studentRegistration" var="url" />
+				<form method="post" action="${url }" id="form"
+					enctype="multipart/form-data"></form>
 				<button type="submit" class="btn btn-success " form="form">
 					<i class="fa fa-check"></i> SUBMIT
 				</button>
@@ -56,7 +55,7 @@
 						<li role="presentation" class=""><a href="#tab_content5"
 							role="tab" id="profile-tab4" data-toggle="tab"
 							aria-expanded="false">Academic Details</a></li>
-						
+
 					</ul>
 					<div id="myTabContent" class="tab-content">
 						<div role="tabpanel" class="tab-pane fade active in"
@@ -74,7 +73,9 @@
 											<h6>
 												<strong>Student Name</strong>
 											</h6> <input type="text" class="form-control" name="studentname"
-											id="studentname" form="form" pattern="^[a-zA-Z ][a-zA-Z ]{1,30}" title="only alphabets are allowed" required>
+											id="studentname" form="form"
+											pattern="^[a-zA-Z ][a-zA-Z ]{1,30}"
+											title="only alphabets are allowed" required>
 										</td>
 									</tr>
 									<tr>
@@ -154,33 +155,42 @@
 										<td>
 											<h6>
 												<strong>DOB(YYYY-MM-DD) B.S.</strong>
-											</h6> <input type="text" class="form-control dob" name="dob" 
-											maxlength="10" id="nepaliDate1" form="form" onblur="nepaliToEnglish('.dob','.doben')"
-											placeholder="2051-07-25" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])">
+											</h6> <input type="text" class="form-control dob" name="dob"
+											maxlength="10" id="nepaliDate1" form="form"
+											onblur="nepaliToEnglish('.dob','.doben')"
+											placeholder="2051-07-25"
+											pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])">
 										</td>
 										<td>
 											<h6>
 												<strong>DOB(YYYY-MM-DD) A.D.</strong>
 											</h6> <input type="text" class="form-control doben" name="doben"
-											maxlength="10" form="form" id="englishDate1" onblur="englishToNepali('.dob','.doben')"
-											placeholder="1994-11-11" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])">
+											maxlength="10" form="form" id="englishDate1"
+											onblur="englishToNepali('.dob','.doben')"
+											placeholder="1994-11-11"
+											pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])">
 										</td>
 									</tr>
 									<tr>
 										<td>
 											<h6>
 												<strong>Admission Date(YYYY-MM-DD) B.S.</strong>
-											</h6> <input type="text" class="form-control addate" name="admissiondate"
-											maxlength="10" id="nepaliDate14" form="form" onblur="nepaliToEnglish('.addate','.addateen')"
-											placeholder="2051-07-25" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required>
+											</h6> <input type="text" class="form-control addate"
+											name="admissiondate" maxlength="10" id="nepaliDate14"
+											form="form" onblur="nepaliToEnglish('.addate','.addateen')"
+											placeholder="2051-07-25"
+											pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])"
+											required>
 										</td>
 										<td>
 											<h6>
 												<strong>Admission Date(YYYYMMDD) A.D.</strong>
 											</h6> <input type="text" class="form-control addateen"
 											name="admissiondateen" maxlength="10" form="form"
-											id="englishDate14" placeholder="1994-11-11" onblur="englishToNepali('.addate','.addateen')" 
-											pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required>
+											id="englishDate14" placeholder="1994-11-11"
+											onblur="englishToNepali('.addate','.addateen')"
+											pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])"
+											required>
 										</td>
 									</tr>
 
@@ -197,7 +207,8 @@
 											<h6>
 												<strong>Birth Certificate No.</strong>
 											</h6> <input type="text" class="form-control"
-											name="birthcertificateno" form="form" pattern="[0-9]+" title="only numbers are allowed">
+											name="birthcertificateno" form="form" pattern="[0-9]+"
+											title="only numbers are allowed">
 										</td>
 										<td>
 											<h6>
@@ -212,7 +223,8 @@
 												<strong>Issued Date(YYYYMMDD) B.S.</strong>
 											</h6> <input type="text" class="form-control isdate"
 											name="birthcertificateissueddate" maxlength="10"
-											id="nepaliDate2" form="form" placeholder="2051-07-25" onblur="nepaliToEnglish('.isdate','.isdateen')"
+											id="nepaliDate2" form="form" placeholder="2051-07-25"
+											onblur="nepaliToEnglish('.isdate','.isdateen')"
 											pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])">
 										</td>
 										<td>
@@ -220,7 +232,8 @@
 												<strong>Issued Date(YYYYMMDD) A.D.</strong>
 											</h6> <input type="text" class="form-control isdateen"
 											name="birthcertificateissueddateen" maxlength="10"
-											form="form" id="englishDate2" placeholder="1994-11-11" onblur="englishToNepali('.isdate','.isdateen')"
+											form="form" id="englishDate2" placeholder="1994-11-11"
+											onblur="englishToNepali('.isdate','.isdateen')"
 											pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])">
 										</td>
 									</tr>
@@ -253,7 +266,7 @@
 												<strong>Municipality or Village Council</strong>
 											</h6> <select class="form-control vdcmun" name="vdcMun"
 											form="form">
-												<option value="" >Select muncipality or VDC</option>
+												<option value="">Select muncipality or VDC</option>
 										</select>
 										</td>
 										<td>
@@ -279,6 +292,13 @@
 												<strong>Temp. Address</strong>
 											</h6> <input type="text" class="form-control" name="tempaddress"
 											form="form">
+										</td>
+
+										<td>
+											<h6>
+												<strong>File</strong>
+											</h6> <input type="file" id="file" class="form-control" form="form"
+											name="files" accept="image/*" required>
 										</td>
 									</tr>
 
@@ -354,7 +374,7 @@
 											maxlength="10" form="form" value="0" pattern="[0-9]+">
 										</td>
 									</tr>
-									
+
 								</tbody>
 							</table>
 						</div>
@@ -428,7 +448,7 @@
 										name="mephone" form="form" value="0" pattern="[0-9]+">
 									</td>
 								</tr>
-								
+
 								</tbody>
 							</table>
 						</div>
@@ -604,7 +624,7 @@
 								</tbody>
 							</table>
 						</div>
-						
+
 					</div>
 				</div>
 			</div>
@@ -612,43 +632,45 @@
 	</div>
 	<jsp:include page="../msgmodal.jsp"></jsp:include>
 	<script>
-	function nepaliToEnglish(nepalidate,englishdate){
-		var date = $(nepalidate).val();
-		var dataString = {'nepalidate' : date};
-		$.ajax({
-			type : "POST",
-			url : "nepaliToEnglish",
-			data : dataString,
-			cache : false,
-			success : function(html) {
-			 	$(englishdate).val(html); 
-			},
-		error : function() {
-			alert("error occured");
+		function nepaliToEnglish(nepalidate, englishdate) {
+			var date = $(nepalidate).val();
+			var dataString = {
+				'nepalidate' : date
+			};
+			$.ajax({
+				type : "POST",
+				url : "nepaliToEnglish",
+				data : dataString,
+				cache : false,
+				success : function(html) {
+					$(englishdate).val(html);
+				},
+				error : function() {
+					alert("error occured");
+				}
+
+			});
 		}
-		
-		});
-	}
-	function englishToNepali(nepalidate,englishdate){
-		var date = $(englishdate).val();
-		var dataString = {
-			'englishdate' : date
-		};
-		$.ajax({
-			type : "POST",
-			url : "englishToNepali",
-			data : dataString,
-			cache : false,
-			success : function(html) {
-				$(nepalidate).val(html);
-			},
-			error : function() {
-				alert("error occured");
-			}
-		});
-	}
+		function englishToNepali(nepalidate, englishdate) {
+			var date = $(englishdate).val();
+			var dataString = {
+				'englishdate' : date
+			};
+			$.ajax({
+				type : "POST",
+				url : "englishToNepali",
+				data : dataString,
+				cache : false,
+				success : function(html) {
+					$(nepalidate).val(html);
+				},
+				error : function() {
+					alert("error occured");
+				}
+			});
+		}
 	</script>
-	
+
 
 </body>
 </html>

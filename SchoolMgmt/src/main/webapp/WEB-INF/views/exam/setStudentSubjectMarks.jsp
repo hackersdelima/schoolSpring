@@ -27,7 +27,7 @@
 
 <br>
 <br>
-<table id="datatable-buttons"
+<table id="datatablea"
 	class="table jambo_table table-striped table-bordered dt-responsive nowrap display"
 	cellspacing="0" width="100%" style="font-size: 95%;'">
 	<thead>
@@ -103,5 +103,6 @@ $(".buttonClick").click(function(){
 	$(".passmarks").val(passmarks);
 	$(".passmarks_pr").val(passmarks_pr);
 });
+
 
 </script>
