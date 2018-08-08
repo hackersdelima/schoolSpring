@@ -5,7 +5,7 @@
   
    try {
         Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/aranikodb", "root", "");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/aranikodb", "root", "centos");
         Statement smt = con.createStatement(); //Create Statement to interact
         ResultSet rs = smt.executeQuery("select WardCount from vdccodes where (VDCCode='" + id + "');");
         int i=0;

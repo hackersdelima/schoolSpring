@@ -18,5 +18,7 @@ public interface UserDao {
 	public List<UserModel> getUsers();
 	
 	public UserModel getSpecificUserDetails(String userid);
+	
+	public UserModel findByUsername(String username);
 
 }

@@ -1,5 +1,7 @@
 package com.spring.model;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Scope;
 
 @Scope("session")
@@ -7,6 +9,15 @@ public class UserModel {
 private String username, password, status,userid,givenrole,fullName,post,staffCode,endDate,startDate,roleName,functionAllowed,functionRestriction,branchAllowed,branchAllowedFunctions,additionalFunctions;
 private BranchModel branch;
 private String settingsid, settingstype, settingsdescription;
+private List<String> list;
+
+public List<String> getList() {
+	return list;
+}
+
+public void setList(List<String> list) {
+	this.list = list;
+}
 
 public String getSettingsid() {
 	return settingsid;
