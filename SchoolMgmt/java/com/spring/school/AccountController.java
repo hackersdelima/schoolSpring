@@ -87,6 +87,7 @@ public class AccountController {
 	
 	@RequestMapping(value = "/generateAccNo")
 	public void generateAccNo(@RequestParam Map<String, String> reqParam, HttpServletResponse response, HttpSession session) throws Exception{
+		
 		UserModel userdetail = (UserModel)session.getAttribute("userDetail");
 		String generatedAccountNo=null;
 		String branchId = userdetail.getBranch().getBranchId();
@@ -117,7 +118,7 @@ public class AccountController {
 																		// max
 																		// account
 							System.out.println(maxaccountno);											// number+1
-				String accountNo=maxaccountno.substring(11, 14);
+				String accountNo=maxaccountno.substring(12, 15);
 				System.out.println(accountNo+"accojndsf");
 				// generated account number
 				generatedAccountNo = companyid + branchId + strI

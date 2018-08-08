@@ -46,7 +46,7 @@ public class StudentController {
 		
 		String saveFileName ="";
 		//String fileLocation="F:/check"; //can be taken from database
-		String fileLocation="/usr/local/tomcat7/webapps/images/araniko";
+		String fileLocation="/usr/local/tomcat7/webapps/images/sagarmatha";
 
 		boolean otherStatus = studentDao.insertStudentOtherDetails(student, studentid);
 		if (otherStatus) {

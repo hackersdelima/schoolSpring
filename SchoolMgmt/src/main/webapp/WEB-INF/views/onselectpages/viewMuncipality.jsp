@@ -6,7 +6,7 @@ System.out.println("reached viewMuncipality");
   id = request.getParameter("id");
    try {
         Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/aranikodb", "root", "");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/aranikodb", "root", "centos");
         Statement smt = con.createStatement(); //Create Statement to interact
         ResultSet rs = smt.executeQuery("select * from vdccodes where (DistrictCode='" + id + "');");
         %>

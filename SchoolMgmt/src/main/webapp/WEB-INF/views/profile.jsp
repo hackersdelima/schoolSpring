@@ -67,7 +67,7 @@
                     <ul class="nav child_menu">
                       <li><a href="nav/studentAdmission" target="iframe_a">New Student</a></li>
                       <li><a href="nav/listStudents" target="iframe_a">Students List</a></li>
-                       <li><a href="nav/student_photo_upload" target="iframe_a">Upload Photo</a></li>
+                      <!--  <li><a href="nav/student_photo_upload" target="iframe_a">Upload Photo</a></li> -->
                     </ul>
                   </li>
                    <li><a><i class="fa fa-edit"></i> Staff <span class="fa fa-chevron-down"></span></a>

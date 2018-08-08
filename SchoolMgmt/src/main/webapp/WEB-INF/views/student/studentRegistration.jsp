@@ -296,7 +296,7 @@
 
 										<td>
 											<h6>
-												<strong>File</strong>
+												<strong>Image</strong>
 											</h6> <input type="file" id="file" class="form-control" form="form"
 											name="files" accept="image/*" required>
 										</td>

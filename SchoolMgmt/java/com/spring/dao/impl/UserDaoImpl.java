@@ -108,7 +108,7 @@ public class UserDaoImpl implements UserDao {
 			user.setBranchAllowedFunctions(rs.getString("branchAllowedFunctions"));
 
 			branch.setBranchId(rs.getString("branchId"));
-			branch.setCompanyId(rs.getString("companyId"));
+			//branch.setCompanyId(rs.getString("companyId"));
 			user.setBranch(branch);
 
 			return user;
@@ -119,6 +119,12 @@ public class UserDaoImpl implements UserDao {
 	public List<UserModel> getUsers() {
 		String sql = "SELECT * FROM usertbl join branchtbl using(branchId)";
 		return jdbcTemplate.query(sql, new UserMapper());
+	}
+
+	@Override
+	public UserModel findByUsername(String username) {
+		String sql = "SELECT * FROM usertbl WHERE username = '" + username + "'";
+		return jdbcTemplate.queryForObject(sql, new UserMapper());
 	}
 
 }
