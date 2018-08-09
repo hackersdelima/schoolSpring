@@ -1,5 +1,7 @@
 package com.spring.school;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,9 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.spring.dao.AccountDao;
 import com.spring.dao.CategoryDao;
 import com.spring.dao.FeeInvoiceDao;
+import com.spring.dao.StudentDao;
 import com.spring.model.FeeInvoiceModel;
+import com.spring.model.StudentModel;
 
 @Controller
 @RequestMapping("/invoice")
@@ -31,8 +35,11 @@ public class FeeInvoiceController {
 	@Autowired
 	FeeInvoiceDao feeInvoiceDao;
 
-	@RequestMapping(value = "/add")
-	public String add(Model model, @RequestParam("studentid") String pid) {
+	@Autowired
+	private StudentDao studentDao;
+	
+	@RequestMapping(value = "/add/{id}")
+	public String add(Model model, @PathVariable("id") String pid) {
 		model.addAttribute("pid",pid);
 		model.addAttribute("scategory",accountDao.getStudentAccount(pid));
 		model.addAttribute("categorylist", categoryDao.getCategories());
@@ -120,7 +127,9 @@ public class FeeInvoiceController {
 	@RequestMapping(value="/search")
 	public String invoiceSearch(Model model)
 	{
-		return "/invoice/invoicesearch";
+		List<StudentModel> list = studentDao.getAllStudents();
+		model.addAttribute("slist", list);
+		return "/invoice/studentList";
 	}
 
 }
