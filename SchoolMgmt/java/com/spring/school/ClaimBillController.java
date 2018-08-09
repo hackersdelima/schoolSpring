@@ -1,5 +1,7 @@
 package com.spring.school;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,10 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.spring.dao.CategoryDao;
 import com.spring.dao.ClaimBillDao;
+import com.spring.dao.StudentDao;
 import com.spring.model.ClaimBillModel;
 import com.spring.model.FeeInvoiceModel;
+import com.spring.model.StudentModel;
 import com.spring.model.UserModel;
 
 @Controller
@@ -30,8 +34,18 @@ public class ClaimBillController {
 	@Autowired
 	ClaimBillDao claimBillDao;
 	
-	@RequestMapping(value="/add")
-	public String viewClaimBill(Model model)
+	@Autowired
+	private StudentDao studentDao;
+	
+	@RequestMapping(value="/studentList")
+	public String studentList(Model model){
+		List<StudentModel> list = studentDao.getAllStudents();
+		model.addAttribute("slist", list);
+		return "invoice/claimbill/studentList";
+	}
+	
+	@RequestMapping(value="/add/{id}")
+	public String viewClaimBill(Model model, @PathVariable String id)
 	{
 		model.addAttribute("categorylist",categoryDao.getCategories());
 		return "invoice/claimbill/claimbill";
