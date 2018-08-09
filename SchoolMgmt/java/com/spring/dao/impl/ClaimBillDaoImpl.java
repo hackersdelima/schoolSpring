@@ -1,19 +1,22 @@
 package com.spring.dao.impl;
 
-import javax.servlet.http.HttpSession;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import com.spring.dao.ClaimBillDao;
+import com.spring.model.CategoryModel;
 import com.spring.model.ClaimBillModel;
-import com.spring.model.FeeInvoiceModel;
-import com.spring.model.UserModel;
 
 public class ClaimBillDaoImpl implements ClaimBillDao {
 private JdbcTemplate jdbcTemplate;
-	
+
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate){
 		this.jdbcTemplate=jdbcTemplate;
 	}
@@ -50,5 +53,38 @@ private JdbcTemplate jdbcTemplate;
 		return status;
 		
 	}
+
+	@Override
+	public ArrayList<ClaimBillModel> getAllDetails(String id) {
+		String query="select accountstbl.accountNumber, accountstbl.categoryId, categories.taxable, categories.categoryHead, feerate.frate, studentinfo.admissionclass from accountstbl left join categories     on accountstbl.categoryId = categories.categoryId left join feerate on feerate.categoryId=categories.categoryId left join studentinfo on studentinfo.studentid=accountstbl.pid where accountstbl.pid='"+id+"'";
+		
+	return (ArrayList<ClaimBillModel>) jdbcTemplate.query(query, new ClaimMapper());
+		
+		
+		//	return (ArrayList<ClaimBillModel>)jdbctemplate.query(query,new BeanPropertyRowMapper<ClaimBillModel>(ClaimBillModel.class));
+	}
+	public static final class ClaimMapper implements RowMapper<ClaimBillModel>
+	{
+
+		@Override
+		public ClaimBillModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+			ClaimBillModel c= new ClaimBillModel();
+			
+			CategoryModel cat=new CategoryModel();
+			cat.setCategoryId(rs.getString("categoryId"));
+			cat.setCategoryHead(rs.getString("categoryHead"));
+			c.setCategory(cat);
+			
+			c.setAccountNumber(rs.getString("accountNumber"));
+			c.setAdmissionclass(rs.getString("admissionclass"));
+			c.setFrate(rs.getString("frate"));
+		
+		
+			c.setTaxable(rs.getString("taxable"));
+			return c;
+		}
+		
+	}
+	
 
 }

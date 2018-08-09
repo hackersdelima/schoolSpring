@@ -49,8 +49,7 @@
 					<input id="imageloc" type="text" size="50" value="" /><br /> (max
 					width: 540px, max height: 100px)
 				</div>
-				<img id="image"
-					src="${pageContext.request.contextPath}/resources/img/fds.png" />
+				<img id="image" src="//124.41.193.91/images/araniko/Logo.jpg" height="30" width="30"/>
 			</div>
 
 		</div>

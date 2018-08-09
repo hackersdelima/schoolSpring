@@ -96,7 +96,7 @@
 						<h4 class="name">
 							<span class="label label-default">Student Admission No*</span><input
 								type="text" class="form-control " id="studentid" name="student.studentid"
-								value="${sessionScope.claimBill.student.studentid }">
+								<c:if test="${not empty sessionScope.claimBill.student.studentid}">value="${sessionScope.claimBill.student.studentid }"</c:if><c:if test="${empty sessionScope.claimBill.student.studentid}">value="${s.studentid }"</c:if>>
 						</h4>
 					</div>
 					<div id="client">
@@ -135,26 +135,26 @@
 					<tbody>
 						<c:choose>
 							<c:when test="${empty sessionScope.claimBill.category.categoryIdList}">
-							<c:forEach items="${categorylist}" var="c">
+							<c:forEach items="${details}" var="c">
 								<tr id="tablerow">
 									
 										<td><input type="text"
-										class="form-control" name="account" value="${s.accountNumber }"></td>
+										class="form-control" name="account" value="${c.accountNumber }"></td>
 										<td><input type="text"
-										class="form-control" name="category.categoryIdList" value="${c.categoryId }"></td>
+										class="form-control" name="category.categoryIdList" value="${c.category.categoryId }"></td>
 										<td><input type="text"
-										class="form-control" name="category.categoryHeadList" value="${c.categoryHead }"></td>
+										class="form-control" name="category.categoryHeadList" value="${c.category.categoryHead }"></td>
 									
 									
 									
 									
 									<td class="desc" colspan="1"><input type="text"
-										class="form-control one" name="nontaxableamount" value=""></td>
+										class="form-control one" name="nontaxableamount" <c:if test="${c.taxable eq 'n' }">value="${c.frate }"</c:if>></td>
 									<td class="desc" colspan="1"><input type="text"
 										class="form-control two" name="taxableamount"
-										value=""></td>
+										<c:if test="${c.taxable eq 'y' }">value="${c.frate }"</c:if>></td>
 									<td class="total" colspan="1"><input
-										class="form-control balance" type="text"  value=""
+										class="form-control balance" type="text"  value="${c.frate }"
 										name="totalamount"></td>
 
 
@@ -169,7 +169,7 @@
 									
 									
 										<td><input type="text"
-										class="form-control" name="account" value="${s.accountNumber }"></td>
+										class="form-control" name="account" value="${c.accountNumber }"></td>
 										<td><input type="text"
 										class="form-control" name="category.categoryIdList" value="${c.categoryId }"></td>
 										<td><input type="text"
@@ -274,7 +274,7 @@
 			}
 			
 		});
-		$(document).on('keyup', "input", function() {
+		$(document).on('click', "#validate", function() {
 			calculateSubTotal();
 			calculateNonTaxable();
 			calculateTaxable();

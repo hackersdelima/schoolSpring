@@ -4,7 +4,31 @@ import java.util.List;
 
 public class ClaimBillModel {
 	private String receivedby, claim_bill_id, fromDateEn, fromDateNep, toDateEn, toDateNep, invoiceNo, invoiceDateEn, invoiceDateNep, remarks, inwords;
-	
+	private String accountNumber,taxable,admissionclass,frate;
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+	public String getTaxable() {
+		return taxable;
+	}
+	public void setTaxable(String taxable) {
+		this.taxable = taxable;
+	}
+	public String getAdmissionclass() {
+		return admissionclass;
+	}
+	public void setAdmissionclass(String admissionclass) {
+		this.admissionclass = admissionclass;
+	}
+	public String getFrate() {
+		return frate;
+	}
+	public void setFrate(String frate) {
+		this.frate = frate;
+	}
 	private StudentModel student;
 	private CategoryModel category;
 	private List<String> nontaxableamount, taxableamount, totalamount;
