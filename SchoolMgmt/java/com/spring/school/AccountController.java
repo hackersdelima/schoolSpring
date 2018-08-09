@@ -109,6 +109,7 @@ public class AccountController {
 				// the first
 				// number
 			} else {
+				generatedAccountNo = maxaccountno;
 
 				//String accountNo = StringUtils.right(maxaccountno, 3);// taking
 																		// last
@@ -117,13 +118,13 @@ public class AccountController {
 																		// from
 																		// max
 																		// account
-							System.out.println(maxaccountno);											// number+1
+					/*		System.out.println(maxaccountno);											// number+1
 				String accountNo=maxaccountno.substring(12, 15);
 				System.out.println(accountNo+"accojndsf");
 				// generated account number
 				generatedAccountNo = companyid + branchId + strI
 						+ accountNo;
-
+*/
 			}
 		} else {
 			generatedAccountNo="Member ID not Found.";

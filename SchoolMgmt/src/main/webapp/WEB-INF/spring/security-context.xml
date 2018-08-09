@@ -9,10 +9,10 @@
 
 
 <context:component-scan base-package="com.spring.security"></context:component-scan>
-	<security:http auto-config="true" use-expressions="false">
-		<!-- <security:form-login login-page="/" login-processing-url="/login" /> -->
+	<!-- <security:http auto-config="true" use-expressions="false">
+		<security:form-login login-page="/" login-processing-url="/login" />
 		<security:intercept-url pattern="/nav/*" access="ROLE_USER"/>
-	</security:http>
+	</security:http> -->
 	
 	<security:authentication-manager>
 		<security:authentication-provider user-service-ref="customUserDetailsService"/>

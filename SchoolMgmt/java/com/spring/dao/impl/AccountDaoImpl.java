@@ -139,7 +139,7 @@ private JdbcTemplate jdbcTemplate;
 	 
 	 public String acccountnogen(String memberid)
 	 {
-			String query="select max(accountNumber)+1 as accountNumber from accountstbl where pid='"+memberid+"'";
+			String query="select max(accountNumber) as accountNumber from accountstbl where pid='"+memberid+"'";
 			return jdbcTemplate.queryForObject(query, String.class);
 			
 	 }

@@ -108,7 +108,7 @@ public class UserDaoImpl implements UserDao {
 			user.setBranchAllowedFunctions(rs.getString("branchAllowedFunctions"));
 
 			branch.setBranchId(rs.getString("branchId"));
-			//branch.setCompanyId(rs.getString("companyId"));
+			branch.setCompanyId(rs.getString("companyId"));
 			user.setBranch(branch);
 
 			return user;
