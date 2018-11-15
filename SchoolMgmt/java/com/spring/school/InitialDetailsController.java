@@ -1,5 +1,7 @@
 package com.spring.school;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,8 +9,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.dao.FeeDao;
 import com.spring.dao.InitialDetailsDao;
+import com.spring.dao.OperationDao;
+import com.spring.model.FeeModel;
 import com.spring.model.FormDetails;
 
 @Controller
@@ -16,6 +22,12 @@ import com.spring.model.FormDetails;
 public class InitialDetailsController {
 	@Autowired
 	InitialDetailsDao initialDetailsDao;
+	
+	@Autowired
+	OperationDao operationDao;
+	
+	@Autowired
+	FeeDao feeDao;
 	
 	@RequestMapping(value="/languageEdit")
 	public String languageEdit(@RequestParam("value") String value,@RequestParam("id") String id, Model model){
@@ -161,6 +173,42 @@ public class InitialDetailsController {
 		initialDetailsDao.deleteExamType(id);
         return "redirect:/nav/initialDetails";
 		
+	}
+	
+	@RequestMapping(value="/feeSetting/add")
+	public String addFeeSetting(@RequestParam Map<String, String> params){
+		String classname=params.get("classname");
+		String category=params.get("category");
+		String feerate=params.get("feerate");
+		
+		
+		operationDao.addFeeSetting(classname,category,feerate);
+				
+		
+		return "redirect:/nav/feeSetting";
+	}
+	
+	
+	@RequestMapping(value="/editFeeSetting/{feecode}")
+	public String editFeeSetting(@PathVariable String feecode,Model model,RedirectAttributes redirect)
+	{
+		FeeModel fmodel=feeDao.getFeeSetting(feecode);
+		
+		redirect.addFlashAttribute("fm",fmodel);
+		return "redirect:/nav/feeSetting";
+		
+		
+	}
+	
+	@RequestMapping(value="/updateFeeSetting/{feecode}")
+	public String updateFeeSetting(@PathVariable String feecode,@RequestParam Map<String, String> params){
+		
+		String classname=params.get("classname");
+		String category=params.get("category");
+		String feerate=params.get("feerate");
+		
+		operationDao.editFeeSetting(feecode,classname,category,feerate);
+		return "redirect:/nav/feeSetting";
 	}
 	
 	

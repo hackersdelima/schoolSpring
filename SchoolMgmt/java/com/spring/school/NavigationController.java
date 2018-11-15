@@ -17,12 +17,14 @@ import com.spring.dao.AccountDao;
 import com.spring.dao.BranchDao;
 import com.spring.dao.CategoryDao;
 import com.spring.dao.DateConverterDao;
+import com.spring.dao.FeeDao;
 import com.spring.dao.OperationDao;
 import com.spring.dao.RoleDao;
 import com.spring.dao.StaffDao;
 import com.spring.dao.StudentDao;
 import com.spring.dao.UserDao;
 import com.spring.model.ExamModel;
+import com.spring.model.FeeModel;
 import com.spring.model.FormDetails;
 import com.spring.model.StudentModel;
 
@@ -47,6 +49,9 @@ public class NavigationController {
 	private StaffDao staffDao;
 	@Autowired
 	private DateConverterDao dateConverterDao;
+	
+	@Autowired
+	private FeeDao feeDao;
 	
 	
 @ModelAttribute
@@ -245,6 +250,17 @@ private void commonModels(Model model){
 		return "pageNotFound";
 		
 		
+	}
+	
+	@RequestMapping(value="/feeSetting")
+	public String feeSetting(Model model,@ModelAttribute("fm") FeeModel fm){
+		List<FormDetails>  classlist;
+		classlist=studentDao.getAdmissionClass();
+		model.addAttribute("classlist",classlist);
+		model.addAttribute("categorylist",categoryDao.getCategories());
+		model.addAttribute("feeDetails",feeDao.getFeeDetails());
+		model.addAttribute("fm",fm);
+		return "settings/feeSetting";
 	}
 	
 }

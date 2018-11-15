@@ -12,9 +12,38 @@
 <link rel='stylesheet' type='text/css'
 	href='${pageContext.request.contextPath}/resources/css/print.css'
 	media="print" />
-<style type="text/css">
-.background {
-	background-color: transparent;
+<style>
+.borderless tfoot tr td {
+	border: none
+}
+
+body {
+	background: rgb(204, 204, 204);
+}
+
+page {
+	background: white;
+	display: block;
+	margin: 0 auto;
+	margin-bottom: 0.5cm;
+	box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+}
+
+page[size="A4"] {
+	width: 21cm;
+	height: 29.7cm;
+}
+
+@media print {
+	body, page {
+		margin: 0;
+		box-shadow: 0;
+	}
+}
+
+@page {
+	size: auto; /* auto is the current printer page size */
+	margin: 0mm; /* this affects the margin in the printer settings */
 }
 </style>
 
@@ -25,10 +54,12 @@
 		<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
 
 			<a class="btn btn-info" type="button"
-				href="<spring:url value="/nav/paymentVoucher" />">Edit</a> 
-				<a class="btn btn-danger" id="cancel" href="<spring:url value="/paymentVoucher/cancel" />">Cancel</a>
-			<a class="btn btn-primary" href="#">Save & Print</a>
-			<a class="btn btn-success" href="<spring:url value="/paymentVoucher/add"/>" >Save</a>
+				href="<spring:url value="/nav/paymentVoucher" />">Edit</a> <a
+				class="btn btn-danger" id="cancel"
+				href="<spring:url value="/paymentVoucher/cancel" />">Cancel</a> <a
+				class="btn btn-primary" href="#">Save & Print</a> <a
+				class="btn btn-success"
+				href="<spring:url value="/paymentVoucher/add"/>">Save</a>
 
 		</div>
 	</div>
@@ -60,7 +91,7 @@
 		<div id="customer">
 
 			<h4>
-				<br> Admission No: 
+				<br> Admission No:
 			</h4>
 
 			<table id="meta">
@@ -100,64 +131,68 @@
 				<tr>
 					<th>S.No</th>
 					<th>Account No</th>
+					<th>Account Name</th>
+					<th>Cheque No</th>
 					<th>Dr/Cr</th>
+					<th >Narration</th>
 					<th>Amount</th>
 				</tr>
-<c:forEach items="${paymentVoucher.paymentVoucherAccount.accountNo }" var="desc"
-				varStatus="descIndex">
-				<tr class="item-row">
-					<td>${descIndex.index +1 }</td>
-					<td class="item-name">${paymentVoucher.paymentVoucherAccount.accountNo[descIndex.index] }</td>
-					<td class="description">${paymentVoucher.paymentVoucherAccount.drcr[descIndex.index] }</td>
-					<td><p class="cost">${paymentVoucher.paymentVoucherAccount.amount[descIndex.index] }</p></td>
-				</tr>
-</c:forEach>
+				<c:forEach
+					items="${paymentVoucher.paymentVoucherAccount.accountNo }"
+					var="desc" varStatus="descIndex">
+					<tr class="item-row">
+						<td>${descIndex.index +1 }</td>
+						<td class="item-name">${paymentVoucher.paymentVoucherAccount.accountNo[descIndex.index] }</td>
+						<td class="item-name">${paymentVoucher.paymentVoucherAccount.accountName[descIndex.index] }</td>
+						<td class="item-name">${paymentVoucher.paymentVoucherAccount.chequeNo[descIndex.index] }</td>
+						<td class="description">${paymentVoucher.paymentVoucherAccount.drcr[descIndex.index] }</td>
+						<td class="description">${paymentVoucher.paymentVoucherAccount.narration[descIndex.index] }</td>
+						<td><p class="cost">${paymentVoucher.paymentVoucherAccount.amount[descIndex.index] }</p></td>
+					</tr>
+				</c:forEach>
 			</tbody>
 			<tfoot>
 				<tr>
 
-					<td colspan="2" class="total-line">Narration</td>
-					<td class="total-value" colspan="2"></td>
+					<td colspan="5" class="total-line">Narration</td>
+					<td class="total-value" colspan="2">${paymentVoucher.narration }</td>
 				</tr>
 				<tr>
 
-					<td colspan="2" class="total-line">Total Debit Amount</td>
-					<td class="total-value" colspan="2"></td>
+					<td colspan="5" class="total-line">Total Debit Amount</td>
+					<td class="total-value" colspan="2">${paymentVoucher.totalDebitAmount }</td>
 				</tr>
 				<tr>
-					<td colspan="2" class="total-line">Total Credit Amount</td>
-					<td class="total-value" colspan="2"></div></td>
-				</tr>
-				<tr>
-					<td colspan="2" class="total-line">Total Credit Amount</td>
-					<td class="total-value" colspan="2"></td>
-				</tr>
-				<tr>
-					<td colspan="2" class="total-line">In Words</td>
-					<td class="total-value" colspan="2"></td>
-				</tr>
-				<tr>
-					<td colspan="1" class="total-line">Prepared By</td>
-					<td class="total-value" colspan="1"></td>
-					<td colspan="2"></td>
-				</tr>
-				<tr>
-					<td colspan="1" class="total-line">Checked By</td>
-					<td class="total-value" colspan="1"></td>
-					<td colspan="2"></td>
-				</tr>
-				<tr>
-					<td colspan="1" class="total-line">Approved By</td>
-					<td class="total-value" colspan="1"></td>
-					<td colspan="2"></td>
+					<td colspan="5" class="total-line">Total Credit Amount</td>
+					<td class="total-value" colspan="2">${paymentVoucher.totalCreditAmount }</td>
 				</tr>
 				
+				<!-- <tr>
+					<td colspan="3" class="total-line">In Words</td>
+					<td class="total-value" colspan="2"></td>
+				</tr> -->
+				<tr>
+					<td colspan="3" class="total-line">Prepared By</td>
+					<td class="total-value" colspan="1"></td>
+					<td colspan="3">${paymentVoucher.preparedBy }</td>
+				</tr>
+				<tr>
+					<td colspan="3" class="total-line">Checked By</td>
+					<td class="total-value" colspan="1"></td>
+					<td colspan="3">${paymentVoucher.checkedBy }</td>
+				</tr>
+				<tr>
+					<td colspan="3" class="total-line">Approved By</td>
+					<td class="total-value" colspan="1"></td>
+					<td colspan="3">${paymentVoucher.approvedBy }</td>
+				</tr>
+
 			</tfoot>
 
 
 
 		</table>
-		
+
 	</div>
 </body>
 

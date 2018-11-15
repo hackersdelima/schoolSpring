@@ -4,8 +4,19 @@ import java.util.List;
 
 public class CategoryModel {
 	private String previousid, categoryId, categoryHead, accountType, inputter,authorizer;
+	private String taxable;
 	private List<String> categoryIdList;
 	private List<String> categoryHeadList;
+	
+	
+	
+	public String getTaxable() {
+		return taxable;
+	}
+
+	public void setTaxable(String taxable) {
+		this.taxable = taxable;
+	}
 	public List<String> getCategoryIdList() {
 		return categoryIdList;
 	}

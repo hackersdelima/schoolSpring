@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.spring.model.ExamModel;
 import com.spring.model.ExamTypeModel;
+import com.spring.model.FeeModel;
 import com.spring.model.FormDetails;
 import com.spring.model.Subjects;
 import com.spring.model.UserModel;
@@ -27,6 +28,11 @@ public interface OperationDao {
 	public boolean editSubject(String id, Subjects sub);
 
 	public Subjects getSubjectForEdit(String id);
+	public boolean addFeeSetting(String classname, String category, String feerate);
+
+	public void editFeeSetting(String feecode, String classname, String category, String feerate);
+
+
 	
 
 	

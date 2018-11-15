@@ -31,6 +31,8 @@ public interface InitialDetailsDao {
 	public void deleteAdmissionClass(String id);
 	
 	public void deleteExamType(String id);
+
+	
 	
 	
 	

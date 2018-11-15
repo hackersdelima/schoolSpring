@@ -56,7 +56,8 @@ public class CategoryDaoImpl implements CategoryDao{
 			cm.setCategoryHead(rs.getString("categoryHead"));
 			cm.setInputter(rs.getString("inputter"));
 			cm.setAuthorizer(rs.getString("authorizer"));
-			
+			cm.setTaxable(rs.getString("taxable"));
+		
 			atm.setAccountType(rs.getString("accountType"));
 			atm.setAccountTypeHead(rs.getString("accountTypeHead"));
 			cm.setAccountTypeModel(atm);

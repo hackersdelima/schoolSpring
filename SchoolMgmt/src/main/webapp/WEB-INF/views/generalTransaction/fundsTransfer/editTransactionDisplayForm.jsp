@@ -1,4 +1,4 @@
-<jsp:include page="/includefile"></jsp:include>
+<jsp:include page="../../include.jsp"></jsp:include>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <head>

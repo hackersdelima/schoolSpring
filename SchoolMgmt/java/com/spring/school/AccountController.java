@@ -8,12 +8,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.dao.AccountDao;
 import com.spring.dao.CategoryDao;
@@ -134,6 +134,18 @@ public class AccountController {
 		
 		response.getWriter().println(generatedAccountNo);
 	}
+	
+	@RequestMapping(value="/generateAccountName", method = RequestMethod.POST)
+	@ResponseBody
+	public String generateAccountName(@RequestParam("id") String accountNo)
+	{
+		System.out.println("reached");
+		String accountName=accountDao.getAccountName(accountNo);
+		System.out.println("account name is"+accountName);
+		return accountName;
+		
+	}
+	
 	
 	@RequestMapping(value = "/membername")
 	public void membername(@RequestParam Map<String, String> reqparam, HttpServletResponse response) throws Exception{

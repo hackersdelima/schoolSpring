@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.RowMapper;
 import com.spring.dao.OperationDao;
 import com.spring.model.ExamModel;
 import com.spring.model.ExamTypeModel;
+import com.spring.model.FeeModel;
 import com.spring.model.FormDetails;
 import com.spring.model.Subjects;
 import com.spring.model.UserModel;
@@ -202,5 +203,35 @@ public class OperationDaoImpl implements OperationDao {
 				return map;
 			}
 			}
+	 
+	 public boolean addFeeSetting(String classname, String category, String feerate) {
+			
+		 boolean status=false;
+		 
+		 String query = "insert into feerate(sclass,frate,categoryId) values('" + classname + "','" + feerate + "','"+ category + "')";
+			System.out.println("q" + query);
+			System.out.println(jdbcTemplate);
+			
+			
+			int i=jdbcTemplate.update(query);
+			if(i>0){
+				status=true;
+			}
+			return status;
+
+		}
+
+	@Override
+	public void editFeeSetting(String feecode, String classname, String category, String feerate) {
+
+		String query="update feerate set sclass='"+classname+"', categoryId='"+category+"',frate='"+feerate+"' where feecode='"+feecode+"'";
+		jdbcTemplate.update(query);
+	}
+
+	
+
+
+	
+
 
 }

@@ -1,2 +1,4 @@
 eclipse.preferences.version=1
+encoding//src/main/resources/report/report.jrxml=UTF-8
+encoding//src/main/webapp/WEB-INF/spring/Blank_A4.jrxml=UTF-8
 encoding//src/main/webapp/WEB-INF/views/profile.jsp=UTF-8

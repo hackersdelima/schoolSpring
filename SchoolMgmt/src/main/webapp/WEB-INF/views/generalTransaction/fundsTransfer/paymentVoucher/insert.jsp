@@ -2,6 +2,7 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <spring:url value="/paymentVoucher/review" var="formUrl" />
+
 <jsp:include page="../../../include.jsp"></jsp:include>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,9 +32,15 @@
 </style>
 </head>
 <body class="background">
+	
+	
 	<form action="${formUrl }" method="post">
+	<div class="x_panel">
 		<input type="hidden" name="receivedby"
 			value="${sessionScope.userDetail.username }">
+		<spring:url value="/account/generateAccountName" var="accountNameUrl" />
+		<input type="hidden" name="accountName" class="accountNameUrl"
+			value="${accountNameUrl }">
 
 		<div class="row">
 
@@ -41,172 +48,224 @@
 				<header class="clearfix">
 
 					<div id="logo"></div>
-					<center>
-						<h2 class="name">
-							<strong>PAYMENT VOUCHER</strong>
-						</h2>
-					</center>
+
+					<h2 class="name">
+						<strong>PAYMENT VOUCHER</strong>
+					</h2>
+
 					<hr>
 
-					<div id="seller">
-						<div>
-							<h3>${sessionScope.systemdetail[0].settingsdescription }</h3>
-							<h4>${sessionScope.systemdetail[2].settingsdescription }</h4>
-							<h4>${sessionScope.systemdetail[3].settingsdescription }</h4>
-							<h4>${sessionScope.systemdetail[7].settingsdescription }</h4>
+					<div id="notices">
+						<div class="form-group">
+							<div class="col-md-12 col-sm-12 col-xs-12 col-md-offset-3">
 
+								<button class="btn btn-info" type="button" id="validate">Validate</button>
+								<a class="btn btn-danger" id="cancel"
+									href="<spring:url value="/paymentVoucher/cancel" />">Cancel</a>
+								<input type="submit" class="btn btn-success" value="Submit">
+
+							</div>
 						</div>
-					</div>
 
+						<div class="notice"></div>
+					</div>
 				</header>
-				<main>
+			</div>
 
-				<div id="details" class="clearfix">
-					<div id="seller">
+			<div id="seller" class="col-md-12">
+				<div>
+					<h3>${sessionScope.systemdetail[0].settingsdescription }</h3>
+					<h4>${sessionScope.systemdetail[2].settingsdescription }</h4>
+					<h4>${sessionScope.systemdetail[3].settingsdescription }</h4>
+					<h4>${sessionScope.systemdetail[7].settingsdescription }</h4>
 
-						<h4 class="name">
-							<span class="label label-default">Transaction Id*</span><input
-								type="text" class="form-control " name="transactionId"
-								value="${sessionScope.paymentVoucher.transactionId }">
-						</h4>
+				</div>
+			</div>
+			
 
-						<h4 class="name">
-							<span class="label label-default">Reference No*</span><input
-								type="text" class="form-control " id="referenceNo"
-								name="referenceNo"
-								value="${sessionScope.paymentVoucher.referenceNo }">
-						</h4>
-					</div>
 
-					<div id="client">
 
-						<div class="date">
-							<span class="label label-default">Booking Eng Date*</span> <input
-								type="text" maxlength="10" id="bookingDateen"
-								class="form-control date" name="bookingDateen"
-								placeholder="yyyy-mm-dd"
-								value="${sessionScope.paymentVoucher.bookingDateen }">
-						</div>
-						<br>
-						<div class="date">
-							<span class="label label-default">Booking nep Date*</span> <input
-								type="text" maxlength="10" id="bookingDate" name="bookingDate"
-								class="form-control date" placeholder="yyyy-mm-dd"
-								value="${sessionScope.paymentVoucher.bookingDate}">
-						</div>
-					</div>
-					<div id="client">
-						<div class="date">
-							<span class="label label-default">Value Eng Date*</span> <input
-								type="text" maxlength="10" id="valueDateen"
-								class="form-control date" name="valueDateen"
-								placeholder="yyyy-mm-dd"
-								value="${sessionScope.paymentVoucher.valueDateen}">
-						</div>
-						<br>
-						<div class="date">
-							<span class="label label-default">Value nep Date*</span> <input
-								type="text" maxlength="10" id="valueDate" name="valueDate"
-								class="form-control date" placeholder="yyyy-mm-dd"
-								value="${sessionScope.paymentVoucher.valueDate }">
-						</div>
-					</div>
+			<div id="details" class="clearfix">
+				<div id="seller">
+
+					<h4 class="name">
+						<span class="label label-default">Transaction Id*</span><input
+							type="text" class="form-control " name="transactionId"
+							value="${sessionScope.paymentVoucher.transactionId }">
+					</h4>
+
+					<h4 class="name">
+						<span class="label label-default">Reference No*</span><input
+							type="text" class="form-control " id="referenceNo"
+							name="referenceNo"
+							value="${sessionScope.paymentVoucher.referenceNo }">
+					</h4>
 				</div>
 
+				<div id="client">
+
+					<div class="date">
+						<span class="label label-default">Booking Eng Date*</span> <input
+							type="text" maxlength="10" id="bookingDateen"
+							class="form-control date" name="bookingDateen"
+							placeholder="yyyy-mm-dd"
+							value="${sessionScope.paymentVoucher.bookingDateen }">
+					</div>
+					<br>
+					<div class="date">
+						<span class="label label-default">Booking nep Date*</span> <input
+							type="text" maxlength="10" id="bookingDate" name="bookingDate"
+							class="form-control date" placeholder="yyyy-mm-dd"
+							value="${sessionScope.paymentVoucher.bookingDate}">
+					</div>
+				</div>
+				<div id="client">
+					<div class="date">
+						<span class="label label-default">Value Eng Date*</span> <input
+							type="text" maxlength="10" id="valueDateen"
+							class="form-control date" name="valueDateen"
+							placeholder="yyyy-mm-dd"
+							value="${sessionScope.paymentVoucher.valueDateen}">
+					</div>
+					<br>
+					<div class="date">
+						<span class="label label-default">Value nep Date*</span> <input
+							type="text" maxlength="10" id="valueDate" name="valueDate"
+							class="form-control date" placeholder="yyyy-mm-dd"
+							value="${sessionScope.paymentVoucher.valueDate }">
+					</div>
+				</div>
+			</div>
+			</div>
+		
+		
+			<div class="x-panel">
+			
+			
+			
 				<table border="0" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
-							<th class="desc"><a onclick="addRow()" id="newrow">Add
-									Row+</a></th>
-							<th colspan="1">Account No</th>
-							<th class="desc" colspan="1">Dr/Cr</th>
-							<th class="desc" colspan="1">Amount</th>
+							<th class="desc col-md-1"><a onclick="addRow()" id="newrow"
+								class="btn btn-primary">Add Row</a></th>
+							<th colspan="1" class="col-md-2">Account Number</th>
+							<th class="desc col-md-4" colspan="2">Name</th>
+							<th colspan="1">Cheque Number</th>
+							<th class="desc col-md-1" colspan="1">Dr/Cr</th>
+							<th class="desc col-md-3">Narration</th>
+							<th class="desc col-md-4" colspan="1">Amount</th>
 
 						</tr>
 					</thead>
 					<tbody>
 						<c:choose>
-							<c:when test="${empty sessionScope.paymentVoucher.paymentVoucherAccount.accountNo}">
+							<c:when
+								test="${empty sessionScope.paymentVoucher.paymentVoucherAccount.accountNo}">
 								<tr id="tablerow">
-									<td><button onclick="deleteRow(this)" class="removebutton">X</button></td>
-									<td colspan="1"><input type="text" class="form-control"
+									<td><button onclick="deleteRow(this)"
+											class="removebutton btn btn-danger">Delete</button></td>
+									<td colspan="1"><input type="text"
+										class="form-control accountno"
 										name="paymentVoucherAccount.accountNo" value=""></td>
-
-									<td class="desc" colspan="1"><select
-										class="form-control one" name="paymentVoucherAccount.drcr"
-										required>
+									<td colspan="2" width="50%"><input type="text"
+										name="paymentVoucherAccount.accountName"
+										class="form-control accountName " id="accountName" value=""
+										readonly></td>
+									<td colspan="1"><input type="text" class="form-control chequeNo"
+										name="paymentVoucherAccount.chequeNo" value=""></td>
+									<td class="desc col-md-2" colspan="1"><select
+										class="form-control one drcr"
+										name="paymentVoucherAccount.drcr" required>
 											<option value="">None</option>
 											<option value="dr">Dr.</option>
 											<option value="cr">Cr.</option>
 									</select></td>
-									<td class="desc" colspan="1"><input type="text"
+
+									<td><input type="text" class="form-control"
+										name="paymentVoucherAccount.narration"></td>
+									<td colspan="1"><input type="text"
 										class="form-control two" name="paymentVoucherAccount.amount"
 										id="amount" value=""></td>
 								</tr>
 							</c:when>
 							<c:otherwise>
-								<c:forEach items="${sessionScope.paymentVoucher.paymentVoucherAccount.accountNo }"
+								<c:forEach
+									items="${sessionScope.paymentVoucher.paymentVoucherAccount.accountNo }"
 									var="desc" varStatus="descIndex">
-								
-								<tr id="tablerow">
-									<td><button onclick="deleteRow(this)" class="removebutton">X</button></td>
-									<td colspan="1"><input type="text" class="form-control"
-										name="paymentVoucherAccount.accountNo"
-										value="${sessionScope.paymentVoucher.paymentVoucherAccount.accountNo[descIndex.index] }"></td>
 
-									<td class="desc" colspan="1"><select class="form-control"
-										name="paymentVoucherAccount.drcr" required>
-											<option value="dr"
-												<c:if test="${sessionScope.paymentVoucher.paymentVoucherAccount.drcr[descIndex.index] eq 'dr' }">selected</c:if>>Dr.</option>
-											<option value="cr"
-												<c:if test="${sessionScope.paymentVoucher.paymentVoucherAccount.drcr[descIndex.index] eq 'cr' }">selected</c:if>>Cr.</option>
-									</select></td>
-									<td class="desc" colspan="1"><input type="text"
-										class="form-control two" name="paymentVoucherAccount.amount"
-										id="amount"
-										value="${sessionScope.paymentVoucher.paymentVoucherAccount.amount[descIndex.index] }"></td>
-								</tr>
+									<tr id="tablerow">
+										<td><button onclick="deleteRow(this)"
+												class="removebutton btn btn-danger">Delete</button></td>
+										<td colspan="1"><input type="text"
+											class="form-control accountno"
+											name="paymentVoucherAccount.accountNo"
+											value="${sessionScope.paymentVoucher.paymentVoucherAccount.accountNo[descIndex.index] }"></td>
+										<td colspan="2" width="50%"><input type="text"
+											name="accountName" class="form-control accountName "
+											id="accountName"
+											value="${sessionScope.paymentVoucher.paymentVoucherAccount.accountName[descIndex.index] }"
+											readonly></td>
+										<td><input type="text" class="form-control chequeNo"
+											name="paymentVoucherAccount.chequeNo"
+											value="${sessionScope.paymentVoucher.paymentVoucherAccount.chequeNo[descIndex.index] }"></td>
+										<td class="desc" colspan="1"><select class="form-control"
+											name="paymentVoucherAccount.drcr" required>
+												<option value="dr"
+													<c:if test="${sessionScope.paymentVoucher.paymentVoucherAccount.drcr[descIndex.index] eq 'dr' }">selected</c:if>>Dr.</option>
+												<option value="cr"
+													<c:if test="${sessionScope.paymentVoucher.paymentVoucherAccount.drcr[descIndex.index] eq 'cr' }">selected</c:if>>Cr.</option>
+										</select></td>
+										<td><input type="text" class="form-control"
+											name="paymentVoucherAccount.narration"
+											value="${sessionScope.paymentVoucher.paymentVoucherAccount.narration[descIndex.index] }"></td>
+										<td class="desc" colspan="1"><input type="text"
+											class="form-control two" name="paymentVoucherAccount.amount"
+											id="amount"
+											value="${sessionScope.paymentVoucher.paymentVoucherAccount.amount[descIndex.index] }"></td>
+									</tr>
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="2"></td>
+							<td colspan="5"></td>
 							<td colspan="1"><h5>NARRATION</h5></td>
-							<td colspan="1"><textarea id="narration" cols="30"
+							<td colspan="2"><textarea id="narration" cols="30"
 									name="narration" class="form-control" rows="3">${sessionScope.paymentVoucher.narration }</textarea></td>
 						</tr>
 						<tr>
-							<td colspan="2"></td>
+							<td colspan="5"></td>
 							<td colspan="1">Total Debit Amount</td>
-							<td><input class="form-control totalDebitAmount"
+							<td colspan="2"><input class="form-control totalDr"
 								type="number" step="any" name="totalDebitAmount"
 								value="${sessionScope.paymentVoucher.totalDebitAmount }"
 								readonly></td>
 						</tr>
 
 						<tr>
-							<td colspan="2"></td>
+							<td colspan="5"></td>
 							<td colspan="1">Total Credit Amount</td>
-							<td><input class="form-control totalCreditAmount"
+							<td colspan="2"><input class="form-control totalCr"
 								type="number" step="any" name="totalCreditAmount"
 								value="${sessionScope.paymentVoucher.totalCreditAmount }"
 								readonly></td>
 						</tr>
 
-						<tr>
-							<td colspan="2"></td>
+						<%-- <tr>
+							<td colspan="3"></td>
 							<td colspan="1"><h5>IN WORDS</h5></td>
 							<td colspan="3"><textarea id="result" cols="30"
 									name="inwords" class="form-control" rows="3" readonly>${sessionScope.paymentVoucher.inwords }</textarea></td>
-						</tr>
+						</tr> --%>
 						<tr>
-							<td>Prepared By:</td>
-							<td><input type="text" class="form-control"
+							<td colspan="1">Prepared By:</td>
+							<td colspan="3"><input type="text" class="form-control"
 								name="preparedBy" value="${sessionScope.userDetail.username}"></td>
+							<td colspan="1"></td>
 							<td>Checked By:</td>
-							<td><input type="text" class="form-control" name="checkedBy"
+							<td colspan="2"><input type="text" class="form-control"
+								name="checkedBy"
 								value="${sessionScope.paymentVoucher.checkedBy }"></td>
 
 						</tr>
@@ -221,29 +280,56 @@
 					</tfoot>
 				</table>
 
-				<div id="notices">
-					<div class="form-group">
-						<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
 
-							<button class="btn btn-info" type="button" id="validate">Validate</button>
-							<a class="btn btn-danger" id="cancel"
-								href="<spring:url value="/paymentVoucher/cancel" />">Cancel</a> <input
-								type="submit" class="btn btn-success" value="Submit">
-
-						</div>
-					</div>
-
-					<div class="notice"></div>
-				</div>
-
-				</main>
 			</div>
+			
 
-			<div class="col-md-1"></div>
+			
 		</div>
 	</form>
+	
 	<script src="<spring:url value="/resources/js/dateAction.js"/>"></script>
 	<script>
+		$("#validate").click(function() {
+
+			var drTotal = 0;
+			var crTotal = 0;
+
+			$("table tr#tablerow").each(function() {
+				var id = $(this).find("input.accountno").val();
+				var accountName = $(this).find("input.accountName");
+
+				var row_index = $(this).index();
+				var accountNameUrl = $(".accountNameUrl").val();
+				var dataString = 'id=' + id;
+
+				/* 	-----------------------------for dr/cr total---------------------------------------------------- */
+
+				var drcr = $(this).find(".drcr").val();
+				var amount = $(this).find("#amount").val();
+
+				if (drcr == 'dr') {
+					drTotal = parseInt(drTotal, 10) + parseInt(amount, 10);
+				} else {
+					crTotal = parseInt(crTotal, 10) + parseInt(amount, 10);
+
+				}
+
+				$.ajax({
+					type : "POST",
+					url : accountNameUrl,
+					data : dataString,
+					cache : false,
+					success : function(html) {
+						accountName.val(html);
+					}
+				});
+
+			});
+			$(".totalDr").val(drTotal);
+			$(".totalCr").val(crTotal);
+
+		});
 		function deleteRow(btn) {
 			var row = btn.parentNode.parentNode;
 			row.parentNode.removeChild(row);
@@ -253,6 +339,10 @@
 			tbody.find("tr:eq(0)").clone().appendTo(tbody)
 					.find("input, select").val("");
 		};
+
+		function accountno() {
+
+		}
 	</script>
 </body>
 

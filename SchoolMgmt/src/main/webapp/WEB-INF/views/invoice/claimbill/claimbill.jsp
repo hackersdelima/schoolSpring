@@ -133,8 +133,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:choose>
-							<c:when test="${empty sessionScope.claimBill.category.categoryIdList}">
+						<%-- <c:choose>
+							<c:when test="${empty sessionScope.claimBill.category.categoryIdList}"> --%>
 							<c:forEach items="${details}" var="c">
 								<tr id="tablerow">
 									
@@ -160,8 +160,8 @@
 
 								</tr>
 								</c:forEach>
-							</c:when>
-							<c:otherwise>
+							<%-- </c:when> --%>
+							<%-- <c:otherwise>
 								<c:forEach items="${sessionScope.claimBill.category.categoryIdList }"
 									var="desc" varStatus="descIndex">
 
@@ -188,9 +188,9 @@
 
 									</tr>
 								</c:forEach>
-							</c:otherwise>
-						</c:choose>
-					</tbody>
+							</c:otherwise> --%>
+						<%-- </c:choose>
+					</tbody> --%>
 					<tfoot>
 <tr>
 <td colspan="3">Total Fees</td>
@@ -275,6 +275,7 @@
 			
 		});
 		$(document).on('click', "#validate", function() {
+			
 			calculateSubTotal();
 			calculateNonTaxable();
 			calculateTaxable();

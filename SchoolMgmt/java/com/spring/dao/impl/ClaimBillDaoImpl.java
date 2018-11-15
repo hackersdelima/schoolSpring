@@ -44,7 +44,18 @@ private JdbcTemplate jdbcTemplate;
 	
 	public boolean insertClaimBillContent(ClaimBillModel c, int i) {
 		boolean status = false;
-		String sql = "insert into claim_bill_content(categoryId, nontaxableamount, taxableamount, totalamount, claim_bill_id) values('"+c.getCategory().getCategoryIdList().get(i)+"','"+c.getNontaxableamount().get(i)+"','"+c.getTaxableamount().get(i)+"','"+c.getTotalamount().get(i)+"','"+c.getClaim_bill_id()+"')";
+		String sql="";
+		System.out.println(c.getNontaxableamount().get(i)+"shssh");
+		
+		if(c.getNontaxableamount().get(i).isEmpty()){
+			System.out.println("its empty");
+			 sql = "insert into claim_bill_content(categoryId, nontaxableamount, taxableamount, totalamount, claim_bill_id) values('"+c.getCategory().getCategoryIdList().get(i)+"','0.00','"+c.getTaxableamount().get(i)+"','"+c.getTotalamount().get(i)+"','"+c.getClaim_bill_id()+"')";
+		}
+		else
+		{
+			 sql = "insert into claim_bill_content(categoryId, nontaxableamount, taxableamount, totalamount, claim_bill_id) values('"+c.getCategory().getCategoryIdList().get(i)+"','"+c.getNontaxableamount().get(i)+"','0.00','"+c.getTotalamount().get(i)+"','"+c.getClaim_bill_id()+"')";
+		}
+		
 		int j = jdbcTemplate.update(sql);
 
 		if (j > 0) {

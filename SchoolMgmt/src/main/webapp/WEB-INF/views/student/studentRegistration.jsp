@@ -180,7 +180,7 @@
 											form="form" onblur="nepaliToEnglish('.addate','.addateen')"
 											placeholder="2051-07-25"
 											pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])"
-											required>
+											>
 										</td>
 										<td>
 											<h6>
@@ -190,7 +190,7 @@
 											id="englishDate14" placeholder="1994-11-11"
 											onblur="englishToNepali('.addate','.addateen')"
 											pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])"
-											required>
+											>
 										</td>
 									</tr>
 
@@ -298,7 +298,7 @@
 											<h6>
 												<strong>Image</strong>
 											</h6> <input type="file" id="file" class="form-control" form="form"
-											name="files" accept="image/*" required>
+											name="files" accept="image/*" >
 										</td>
 									</tr>
 

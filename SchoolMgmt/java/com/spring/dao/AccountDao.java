@@ -24,5 +24,6 @@ public interface AccountDao {
 	public String acccountnogen(String memberid);
 	public String getCurWorkingBalance(String accountNo);
 	public int updateWorkingBal(String accountNo,int balAfterDiscount);
+	public String getAccountName(String accountNo);
 
 }

@@ -155,10 +155,9 @@
                         </li>
                          <li><a>Account Settings<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li ><a href="nav/category" target="iframe_a">Category</a>
-                             <li ><a href="nav/accountType" target="iframe_a">Account Type</a>
-                            </li>
-                            
+                            <li ><a href="nav/category" target="iframe_a">Category</a></li>
+                             <li ><a href="nav/accountType" target="iframe_a">Account Type</a></li>
+                             <li><a href="nav/feeSetting" target="iframe_a">Fee Setting</a></li>
                           </ul>
                         </li>
                         <li><a href="nav/initialDetails" target="iframe_a">Basic Details</a>

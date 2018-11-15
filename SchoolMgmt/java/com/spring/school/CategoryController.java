@@ -38,8 +38,8 @@ public class CategoryController {
 	private String addCategory(HttpSession session,@ModelAttribute CategoryModel cm, @ModelAttribute AccountTypeModel am, Model model){
 		UserModel userDetail = (UserModel) session.getAttribute("userDetail");
 		String tablename="categories";
-		String columns="(categoryId, categoryHead, accountType, inputter)";
-		String value=cm.getCategoryId() + "','"+ cm.getCategoryHead() + "','" + am.getAccountType() +"','" + userDetail.getUsername();
+		String columns="(categoryId, categoryHead, accountType, inputter,taxable)";
+		String value=cm.getCategoryId() + "','"+ cm.getCategoryHead() + "','" + am.getAccountType() +"','" + userDetail.getUsername()+"','"+cm.getTaxable();
 		String msg="";
 		boolean status=operationDao.insertTableDetail(tablename, columns, value);
 		if(status){

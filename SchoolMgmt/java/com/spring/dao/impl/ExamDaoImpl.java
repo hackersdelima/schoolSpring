@@ -70,7 +70,7 @@ public class ExamDaoImpl implements ExamDao {
 	}
 	
 	public List<Subjects> getSpecificClassSubjects(String gradeid) {
-		String query = "select subjectlist.*,classlist.* from coursetbl join subjectlist on coursetbl.subjectid=subjectlist.subjectid join classlist on coursetbl.gradeid=classlist.classid  where classlist.classid='"+ gradeid + "'";
+		String query = "select subjectlist.*,classlist.* from coursetbl join subjectlist on coursetbl.subjectid=subjectlist.subjectid join classlist on coursetbl.gradeid=classlist.classid  where classlist.classname='"+ gradeid + "'";
 		System.out.println(query);
 		return jdbcTemplate.query(query, new ClassSubjects());
 	}

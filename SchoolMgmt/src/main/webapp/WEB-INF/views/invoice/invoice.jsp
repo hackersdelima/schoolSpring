@@ -135,23 +135,19 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:choose>
-							<c:when test="${empty sessionScope.feeInvoice.charges}">
+						<%-- <c:choose></c:choose> --%>
+							<%-- <c:when test="${empty sessionScope.feeInvoice.charges}">	</c:when> --%>
 							
-								<c:forEach items="${scategory }" var="s">
+								<c:forEach items="${scategory }" var="s"></c:forEach>
 								
-								<c:if test="${not empty s.workingBal }">
+								<%-- <c:if test="${empty s.workingBal }"> --%><%-- </c:if> --%>
 								<tr id="tablerow">
-								
-								
 										<td><input type="text"
 										class="form-control" name="account" value="${s.accountNumber }"></td>
 										<td><input type="text"
 										class="form-control" name="category.categoryIdList" value="${s.categoryModel.categoryId }"></td>
 										<td><input type="text"
 										class="form-control" name="category.categoryHeadList" value="${s.categoryModel.categoryHead }"></td>
-									
-										
 										<td class="desc" colspan="1"><input type="text"
 										class="form-control one" name="charges" value="${s.workingBal }"></td>
 									<td class="desc" colspan="1"><input type="text"
@@ -160,14 +156,9 @@
 									<td class="total" colspan="1"><input
 										class="form-control balance" type="number" step="any" value=""
 										name="balance"></td>
-
-
 								</tr>
-								</c:if>
-								</c:forEach>
-							</c:when>
-						
-							<c:otherwise>
+								
+							<%-- <c:otherwise>
 								<c:forEach items="${sessionScope.feeInvoice.charges }"
 									var="desc" varStatus="descIndex">
 
@@ -195,8 +186,8 @@
 
 								</tr>
 								</c:forEach>
-							</c:otherwise>
-						</c:choose>
+							</c:otherwise> --%>
+						
 					</tbody>
 					<tfoot>
 

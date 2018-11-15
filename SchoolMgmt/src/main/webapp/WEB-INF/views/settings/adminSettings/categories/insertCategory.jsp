@@ -71,6 +71,15 @@ h5 {
 										</c:forEach>
 								</select>
 								</td>
+									<td><h5>Taxable</h5> 
+									<select class="form-control" name="taxable">
+										<option>Taxable</option>
+										<option value="y">Yes</option>
+										<option value="n">No</option>
+									</select>	
+								
+								</td>
+								
 
 
 							</tr>
@@ -101,7 +110,7 @@ h5 {
 							<th>Category Id</th>
 							<th>Category Head</th>
 							<th>Account Type</th>
-							<th>Account Type Head</th>
+							<th>Taxable</th>
 							<th>Action</th>
 						</tr>
 					</thead>
@@ -111,7 +120,7 @@ h5 {
 								<td>${cat.categoryId }</td>
 								<td>${cat.categoryHead }</td>
 								<td>${cat.accountTypeModel.accountType }</td>
-								<td>${cat.accountTypeModel.accountTypeHead }</td>
+								<td>${cat.taxable }</td>
 								<td><a
 									href="<spring:url value="/category/edit/${cat.categoryId }"/>">Edit</a></td>
 							</tr>

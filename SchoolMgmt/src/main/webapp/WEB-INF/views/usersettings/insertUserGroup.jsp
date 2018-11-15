@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<jsp:include page="/includefile"></jsp:include>
+<jsp:include page="../include.jsp"></jsp:include>
 <html>
 <head>
 <head>
@@ -101,7 +101,7 @@
 	</div>
 
 </form>
-<jsp:include page="/msgmodal"></jsp:include>
+<jsp:include page="../msgmodal.jsp"></jsp:include>
 <script type="text/javascript">
 	<%if (request.getAttribute("msg") != null) {%>
 		$('#myModal').modal('show');

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<jsp:include page="/includefile"></jsp:include>
+<jsp:include page="../../include.jsp"></jsp:include>
 <html>
 <head>
 
@@ -69,7 +69,7 @@
 		</div>
 	</div>
 
-	<jsp:include page="/msgmodal"></jsp:include>
+	<jsp:include page="../../msgmodal.jsp"></jsp:include>
 	
 	<script type="text/javascript">
 	$('.clickbtn').click(function() {

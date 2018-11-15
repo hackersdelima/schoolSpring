@@ -36,7 +36,7 @@ private JdbcTemplate jdbcTemplate;
 	
 	public int addPaymentVoucherAccount(int i,int maxId, PaymentVoucherModel p)
 	{
-		String query="insert into payment_voucher_account(payment_voucher_id,accountNo,drcr,amount) values('"+maxId+"','"+p.getPaymentVoucherAccount().getAccountNo().get(i)+"','"+p.getPaymentVoucherAccount().getDrcr().get(i)+"','"+p.getPaymentVoucherAccount().getAmount().get(i)+"')";
+		String query="insert into payment_voucher_account(payment_voucher_id,accountNo,drcr,amount,narration,chequeNo) values('"+maxId+"','"+p.getPaymentVoucherAccount().getAccountNo().get(i)+"','"+p.getPaymentVoucherAccount().getDrcr().get(i)+"','"+p.getPaymentVoucherAccount().getAmount().get(i)+"','"+p.getPaymentVoucherAccount().getNarration().get(i)+"','"+p.getPaymentVoucherAccount().getChequeNo().get(i)+"')";
 		return jdbcTemplate.update(query);
 	}
 

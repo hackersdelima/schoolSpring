@@ -106,6 +106,8 @@ public class OperationController {
 		return "redirect: ../nav/initialDetails";
 	}
 	
+	
+	
 	@RequestMapping(value="/addsubject", method=RequestMethod.POST)
 	public String addSubject(@ModelAttribute Subjects sub, Model model, RedirectAttributes redirectAttributes){
 		boolean checkSubCode=operationDao.checkSubCode(sub.getSubjectcode());
