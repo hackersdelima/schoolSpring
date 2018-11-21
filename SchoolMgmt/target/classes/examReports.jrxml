@@ -87,7 +87,7 @@
 			<staticText>
 				<reportElement x="0" y="80" width="60" height="20" uuid="7bc71a4d-8f5e-4585-afc4-fe948e8f8079"/>
 				<textElement>
-					<font size="14"/>
+					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Name]]></text>
 			</staticText>
@@ -108,7 +108,7 @@
 			<staticText>
 				<reportElement x="320" y="80" width="60" height="20" uuid="f5161fd1-55b7-49f3-b10f-ae2c67cb479f"/>
 				<textElement>
-					<font size="14"/>
+					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Roll No.]]></text>
 			</staticText>
