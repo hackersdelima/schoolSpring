@@ -185,7 +185,7 @@ public class ExamDaoImpl implements ExamDao {
 	}
 
 	public List<ExamModel> specificStudentMarksReport(ExamModel exam, String studentid) {
-		String query = "select exam_marks_tbl.*, subjectlist.subjectname, subjectlist.subjecttype, subjectlist.subjectCode from exam_marks_tbl left join subjectlist using(subjectid) where exam_marks_tbl.studentid = '"
+		String query = "select exam_marks_tbl.*, subjectlist.subjectname, subjectlist.subjecttype, subjectlist.subjectCode from exam_marks_tbl left join subjectlist on exam_marks_tbl.subjectid=subjectlist.subjectCode where exam_marks_tbl.studentid = '"
 				+ studentid + "' and exam_marks_tbl.examid = '" + exam.getExamid() + "'";
 		return jdbcTemplate.query(query, new ExamReport());
 	}

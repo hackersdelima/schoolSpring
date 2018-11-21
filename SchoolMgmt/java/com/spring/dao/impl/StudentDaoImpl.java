@@ -371,8 +371,17 @@ public class StudentDaoImpl implements StudentDao {
 		
 		public StudentModel getStudentDetail(String classname, String section, String rollno)
 		{
+			String query="";
 			try{
-			String query="select * from studentdetail where admissionclass='"+classname+"' and section='"+section+"' and rollno='"+rollno+"'";
+				if(section.isEmpty())
+				{
+					 query="select * from studentdetail where admissionclass='"+classname+"'  and rollno='"+rollno+"'";
+					 System.out.println("No Section");
+				}
+				else {
+			 query="select * from studentdetail where admissionclass='"+classname+"' and section='"+section+"' and rollno='"+rollno+"'";
+			System.out.println(query+"query");
+				}
 			return jdbcTemplate.queryForObject(query, new StudentMapper());
 			
 		}catch(Exception e)
