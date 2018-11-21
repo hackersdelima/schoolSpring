@@ -6,6 +6,8 @@ public class ExamModel {
 	private String examid, examname,examcode, examtype,startdate, studentid,subjectid,companydb,classid,settings_id, type, description, totalmarks;
 	
 	private List<String> studentidlist;
+	private ExamTypeModel examTypeModel;
+	private Subjects subjects;
 	
 	
 
@@ -33,8 +35,7 @@ public class ExamModel {
 		this.examid = examid;
 	}
 
-	private ExamTypeModel examTypeModel;
-	private Subjects subjects;
+	
 	
 	public Subjects getSubjects() {
 		return subjects;

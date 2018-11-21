@@ -73,14 +73,14 @@
 					value="${subjectdetail.passmarks_pr}" class="form-control passmarks_pr" /></td>
 
 				<td><input type="text" name="subjects.thmarkslist" value=""
-					class="form-control" /></td>
+					class="form-control zeromarks" /></td>
 				<td><input type="text" name="subjects.prmarkslist" value=""
-					class="form-control" /></td>
+					class="form-control zeromarks" /></td>
 				<td><input type="text" name="subjects.totalgradelist" value=""
-					class="form-control" /></td>
+					class="form-control zeromarks" /></td>
 
 				<td><input type="text" name="subjects.remarkslist" value=""
-					class="form-control" /></td>
+					class="form-control zeromarks" /></td>
 
 			</tr>
 		</c:forEach>
@@ -103,6 +103,9 @@ $(".buttonClick").click(function(){
 	$(".passmarks").val(passmarks);
 	$(".passmarks_pr").val(passmarks_pr);
 });
+
+$(".zeromarks").val('0');
+
 
 
 </script>

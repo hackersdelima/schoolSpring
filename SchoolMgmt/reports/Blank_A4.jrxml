@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="80205f95-466c-4683-9885-cff279ccc352">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Aranikodb"/>
+	<subDataset name="Dataset1" uuid="54c1405d-0c93-4876-9cc4-49f21fa4896d">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Aranikodb"/>
+		<queryString language="SQL">
+			<![CDATA[select * from exam_marks_tbl]]>
+		</queryString>
+		<field name="exammarksid" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.label" value="exammarksid"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+		</field>
+		<field name="studentid" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.label" value="studentid"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+		</field>
+		<field name="examid" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.label" value="examid"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+		</field>
+		<field name="subjectid" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.label" value="subjectid"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+		</field>
+		<field name="prmarks" class="java.lang.Double">
+			<property name="com.jaspersoft.studio.field.label" value="prmarks"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+		</field>
+		<field name="thmarks" class="java.lang.Double">
+			<property name="com.jaspersoft.studio.field.label" value="thmarks"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+		</field>
+		<field name="totalmarks" class="java.lang.Double">
+			<property name="com.jaspersoft.studio.field.label" value="totalmarks"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+		</field>
+		<field name="totalgrade" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="totalgrade"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+		</field>
+		<field name="remarks" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="remarks"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+		</field>
+		<field name="inputDate" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="inputDate"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+		</field>
+		<field name="fullmarks" class="java.lang.Double">
+			<property name="com.jaspersoft.studio.field.label" value="fullmarks"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+		</field>
+	</subDataset>
+	<queryString language="SQL">
+		<![CDATA[select * from aranikodb.exam_summary]]>
+	</queryString>
+	<field name="studentid" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="studentid"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+	</field>
+	<field name="examid" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="examid"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+	</field>
+	<field name="sum(totalmarks)" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="sum(totalmarks)"/>
+	</field>
+	<field name="sum(fullmarks)" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="sum(fullmarks)"/>
+	</field>
+	<field name="percentage" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="percentage"/>
+	</field>
+	<field name="examname" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="examname"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exam"/>
+	</field>
+	<field name="startdate" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="startdate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exam"/>
+	</field>
+	<field name="examtypename" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="examtypename"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exam_type"/>
+	</field>
+	<field name="curdate" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="curdate"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<summary>
+		<band height="308" splitType="Stretch"/>
+	</summary>
+</jasperReport>

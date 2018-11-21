@@ -73,16 +73,45 @@ public class ExamController {
 	@ResponseBody
 	public String addSubMarks(@ModelAttribute("examModel") ExamModel exammodel) {
 		List<String> studentidlist = exammodel.getStudentidlist();
-		System.out.println(studentidlist);
+		System.out.println("student id list" +studentidlist);
 		int num = studentidlist.size();
 		for (int i = 0; i < num; i++) {
-			Double totalmarks = Double.parseDouble(exammodel.getSubjects().getThmarkslist().get(i))
-					+ Double.parseDouble(exammodel.getSubjects().getPrmarkslist().get(i));
-
+			
+			
+			
+				System.out.println("prmarks="+exammodel.getSubjects().getPrmarkslist().get(i));
+			if(exammodel.getSubjects().getPrmarkslist().get(i).isEmpty() || exammodel.getSubjects().getFullmarks_prlist().get(i).isEmpty()
+					) {
+			
+					
+			System.out.println("catchesd");
+			examDao.addMissingMarks(exammodel, i);
+			
+			}
+			else {
+				
+				String thmark=exammodel.getSubjects().getThmarkslist().get(i);
+				String prmark=exammodel.getSubjects().getPrmarkslist().get(i);
+				if(thmark.isEmpty())
+				{
+					thmark="0";
+				}
+				if(prmark.isEmpty())
+				{
+					prmark="0";
+				}
+			Double totalmarks = Double.parseDouble(thmark)
+					+ Double.parseDouble(prmark);
+			System.out.println(totalmarks+"totalmarks");
+			
 			exammodel.getSubjects().setTotalmarks(totalmarks.toString());
-
+			
 			if (!examDao.checkStudentSubAvailability(exammodel, i) == true) {
-				examDao.addMarks(exammodel, i);
+			examDao.addMarks(exammodel, i);
+			}
+
+			
+				
 			}
 		}
 

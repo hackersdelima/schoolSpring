@@ -15,6 +15,7 @@ public interface ExamDao {
 	public boolean addMarks(ExamModel exam, String studentid, int i);
 	
 	public boolean addMarks(ExamModel exam, int i);
+	public boolean addMissingMarks(ExamModel exam, int i);
 	 public boolean insertTableDetail(String tablename,String columns, String value);
 	 
 	public List<ExamModel> specificStudentMarksReport(ExamModel exam, String studentid);
