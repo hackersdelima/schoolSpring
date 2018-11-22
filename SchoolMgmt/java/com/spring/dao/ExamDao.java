@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.spring.model.ExamModel;
 import com.spring.model.ExamSummaryReportModel;
+import com.spring.model.GradeModel;
 import com.spring.model.StudentModel;
 import com.spring.model.Subjects;
 
@@ -26,6 +27,9 @@ public interface ExamDao {
 	public ExamModel editExam(String examId);
 	public boolean updateExam(ExamModel emodel, String examId);
 	public boolean deleteExam(String examId);
+	public List<GradeModel> StudentMarksReport();
+	public boolean updateGrade(String studentid, String subjectid, String grade);
+	
 
 
 }

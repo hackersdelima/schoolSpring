@@ -19,8 +19,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.dao.DateConverterDao;
 import com.spring.dao.ExamDao;
 import com.spring.dao.StudentDao;
+import com.spring.extras.GradeGenerator;
 import com.spring.model.ExamModel;
 import com.spring.model.ExamSummaryReportModel;
+import com.spring.model.GradeModel;
 import com.spring.model.StudentModel;
 import com.spring.model.Subjects;
 
@@ -152,6 +154,51 @@ public class ExamController {
 
 		return "exam/report";
 	}
+	
+	@RequestMapping(value = "/grade", method = RequestMethod.POST)
+	public String grade(Model model) {
+		
+		List<GradeModel> reportlist = examDao.StudentMarksReport();
+		
+		model.addAttribute("reportlist", reportlist);
+		GradeGenerator g=new GradeGenerator();
+		
+		for(int i=0;i<reportlist.size();i++)
+		{
+			String studentid=reportlist.get(i).getStudentid();
+			String subjectid=reportlist.get(i).getSubjectid();
+			
+			String passmarks=reportlist.get(i).getPassmarks();
+			String fullmarks=reportlist.get(i).getFullmarks();
+			String passmarks_pr=reportlist.get(i).getPassmarks_pr();
+			String fullmarks_pr=reportlist.get(i).getFullmarks_pr();
+			String prmarks=reportlist.get(i).getPrmarks();
+			String thmarks=reportlist.get(i).getThmarks();
+			
+			double dpassmarks=Double.parseDouble(passmarks);
+			double dfullmarks=Double.parseDouble(fullmarks);
+			double dpassmarks_pr=Double.parseDouble(passmarks_pr);
+			double dfullmarks_pr=Double.parseDouble(fullmarks_pr);
+			double dprmarks=Double.parseDouble(prmarks);
+			double dthmarks=Double.parseDouble(thmarks);
+			
+			String grade=g.grade(dfullmarks, dfullmarks_pr, dprmarks, dthmarks);
+			System.out.println(studentid+"="+grade);
+			examDao.updateGrade(studentid,subjectid,grade);
+		}
+
+		return "exam/report";
+	}
+
+/*	@RequestMapping(value = "/grade", method = RequestMethod.POST)
+	public String updateGrade() {
+
+		GradeModel reportlist = examDao.updateGrade();
+		
+		
+
+		return "exam/report";
+	}*/
 
 	@RequestMapping(value = "/getClassStudents", method = RequestMethod.POST)
 	public String getClassStudents(Model model, @RequestParam("subjectcode") String subjectcode,

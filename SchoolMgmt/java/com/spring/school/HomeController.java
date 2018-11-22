@@ -1,14 +1,9 @@
 package com.spring.school;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -25,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.aspect.DemoAspect;
 import com.spring.dao.OperationDao;
 import com.spring.dao.UserDao;
+import com.spring.extras.GradeGenerator;
 import com.spring.model.UserModel;
 
 /**
@@ -58,6 +54,9 @@ public class HomeController {
 			List<UserModel> systemdetail = operationDao.getSystemDetails();
 			model.put("userDetail", userDetail);
 			model.put("systemdetail", systemdetail);
+			GradeGenerator g=new GradeGenerator();
+			String grade=g.grade(50, 27,10,10);
+			System.out.println("Grade is" +grade);
 			return "profile";
 		} else {
 			attributes.addFlashAttribute("msg","Invalid Login Credentials!");

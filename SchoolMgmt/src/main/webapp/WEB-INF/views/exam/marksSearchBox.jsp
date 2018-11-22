@@ -2,7 +2,7 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <spring:url value="/student/studentName" var="studentNameUrl"/>
-<spring:url value="/exam/searchMarksReport" var="formUrl"/>
+<spring:url value="/exam/grade" var="formUrl"/>
 <jsp:include page="../include.jsp"></jsp:include>
 <html>
 <body class="background">
@@ -69,7 +69,7 @@
 								<h6>
 									<strong>Section</strong>
 								</h6>
-								<select class="form-control" name="sectionid" id="section" required>
+								<select class="form-control" name="sectionid" id="section">
 									<option value="">Select Section</option>
 									<c:forEach items="${section }" var="sec">
 									<option value="${sec.sectionname }">${sec.sectionname}</option>

@@ -16,6 +16,7 @@ import com.spring.dao.OperationDao;
 import com.spring.model.ExamModel;
 import com.spring.model.ExamSummaryReportModel;
 import com.spring.model.ExamTypeModel;
+import com.spring.model.GradeModel;
 import com.spring.model.StudentModel;
 import com.spring.model.Subjects;
 
@@ -316,6 +317,56 @@ public class ExamDaoImpl implements ExamDao {
 		}
 		return status;
 	}
+
+	@Override
+	public List<GradeModel> StudentMarksReport() {
+		String query = "select exam_marks_tbl.*, subjectlist.subjectname, subjectlist.subjecttype, subjectlist.subjectCode from exam_marks_tbl left join subjectlist on exam_marks_tbl.subjectid=subjectlist.subjectCode ";
+		return jdbcTemplate.query(query, new GradeMapper());
+		
+		
+			}
+	public static final class GradeMapper implements RowMapper<GradeModel> {
+
+		@Override
+		public GradeModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+			
+			GradeModel s=new GradeModel();
+			s.setPrmarks(rs.getString("prmarks"));
+			s.setThmarks(rs.getString("thmarks"));
+			s.setTotalmarks(rs.getString("totalmarks"));
+			s.setTotalgrade(rs.getString("totalgrade"));
+			
+			s.setFullmarks(rs.getString("fullmarks"));
+			s.setPassmarks(rs.getString("passmarks"));
+			s.setFullmarks_pr(rs.getString("fullmarks_pr"));
+			s.setPassmarks_pr(rs.getString("passmarks_pr"));
+			s.setStudentid(rs.getString("studentid"));
+			s.setSubjectid(rs.getString("subjectid"));
+			return s;
+		}
+
+		
+		}
+
+	@Override
+	public boolean updateGrade(String studentid, String subjectid, String grade) {
+
+		boolean status=false;
+		String query="update exam_marks_tbl set totalgrade='"+grade+"' where studentid='"+studentid+"' and subjectid='"+subjectid+"'";
+		int result=jdbcTemplate.update(query);
+		if(result>0)
+		{
+			status=true;
+		}
+		
+		return status;
+	}
+		
+	
+
+	
+
+	
 
 	
 }
