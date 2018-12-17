@@ -1,9 +1,17 @@
 package com.spring.school;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,12 +34,21 @@ import com.spring.model.GradeModel;
 import com.spring.model.StudentModel;
 import com.spring.model.Subjects;
 
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRPrintPage;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+
 @Controller
 @RequestMapping("/exam")
 public class ExamController {
 	@Autowired
 	ExamDao examDao;
-
+@Autowired
+ DataSource dataSource;
 	@Autowired
 	StudentDao studentDao;
 	
@@ -141,6 +158,7 @@ public class ExamController {
 		model.addAttribute("examSummary", examSummary);
 		
 		
+		
 	String startdate = examDao.editExam(examid).getStartdate();
 	String examtype=examDao.editExam(examid).getExamname();
 	if(startdate!=null){
@@ -155,6 +173,63 @@ public class ExamController {
 		return "exam/report";
 	}
 	
+	
+	@RequestMapping(value = "/jasper", method = RequestMethod.POST)
+	  @ResponseBody
+	  public void getRpt1(HttpServletResponse response,@RequestParam Map<String, String> reqParam) throws JRException, IOException {
+	    JasperReport jasperReport=JasperCompileManager.compileReport("D:\\DigiNepal\\schoolSpring\\SchoolMgmt\\reports\\examReports.jrxml");
+	   // JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examReports.jrxml");
+	    Map<String ,Object> param2=new HashMap<String,Object>();
+	    String classname = reqParam.get("classid");
+		String section = reqParam.get("sectionid");
+		String examid = reqParam.get("examid");
+		try {
+			Connection conn=null;
+		
+		List<ExamModel> studentids=examDao.getBulkReport(classname,section,examid);
+		System.out.println(studentids);
+	  
+	    JasperPrint jasperPrint,jasper;
+		
+			jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource.getConnection());
+			
+			//jasper= JasperFillManager.fillReport(jasperReport, param2, dataSource.getConnection());
+		
+			
+			param2.put("examid", examid);
+			
+			for(int i=0;i<studentids.size();i++) {
+				 conn = dataSource.getConnection();
+				System.out.println(studentids.get(i).getStudentid());
+				param2.put("studentid", studentids.get(i).getStudentid());
+			  
+			    jasper= JasperFillManager.fillReport(jasperReport, param2, conn);
+			
+			    List pages=jasper.getPages();
+				JRPrintPage object=(JRPrintPage) pages.get(0);
+				jasperPrint.addPage(object);
+				conn.close();
+			}
+		
+			/*List pages=jasper.getPages();
+			JRPrintPage object=(JRPrintPage) pages.get(0);
+			jasperPrint.addPage(object);	*/		
+
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=Report.pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+	  
+	    //JasperExportManager.exportReportToHtmlFile(jasperPrint,outputLocation +reportCode+".html");
+	 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	  }
+	
+	
 	@RequestMapping(value = "/grade", method = RequestMethod.POST)
 	public String grade(Model model) {
 		
@@ -167,6 +242,8 @@ public class ExamController {
 		{
 			String studentid=reportlist.get(i).getStudentid();
 			String subjectid=reportlist.get(i).getSubjectid();
+			String subjecttype=reportlist.get(i).getSubjecttype();
+			System.out.println("Subject Type"+subjecttype);
 			
 			String passmarks=reportlist.get(i).getPassmarks();
 			String fullmarks=reportlist.get(i).getFullmarks();
@@ -184,21 +261,88 @@ public class ExamController {
 			
 			String grade=g.grade(dfullmarks, dfullmarks_pr, dprmarks, dthmarks);
 			System.out.println(studentid+"="+grade);
-			examDao.updateGrade(studentid,subjectid,grade);
+			
+			
+				examDao.updateGrade(studentid,subjectid,grade);
+			
+			
 		}
 
 		return "exam/report";
 	}
 
-/*	@RequestMapping(value = "/grade", method = RequestMethod.POST)
-	public String updateGrade() {
+	@RequestMapping(value = "/resultCheck", method = RequestMethod.GET)
+	public String resultCheck(Model model) {
 
-		GradeModel reportlist = examDao.updateGrade();
 		
+		String examid="7";
+		
+		for(int j=618;j<=694;j++) {
+			
+		List<GradeModel> reportlist = examDao.resultCheck(j,examid);
+		GradeGenerator g=new GradeGenerator();
+		
+		model.addAttribute("reportlist", reportlist);
+		int count=0;
+		double totalThMarks=0;
+		double totalPrMarks=0;
+		double totalFullMarks=0;
+		double totalPracticalMarks=0;
+		for(int i=0;i<reportlist.size();i++)
+		{
+			String subjectid=reportlist.get(i).getSubjectid();
+			String subjecttype=reportlist.get(i).getSubjecttype();
+			
+			String passmarks=reportlist.get(i).getPassmarks();
+			String fullmarks=reportlist.get(i).getFullmarks();
+			String passmarks_pr=reportlist.get(i).getPassmarks_pr();
+			String fullmarks_pr=reportlist.get(i).getFullmarks_pr();
+			String prmarks=reportlist.get(i).getPrmarks();
+			String thmarks=reportlist.get(i).getThmarks();
+			
+			double dpassmarks=Double.parseDouble(passmarks);
+			double dfullmarks=Double.parseDouble(fullmarks);
+			double dpassmarks_pr=Double.parseDouble(passmarks_pr);
+			double dfullmarks_pr=Double.parseDouble(fullmarks_pr);
+			double dprmarks=Double.parseDouble(prmarks);
+			double dthmarks=Double.parseDouble(thmarks);
+			
+			if(subjecttype.equalsIgnoreCase("common"))
+			{
+			boolean res=g.isPassed(dpassmarks, dthmarks, dpassmarks_pr, dprmarks);
+			System.out.println("Common"+ res);
+			totalThMarks+=dthmarks;
+			totalPrMarks+=dprmarks;
+			totalFullMarks+=dfullmarks;
+			totalPracticalMarks+=dfullmarks_pr;
+				if(res)
+			{
+				count++;
+				System.out.println("Count is"+count);
+			}
+			}
+		}
+		
+		System.out.println(totalThMarks);
+		System.out.println(totalPrMarks);
+		System.out.println(totalFullMarks);
+		System.out.println(totalPracticalMarks);
+		if(count==reportlist.size()) {
+			examDao.studentResult(j,examid,"passed");
+			System.out.println("Student id :"+j);
+			System.out.println("passed");
+		}
+		else {
+			examDao.studentResult(j, examid, "failed");
+			System.out.println("Student id :"+j);
+			System.out.println("failed");
+		}
+
+		}
 		
 
 		return "exam/report";
-	}*/
+	}
 
 	@RequestMapping(value = "/getClassStudents", method = RequestMethod.POST)
 	public String getClassStudents(Model model, @RequestParam("subjectcode") String subjectcode,

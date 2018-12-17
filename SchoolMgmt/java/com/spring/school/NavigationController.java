@@ -19,6 +19,7 @@ import com.spring.dao.CategoryDao;
 import com.spring.dao.DateConverterDao;
 import com.spring.dao.FeeDao;
 import com.spring.dao.OperationDao;
+import com.spring.dao.PaymentVoucherDao;
 import com.spring.dao.RoleDao;
 import com.spring.dao.StaffDao;
 import com.spring.dao.StudentDao;
@@ -52,6 +53,9 @@ public class NavigationController {
 	
 	@Autowired
 	private FeeDao feeDao;
+	
+	@Autowired
+	private PaymentVoucherDao paymentVoucherDao;
 	
 	
 @ModelAttribute
@@ -261,6 +265,20 @@ private void commonModels(Model model){
 		model.addAttribute("feeDetails",feeDao.getFeeDetails());
 		model.addAttribute("fm",fm);
 		return "settings/feeSetting";
+	}
+	
+	@RequestMapping(value="/bulkReportSearch")
+	public String bulkReportSearch(Model model)
+	{
+		model.addAttribute("examlist",operationDao.getExamList());
+		return "exam/bulkReport";
+	}
+	
+	@RequestMapping(value="/viewPaymentVoucher")
+	public String viewPaymentVoucher(Model model) {
+		model.addAttribute("txn",paymentVoucherDao.findAll());
+		return "generalTransaction/fundsTransfer/paymentVoucher/view";
+				
 	}
 	
 }

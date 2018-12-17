@@ -2,7 +2,7 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <spring:url value="/student/studentName" var="studentNameUrl"/>
-<spring:url value="/exam/searchMarksReport" var="formUrl"/>
+<spring:url value="/exam/jasper" var="formUrl"/>
 <jsp:include page="../include.jsp"></jsp:include>
 <html>
 <body class="background">
@@ -37,10 +37,10 @@
 						</div>
 					</div><br>
 					<div class="ln_solid"></div>
-					<div class="col-md-3">
+					<!-- <div class="col-md-3">
 								<input type="text" class="form-control" id="studentname"
 									placeholder="Std. Name" readonly> <br>
-							</div>
+							</div> -->
 						<div class="col-md-12">
 						<div class="col-md-3">
 								<h6>
@@ -76,14 +76,7 @@
 									</c:forEach>
 								</select>
 							</div>
-							<div class="col-md-3">
-								<h6>
-									<strong>Roll No</strong>
-								</h6>
-								<input type="text" class="form-control" name="rollno" id="rollno"
-									placeholder="" pattern="[0-9]+" required>
-									<br>
-							</div>
+						
 						</div>
 					</div>
 					<div id="markstable"></div>
@@ -96,7 +89,7 @@
 	$('form').submit(function() {
 		return confirm("CONFIRM?");
 	});
-	 $("#validate").click(function() {
+	 /* $("#validate").click(function() {
 			var classname = $("#class").val();
 			var section = $("#section").val();
 			var rollno = $("#rollno").val();
@@ -110,7 +103,7 @@
 					$("#studentname").val(html);
 				}
 			});
-		});
+		}); */
 	</script>
 
 </body>

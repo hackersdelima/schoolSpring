@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include.jsp"></jsp:include>
+<c:forEach items="${reportlist }">
 <html>
 <head>
 
@@ -57,7 +58,7 @@ page[size="A4"] {
 					src="//124.41.193.91/images/araniko/Logo.jpg"
 					style="width: 150px; height: 150px" />
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-8">
 				<table class="table">
 					<tr>
 						<td><h1>${sessionScope.systemdetail[0].settingsdescription }</h1></td>
@@ -65,12 +66,12 @@ page[size="A4"] {
 					<tr>
 						<td>
 							<h4>${sessionScope.systemdetail[2].settingsdescription }
-								(${sessionScope.systemdetail[3].settingsdescription })</h4>
+								</h4>
 						</td>
 					</tr>
 					<tr>
 						<td><h4>
-								<strong>${examname }(${sessionScope.systemdetail[5].settingsdescription })</strong>
+								${examtype }
 							</h4></td>
 					</tr>
 				</table>
@@ -87,9 +88,9 @@ page[size="A4"] {
 				<tr>
 					<td>Roll No: <strong>${stdDetail.rollno }</strong> 
 
-						<td>Exam Date: <strong>${examdate }</strong>
+						<td>Exam Date: <strong>${examSummary.startdate }</strong>
 						</td>
-						<td>Exam: <strong>${examtype }</strong></td>
+						
 					</tr>
 				</tbody>
 			</table>
@@ -122,6 +123,7 @@ page[size="A4"] {
 
 						<th>Marks</th>
 						<th>Grade</th>
+						
 					</tr>
 				</thead>
 				<tbody>
@@ -170,9 +172,15 @@ page[size="A4"] {
 			<div>
 			<br>
 			<br>
-			  <h2><strong>Remarks: ................................................................................</strong></h2>
+			  <h2><strong>..........................</strong></h2>
+			  <h2>Head of Faculty</h2>
 			  </div>
-			 
+			  <div class="pull-right">
+			
+			
+			  <h2 ><strong>..........................</strong></h2>
+			  <h2 >  &nbsp&nbsp&nbsp&nbsp&nbspPrincipal</h2>
+			  </div>
 			 
 			
 			
@@ -194,3 +202,4 @@ page[size="A4"] {
 
 </body>
 </html>
+</c:forEach>

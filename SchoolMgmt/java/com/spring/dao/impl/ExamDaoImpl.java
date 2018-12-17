@@ -234,6 +234,8 @@ public class ExamDaoImpl implements ExamDao {
 			String percentage=new DecimalFormat("##.##").format(per);
 			esm.setPercentage(percentage);
 			esm.setCurdate(rs.getString("curdate"));
+			esm.setStartdate(rs.getString("startdate"));
+			
 			
 			return esm;
 		}
@@ -277,6 +279,7 @@ public class ExamDaoImpl implements ExamDao {
 			em.setExamname(rs.getString("examname"));
 			em.setStartdate(rs.getString("startdate"));
 			em.setExamid(rs.getString("examid"));
+		
 			return em;
 		}
 		
@@ -342,6 +345,7 @@ public class ExamDaoImpl implements ExamDao {
 			s.setPassmarks_pr(rs.getString("passmarks_pr"));
 			s.setStudentid(rs.getString("studentid"));
 			s.setSubjectid(rs.getString("subjectid"));
+			s.setSubjecttype(rs.getString("subjecttype"));
 			return s;
 		}
 
@@ -361,6 +365,56 @@ public class ExamDaoImpl implements ExamDao {
 		
 		return status;
 	}
+
+	@Override
+	public List<GradeModel> resultCheck(int studentid, String examid) {
+		String query = "select exam_marks_tbl.*, subjectlist.subjectname, subjectlist.subjecttype, subjectlist.subjectCode from exam_marks_tbl left join subjectlist on exam_marks_tbl.subjectid=subjectlist.subjectCode "
+				+ "where studentid='"+studentid+"' and examid='"+examid+"'";
+		return jdbcTemplate.query(query, new GradeMapper());
+	}
+
+	@Override
+	public void studentResult(int studentid, String examid, String res) {
+		String sql = "INSERT INTO exam_result(Grade,examid,studentid)  VALUES ('"+res+"','"+examid+"','"+studentid+"')";
+		
+		jdbcTemplate.update(sql);
+		
+	}
+
+	@Override
+	public String getGrades(String studentid) {
+		String query="select Grade from exam_result where studentid='"+studentid+"'";
+		System.out.println(query);
+		return jdbcTemplate.queryForObject(query, String.class);
+	}
+
+	@Override
+	public List<ExamModel> getBulkReport(String classname, String section, String examid) {
+		String query="";
+		if(section.isEmpty()) {
+		 query="select studentid from exam_marks_tbl join studentinfo using (studentid) where studentinfo.admissionclass='"+classname+"' and examid='"+examid+"'";
+		}
+		else {
+			 query="select studentid from exam_marks_tbl join studentinfo using (studentid) where studentinfo.admissionclass='"+classname+"' and examid='"+examid+"' and section='"+section+"'";
+		}
+		
+		return jdbcTemplate.query(query, new StudentidMapper());
+		
+			
+		
+	}
+	
+	public static final class StudentidMapper implements RowMapper<ExamModel> {
+
+		@Override
+		public ExamModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+			ExamModel s=new ExamModel();
+			s.setStudentid(rs.getString("studentid"));
+			
+			return s;
+		}
+		}
+	
 		
 	
 

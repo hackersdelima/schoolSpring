@@ -29,6 +29,10 @@ public interface ExamDao {
 	public boolean deleteExam(String examId);
 	public List<GradeModel> StudentMarksReport();
 	public boolean updateGrade(String studentid, String subjectid, String grade);
+	public List<GradeModel> resultCheck(int studentid, String examid);
+	public void studentResult(int studentid, String examid, String string);
+	public String getGrades(String studentid);
+	public List<ExamModel> getBulkReport(String classname, String section, String examid);
 	
 
 

@@ -1,7 +1,15 @@
 package com.spring.model;
 
 public class ExamSummaryReportModel {
-	private String studentid, examid, total_obtained, total, percentage, examname, startdate, examtypename, curdate;
+	private String studentid, examid, total_obtained, total, percentage, examname, startdate, examtypename, curdate,result;
+
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
 
 	public String getStudentid() {
 		return studentid;

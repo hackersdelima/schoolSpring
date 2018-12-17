@@ -34,4 +34,13 @@ public class GradeGenerator {
 	        }
 	        return grade;
 	    }
+	 
+	 public boolean isPassed(double passmarks,double thmarks, double passmarks_pr,double prmarks)
+	 {
+		 if(passmarks<=thmarks && prmarks>=passmarks_pr)
+		 {
+			 return true;
+		 }
+		 return false;
+	 }
 }

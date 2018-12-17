@@ -1,7 +1,15 @@
 package com.spring.model;
 
 public class GradeModel {
-	private String prmarks,thmarks,totalmarks,totalgrade,studentid,subjectid,examid,fullmarks,passmarks,fullmarks_pr,passmarks_pr;
+	private String prmarks,thmarks,totalmarks,totalgrade,studentid,subjecttype,subjectid,examid,fullmarks,passmarks,fullmarks_pr,passmarks_pr;
+
+	public String getSubjecttype() {
+		return subjecttype;
+	}
+
+	public void setSubjecttype(String subjecttype) {
+		this.subjecttype = subjecttype;
+	}
 
 	public String getPrmarks() {
 		return prmarks;
