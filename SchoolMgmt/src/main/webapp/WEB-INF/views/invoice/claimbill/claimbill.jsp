@@ -33,8 +33,22 @@
 <body class="background">
 	<form action="${formUrl }" method="post">
 		<div class="row">
+		<div id="notices" class="x_panel">
+					<div class="form-group" class="x_title">
+						<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3 x_content">
 
-			<div class="col-md-12">
+							<button class="btn btn-info" type="button" id="validate">Validate</button>
+							<a class="btn btn-danger" id="cancel"
+								href="<spring:url value="/invoice/cancel" />">Cancel</a> <input
+								type="submit" class="btn btn-success" value="Submit">
+
+						</div>
+					</div>
+
+					<div class="notice"></div>
+				</div><br>
+
+			<div class="col-md-12 x_panel">
 				<header class="clearfix">
 
 					<div id="logo"></div>
@@ -231,20 +245,7 @@
 					</tfoot>
 				</table>
 
-				<div id="notices">
-					<div class="form-group">
-						<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-
-							<button class="btn btn-info" type="button" id="validate">Validate</button>
-							<a class="btn btn-danger" id="cancel"
-								href="<spring:url value="/invoice/cancel" />">Cancel</a> <input
-								type="submit" class="btn btn-success" value="Submit">
-
-						</div>
-					</div>
-
-					<div class="notice"></div>
-				</div>
+				
 
 				</main>
 			</div>

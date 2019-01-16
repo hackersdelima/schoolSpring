@@ -46,10 +46,10 @@ public class ClaimBillController {
 	
 	@RequestMapping(value="/add/{id}")
 	public String viewClaimBill(Model model, @PathVariable String id)
-	{
+	{	
 		model.addAttribute("s",studentDao.getStudentDetail(Integer.parseInt(id)));
 		model.addAttribute("details",claimBillDao.getAllDetails(id));
-		model.addAttribute("categorylist",categoryDao.getCategories());
+		
 		return "invoice/claimbill/claimbill";
 	}
 

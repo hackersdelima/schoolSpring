@@ -1,12 +1,10 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<spring:url value="/student/studentName" var="studentNameUrl"/>
 <spring:url value="/exam/searchMarksReport" var="formUrl"/>
 <jsp:include page="../include.jsp"></jsp:include>
 <html>
 <body class="background">
-<input type="hidden" value="${studentNameUrl }" id="url">
 	<div class="breadcrumb-line">
 		<nav aria-label="breadcrumb" role="navigation">
 			<ol class="breadcrumb">
@@ -37,10 +35,6 @@
 						</div>
 					</div><br>
 					<div class="ln_solid"></div>
-					<div class="col-md-3">
-								<input type="text" class="form-control" id="studentname"
-									placeholder="Std. Name" readonly> <br>
-							</div>
 						<div class="col-md-12">
 						<div class="col-md-3">
 								<h6>
@@ -92,26 +86,6 @@
 		</div>
 	</div>
 	
-	<script type="text/javascript">
-	$('form').submit(function() {
-		return confirm("CONFIRM?");
-	});
-	 $("#validate").click(function() {
-			var classname = $("#class").val();
-			var section = $("#section").val();
-			var rollno = $("#rollno").val();
-			var url=$("#url").val();
-			$.ajax({
-				type : "POST",
-				url : url,
-				data : {"classname": classname, "section": section, "rollno":rollno},
-				cache : false,
-				success : function(html) {
-					$("#studentname").val(html);
-				}
-			});
-		});
-	</script>
 
 </body>
 </html>

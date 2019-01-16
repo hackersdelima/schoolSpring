@@ -30,7 +30,7 @@ private JdbcTemplate jdbcTemplate;
 	 }
 	 
 	 public int insert(AccountTypeModel accountTypeModel){
-		 String sql = "insert into accounttype(accountType, accountTypeHead, drcr, inputter)values('"+accountTypeModel.getAccountType()+"','"+accountTypeModel.getAccountTypeHead()+"','"+accountTypeModel.getDrcr()+"','"+accountTypeModel.getInputter()+"')";
+		 String sql = "insert into accounttype(accountType, accountTypeHead, inputter)values('"+accountTypeModel.getAccountType()+"','"+accountTypeModel.getAccountTypeHead()+"','"+accountTypeModel.getInputter()+"')";
 		 return jdbcTemplate.update(sql);
 	 }
 	 
@@ -54,7 +54,7 @@ private JdbcTemplate jdbcTemplate;
 				AccountTypeModel am=new AccountTypeModel();
 				am.setAccountType(rs.getString("accountType"));
 				am.setAccountTypeHead(rs.getString("accountTypeHead"));
-				am.setDrcr(rs.getString("drcr"));
+				
 				
 				return am;
 			}

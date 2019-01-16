@@ -153,9 +153,7 @@ aranikodb.exam_marks_tbl.examid=aranikodb.exam.examid
 	<variable name="percentage" class="java.lang.Double">
 		<variableExpression><![CDATA[($V{totalmarks1}/$V{totalFullMarks})*100]]></variableExpression>
 	</variable>
-	<variable name="Result" class="java.lang.String">
-		<variableExpression><![CDATA[IF($F{totalmarks}>32,"passed","failed")]]></variableExpression>
-	</variable>
+	<variable name="Result" class="java.lang.String"/>
 	<group name="Group1">
 		<groupHeader>
 			<band height="9"/>
@@ -189,24 +187,6 @@ aranikodb.exam_marks_tbl.examid=aranikodb.exam.examid
 						<font fontName="SansSerif"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{totalFullMarks}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="82" y="30" width="100" height="30" uuid="8f88bb3e-8be7-4cb4-9137-36fbecc892e2"/>
-					<textElement>
-						<font size="12"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{percentage}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="2" y="30" width="80" height="30" uuid="50696c9d-380d-425f-85a3-0d0844e2e69f"/>
-					<textElement>
-						<font size="12"/>
-					</textElement>
-					<text><![CDATA[Percentage]]></text>
-				</staticText>
-				<textField>
-					<reportElement x="198" y="30" width="100" height="30" uuid="2f6d44de-b019-47c3-8928-c74c1965a56b"/>
-					<textFieldExpression><![CDATA[$V{Result}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -489,14 +469,6 @@ aranikodb.exam_marks_tbl.examid=aranikodb.exam.examid
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 				</line>
-				<textField>
-					<reportElement x="481" y="0" width="73" height="15" uuid="e1c8feac-3495-4b65-889d-ba59f63f6c15"/>
-					<textElement>
-						<font fontName="SansSerif"/>
-					</textElement>
-					<textFieldExpression><![CDATA[IF($F{thmarks} >$F{passmarks},"","*")]]></textFieldExpression>
-					<patternExpression><![CDATA[IF(AND($F{thmarks} >=$F{passmarks},$F{prmarks} >=$F{passmarks_pr}),"","*"  )]]></patternExpression>
-				</textField>
 			</frame>
 		</band>
 	</detail>

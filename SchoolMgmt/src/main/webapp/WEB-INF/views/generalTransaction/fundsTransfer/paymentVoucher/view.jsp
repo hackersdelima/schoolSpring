@@ -61,7 +61,8 @@
 							<td class="transactionid">${t.transactionId }</td>
 							<td>${t.valueDate }</td>
 							<td>${t.bookingDate }</td>
-							<td><a class="view">View</a></td>
+							
+							<td><a href="<spring:url value="/paymentVoucher/view/${t.payment_voucher_id }"/>">View</a></td>
 						</tr>
 						</c:forEach>
 					</tbody>

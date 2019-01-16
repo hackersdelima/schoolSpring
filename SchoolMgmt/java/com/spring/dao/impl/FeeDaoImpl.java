@@ -9,24 +9,31 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.spring.dao.FeeDao;
 import com.spring.model.FeeModel;
+import com.spring.model.FeeStructureModel;
 
 @Repository
 public class FeeDaoImpl implements FeeDao {
 	
+
+	
 	private JdbcTemplate jdbcTemplate;
+
+	private NamedParameterJdbcTemplate template;
 
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
 	@Autowired
-	private void setDataSource(DataSource dataSource) {
+	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
-
+		this.template = new NamedParameterJdbcTemplate(dataSource);
 	}
 
 	@Override
@@ -57,6 +64,44 @@ public class FeeDaoImpl implements FeeDao {
 		String query="select * from feerate where feecode='"+feecode+"'";
 		return jdbcTemplate.queryForObject(query, new FeeMapper());
 	}
+
+	@Override
+	public boolean addFeeHead(String catId, String catHead) {
+		try {
+		String sql="insert into feeheadtbl(categoryId,categoryHead) values('"+catId+"','"+catHead+"')";
+		int result=jdbcTemplate.update(sql);
+		if(result>0)
+		{
+			return true;
+		}
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean addFeeStructure(FeeStructureModel fm) {
+		boolean status=false;
+		String sql="insert into feestructuretbl(studentid,categoryid,amount,frequency,discountamount,discountpercent,note,startmonth,generateduptomonth,paymenttype) values('"+fm.getStudentid()+"','"+fm.getCategoryid()+"','"+fm.getAmount()+"','"+fm.getFrequency()+"','"+fm.getDiscountamount()+"','"+fm.getDiscountrate()+"','"+fm.getNote()+"','"+fm.getStartmonth()+"','"+fm.getStartmonth()+"','"+fm.getPaymenttype()+"')";
+		int result= jdbcTemplate.update(sql);
+		if(result>0) {
+			status=true;
+		}
+		return status;
+		
+	}
+
+	@Override
+	public String getFeeAmount(String id, String catId) {
+
+		String sql="SELECT feerate.frate from feerate join studentinfo on feerate.sclass=studentinfo.admissionclass WHERE feerate.categoryId='"+catId+"' and studentinfo.studentid='"+id+"'"; 
+				
+		return jdbcTemplate.queryForObject(sql, String.class);
+	}
+	
 	
 	
 }

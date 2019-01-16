@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <jsp:include page="../include.jsp"></jsp:include>
-<spring:url value="/account/add" var="formUrl"></spring:url>
+<spring:url value="/account/createBulkAccounts" var="formUrl"></spring:url>
 <html>
 <head>
 <style>
@@ -63,7 +63,7 @@ h5 {
 							<span id="customername"></span>
 						</div>
 					</div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label class="control-label col-md-2 col-sm-2 col-xs-12">Account 
 							No</label>
 						<div class="col-md-4 col-sm-4 col-xs-12">
@@ -72,8 +72,8 @@ h5 {
 									value="" data-validation="number"
 									data-validation-error-msg=" " required readonly>
 						</div>
-					</div>
-					<div class="form-group" id="cashWithdraw">
+					</div> -->
+					<!-- <div class="form-group" id="cashWithdraw">
 						<label class="control-label col-md-2 col-sm-2 col-xs-12">Alternate
 							Account No</label>
 						<div class="col-md-4 col-sm-4 col-xs-12">
@@ -84,15 +84,15 @@ h5 {
 						<div class="col-md-6 col-sm-6 col-xs-12 ">
 							<span class="accountName"></span>
 						</div>
-					</div>
-					<div class="form-group" id="cashDeposit">
+					</div> -->
+					<%-- <div class="form-group" id="cashDeposit">
 						<label class="control-label col-md-2 col-sm-2 col-xs-12">
 							Category</label>
 						<div class="col-md-4 col-sm-4 col-xs-12">
 							<select class="form-control categoryId" name="categoryModel.categoryId" id="categories">
 										<option value="">Select Category</option>
 										<c:forEach items="${categorylist }" var="c">
-											<option value="${c.categoryId }">${c.categoryHead }</option>
+											<option value="${c.categoryId }">${c.categoryId }-${c.categoryHead }</option>
 										</c:forEach>
 								</select>
 
@@ -100,24 +100,27 @@ h5 {
 						<div class="col-md-6 col-sm-6 col-xs-12 ">
 							<span class="accountName"></span>
 						</div>
-					</div>
-					<div class="form-group">
+					</div> --%>
+					<%-- <div class="form-group">
 						<label class="control-label col-md-2 col-sm-2 col-xs-12">
 							Account Type</label>
 						<div class="col-md-4 col-sm-4 col-xs-12">
 							<select class="form-control"
 									name="accountTypeModel.accountType" id="accounttype">
-										<option value="">Select Account Type</option>
+									<option>Select Account Type</option>
+										<c:forEach items="${accounttypelist }" var="a">
+										<option value="${a.accountType}">${a.accountType }-${a.accountTypeHead }</option>
+										</c:forEach>
 								</select>
 
 						</div>
-					</div>
+					</div> --%>
 					<div class="form-group">
 						<label class="control-label col-md-2 col-sm-2 col-xs-12">Account Name
 						</label>
 						<div class="col-md-5 col-sm-5 col-xs-12">
 							<input type="text"
-									class="form-control memberid" name="accountName" id="accountname" value="">
+									class="form-control memberid" name="accountName" id="accountname" value="" readonly>
 						</div>
 					</div>
 				</div>
@@ -130,7 +133,7 @@ h5 {
 <script>
  $("#validate").click(function()
 		{
-	 	accountno();
+	 	//accountno();
 		membername();
 		
 		}); 
@@ -152,7 +155,8 @@ h5 {
  };
  function accountno(){
 	 var id=$('.memberid').val();
-		var dataString = 'id='+ id;
+	 var catId=$('.categoryId').val();
+	 var dataString = {'id': id, 'categoryId': catId };
 	 $.ajax
 		({
 		type: "POST",

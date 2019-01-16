@@ -13,7 +13,9 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.spring.dao.PaymentVoucherDao;
 import com.spring.model.PaymentVoucherAccount;
+import com.spring.model.PaymentVoucherAccountSingle;
 import com.spring.model.PaymentVoucherModel;
+import com.spring.model.StatementModel;
 
 public class PaymentVoucherDaoImpl implements PaymentVoucherDao {
 private JdbcTemplate jdbcTemplate;
@@ -42,7 +44,7 @@ private JdbcTemplate jdbcTemplate;
 	
 	public int addPaymentVoucherAccount(int i,int maxId, PaymentVoucherModel p)
 	{
-		String query="insert into payment_voucher_account(payment_voucher_id,accountNo,drcr,amount,narration,chequeNo) values('"+maxId+"','"+p.getPaymentVoucherAccount().getAccountNo().get(i)+"','"+p.getPaymentVoucherAccount().getDrcr().get(i)+"','"+p.getPaymentVoucherAccount().getAmount().get(i)+"','"+p.getPaymentVoucherAccount().getNarration().get(i)+"','"+p.getPaymentVoucherAccount().getChequeNo().get(i)+"')";
+		String query="insert into payment_voucher_account(payment_voucher_id,accountNo,drcr,amount,narration,chequeNo,curDateTime) values('"+maxId+"','"+p.getPaymentVoucherAccount().getAccountNo().get(i)+"','"+p.getPaymentVoucherAccount().getDrcr().get(i)+"','"+p.getPaymentVoucherAccount().getAmount().get(i)+"','"+p.getPaymentVoucherAccount().getNarration().get(i)+"','"+p.getPaymentVoucherAccount().getChequeNo().get(i)+"',NOW())";
 		return jdbcTemplate.update(query);
 	}
 
@@ -79,8 +81,58 @@ private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public PaymentVoucherModel getIndividualPayment(String id) {
-		String query="select * from payment_voucher where transactionId='"+id+"'";
+		String query="select * from payment_voucher where payment_voucher_id='"+id+"'";
 		return jdbcTemplate.queryForObject(query, new PaymentMapper());
 	}
 
+	@Override
+	public List<PaymentVoucherAccountSingle> getPayments(String id) {
+		String query="select payment_voucher_account.*,accountstbl.accountName from payment_voucher_account join accountstbl on accountstbl.accountNumber=payment_voucher_account.accountNo where payment_voucher_id='"+id+"'";
+		
+		return jdbcTemplate.query(query, new PaymentAccountMapper());
+	}
+	
+	public static final class PaymentAccountMapper implements RowMapper<PaymentVoucherAccountSingle>{
+
+		@Override
+		public PaymentVoucherAccountSingle mapRow(ResultSet rs, int rowNum) throws SQLException {
+			PaymentVoucherAccountSingle p=new PaymentVoucherAccountSingle();
+			p.setAccountName(rs.getString("accountName"));
+			p.setAccountNo(rs.getString("accountNo"));
+			p.setAmount(rs.getString("amount"));
+			p.setChequeNo(rs.getString("chequeNo"));
+			p.setDrcr(rs.getString("drcr"));
+			p.setNarration(rs.getString("narration"));
+			
+			return p;
+		}
+		
+	}
+
+	@Override
+	public List<StatementModel> viewStatements(String id) {
+
+		String query="select * from statementtbl where AccountNumber='"+id+"' order by autoId ";
+		return jdbcTemplate.query(query,new StatementMapper());
+	}
+
+	public static final class StatementMapper implements RowMapper<StatementModel>{
+
+		@Override
+		public StatementModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+			StatementModel s=new StatementModel();
+			s.setBalanceamount(rs.getString("balanceamount"));
+			s.setBookingDate(rs.getString("bookingDate"));
+			s.setCreditamount(rs.getString("creditamount"));
+			s.setDebitamount(rs.getString("debitamount"));
+			s.setValueDate(rs.getString("valueDate"));
+			s.setNarrative(rs.getString("narrative"));
+			/*s.setBookingDateen(rs.getString("bookingDateen"));
+			s.setValueDateen(rs.getString("valueDateen"));*/
+			
+			return s;
+		}
+		
+	}
 }

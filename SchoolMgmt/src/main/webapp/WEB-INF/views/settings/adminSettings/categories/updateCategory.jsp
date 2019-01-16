@@ -67,6 +67,24 @@ h5 {
 								</select>
 							</div>
 						</div>
+						
+						<div class="form-group">
+							<div class="col-md-9 col-sm-9 col-xs-12 ">
+								<h5>Taxable</h5> 
+									<select class="form-control" name="taxable">
+										
+										<option value="y" <c:if test="${categorydetail.taxable eq 'y' }">selected</c:if>>Yes</option>
+										<option value="n" <c:if test="${categorydetail.taxable eq 'n' }">selected</c:if>>No</option>
+									
+									
+										
+									</select>	
+								
+							</div>
+						</div>
+						
+						
+						
 
 					</div>
 				</form>

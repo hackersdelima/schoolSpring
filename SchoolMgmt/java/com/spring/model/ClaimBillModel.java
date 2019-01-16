@@ -5,6 +5,57 @@ import java.util.List;
 public class ClaimBillModel {
 	private String receivedby, claim_bill_id, fromDateEn, fromDateNep, toDateEn, toDateNep, invoiceNo, invoiceDateEn, invoiceDateNep, remarks, inwords;
 	private String accountNumber,taxable,admissionclass,frate;
+	private String frequency,startmonth,discountamount,paymenttype,pid,tamount,namount,generateduptpmonth;
+	
+	public String getGenerateduptpmonth() {
+		return generateduptpmonth;
+	}
+	public void setGenerateduptpmonth(String generateduptpmonth) {
+		this.generateduptpmonth = generateduptpmonth;
+	}
+	public String getTamount() {
+		return tamount;
+	}
+	public void setTamount(String tamount) {
+		this.tamount = tamount;
+	}
+
+	public String getNamount() {
+		return namount;
+	}
+	public void setNamount(String namount) {
+		this.namount = namount;
+	}
+	public String getPid() {
+		return pid;
+	}
+	public void setPid(String pid) {
+		this.pid = pid;
+	}
+	public String getPaymenttype() {
+		return paymenttype;
+	}
+	public void setPaymenttype(String paymenttype) {
+		this.paymenttype = paymenttype;
+	}
+	public String getFrequency() {
+		return frequency;
+	}
+	public void setFrequency(String frequency) {
+		this.frequency = frequency;
+	}
+	public String getStartmonth() {
+		return startmonth;
+	}
+	public void setStartmonth(String startmonth) {
+		this.startmonth = startmonth;
+	}
+	public String getDiscountamount() {
+		return discountamount;
+	}
+	public void setDiscountamount(String discountamount) {
+		this.discountamount = discountamount;
+	}
 	public String getAccountNumber() {
 		return accountNumber;
 	}
@@ -223,14 +274,17 @@ public class ClaimBillModel {
 		return "ClaimBillModel [receivedby=" + receivedby + ", claim_bill_id=" + claim_bill_id + ", fromDateEn="
 				+ fromDateEn + ", fromDateNep=" + fromDateNep + ", toDateEn=" + toDateEn + ", toDateNep=" + toDateNep
 				+ ", invoiceNo=" + invoiceNo + ", invoiceDateEn=" + invoiceDateEn + ", invoiceDateNep=" + invoiceDateNep
-				+ ", remarks=" + remarks + ", inwords=" + inwords + ", student=" + student + ", category=" + category
-				+ ", nontaxableamount=" + nontaxableamount + ", taxableamount=" + taxableamount + ", totalamount="
-				+ totalamount + ", nontaxable_totalfees=" + nontaxable_totalfees + ", taxable_totalfees="
-				+ taxable_totalfees + ", totalfees=" + totalfees + ", nontaxable_discount=" + nontaxable_discount
-				+ ", taxable_discount=" + taxable_discount + ", totaldiscount=" + totaldiscount + ", nontaxable_total="
-				+ nontaxable_total + ", taxable_total=" + taxable_total + ", total=" + total + ", tax_percentage="
-				+ tax_percentage + ", tax_amount=" + tax_amount + ", grand_total=" + grand_total
-				+ ", drcr_previous_balance=" + drcr_previous_balance + ", total_receivable=" + total_receivable + "]";
+				+ ", remarks=" + remarks + ", inwords=" + inwords + ", accountNumber=" + accountNumber + ", taxable="
+				+ taxable + ", admissionclass=" + admissionclass + ", frate=" + frate + ", frequency=" + frequency
+				+ ", startmonth=" + startmonth + ", discountamount=" + discountamount + ", paymenttype=" + paymenttype
+				+ ", student=" + student + ", category=" + category + ", nontaxableamount=" + nontaxableamount
+				+ ", taxableamount=" + taxableamount + ", totalamount=" + totalamount + ", nontaxable_totalfees="
+				+ nontaxable_totalfees + ", taxable_totalfees=" + taxable_totalfees + ", totalfees=" + totalfees
+				+ ", nontaxable_discount=" + nontaxable_discount + ", taxable_discount=" + taxable_discount
+				+ ", totaldiscount=" + totaldiscount + ", nontaxable_total=" + nontaxable_total + ", taxable_total="
+				+ taxable_total + ", total=" + total + ", tax_percentage=" + tax_percentage + ", tax_amount="
+				+ tax_amount + ", grand_total=" + grand_total + ", drcr_previous_balance=" + drcr_previous_balance
+				+ ", total_receivable=" + total_receivable + "]";
 	}
 	
 	

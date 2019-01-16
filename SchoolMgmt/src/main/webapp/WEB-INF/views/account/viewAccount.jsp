@@ -27,7 +27,7 @@ display:none;}
 		<div class="x_panel">
 			<div class="x_title">
 				<h2>
-					<B>MEMBER ACCOUNT DETAILS</B>
+					<B>MEMBER ACCOUNT DETAILS ${msg }</B>
 				</h2>
 
 				<a href="insertaccount.click" class="btn btn-info pull-right btn-sm"
@@ -47,8 +47,10 @@ display:none;}
 							<th>Account Number</th>
 							<th>Account Type</th>
 							<th>Account Name</th>
+							<th>Category</th>
 							<th>Balance</th>
 							<th>Action</th>
+							<th>Statements</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -58,11 +60,15 @@ display:none;}
 								<td>${list.accountNumber }</td>
 								<td>${list.accountTypeModel.accountType }</td>
 								<td>${list.accountName }</td>
-								<td></td>
+								<td>${list.categoryModel.categoryHead }</td>
+								<td>${list.workingBal }</td>
 								<td><a
 									href="<spring:url value="/account/edit/${list.accountNumber}" />">Edit</a>
 										<%-- <a href="account.del?id=${list.accountNumber }"
 									class="clickbtn btn btn-danger btn-xs">Remove</a> --%></td>
+									<td><a
+									href="<spring:url value="/nav/viewStatements/${list.accountNumber}" />">View Statements</a>
+										</td>
 							</tr>
 						</c:forEach>
 						

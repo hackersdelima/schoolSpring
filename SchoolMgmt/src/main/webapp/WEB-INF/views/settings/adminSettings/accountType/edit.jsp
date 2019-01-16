@@ -56,7 +56,7 @@ h5 {
 
 							</div>
 						</div>
-						<div class="form-group">
+					<%-- 	<div class="form-group">
 							<div class="col-md-9 col-sm-9 col-xs-12 ">
 								<h5>Dr/Cr</h5>
 								<select name="drcr" class="form-control" required>
@@ -64,7 +64,7 @@ h5 {
 									<option value="cr" <c:if test="${accountType.drcr eq 'cr' }">selected</c:if>>Cr.</option>
 								</select>
 							</div>
-						</div>
+						</div> --%>
 
 					</div>
 				</form>

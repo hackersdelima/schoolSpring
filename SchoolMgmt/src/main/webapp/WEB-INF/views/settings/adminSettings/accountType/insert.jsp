@@ -66,14 +66,14 @@ h5 {
 									<h5>Account Type Head</h5> <input type="text"
 									class="form-control " name="accountTypeHead" value="" required>
 								</td>
-								<td>
+								<!-- <td>
 									<h5>Dr./Cr.</h5> <select class="form-control" name="drcr"
 									required>
 										<option value="">Select Account Type</option>
 										<option value="dr">Dr.</option>
 										<option value="cr">Cr.</option>
 								</select>
-								</td>
+								</td> -->
 							</tr>
 
 						</tbody>
@@ -101,7 +101,7 @@ h5 {
 						<tr>
 							<th>Account Type</th>
 							<th>Account Type Head</th>
-							<th>Dr/Cr</th>
+							
 							<th>Action</th>
 						</tr>
 					</thead>
@@ -110,7 +110,7 @@ h5 {
 							<tr>
 								<td>${at.accountType }</td>
 								<td>${at.accountTypeHead }</td>
-								<td>${at.drcr }</td>
+								
 								<td><a
 									href="<spring:url value="/accountType/edit/${at.accountType}"/>">Edit</a></td>
 							</tr>

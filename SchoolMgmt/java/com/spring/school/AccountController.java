@@ -1,11 +1,13 @@
 package com.spring.school;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.dao.AccountDao;
 import com.spring.dao.CategoryDao;
@@ -21,6 +24,7 @@ import com.spring.dao.StaffDao;
 import com.spring.dao.StudentDao;
 import com.spring.model.AccountModel;
 import com.spring.model.AccountTypeModel;
+import com.spring.model.CategoryModel;
 import com.spring.model.StaffModel;
 import com.spring.model.StudentModel;
 import com.spring.model.UserModel;
@@ -46,6 +50,7 @@ public class AccountController {
 		accountModel.setInputter(userdetail.getUsername());
 		
 		System.out.println(accountModel);
+		try {
 		boolean status = accountDao.addAccount(accountModel);
 		if(status){
 			model.addAttribute("msg","Save Successful!");
@@ -53,8 +58,68 @@ public class AccountController {
 		else{
 			model.addAttribute("msg","Save Failed!");
 		}
+		}
+		catch(DuplicateKeyException e) {
+			System.out.println(e);
+			model.addAttribute("msg","Account Exist Already!");
+		}
+		
 		return "message/message";
 	}
+
+	@RequestMapping(value="/createBulkAccounts", method = RequestMethod.POST)
+	public String createBulkAccounts(Model model,@RequestParam("memberId") String id,HttpSession session) {
+		
+		UserModel userdetail =(UserModel)session.getAttribute("userDetail");
+		List<String> catList=accountDao.getFeeHeadCategories();
+		AccountModel am=new AccountModel();
+		CategoryModel cat=new CategoryModel();
+		AccountTypeModel accType=null;
+		
+		
+		StudentModel student=studentDao.getStudentDetail(Integer.parseInt(id));
+		
+		for(int i=0;i<catList.size();i++)
+		{
+			
+			try {
+				String accountNo=generateBulkAccNo(id,session);
+				 accType=accountDao.getAccountType(catList.get(i));
+				am.setAccountNumber(accountNo);
+				cat.setCategoryId(catList.get(i));
+				am.setCategoryModel(cat);
+				am.setInputter(userdetail.getUsername());
+				am.setMemberId(id);
+				am.setAlternativeAccountId("0000");
+				am.setAccountName(student.getStudentname());
+				
+				am.setAccountTypeModel(accType);
+				
+				
+				System.out.println("Account No" +i+accountNo);
+				try {
+					boolean status = accountDao.addAccount(am);
+					if(status){
+						model.addAttribute("msg","Save Successful!");
+					}
+					else{
+						model.addAttribute("msg","Save Failed!");
+					}
+					}
+					catch(DuplicateKeyException e) {
+						System.out.println(e);
+						model.addAttribute("msg","Account Exist Already!");
+					}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		model.addAttribute("accountList", accountDao.getBulkAccounts(id));
+		return "redirect:/nav/viewAccount";
+	}
+	
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String update(@ModelAttribute AccountModel accountModel, Model model){
@@ -111,20 +176,32 @@ public class AccountController {
 			} else {
 				generatedAccountNo = maxaccountno;
 
-				//String accountNo = StringUtils.right(maxaccountno, 3);// taking
+				/*String accountNo = StringUtils.right(maxaccountno, 3);// taking
 																		// last
 																		// three
 																		// digits
 																		// from
 																		// max
 																		// account
-					/*		System.out.println(maxaccountno);											// number+1
-				String accountNo=maxaccountno.substring(12, 15);
+							System.out.println(maxaccountno);*/	
+				
+				//for checking duplicate accounts
+				String primaryaccNo=maxaccountno.substring(0,12);
+				String accNo=maxaccountno.substring(13, 16);
+				int accounNo=Integer.parseInt(accNo);
+				accounNo=accounNo+1;
+				
+				String accountNo = String.format("%03d",accounNo);
+				System.out.println(accountNo+"ldkfj");
+		
+				
 				System.out.println(accountNo+"accojndsf");
 				// generated account number
+				
 				generatedAccountNo = companyid + branchId + strI
 						+ accountNo;
-*/
+				System.out.println(generatedAccountNo);
+
 			}
 		} else {
 			generatedAccountNo="Member ID not Found.";
@@ -133,6 +210,67 @@ public class AccountController {
 		
 		
 		response.getWriter().println(generatedAccountNo);
+	}
+	
+	@RequestMapping(value = "/generateBulkAccNo")
+	public String generateBulkAccNo(String memberid, HttpSession session) throws Exception{
+		
+		UserModel userdetail = (UserModel)session.getAttribute("userDetail");
+		String generatedAccountNo=null;
+		String branchId = userdetail.getBranch().getBranchId();
+		String companyid=userdetail.getBranch().getCompanyId();
+		boolean userExists=accountDao.checkIfUserExists(memberid);
+		
+		if (userExists) {
+			// setting memberid into 7 digits
+			String strI = String.format("%07d", Integer.parseInt(memberid));
+			System.out.println(strI+"strI");
+			// setting last account number
+			String maxaccountno = accountDao.acccountnogen(memberid);
+			System.out.println(maxaccountno+ "max account No");
+			if (maxaccountno == null) {// if member in accounts table not
+										// found
+				generatedAccountNo = companyid + branchId + strI + "001";// autogenerated
+				System.out.println("New Account No " + generatedAccountNo);
+				// the first
+				// number
+			} else {
+				generatedAccountNo = maxaccountno;
+
+				/*String accountNo = StringUtils.right(maxaccountno, 3);// taking
+																		// last
+																		// three
+																		// digits
+																		// from
+																		// max
+																		// account
+							System.out.println(maxaccountno);*/	
+				
+				//for checking duplicate accounts
+				String primaryaccNo=maxaccountno.substring(0,12);
+				String accNo=maxaccountno.substring(13, 16);
+				int accounNo=Integer.parseInt(accNo);
+				accounNo=accounNo+1;
+				
+				String accountNo = String.format("%03d",accounNo);
+				System.out.println(accountNo+"ldkfj");
+		
+				
+				System.out.println(accountNo+"accojndsf");
+				// generated account number
+				
+				generatedAccountNo = companyid + branchId + strI
+						+ accountNo;
+				System.out.println(generatedAccountNo);
+
+			}
+		} else {
+			generatedAccountNo="Member ID not Found.";
+		}
+		System.out.println(userExists +"member status");
+		
+		
+		return generatedAccountNo;
 	}
 	
 	@RequestMapping(value="/generateAccountName", method = RequestMethod.POST)
@@ -168,6 +306,7 @@ public class AccountController {
 	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String edit(@PathVariable String id, Model model){
+		
 		AccountModel accountModel = accountDao.getAccount(id);
 		AccountTypeModel accountTypeModel = accountDao.getAccountType(accountModel.getCategoryModel().getCategoryId());
 		model.addAttribute("categorylist",categoryDao.getCategories());
@@ -178,6 +317,6 @@ public class AccountController {
 		
 	}
 	
-	
+
 
 }

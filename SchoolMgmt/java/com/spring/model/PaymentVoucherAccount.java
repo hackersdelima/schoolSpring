@@ -3,7 +3,15 @@ package com.spring.model;
 import java.util.List;
 
 public class PaymentVoucherAccount {
-	private List<String> payment_voucher_account_id, accountNo,accountName, drcr, amount,narration,chequeNo;
+	private List<String> payment_voucher_account_id, accountNo,accountName, drcr, amount,narration,chequeNo,curDateTime;
+
+	public List<String> getCurDateTime() {
+		return curDateTime;
+	}
+
+	public void setCurDateTime(List<String> curDateTime) {
+		this.curDateTime = curDateTime;
+	}
 
 	public List<String> getChequeNo() {
 		return chequeNo;

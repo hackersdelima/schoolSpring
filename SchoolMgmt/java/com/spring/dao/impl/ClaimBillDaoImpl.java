@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.authentication.dao.SystemWideSaltSource;
 
 import com.spring.dao.ClaimBillDao;
 import com.spring.model.CategoryModel;
@@ -67,10 +68,76 @@ private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public ArrayList<ClaimBillModel> getAllDetails(String id) {
-		String query="select accountstbl.accountNumber, accountstbl.categoryId, categories.taxable, categories.categoryHead, feerate.frate, studentinfo.admissionclass from accountstbl left join categories     on accountstbl.categoryId = categories.categoryId left join feerate on feerate.categoryId=categories.categoryId left join studentinfo on studentinfo.studentid=accountstbl.pid where accountstbl.pid='"+id+"'";
+		String query="select * from claimbillreport where pid='"+id+"'"; 
+	ArrayList<ClaimBillModel> list= (ArrayList<ClaimBillModel>) jdbcTemplate.query(query, new ClaimMapper());
+	
+	for(int i=0;i<list.size();i++) {
 		
-	return (ArrayList<ClaimBillModel>) jdbcTemplate.query(query, new ClaimMapper());
 		
+	if(list.get(i).getPaymenttype().equals("M")) {
+		String freq = list.get(i).getFrequency();
+	//String genUpto=list.get(i).getGenerateduptpmonth();
+	String startmonth=list.get(i).getStartmonth();
+	int smonthval=Integer.parseInt(startmonth);//05
+		
+		int frequency=Integer.parseInt(freq);//6
+		
+		
+		if(frequency+smonthval>12) {
+			if(frequency==12) {
+				frequency=12;
+			}
+			else {
+			frequency=12-smonthval;
+			}
+		}
+		
+		
+		if(Double.parseDouble(list.get(i).getTamount())>0) {
+			list.get(i).setTamount(Double.toString(frequency*Double.parseDouble(list.get(i).getFrate())));
+	/*switch (freq) {
+		
+	case "12":
+		list.get(i).setTamount(Double.toString(frequency*Double.parseDouble(list.get(i).getFrate())));
+		break;
+	case "3":
+		list.get(i).setTamount(Double.toString(4*Double.parseDouble(list.get(i).getFrate())));
+		break;
+	case "6":
+		list.get(i).setTamount(Double.toString(2*Double.parseDouble(list.get(i).getFrate())));
+		break;
+	default:
+		list.get(i).setTamount(Double.toString(Double.parseDouble(list.get(i).getFrate())));
+		break;*/
+	}
+	
+	
+	
+	 if(Double.parseDouble(list.get(i).getNamount())>0) {
+		 list.get(i).setNamount(Double.toString(frequency*Double.parseDouble(list.get(i).getFrate())));
+		/*switch (freq) {
+			
+		case "1":
+			list.get(i).setNamount(Double.toString(12*Double.parseDouble(list.get(i).getFrate())));
+			break;
+		case "3":
+			list.get(i).setNamount(Double.toString(4*Double.parseDouble(list.get(i).getFrate())));
+			break;
+		case "6":
+			list.get(i).setNamount(Double.toString(2*Double.parseDouble(list.get(i).getFrate())));
+			break;
+		default:
+			list.get(i).setNamount(Double.toString(Double.parseDouble(list.get(i).getFrate())));
+			break;
+		}*/
+		
+		}
+	 double totalfrate = Double.parseDouble(list.get(i).getTamount()) + Double.parseDouble(list.get(i).getNamount());
+	 list.get(i).setFrate(Double.toString(totalfrate));
+	}
+	}
+		
+		return list;
 		
 		//	return (ArrayList<ClaimBillModel>)jdbctemplate.query(query,new BeanPropertyRowMapper<ClaimBillModel>(ClaimBillModel.class));
 	}
@@ -87,11 +154,17 @@ private JdbcTemplate jdbcTemplate;
 			c.setCategory(cat);
 			
 			c.setAccountNumber(rs.getString("accountNumber"));
-			c.setAdmissionclass(rs.getString("admissionclass"));
-			c.setFrate(rs.getString("frate"));
+			//c.setAdmissionclass(rs.getString("admissionclass"));
+			c.setFrate(rs.getString("amount"));
 		
 		
 			c.setTaxable(rs.getString("taxable"));
+			c.setTamount(rs.getString("tamount"));
+			c.setNamount(rs.getString("namount"));
+		
+			c.setFrequency(rs.getString("frequency"));
+			c.setStartmonth(rs.getString("startmonth"));
+			c.setPaymenttype(rs.getString("paymenttype"));
 			return c;
 		}
 		

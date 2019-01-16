@@ -15,6 +15,7 @@ public interface AccountDao {
 	 public int updateAccount(AccountModel am);
 	 
 	 public List<AccountModel> getAccount();
+	 public List<AccountModel> getBulkAccounts(String studentid);
 	 
 	 public AccountModel getAccount(String accountNo);
 	 
@@ -25,5 +26,7 @@ public interface AccountDao {
 	public String getCurWorkingBalance(String accountNo);
 	public int updateWorkingBal(String accountNo,int balAfterDiscount);
 	public String getAccountName(String accountNo);
+	public String generateAccountNo(String branchid, String companyid, String catId);
+	public List<String> getFeeHeadCategories();
 
 }

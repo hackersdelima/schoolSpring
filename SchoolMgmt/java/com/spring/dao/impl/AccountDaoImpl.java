@@ -58,7 +58,7 @@ public class AccountDaoImpl implements AccountDao {
 			AccountTypeModel am = new AccountTypeModel();
 			am.setAccountType(rs.getString("accountType"));
 			am.setAccountTypeHead(rs.getString("accountTypeHead"));
-			am.setDrcr(rs.getString("drcr"));
+			/*am.setDrcr(rs.getString("drcr"));*/
 			/*
 			 * am.setAuthorizer(rs.getString("authorizer"));
 			 * am.setInputter(rs.getString("inputter"));
@@ -174,5 +174,42 @@ public class AccountDaoImpl implements AccountDao {
 		System.out.println(sql);
 		return jdbcTemplate.queryForObject(sql, String.class);
 	}
+
+	@Override
+	public String generateAccountNo(String branchid, String companyId, String catId) {
+		String query="select max(accountNumber) as maxAccountNumber from accountstbl where accountNumber LIKE 'FIN"+companyId+branchid+catId+"%'";
+		String maxAccountNumber= jdbcTemplate.queryForObject(query, String.class);
+		String finalAccountNumber="";
+		
+		if(maxAccountNumber==null || maxAccountNumber.isEmpty())
+		{
+			
+			finalAccountNumber= "FIN"+companyId+branchid+catId+"0001";
+		}
+	
+	else{
+		String lastDigit = maxAccountNumber.substring(13,17);
+		
+		int lastDigitInc = Integer.parseInt(lastDigit)+1;
+		String finalDigits = String.format("%04d", lastDigitInc);
+	
+		finalAccountNumber = "FIN"+companyId+branchid+catId+finalDigits;
+	}
+		return finalAccountNumber;
+	}
+
+	@Override
+	public List<String> getFeeHeadCategories() {
+		String sql="select categoryId from feeheadtbl";
+		return jdbcTemplate.queryForList(sql,String.class);
+	}
+
+	@Override
+	public List<AccountModel> getBulkAccounts(String studentid) {
+		String query="select * from accountstbl join categories using(categoryId)";
+		return jdbcTemplate.query(query, new AccountRow());
+	}
+	
+	
 
 }

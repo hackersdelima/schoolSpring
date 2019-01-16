@@ -55,7 +55,8 @@ public class PaymentVoucherController {
 	@RequestMapping(value="/view/{id}")
 	public String viewTransaction(Model model,@PathVariable String id)
 	{
-		model.addAttribute("payment",paymentVoucherDao.getIndividualPayment(id));
+		model.addAttribute("paymentVoucher",paymentVoucherDao.getIndividualPayment(id));
+		model.addAttribute("paymentVoucherAccount",paymentVoucherDao.getPayments(id));
 		return "generalTransaction/fundsTransfer/paymentVoucher/viewTxn";
 	}
 	

@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
@@ -34,6 +35,7 @@ import com.spring.model.GradeModel;
 import com.spring.model.StudentModel;
 import com.spring.model.Subjects;
 
+import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRPrintPage;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -41,6 +43,7 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperRunManager;
 
 @Controller
 @RequestMapping("/exam")
@@ -177,8 +180,10 @@ public class ExamController {
 	@RequestMapping(value = "/jasper", method = RequestMethod.POST)
 	  @ResponseBody
 	  public void getRpt1(HttpServletResponse response,@RequestParam Map<String, String> reqParam) throws JRException, IOException {
-	    JasperReport jasperReport=JasperCompileManager.compileReport("D:\\DigiNepal\\schoolSpring\\SchoolMgmt\\reports\\examReports.jrxml");
-	   // JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examReports.jrxml");
+	    //JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//examReports.jrxml");
+	    JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examReports.jrxml");
+	  
+	
 	    Map<String ,Object> param2=new HashMap<String,Object>();
 	    String classname = reqParam.get("classid");
 		String section = reqParam.get("sectionid");
@@ -189,6 +194,8 @@ public class ExamController {
 		List<ExamModel> studentids=examDao.getBulkReport(classname,section,examid);
 		System.out.println(studentids);
 	  
+		
+	      
 	    JasperPrint jasperPrint,jasper;
 		
 			jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource.getConnection());
@@ -211,17 +218,14 @@ public class ExamController {
 				conn.close();
 			}
 		
-			/*List pages=jasper.getPages();
-			JRPrintPage object=(JRPrintPage) pages.get(0);
-			jasperPrint.addPage(object);	*/		
-
+			
 	    response.setContentType("application/x-pdf");
 	    response.setHeader("Content-disposition", "inline; filename=Report.pdf");
 
 	    final OutputStream outStream = response.getOutputStream();
 	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
 	  
-	    //JasperExportManager.exportReportToHtmlFile(jasperPrint,outputLocation +reportCode+".html");
+	  
 	 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

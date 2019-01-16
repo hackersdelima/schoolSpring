@@ -6,7 +6,7 @@
    try {
         Class.forName("com.mysql.jdbc.Driver");
       // Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/aranikodb", "root", "123456");
-      Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sagarmathadb", "root", "DigCen@1Pep");
+      Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/demodb", "root", "DigCen@1Pep");
         Statement smt = con.createStatement(); //Create Statement to interact
         ResultSet rs = smt.executeQuery("select WardCount from vdccodes where (VDCCode='" + id + "');");
         int i=0;

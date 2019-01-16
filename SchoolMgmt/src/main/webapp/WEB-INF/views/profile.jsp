@@ -90,7 +90,10 @@
                   <li><a><span class="fa fa-chevron-down"></span><i class="fa fa-user"></i>Account</a>
 											<ul class="nav child_menu">
 												<li id="i"><a href="nav/account" target="iframe_a">Open
-														New Account</a></li>
+														Personal Account</a></li>
+												<li id="i"><a href="nav/financialAccount" target="iframe_a">Open
+														Financial Account</a></li>
+														
 													<li><a href="pageNotFound.jsp" target="iframe_a">Open New
 														Shareholder Account</a>
 												<li id="v"><a href="nav/viewAccount" target="iframe_a">Amendment
@@ -103,30 +106,32 @@
 									<ul class="nav child_menu">
 										<li><a><span class="fa fa-chevron-down"></span>Funds
 												Transfer</a>
-												
-											<ul class="nav child_menu">
-											<li><a><span class="fa fa-chevron-down"></span>Payment Voucher</a>
+										<li><a><span class="fa fa-chevron-down"></span>Payment Voucher</a>
 												
 											<ul class="nav child_menu">
 											<li><a href="nav/paymentVoucher" target="iframe_a">
 														Create</a></li>
 											<li><a href="nav/viewPaymentVoucher" target="iframe_a">
-														View</a></li>
-											</ul>
+														View</a></li>	
 											
-												<li id="i"><a href="nav/fundTransfer" target="iframe_a">New
+											<!-- 	<li id="i"><a href="nav/fundTransfer" target="iframe_a">New
 														Account Transfer </a></li>
 												<li id="e"><a href="viewtransaction.click" target="iframe_a">Amend
 														Account Transfer</a></li>
 												<li><a href="a" target="iframe_a">Authorize Account
-														Transfer</a></li>
+														Transfer</a></li> -->
 
 											</ul></li>
 									</ul></li>
+									<li id="i"><a href="nav/viewTrialBalance" target="iframe_a">Trial Balance </a></li>
+									<li id="i"><a href="nav/viewTrialBalanceSummary" target="iframe_a">Trial Balance Summary </a></li>
+									<li id="i"><a href="nav/viewAccount" target="iframe_a">Statements </a></li>
 									<li><a><span class="fa fa-chevron-down"></span>Invoice</a>
 											<ul class="nav child_menu">
 										<li id="a"><a href="invoice/search" target="iframe_a"> Invoice </a></li>
 										<li id="a"><a href="claimbill/studentList" target="iframe_a"> Claim Bill </a></li>
+										<li id="a"><a href="nav/viewBulkClaimBill" target="iframe_a"> Class Claim Bill </a></li>
+										<li id="a"><a href="nav/viewClaimBill" target="iframe_a"> Data Claim Bill </a></li>
 										</ul>
 										</li>
 										
@@ -161,6 +166,8 @@
                             <li ><a href="nav/category" target="iframe_a">Category</a></li>
                              <li ><a href="nav/accountType" target="iframe_a">Account Type</a></li>
                              <li><a href="nav/feeSetting" target="iframe_a">Fee Setting</a></li>
+                             <li><a href="nav/viewFeeHead" target="iframe_a">Fee Head</a>
+                              <li><a href="nav/viewFeeStructure" target="iframe_a">Fee Structure</a>
                           </ul>
                         </li>
                         <li><a href="nav/initialDetails" target="iframe_a">Basic Details</a>

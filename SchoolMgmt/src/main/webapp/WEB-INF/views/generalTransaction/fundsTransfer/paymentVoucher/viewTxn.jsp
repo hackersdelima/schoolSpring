@@ -1,160 +1,200 @@
-<%-- <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%> --%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include page="../../../include.jsp"></jsp:include>
-<html>
 <head>
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+
+<title>Editable Invoice</title>
+<link
+	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel='stylesheet' type='text/css'
+	href='${pageContext.request.contextPath}/resources/css/style.css' />
+<link rel='stylesheet' type='text/css'
+	href='${pageContext.request.contextPath}/resources/css/print.css'
+	media="print" />
+<style>
+.borderless tfoot tr td {
+	border: none
+}
+
+body {
+	background: rgb(204, 204, 204);
+}
+
+page {
+	background: white;
+	display: block;
+	margin: 0 auto;
+	margin-bottom: 0.5cm;
+	box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+}
+
+page[size="A4"] {
+	width: 21cm;
+	height: 29.7cm;
+}
+
+@media print {
+	body, page {
+		margin: 0;
+		box-shadow: 0;
+	}
+}
+
+@page {
+	size: auto; /* auto is the current printer page size */
+	margin: 0mm; /* this affects the margin in the printer settings */
+}
+</style>
 
 </head>
-<body class="bgcolor hiddenscroll background">
-	<div class="breadcrumb-line">
-		<nav aria-label="breadcrumb" role="navigation">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><i class="fa fa-home"
-					aria-hidden="true"></i>&nbsp;<a href="#">Home</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Multi
-					Transaction</li>
-				<li class="breadcrumb-item active" aria-current="page">View</li>
-			</ol>
-		</nav>
-	</div>
 
-	<div class="panel panel-default " style="width: 95%; margin: auto;">
-		<div class="panel-heading">
-			<h6>
-				<strong>Account Details</strong>
-			</h6>
-		</div>
-		<div class="panel-body">
-			<table id="datatable"
-				class="table jambo_table table table-striped table-bordered">
-				<thead>
-					<tr>
-						<th>S. No.</th>
-						<th>Transaction Id</th>
-						<th>Booking Date</th>
-						<th>Amount</th>
+<body class="x_panel">
+	<div class="form-group">
+		<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
 
-						<th><i class="fa fa-cog" aria-hidden="true"></i></th>
-					</tr>
-				</thead>
-				<tbody>
-					<%int sno=1; %>
-					<c:forEach items="${multitransactionlist }" var="list">
-						<tr>
-							<td><%=sno %></td>
-							<td class="transactionid">${list.transactionid }</td>
-							<td>${list.bookingdate }</td>
-							<td>${list.amount }</td>
-							<td><a class="view btn-link"  > View </a> <%-- <a class="clickbtn" href="multitransaction.del?id=${list.transactionid }"
-										style="color: red;"><i class="fa fa-trash-o"
-											aria-hidden="true"></i> Delete</a> --%></td>
-						</tr>
-						<%sno++; %>
-					</c:forEach>
-				</tbody>
-			</table>
+			<%-- <a class="btn btn-info" type="button"
+				href="<spring:url value="/nav/paymentVoucher" />">Edit</a> --%> <a
+				class="btn btn-danger" id="cancel"
+				href="<spring:url value="/paymentVoucher/cancel" />">Cancel</a> <a
+				class="btn btn-primary" href="#">Save & Print</a> <a
+				class="btn btn-success"
+				href="<spring:url value="/paymentVoucher/add"/>">Save</a>
+
 		</div>
 	</div>
-	<!-- Modal -->
-	<div class="modal fade modal-lg" id="exampleModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<table class="display table table-striped table-bordered">
-						<thead>
-							<tr>
-								<th>Transaction Id</th>
-								<th>Currency</th>
-								<th>Booking Date</th>
-							</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td id="tid"></td>
-									<td>NPR</td>
-									<td id="bookingdate"></td>
-								</tr>
-							</tbody>
-							
-							</table>
-					
-				</div>
-				<div class="modal-body">
-					
-					<table id="table"
-						class="display table table-striped table-bordered">
-						<thead>
-							<tr>
-								<th>Account No</th>
-								<th>Value Date</th>
-								<th>Narration</th>
-								<th>Trans. Code</th>
-								<th>Amount</th>
-								<th>Cheque Number</th>
-								<th>Trans. Type</th>
-							</tr>
-						</thead>
-					</table>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Close</button>
-					<a type="button" class="btn btn-danger"
-						data-dismiss="modal">Delete</a>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<script type="text/javascript">
-	$('.clickbtn').click(function() {
-		return confirm('CONFIRM?');
-	});
-	</script>
-	<script type="text/javascript">
-	$(".view").click(function(event){
-		var transactionId = $(this).closest("tr").find('.transactionid').html(); 
-	var url = "paymentVoucher/view/"+transactionId;
-		$.ajax({
-			url : url
-		}).then(function(data) {
-			$("#table").dataTable().fnDestroy();
-			
-			$("#tid").html(data.data[0].transactionId);
-			$("#currency").html(data.data[0].currency);
-			$("#bookingdate").html(data.data[0].bookingDate);
-			
-			var datatable = $('#table').dataTable({
-				bFilter:false,
-				paging : false,
-				aaData : data.data,
-				aoColumns : [ {
-					"mData" : "accountNumber"
-				}, {
-					"mData" : "valueDate"
-				}, {
-					"mData" : "narrative"
-				}, {
-					"mData" : "transactionCode"
-				}, {
-					"mData" : "amount"
-				},{
-					"mData" : "cheqNumber"
-				}, 
-				{
-					"mData" : "drcr"
-				}, 
-				]
-			});
-			
-			$("#exampleModal").modal('show');
-		});
-
-	});
 	
-	</script>
+	<div id="page-wrap">
 
+		<h1>PAYMENT VOUCHER</h1>
+
+		<div id="identity">
+
+			<p id="address" style="font-size: 150%">${sessionScope.systemdetail[0].settingsdescription },<br>
+				${sessionScope.systemdetail[2].settingsdescription },<br>
+				Phone: ${sessionScope.systemdetail[3].settingsdescription } Vat/Pan:
+				${sessionScope.systemdetail[7].settingsdescription }
+			</p>
+
+			<div id="logo">
+				<div id="logohelp">
+					<input id="imageloc" type="text" size="50" value="" /><br /> (max
+					width: 540px, max height: 100px)
+				</div>
+				<img id="image"
+					src="${pageContext.request.contextPath}/resources/img/fds.png" />
+			</div>
+
+		</div>
+
+		<div style="clear: both"></div>
+
+		<div id="customer">
+
+			<h4>
+				<br> Admission No:
+			</h4>
+
+			<table id="meta">
+				<tr>
+					<td class="meta-head">Transaction Id #</td>
+					<td><p>${paymentVoucher.transactionId }</p></td>
+				</tr>
+				<tr>
+					<td class="meta-head">Reference No</td>
+					<td><p id="date">${paymentVoucher.referenceNo }</p></td>
+				</tr>
+				<tr>
+
+					<td class="meta-head">Value Eng Date</td>
+					<td><p id="date">${paymentVoucher.valueDateen }</p></td>
+				</tr>
+				<tr>
+
+					<td class="meta-head">Value Nep Date</td>
+					<td><p id="date">${paymentVoucher.valueDate }</p></td>
+				</tr>
+				<tr>
+					<td class="meta-head">Booking Eng Date</td>
+					<td><div class="due">${paymentVoucher.bookingDateen }</div></td>
+				</tr>
+				<tr>
+					<td class="meta-head">Booking Nep Date</td>
+					<td><div class="due">${paymentVoucher.bookingDate }</div></td>
+				</tr>
+
+			</table>
+
+		</div>
+
+		<table id="items">
+			<tbody>
+				<tr>
+					<th>S.No</th>
+					<th>Account No</th>
+					<th>Account Name</th>
+					<th>Cheque No</th>
+					<th>Dr/Cr</th>
+					<th >Narration</th>
+					<th>Amount</th>
+				</tr>
+				<c:forEach
+					items="${paymentVoucherAccount }"
+					var="p" varStatus="descIndex">
+					<tr class="item-row">
+						<td>${descIndex.index +1 }</td>
+						<td class="item-name">${p.accountNo }</td>
+						<td class="item-name">${p.accountName }</td>
+						<td class="item-name">${p.chequeNo }</td>
+						<td class="description">${p.drcr }</td>
+						<td class="description">${p.narration }</td>
+						<td><p class="cost">${p.amount }</p></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+			<tfoot>
+				<tr>
+
+					<td colspan="5" class="total-line">Narration</td>
+					<td class="total-value" colspan="2">${paymentVoucher.narration }</td>
+				</tr>
+				<tr>
+
+					<td colspan="5" class="total-line">Total Debit Amount</td>
+					<td class="total-value" colspan="2">${paymentVoucher.totalDebitAmount }</td>
+				</tr>
+				<tr>
+					<td colspan="5" class="total-line">Total Credit Amount</td>
+					<td class="total-value" colspan="2">${paymentVoucher.totalCreditAmount }</td>
+				</tr>
+				
+				<!-- <tr>
+					<td colspan="3" class="total-line">In Words</td>
+					<td class="total-value" colspan="2"></td>
+				</tr> -->
+				<tr>
+					<td colspan="3" class="total-line">Prepared By</td>
+					<td class="total-value" colspan="1"></td>
+					<td colspan="3">${paymentVoucher.preparedBy }</td>
+				</tr>
+				<tr>
+					<td colspan="3" class="total-line">Checked By</td>
+					<td class="total-value" colspan="1"></td>
+					<td colspan="3">${paymentVoucher.checkedBy }</td>
+				</tr>
+				<tr>
+					<td colspan="3" class="total-line">Approved By</td>
+					<td class="total-value" colspan="1"></td>
+					<td colspan="3">${paymentVoucher.approvedBy }</td>
+				</tr>
+
+			</tfoot>
+
+
+
+		</table>
+
+	</div>
 </body>
+
 </html>

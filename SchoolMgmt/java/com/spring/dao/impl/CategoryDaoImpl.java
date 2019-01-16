@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.RowMapper;
 import com.spring.dao.CategoryDao;
 import com.spring.model.AccountTypeModel;
 import com.spring.model.CategoryModel;
+import com.spring.model.MonthModel;
 
 public class CategoryDaoImpl implements CategoryDao{
 	private JdbcTemplate jdbcTemplate;
@@ -27,9 +28,19 @@ public class CategoryDaoImpl implements CategoryDao{
 	}
 
 	public List<CategoryModel> getCategories(){
-		String query="select categories.*, accounttype.accountTypeHead from categories join accounttype using(accountType) where categoryId like '222%'";
+		String query="select categories.*, accounttype.accountTypeHead from categories join accounttype using(accountType)";//where categoryId like '222%'
 		return jdbcTemplate.query(query, new Categories());
 	}
+	public List<CategoryModel> getFeeHeadCategories(){
+		String query="select categories.*,accounttype.accountTypeHead from (categories join feeheadtbl using(categoryId)) join accounttype using(accounttype)";//where categoryId like '222%'
+		return jdbcTemplate.query(query, new Categories());
+	}
+
+	public List<CategoryModel> getCategories(String accountType){
+		String query="select categories.*, accounttype.accountTypeHead from categories join accounttype using(accountType) where categories.accountType='"+accountType+"'";
+		return jdbcTemplate.query(query, new Categories());
+	}
+	
 
 	
 	public CategoryModel getCategory(String id){
@@ -42,7 +53,7 @@ public class CategoryDaoImpl implements CategoryDao{
 		return jdbcTemplate.update(query);
 	}
 	public int update(CategoryModel category){
-		String query = "update categories set categoryId = '"+category.getCategoryId()+"', categoryHead = '"+category.getCategoryHead()+"', accountType = '"+category.getAccountType()+"' where categoryId = '"+category.getPreviousid()+"'";
+		String query = "update categories set categoryId = '"+category.getCategoryId()+"', categoryHead = '"+category.getCategoryHead()+"', accountType = '"+category.getAccountType()+"',taxable='"+category.getTaxable()+"' where categoryId = '"+category.getPreviousid()+"'";
 		return jdbcTemplate.update(query);
 	}
 	public static final class Categories implements RowMapper<CategoryModel>{
@@ -65,5 +76,21 @@ public class CategoryDaoImpl implements CategoryDao{
 		}
 		
 	}
+	@Override
+	public List<MonthModel> getMonthList() {
+		String sql="select * from monthstbl";
+		return jdbcTemplate.query(sql, new MonthMapper());
+	}
 	
+	public static final class MonthMapper implements RowMapper<MonthModel>{
+
+		@Override
+		public MonthModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+			MonthModel m=new MonthModel();
+			m.setMonth(rs.getString("month"));
+			m.setValue(rs.getString("value"));
+			return m;
+		}
+		
+	}
 }

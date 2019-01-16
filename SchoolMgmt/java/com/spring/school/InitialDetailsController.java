@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.dao.FeeDao;
@@ -211,6 +212,24 @@ public class InitialDetailsController {
 		return "redirect:/nav/feeSetting";
 	}
 	
+	@RequestMapping(value="/addFeeHead")
+	public String feeHead(Model model,@RequestParam Map<String,String> params) {
+		
+		String catIdHead=params.get("categoryId");
+		String[] catlist=catIdHead.split("-");
+		String catId=catlist[0];
+		String catHead=catlist[1];
+		
+		boolean status=feeDao.addFeeHead(catId,catHead);
+		if(status) {
+			model.addAttribute("msg","Fee Head Saved");
+		return "redirect:/nav/viewFeeHead";
+		}
+		else {
+			model.addAttribute("msg","Fee Head Failed");
+			return "redirect:/nav/viewFeeHead";
+		}
+	}
 	
 
 }

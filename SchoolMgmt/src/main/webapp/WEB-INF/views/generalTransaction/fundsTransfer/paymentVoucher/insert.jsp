@@ -29,6 +29,9 @@
 	width: 65%;
 	float: right;
 }
+table th {
+    width: auto !important;
+}
 </style>
 </head>
 <body class="background">
@@ -62,7 +65,7 @@
 								<button class="btn btn-info" type="button" id="validate">Validate</button>
 								<a class="btn btn-danger" id="cancel"
 									href="<spring:url value="/paymentVoucher/cancel" />">Cancel</a>
-								<input type="submit" class="btn btn-success" value="Submit">
+								<input type="submit" id="submitbtn" class="btn btn-success" value="Submit">
 
 							</div>
 						</div>
@@ -91,7 +94,7 @@
 					<h4 class="name">
 						<span class="label label-default">Transaction Id*</span><input
 							type="text" class="form-control " name="transactionId"
-							value="${sessionScope.paymentVoucher.transactionId }">
+							value="${mid }" readonly>
 					</h4>
 
 					<h4 class="name">
@@ -107,32 +110,36 @@
 					<div class="date">
 						<span class="label label-default">Booking Eng Date*</span> <input
 							type="text" maxlength="10" id="bookingDateen"
-							class="form-control date" name="bookingDateen"
+							class="form-control date bookingdateen" name="bookingDateen"
 							placeholder="yyyy-mm-dd"
-							value="${sessionScope.paymentVoucher.bookingDateen }">
+							value="${sessionScope.paymentVoucher.bookingDateen }"
+							onblur="englishToNepali('.bookingdate','.bookingdateen')">
 					</div>
 					<br>
 					<div class="date">
 						<span class="label label-default">Booking nep Date*</span> <input
 							type="text" maxlength="10" id="bookingDate" name="bookingDate"
-							class="form-control date" placeholder="yyyy-mm-dd"
-							value="${sessionScope.paymentVoucher.bookingDate}">
+							class="form-control date bookingdate" placeholder="yyyy-mm-dd"
+							value="${sessionScope.paymentVoucher.bookingDate}"
+							onblur="nepaliToEnglish('.bookingdate','.bookingdateen')">
 					</div>
 				</div>
 				<div id="client">
 					<div class="date">
 						<span class="label label-default">Value Eng Date*</span> <input
 							type="text" maxlength="10" id="valueDateen"
-							class="form-control date" name="valueDateen"
+							class="form-control date valuedateen" name="valueDateen"
 							placeholder="yyyy-mm-dd"
-							value="${sessionScope.paymentVoucher.valueDateen}">
+							value="${sessionScope.paymentVoucher.valueDateen}"
+							onblur="englishToNepali('.valuedate','.valuedateen')">
 					</div>
 					<br>
 					<div class="date">
-						<span class="label label-default">Value nep Date*</span> <input
+						<span class="label label-default dob">Value nep Date*</span> <input
 							type="text" maxlength="10" id="valueDate" name="valueDate"
-							class="form-control date" placeholder="yyyy-mm-dd"
-							value="${sessionScope.paymentVoucher.valueDate }">
+							class="form-control date valuedate" placeholder="yyyy-mm-dd"
+							value="${sessionScope.paymentVoucher.valueDate }"
+							onblur="nepaliToEnglish('.valuedate','.valuedateen')">
 					</div>
 				</div>
 			</div>
@@ -146,14 +153,14 @@
 				<table border="0" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
-							<th class="desc col-md-1"><a onclick="addRow()" id="newrow"
+							<th  class="desc col-md-2"><a onclick="addRow()" id="newrow"
 								class="btn btn-primary">Add Row</a></th>
 							<th colspan="1" class="col-md-2">Account Number</th>
-							<th class="desc col-md-4" colspan="2">Name</th>
-							<th colspan="1">Cheque Number</th>
-							<th class="desc col-md-1" colspan="1">Dr/Cr</th>
-							<th class="desc col-md-3">Narration</th>
-							<th class="desc col-md-4" colspan="1">Amount</th>
+							<th class="desc col-md-2" colspan="3">Account Name</th>
+							<th class="desc col-md-2" colspan="1">Cheque No.</th>
+							<th class="desc col-md-2" colspan="1">Dr/Cr</th>
+							<th class="desc col-md-2">Narration</th>
+							<th class="desc col-md-2" colspan="1">Amount</th>
 
 						</tr>
 					</thead>
@@ -161,13 +168,13 @@
 						<c:choose>
 							<c:when
 								test="${empty sessionScope.paymentVoucher.paymentVoucherAccount.accountNo}">
-								<tr id="tablerow">
+								<tr  id="tablerow">
 									<td><button onclick="deleteRow(this)"
 											class="removebutton btn btn-danger">Delete</button></td>
 									<td colspan="1"><input type="text"
 										class="form-control accountno"
 										name="paymentVoucherAccount.accountNo" value=""></td>
-									<td colspan="2" width="50%"><input type="text"
+									<td colspan="3" ><input type="text"
 										name="paymentVoucherAccount.accountName"
 										class="form-control accountName " id="accountName" value=""
 										readonly></td>
@@ -185,7 +192,7 @@
 										name="paymentVoucherAccount.narration"></td>
 									<td colspan="1"><input type="text"
 										class="form-control two" name="paymentVoucherAccount.amount"
-										id="amount" value=""></td>
+										id="amount" value="" contenteditable='true' onkeyup='calculfac()'></td>
 								</tr>
 							</c:when>
 							<c:otherwise>
@@ -289,7 +296,36 @@
 	</form>
 	
 	<script src="<spring:url value="/resources/js/dateAction.js"/>"></script>
+	
 	<script>
+	
+	function calculfac() {
+		
+		/* alert("function running");
+	     
+	    	  
+	    	  
+	    	  var drcr = $("table tr#tablerow").closest("tbody").find(".drcr").val();
+	    	  alert(drcr);
+				var amount = $(this).find("#amount").val();
+
+				if (drcr == 'dr') {
+					drTotal = parseInt(drTotal, 10) + parseInt(amount, 10);
+					$(".totalDr").val(drTotal);
+				} else {
+					crTotal = parseInt(crTotal, 10) + parseInt(amount, 10);
+					$(".totalCr").val(crTotal);
+
+				}
+				 */
+				
+				
+	       
+
+	      
+	      
+		}
+	
 		$("#validate").click(function() {
 
 			var drTotal = 0;
@@ -328,6 +364,15 @@
 			});
 			$(".totalDr").val(drTotal);
 			$(".totalCr").val(crTotal);
+			
+			if(drTotal==crTotal)
+				{
+				 $('#submitbtn').prop('disabled', false);
+				}
+			else
+				{
+				 $('#submitbtn').prop('disabled', true);
+				}
 
 		});
 		function deleteRow(btn) {
@@ -342,6 +387,45 @@
 
 		function accountno() {
 
+		}
+	</script>
+	<script>
+		function nepaliToEnglish(nepalidate, englishdate) {
+			var date = $(nepalidate).val();
+			var dataString = {
+				'nepalidate' : date
+			};
+			$.ajax({
+				type : "POST",
+				url : "nepaliToEnglish",
+				data : dataString,
+				cache : false,
+				success : function(html) {
+					$(englishdate).val(html);
+				},
+				error : function() {
+					alert("error occured");
+				}
+
+			});
+		}
+		function englishToNepali(nepalidate, englishdate) {
+			var date = $(englishdate).val();
+			var dataString = {
+				'englishdate' : date
+			};
+			$.ajax({
+				type : "POST",
+				url : "englishToNepali",
+				data : dataString,
+				cache : false,
+				success : function(html) {
+					$(nepalidate).val(html);
+				},
+				error : function() {
+					alert("error occured");
+				}
+			});
 		}
 	</script>
 </body>
