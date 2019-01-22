@@ -138,11 +138,11 @@ public class OperationDaoImpl implements OperationDao {
 				form.setSubjectname(rs.getString("subjectname"));
 				form.setSubjecttype(rs.getString("subjecttype"));
 				form.setSubjectCode(rs.getString("subjectCode"));
-			sub.setFullmarks(rs.getString("fullmarks"));
-			sub.setPassmarks(rs.getString("passmarks"));
-			sub.setFullmarks_pr(rs.getString("fullmarks_pr"));
-			sub.setPassmarks_pr(rs.getString("passmarks_pr"));
-			form.setSubjects(sub);
+				sub.setFullmarks(rs.getString("fullmarks"));
+				sub.setPassmarks(rs.getString("passmarks"));
+				sub.setFullmarks_pr(rs.getString("fullmarks_pr"));
+				sub.setPassmarks_pr(rs.getString("passmarks_pr"));
+				form.setSubjects(sub);
 				
 				return form;
 			}
@@ -226,6 +226,19 @@ public class OperationDaoImpl implements OperationDao {
 
 		String query="update feerate set sclass='"+classname+"', categoryId='"+category+"',frate='"+feerate+"' where feecode='"+feecode+"'";
 		jdbcTemplate.update(query);
+	}
+
+	@Override
+	public List<FormDetails> getOptionalSubject() {
+		 String sql="SELECT * FROM subjectlist where subjecttype='optional'";
+			return jdbcTemplate.query(sql, new SubjectList());
+	}
+
+	@Override
+	public void assignOptionalSubjects(String optSubId, String studentid) {
+
+		 String sql="insert into optcoursetbl(subjectid,studentid) values('"+optSubId+"','"+studentid+"')";
+		 jdbcTemplate.update(sql);
 	}
 
 	

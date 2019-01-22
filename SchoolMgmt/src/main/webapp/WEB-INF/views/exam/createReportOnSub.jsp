@@ -109,12 +109,12 @@
 		 $("#validate").click(function() {
 			var classname = $("#class").val();
 			var sectionname=$("#section").val();
-			var subjectcode=$("#subject").val();
+			var subjectid=$("#subject").val();
 			var url=$("#getClassStudents").val();
 			$.ajax({
 				type : "POST",
 				url : url,
-				data : {"classname": classname,"sectionname": sectionname, "subjectcode": subjectcode},
+				data : {"classname": classname,"sectionname": sectionname, "subjectid": subjectid},
 				cache : false,
 				success : function(html) {
 					$("#markstable").html(html);

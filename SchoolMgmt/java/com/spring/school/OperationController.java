@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -146,6 +147,8 @@ public class OperationController {
 		return "redirect: ../nav/assignSubjects";
 	}
 	
+	
+	
 	// Examination
 	@RequestMapping(value="/insertExam" ,method=RequestMethod.POST)
 	public String insertExam(@ModelAttribute ExamModel m,Model model){
@@ -182,6 +185,18 @@ public class OperationController {
 		operationDao.editSubject(id,sub);
 		System.out.println("eksldjf");
 		return "redirect:/nav/subjects";
+	}
+	
+	
+	@RequestMapping(value="/assignOptionalSubjects")
+	@ResponseBody
+	public String assignOptionalSubjects(@RequestParam("students") List<String> students, Model model,@RequestParam("optsubjectid") String optSubId)
+	{
+		for(int i=0;i<students.size();i++) {
+		System.out.println(students);
+		operationDao.assignOptionalSubjects(optSubId,students.get(i));
+		}
+		return "Save Successful";
 	}
 	
 	

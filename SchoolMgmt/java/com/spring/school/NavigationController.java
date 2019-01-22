@@ -168,15 +168,16 @@ private void commonModels(Model model){
 	}
 	@RequestMapping(value="/assignSubjects")
 	public String assignSubjects(Model model){
-		List<FormDetails>  classlist,subjectlist;
-		
+		List<FormDetails>  classlist,subjectlist,optsubjectlist;
 		classlist=studentDao.getAdmissionClass();
 		subjectlist=operationDao.getSubjectList();
-		
+		optsubjectlist=operationDao.getOptionalSubject();
+		List<StudentModel> list = studentDao.getAllStudents();
+		model.addAttribute("slist", list);
 		model.addAttribute("assignedsubjects",operationDao.getAssignedSubjects());
-		
 		model.addAttribute("classlist",classlist);
 		model.addAttribute("subjectlist",subjectlist);
+		model.addAttribute("optsubjectlist",optsubjectlist);
 		
 		return "academics/subjects/assignsubjects";
 	}
@@ -404,8 +405,8 @@ private void commonModels(Model model){
 		JasperPrint jasperPrint,jasper;
 		
 			//String sourceFileName="D://DigiNepal//schoolSpring//SchoolMgmt//reports//claimbill.jasper";
-		JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//claimbill.jrxml");
-		 //JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/claimbill.jrxml");
+		//JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//claimbill.jrxml");
+		 JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/claimbill.jrxml");
 		
 		  
 		  

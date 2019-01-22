@@ -144,7 +144,7 @@ public class ExamDaoImpl implements ExamDao {
 
 	public Subjects getSubjectDetail(String subjectCode) {
 		try{
-		String query = "select * from subjectlist where subjectCode='"
+		String query = "select * from subjectlist where subjectid='"
 				+ subjectCode + "'";
 		System.out.println(query);
 		return jdbcTemplate.queryForObject(query, new ClassSubjects());
@@ -392,10 +392,13 @@ public class ExamDaoImpl implements ExamDao {
 	public List<ExamModel> getBulkReport(String classname, String section, String examid) {
 		String query="";
 		if(section.isEmpty()) {
-		 query="select studentid from exam_marks_tbl join studentinfo using (studentid) where studentinfo.admissionclass='"+classname+"' and examid='"+examid+"'";
+			System.out.println(query);
+		 query="select studentid from exam_marks_tbl join studentinfo using (studentid) where studentinfo.admissionclass='"+classname+"' and examid='"+examid+"' group by studentid";
 		}
 		else {
-			 query="select studentid from exam_marks_tbl join studentinfo using (studentid) where studentinfo.admissionclass='"+classname+"' and examid='"+examid+"' and section='"+section+"'";
+			
+			 query="select studentid from exam_marks_tbl join studentinfo using (studentid) where studentinfo.admissionclass='"+classname+"' and examid='"+examid+"' and section='"+section+"' group by studentid ";
+			 System.out.println(query);
 		}
 		
 		return jdbcTemplate.query(query, new StudentidMapper());
@@ -414,6 +417,25 @@ public class ExamDaoImpl implements ExamDao {
 			return s;
 		}
 		}
+
+	@Override
+	public boolean isOptionalSubject(String subjectcode) {
+	
+		String query="select subjecttype from subjectlist where subjectid='"+subjectcode+"'";
+		System.out.println(query);
+		String result= jdbcTemplate.queryForObject(query, String.class);
+		if(result.equalsIgnoreCase("common")) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public List<StudentModel> getOptStudents(String subjectcode,String classname) {
+		String query="SELECT studentdetail.studentid, studentdetail.studentname,studentdetail.rollno from studentdetail  join optcoursetbl on studentdetail.studentid=optcoursetbl.studentid  join subjectlist on optcoursetbl.subjectid=subjectlist.subjectid where subjectlist.subjectid='"+subjectcode+"' and studentdetail.admissionclass='"+classname+"'";
+		System.out.println(query);
+		return jdbcTemplate.query(query, new StudentMapper());
+	}
 	
 		
 	

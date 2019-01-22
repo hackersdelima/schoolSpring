@@ -32,6 +32,10 @@ public interface OperationDao {
 
 	public void editFeeSetting(String feecode, String classname, String category, String feerate);
 
+	public List<FormDetails> getOptionalSubject();
+
+	public void assignOptionalSubjects(String optSubId, String string);
+
 
 	
 

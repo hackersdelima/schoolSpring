@@ -49,7 +49,7 @@ aranikodb.studentinfo.studentid = aranikodb.exam_marks_tbl.studentid
 left join
 aranikodb.subjectlist 
 on
-aranikodb.exam_marks_tbl.subjectid = aranikodb.subjectlist.`subjectCode`
+aranikodb.exam_marks_tbl.subjectid = aranikodb.subjectlist.`subjectid`
 left JOIN
 aranikodb.exam
 ON
@@ -410,15 +410,6 @@ aranikodb.exam_marks_tbl.examid=aranikodb.exam.examid
 					<textFieldExpression><![CDATA[$F{subjectname}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" x="150" y="0" width="48" height="15" uuid="aa0fe540-f843-44ce-b76f-a65c2e905261">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="112a3a27-e987-43fd-b594-54326dc13c7d"/>
-					</reportElement>
-					<textElement>
-						<font fontName="SansSerif" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA[SUM($F{fullmarks},$F{fullmarks_pr} )]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
 					<reportElement style="Detail" x="198" y="0" width="36" height="15" uuid="9dbd146d-ffc4-4b4c-9f44-112839b209de">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="64d71593-27f4-4348-817e-fae5f419454e"/>
 					</reportElement>
@@ -469,6 +460,10 @@ aranikodb.exam_marks_tbl.examid=aranikodb.exam.examid
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 				</line>
+				<textField>
+					<reportElement x="150" y="0" width="48" height="16" uuid="055f153a-5e6b-4066-8a30-4161f294dd7e"/>
+					<textFieldExpression><![CDATA[$F{fullmarks}+$F{fullmarks_pr}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</detail>

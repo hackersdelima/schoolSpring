@@ -33,6 +33,8 @@ public interface ExamDao {
 	public void studentResult(int studentid, String examid, String string);
 	public String getGrades(String studentid);
 	public List<ExamModel> getBulkReport(String classname, String section, String examid);
+	public boolean isOptionalSubject(String subjectcode);
+	public List<StudentModel> getOptStudents(String subjectcode,String classname);
 	
 
 

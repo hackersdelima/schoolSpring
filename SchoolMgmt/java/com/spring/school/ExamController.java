@@ -180,33 +180,34 @@ public class ExamController {
 	@RequestMapping(value = "/jasper", method = RequestMethod.POST)
 	  @ResponseBody
 	  public void getRpt1(HttpServletResponse response,@RequestParam Map<String, String> reqParam) throws JRException, IOException {
-	    //JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//examReports.jrxml");
-	    JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examReports.jrxml");
+		System.out.println("/exam/jasper");
+	   
+	    //JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examReports.jrxml");
 	  
 	
 	    Map<String ,Object> param2=new HashMap<String,Object>();
 	    String classname = reqParam.get("classid");
 		String section = reqParam.get("sectionid");
 		String examid = reqParam.get("examid");
+	
 		try {
 			Connection conn=null;
 		
 		List<ExamModel> studentids=examDao.getBulkReport(classname,section,examid);
-		System.out.println(studentids);
-	  
-		
-	      
+		System.out.println(studentids+"student LIst");
 	    JasperPrint jasperPrint,jasper;
+	   		//jasper= JasperFillManager.fillReport(jasperReport, param2, dataSource.getConnection());
 		
-			jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource.getConnection());
-			
-			//jasper= JasperFillManager.fillReport(jasperReport, param2, dataSource.getConnection());
-		
-			
+	   // param2.put("studentid", "666");
 			param2.put("examid", examid);
-			
+			 JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//examReports.jrxml");
+			 jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource.getConnection());
+			 
+			 
 			for(int i=0;i<studentids.size();i++) {
-				 conn = dataSource.getConnection();
+				conn = dataSource.getConnection();
+				System.out.println("reached");
+				
 				System.out.println(studentids.get(i).getStudentid());
 				param2.put("studentid", studentids.get(i).getStudentid());
 			  
@@ -349,12 +350,20 @@ public class ExamController {
 	}
 
 	@RequestMapping(value = "/getClassStudents", method = RequestMethod.POST)
-	public String getClassStudents(Model model, @RequestParam("subjectcode") String subjectcode,
+	public String getClassStudents(Model model, @RequestParam("subjectid") String subjectcode,
 			@RequestParam("classname") String classname, @RequestParam("sectionname") String sectionname) {
-		System.out.println("reached here");
-		List<StudentModel> students = examDao.getClassStudents(classname, sectionname);
+		System.out.println("/exam/getClassStudents");
+		
+		boolean status=examDao.isOptionalSubject(subjectcode);
+		List<StudentModel> students=null;
+		
+		if(status) {
+			students=examDao.getOptStudents(subjectcode,classname);
+		}
+		else {
+			students = examDao.getClassStudents(classname, sectionname);
+		}
 		model.addAttribute("students", students);
-
 		Subjects subjectdetail = examDao.getSubjectDetail(subjectcode);
 		System.out.println(subjectdetail);
 		model.addAttribute("subjectdetail", subjectdetail);
@@ -388,13 +397,13 @@ public class ExamController {
 	@ResponseBody
 	@RequestMapping(value="/classSubject")
 	public void classSubject(@RequestParam("id") String classid, PrintWriter out){
-		System.out.println("sdflksj");
+		System.out.println("/classSubject");
 		List<String> optionlist = new ArrayList<String>();
 		List<Subjects> classSubjects=examDao.getSpecificClassSubjects(classid);
 		System.out.println(classSubjects.size());
 		String option;
 		for(int i=0;i<classSubjects.size();i++){
-		 option ="<option value='"+classSubjects.get(i).getSubjectcode()+"'>"+classSubjects.get(i).getSubjectcode()+"-"+classSubjects.get(i).getSubjectname()+"</option>";
+		 option ="<option value='"+classSubjects.get(i).getSubjectid()+"'>"+classSubjects.get(i).getSubjectcode()+"-"+classSubjects.get(i).getSubjectname()+"</option>";
 	out.println(option);
 		}
 	}
