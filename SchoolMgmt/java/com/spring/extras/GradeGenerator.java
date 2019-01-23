@@ -1,7 +1,26 @@
 package com.spring.extras;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
+
+
 public class GradeGenerator {
 
+private JdbcTemplate jdbcTemplate;
+
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+	 
+	 @Autowired
+	 private void setDataSource(DataSource dataSource)
+	 {
+		 this.jdbcTemplate=new JdbcTemplate(dataSource);
+		 
+	 }
 	
 	 public String grade(double fullmarks,double fullmarks_pr,double obtained_pr,double obtainedmarks) {
 	       double obtained_full = obtainedmarks + obtained_pr;
@@ -35,12 +54,12 @@ public class GradeGenerator {
 	        return grade;
 	    }
 	 
-	 public boolean isPassed(double passmarks,double thmarks, double passmarks_pr,double prmarks)
+	 public String isPassed(double passmarks,double thmarks, double passmarks_pr,double prmarks)
 	 {
 		 if(passmarks<=thmarks && prmarks>=passmarks_pr)
 		 {
-			 return true;
+			 return "passed";
 		 }
-		 return false;
+		 return "failed";
 	 }
 }

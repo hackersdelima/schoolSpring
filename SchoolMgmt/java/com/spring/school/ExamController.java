@@ -57,6 +57,9 @@ public class ExamController {
 	
 	@Autowired
 	DateConverterDao dateConverter;
+	
+	@Autowired
+	GradeGenerator gradeGenerator;
 
 	@RequestMapping(value = "/setMarks", method = RequestMethod.POST)
 	public String setMarks(Model model, @RequestParam Map<String, String> reqParam) {
@@ -114,6 +117,10 @@ public class ExamController {
 				
 				String thmark=exammodel.getSubjects().getThmarkslist().get(i);
 				String prmark=exammodel.getSubjects().getPrmarkslist().get(i);
+				String fullmark=exammodel.getSubjects().getFullmarkslist().get(i);
+				String fullmark_pr=exammodel.getSubjects().getFullmarks_prlist().get(i);
+				String passmark=exammodel.getSubjects().getPassmarkslist().get(i);
+				String passmark_pr=exammodel.getSubjects().getPassmarks_prlist().get(i);
 				if(thmark.isEmpty())
 				{
 					thmark="0";
@@ -130,6 +137,23 @@ public class ExamController {
 			
 			if (!examDao.checkStudentSubAvailability(exammodel, i) == true) {
 			examDao.addMarks(exammodel, i);
+			double thmarks=Double.parseDouble(thmark);
+			double prmarks=Double.parseDouble(prmark);
+			double fullmarks=Double.parseDouble(fullmark);
+			double fullmarks_pr=Double.parseDouble(fullmark_pr);
+			double passmarks=Double.parseDouble(passmark);
+			double passmarks_pr=Double.parseDouble(passmark_pr);
+			String sid=exammodel.getStudentidlist().get(i);
+			String subid=exammodel.getSubjects().getSubjectid();
+			
+			String result=gradeGenerator.isPassed(passmarks, thmarks, passmarks_pr, prmarks);
+		
+			
+			String grade = gradeGenerator.grade(fullmarks, fullmarks_pr, prmarks, thmarks);
+			System.out.println(sid+subid+grade);
+			System.out.println(fullmarks + " "+ prmarks + thmarks+fullmarks_pr+grade);
+			
+			examDao.updateGradeAndResult(sid, subid, grade,result);
 			}
 
 			
@@ -235,7 +259,7 @@ public class ExamController {
 	  }
 	
 	
-	@RequestMapping(value = "/grade", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/grade", method = RequestMethod.POST)
 	public String grade(Model model) {
 		
 		List<GradeModel> reportlist = examDao.StudentMarksReport();
@@ -274,9 +298,9 @@ public class ExamController {
 		}
 
 		return "exam/report";
-	}
+	}*/
 
-	@RequestMapping(value = "/resultCheck", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/resultCheck", method = RequestMethod.GET)
 	public String resultCheck(Model model) {
 
 		
@@ -347,7 +371,7 @@ public class ExamController {
 		
 
 		return "exam/report";
-	}
+	}*/
 
 	@RequestMapping(value = "/getClassStudents", method = RequestMethod.POST)
 	public String getClassStudents(Model model, @RequestParam("subjectid") String subjectcode,

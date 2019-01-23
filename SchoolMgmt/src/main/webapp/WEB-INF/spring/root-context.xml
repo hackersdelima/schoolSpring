@@ -58,6 +58,9 @@
 	<bean id="generator" class="com.spring.extras.Generator">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
+	<bean id="gradeGenerator" class="com.spring.extras.GradeGenerator">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
 	<bean id="dateConverter" class="com.spring.dao.impl.DateConverterDaoImpl">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>

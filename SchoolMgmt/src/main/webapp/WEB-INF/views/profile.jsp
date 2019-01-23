@@ -234,7 +234,7 @@
 
         <!-- page content -->
      <div class="right_col" role="main">
-          <iframe    height="2000px" width="100%" src="<%=request.getContextPath()%>/nav/dashboard" id="Iframe" name="iframe_a"  style="border:none;" >
+          <iframe height="2000px" width="100%" src="<%=request.getContextPath()%>/nav/dashboard" id="Iframe" name="iframe_a"  style="border:none;" >
 		</iframe>
      </div>
         <!-- /page content -->

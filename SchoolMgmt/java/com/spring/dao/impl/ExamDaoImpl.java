@@ -353,12 +353,12 @@ public class ExamDaoImpl implements ExamDao {
 		}
 
 	@Override
-	public boolean updateGrade(String studentid, String subjectid, String grade) {
+	public boolean updateGradeAndResult(String studentid, String subjectid, String grade,String result) {
 
 		boolean status=false;
-		String query="update exam_marks_tbl set totalgrade='"+grade+"' where studentid='"+studentid+"' and subjectid='"+subjectid+"'";
-		int result=jdbcTemplate.update(query);
-		if(result>0)
+		String query="update exam_marks_tbl set totalgrade='"+grade+"',result='"+result+"' where studentid='"+studentid+"' and subjectid='"+subjectid+"'";
+		int res=jdbcTemplate.update(query);
+		if(res>0)
 		{
 			status=true;
 		}
