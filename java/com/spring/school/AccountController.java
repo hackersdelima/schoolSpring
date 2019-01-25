@@ -28,7 +28,7 @@ import com.spring.model.CategoryModel;
 import com.spring.model.StaffModel;
 import com.spring.model.StudentModel;
 import com.spring.model.UserModel;
-
+/// this is comment
 @Controller
 @RequestMapping("/account")
 public class AccountController {
