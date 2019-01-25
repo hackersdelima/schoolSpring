@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="examSummary" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bea32007-3fbb-4c74-9db7-66e8247227ab">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Aranikodb"/>
+	<parameter name="studentid" class="java.lang.String"/>
+	<parameter name="examid" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select * from  aranikodb.exam_summary  where studentid=$P{studentid} and examid=$P{examid}]]>
+	</queryString>
+	<field name="studentid" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="studentid"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+	</field>
+	<field name="examid" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="examid"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+	</field>
+	<field name="obtfullmarks" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="obtfullmarks"/>
+	</field>
+	<field name="fullmarks" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="fullmarks"/>
+	</field>
+	<field name="percentage" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="percentage"/>
+	</field>
+	<field name="finalresult" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="finalresult"/>
+	</field>
+	<field name="finalgrade" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="finalgrade"/>
+	</field>
+	<field name="finalgpa" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="finalgpa"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<summary>
+		<band height="118" splitType="Stretch">
+			<textField>
+				<reportElement x="80" y="0" width="100" height="30" uuid="c25641d4-da2a-44e4-9c7c-218439fcad03"/>
+				<textFieldExpression><![CDATA[$F{percentage}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="0" width="100" height="30" uuid="6a1ae74b-060b-4f97-972b-d482b723bb15"/>
+				<textFieldExpression><![CDATA[$F{finalgrade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="0" width="85" height="30" uuid="38414134-4032-42d8-8542-873e7fe7704a"/>
+				<textFieldExpression><![CDATA[$F{finalgpa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="30" uuid="81d9de9e-8ea2-49aa-87a1-d6cf9e8dcffe"/>
+				<text><![CDATA[Percentage]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="0" width="90" height="30" uuid="4b1ede5f-10a5-4e27-8128-e553cb2593dd"/>
+				<text><![CDATA[Grade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="0" width="90" height="30" uuid="c701ce76-796a-4724-b5b6-656d3655a6f5"/>
+				<text><![CDATA[GPA]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="examReports" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ced95029-b569-4027-895c-af2843a4e088">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Aranikodb"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<box>
+			<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="studentid" class="java.lang.String"/>
+	<parameter name="examid" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+aranikodb.exam_marks_tbl.studentid,
+aranikodb.exam_marks_tbl.result,
+aranikodb.exam_marks_tbl.examid, 
+aranikodb.exam_marks_tbl.fullmarks,
+aranikodb.exam_marks_tbl.passmarks,
+aranikodb.exam_marks_tbl.fullmarks_pr,
+aranikodb.exam_marks_tbl.passmarks_pr, 
+aranikodb.exam_marks_tbl.prmarks,
+aranikodb.exam_marks_tbl.thmarks,
+aranikodb.exam_marks_tbl.totalmarks,
+aranikodb.exam_marks_tbl.totalgrade,
+aranikodb.studentinfo.studentname,
+aranikodb.studentinfo.rollno,
+aranikodb.studentinfo.admissionclass,
+aranikodb.studentinfo.section,
+aranikodb.studentinfo.sex,
+aranikodb.subjectlist.subjectname,
+aranikodb.exam.examname
+
+FROM aranikodb.exam_marks_tbl
+left join
+aranikodb.studentinfo 
+on
+aranikodb.studentinfo.studentid = aranikodb.exam_marks_tbl.studentid 
+left join
+aranikodb.subjectlist 
+on
+aranikodb.exam_marks_tbl.subjectid = aranikodb.subjectlist.`subjectid`
+left JOIN
+aranikodb.exam
+ON
+aranikodb.exam_marks_tbl.examid=aranikodb.exam.examid
+  where 
+  aranikodb.exam_marks_tbl.studentid = $P{studentid}
+  and
+  aranikodb.exam_marks_tbl.examid =$P{examid}]]>
+	</queryString>
+	<field name="studentid" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="studentid"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+	</field>
+	<field name="result" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="result"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+	</field>
+	<field name="examid" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="examid"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+	</field>
+	<field name="fullmarks" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="fullmarks"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+	</field>
+	<field name="passmarks" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="passmarks"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+	</field>
+	<field name="fullmarks_pr" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="fullmarks_pr"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+	</field>
+	<field name="passmarks_pr" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="passmarks_pr"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+	</field>
+	<field name="prmarks" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="prmarks"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+	</field>
+	<field name="thmarks" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="thmarks"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+	</field>
+	<field name="totalmarks" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="totalmarks"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+	</field>
+	<field name="totalgrade" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="totalgrade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
+	</field>
+	<field name="studentname" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="studentname"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="studentinfo"/>
+	</field>
+	<field name="rollno" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="rollno"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="studentinfo"/>
+	</field>
+	<field name="admissionclass" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="admissionclass"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="studentinfo"/>
+	</field>
+	<field name="section" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="section"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="studentinfo"/>
+	</field>
+	<field name="sex" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="sex"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="studentinfo"/>
+	</field>
+	<field name="subjectname" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="subjectname"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="subjectlist"/>
+	</field>
+	<field name="examname" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="examname"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exam"/>
+	</field>
+	<variable name="studentid1" class="java.lang.Long" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{studentid}]]></variableExpression>
+	</variable>
+	<variable name="thmarks1" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{thmarks}]]></variableExpression>
+	</variable>
+	<variable name="prmarks1" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{prmarks}]]></variableExpression>
+	</variable>
+	<variable name="fullmarks1" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{fullmarks}]]></variableExpression>
+	</variable>
+	<variable name="totalmarks1" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalmarks}]]></variableExpression>
+	</variable>
+	<variable name="prmarks2" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{prmarks}]]></variableExpression>
+	</variable>
+	<variable name="Variable_1" class="java.lang.String"/>
+	<variable name="finalgrade" class="java.lang.String"/>
+	<variable name="totalFullMarks" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{fullmarks}+$F{fullmarks_pr}]]></variableExpression>
+	</variable>
+	<variable name="percentage" class="java.lang.Double">
+		<variableExpression><![CDATA[($V{totalmarks1}/$V{totalFullMarks})*100]]></variableExpression>
+	</variable>
+	<variable name="Result" class="java.lang.String"/>
+	<group name="Group1">
+		<groupHeader>
+			<band height="9"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="65">
+				<textField>
+					<reportElement x="278" y="0" width="52" height="19" uuid="069e96a0-5382-44f8-966e-b46d2b501443"/>
+					<textElement>
+						<font fontName="SansSerif"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{thmarks1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="2" y="0" width="148" height="19" uuid="7f4f8dea-abe7-48af-99f2-40b86058a164"/>
+					<textElement>
+						<font fontName="SansSerif" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="330" y="0" width="70" height="19" uuid="91b82722-0292-4a9f-9525-02832a48e988"/>
+					<textElement>
+						<font fontName="SansSerif"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totalmarks1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="150" y="1" width="48" height="18" uuid="2b97c439-8703-40f4-ac0c-df1f6a83623c"/>
+					<textElement>
+						<font fontName="SansSerif"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totalFullMarks}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="159" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="0" width="569" height="65" uuid="4015d8cc-9355-4856-8b5f-368e90efc125">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Araniko Secondary School]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="179" y="35" width="211" height="33" uuid="ba80f681-f3e3-474d-9d4e-6b639612840b"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Suryabinayak-4, Bhaktapur]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-3" y="80" width="556" height="1" uuid="63c89f12-75c6-48b7-88bd-b7e5986e2a13">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="90" width="60" height="20" uuid="7bc71a4d-8f5e-4585-afc4-fe948e8f8079"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="110" width="60" height="20" uuid="3dd29e19-ed75-402f-a918-71625c9f46bc"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<text><![CDATA[Faculty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="130" width="60" height="20" uuid="f7ca41dc-acf8-4f7b-a1e8-beb990657178"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<text><![CDATA[Section]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="90" width="60" height="20" uuid="f5161fd1-55b7-49f3-b10f-ae2c67cb479f"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<text><![CDATA[Roll No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="110" width="60" height="20" uuid="8e455af4-99d5-464b-9384-68be9f26bfbf"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<text><![CDATA[Class]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="130" width="60" height="20" uuid="4f263596-9577-4346-bf29-e63dbfeecd10"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="40" y="90" width="100" height="20" uuid="804e47af-c62e-43c9-8f99-1c03f01fc9eb"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{studentname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="90" width="100" height="20" uuid="0356194e-4472-4810-8433-a6d9185e42a2"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rollno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="110" width="100" height="20" uuid="81f96e0c-8619-4d5f-9a59-9187b9167801"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{admissionclass}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="130" width="100" height="20" uuid="a70d98d2-6f6e-4473-a2bf-a16cc7bc8f7b"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{section}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="380" y="130" width="100" height="20" uuid="eaaa4049-1077-4271-be80-8a33a51564a9"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="51" width="122" height="30" uuid="39a3caa1-daf1-422e-a8a6-a3eb343715ce"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{examname}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="47" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="30" y="0" width="120" height="30" forecolor="#736343" uuid="6b43b2f6-c049-4e2b-b02c-5e42977ee34d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5f6e677c-dd29-4a49-8213-10a3049375fd"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Subject]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="150" y="0" width="48" height="46" forecolor="#736343" uuid="2f556342-f75d-42c0-9a0f-45cc6e5f1715">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="112a3a27-e987-43fd-b594-54326dc13c7d"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Full Marks]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="198" y="0" width="42" height="46" forecolor="#736343" uuid="efd7d43c-db67-4c1d-816d-284d2780dd07">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="64d71593-27f4-4348-817e-fae5f419454e"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pass Marks]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="240" y="0" width="50" height="46" forecolor="#736343" uuid="db7d4d28-e8cf-4ded-8677-f03d7ce0536d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a030c59d-a261-4c99-a956-e11c5479772f"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pr. Marks]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="290" y="0" width="52" height="46" forecolor="#736343" uuid="5e949936-7ea4-4556-ac86-1f9b7c070a7f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="87186d24-ccde-4d52-90f0-7bb8a035d9bb"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Th. Marks]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="342" y="0" width="58" height="46" forecolor="#736343" uuid="fb01bc4f-33b5-4eb8-87c1-de70fff3feec">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c1b9625a-8715-4b72-a9cc-6e9c0b47ae75"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Marks]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="400" y="0" width="80" height="46" forecolor="#736343" uuid="9123de2b-6dce-41c1-b183-d192a0a0de04">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0d47dcc9-a54e-4d22-ba63-f167e71242b4"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Grade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="480" y="0" width="74" height="29" forecolor="#736343" uuid="3d787bc8-59a8-4c5e-bd43-8c658ceeea95">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a0d3a2ba-4999-4bf8-878d-fb581893d263"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Remarks]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="-2" y="0" width="555" height="2" uuid="0b898acc-22ec-479f-8995-059b3249a4ba"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="46" width="555" height="1" uuid="1a61a836-d137-48b1-ad67-6ff64600bf93"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="1" y="0" width="29" height="30" uuid="7be6e603-bb66-4430-bfb2-7478c0cf5f29"/>
+				<text><![CDATA[S.No]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="15" uuid="a98495d8-3c8d-4fa0-81f5-30c3efc2f766"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="30" y="0" width="120" height="15" uuid="62811f30-c2dd-40d5-af9a-6ae7b61e9acd">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5f6e677c-dd29-4a49-8213-10a3049375fd"/>
+					</reportElement>
+					<textElement>
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{subjectname}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="198" y="0" width="42" height="15" uuid="9dbd146d-ffc4-4b4c-9f44-112839b209de">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="64d71593-27f4-4348-817e-fae5f419454e"/>
+					</reportElement>
+					<textElement>
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{passmarks}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="240" y="0" width="50" height="15" uuid="5779752a-2352-471a-a714-3a696a950915">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a030c59d-a261-4c99-a956-e11c5479772f"/>
+					</reportElement>
+					<textElement>
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{prmarks}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="290" y="0" width="52" height="15" uuid="67ab5b1c-71c5-454e-a7ae-de199a1e4225">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="87186d24-ccde-4d52-90f0-7bb8a035d9bb"/>
+					</reportElement>
+					<textElement>
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{thmarks}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="342" y="0" width="58" height="15" uuid="79792aab-afba-45ea-819a-c0aacfbeab64">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c1b9625a-8715-4b72-a9cc-6e9c0b47ae75"/>
+					</reportElement>
+					<textElement>
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{totalmarks}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="400" y="0" width="81" height="15" uuid="ec680043-7e39-4ea6-9740-fbf20f2b501f">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0d47dcc9-a54e-4d22-ba63-f167e71242b4"/>
+					</reportElement>
+					<textElement>
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{totalgrade}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="-3" y="15" width="556" height="1" uuid="4a0b2f97-0481-4fab-896e-d9539f8e8d71">
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+				</line>
+				<textField>
+					<reportElement x="150" y="0" width="48" height="16" uuid="055f153a-5e6b-4066-8a30-4161f294dd7e"/>
+					<textFieldExpression><![CDATA[$F{fullmarks}+$F{fullmarks_pr}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="480" y="0" width="73" height="16" uuid="82d5f1c8-bf3a-4383-8634-a76777e307d2">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a478f414-4a03-4615-8a3c-dc7d6a7504ef"/>
+					</reportElement>
+					<textFieldExpression><![CDATA[$F{result}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="0" width="30" height="16" uuid="2cda09fb-815a-4689-b51c-04613dfed373"/>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="242" splitType="Stretch">
+			<subreport>
+				<reportElement x="10" y="0" width="480" height="70" uuid="d96205ec-2115-4752-9fe4-a66654fefb68"/>
+				<subreportParameter name="studentid">
+					<subreportParameterExpression><![CDATA[$P{studentid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="examid">
+					<subreportParameterExpression><![CDATA[$P{examid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["reports/examSummary.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="64" splitType="Stretch">
+			<staticText>
+				<reportElement x="-1" y="20" width="138" height="32" uuid="310db22a-c1ec-444d-9be4-83ad39c224a1"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[    Head of Faculty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="418" y="20" width="138" height="32" uuid="e161460a-db48-4922-a818-bb9568de68fc"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Principal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="-10" width="140" height="40" uuid="22a94587-c6a2-4524-8567-8550e3fa05cc"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="16" isBold="false"/>
+				</textElement>
+				<text><![CDATA[...............................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-2" y="-10" width="140" height="40" uuid="c3f217ba-74aa-4cdd-abfc-a948a1b6566d"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="16" isBold="false"/>
+				</textElement>
+				<text><![CDATA[...............................]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

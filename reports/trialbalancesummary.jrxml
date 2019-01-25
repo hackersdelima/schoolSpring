@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="trialbalance" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="25f7ee47-2174-40ff-a1a5-cd9e2488b38c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="accountNumber" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="accountNumber"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="accountstbl"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="categoryId" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="categoryId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="accountstbl"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="accountName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="accountName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="accountstbl"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="debitBal" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="debitBal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="accountstbl"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="creditBal" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="creditBal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="accountstbl"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="categoryHead" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="categoryHead"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="categories"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="mainHead" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="mainHead"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="mainac"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="mainHead1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="mainHead1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="mainac1"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="mainHead2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="mainHead2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="mainac2"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="clearedBal1" class="java.lang.Double" resetType="Group" resetGroup="categoryHead" calculation="Sum">
+		<variableExpression><![CDATA[$F{creditBal}]]></variableExpression>
+	</variable>
+	<variable name="clearedBal1_1" class="java.lang.Double" resetType="Group" resetGroup="categoryHead" calculation="Sum">
+		<variableExpression><![CDATA[$F{debitBal}]]></variableExpression>
+	</variable>
+	<variable name="clearedBal2_1" class="java.lang.Double" resetType="Group" resetGroup="Group2" calculation="Sum">
+		<variableExpression><![CDATA[$F{debitBal}]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{debitBal}]]></initialValueExpression>
+	</variable>
+	<variable name="clearedBal2_2" class="java.lang.Double" resetType="Group" resetGroup="Group2" calculation="Sum">
+		<variableExpression><![CDATA[$F{creditBal}]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{creditBal}]]></initialValueExpression>
+	</variable>
+	<variable name="clearedBal3_2" class="java.lang.Double" resetType="Group" resetGroup="mainhead1" calculation="Sum">
+		<variableExpression><![CDATA[$F{creditBal}]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{creditBal}]]></initialValueExpression>
+	</variable>
+	<variable name="clearedBal3_1" class="java.lang.Double" resetType="Group" resetGroup="mainhead1" calculation="Sum">
+		<variableExpression><![CDATA[$F{debitBal}]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{debitBal}]]></initialValueExpression>
+	</variable>
+	<variable name="clearedBal4_1" class="java.lang.Double" resetType="Group" resetGroup="mainhead" calculation="Sum">
+		<variableExpression><![CDATA[$F{debitBal}]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{debitBal}]]></initialValueExpression>
+	</variable>
+	<variable name="clearedBal4_2" class="java.lang.Double" resetType="Group" resetGroup="mainhead" calculation="Sum">
+		<variableExpression><![CDATA[$F{creditBal}]]></variableExpression>
+		<initialValueExpression><![CDATA[$F{creditBal}]]></initialValueExpression>
+	</variable>
+	<group name="mainhead">
+		<groupExpression><![CDATA[$F{mainHead}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="28">
+				<textField pattern="#,##0.00###">
+					<reportElement x="322" y="3" width="100" height="17" uuid="e3474534-c8e2-4d03-b4e7-430079a39d84"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{clearedBal4_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="140" y="3" width="180" height="17" uuid="75cfe1c3-321a-40cf-978d-c33d8b0b031c"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{mainHead} + " Total"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00###">
+					<reportElement x="422" y="2" width="100" height="18" uuid="8a0681ed-9ce8-4c32-9d86-45d663bc5766"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{clearedBal4_2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="mainhead1">
+		<groupExpression><![CDATA[$F{mainHead1}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="25">
+				<textField>
+					<reportElement x="90" y="0" width="230" height="20" uuid="f2a5d49c-319b-4029-af75-7d390fbb6407"/>
+					<textFieldExpression><![CDATA[$F{mainHead1}+" Total"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00###">
+					<reportElement x="420" y="0" width="100" height="20" uuid="95edd9db-7a8f-4e90-93e4-07eb72b7a5e3"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{clearedBal3_2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00###">
+					<reportElement x="320" y="0" width="100" height="20" uuid="63b7d90e-98e5-40dd-a1e4-fefad5c65300"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{clearedBal3_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group2" keepTogether="true">
+		<groupExpression><![CDATA[$F{mainHead2}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="21">
+				<textField>
+					<reportElement x="60" y="0" width="260" height="20" uuid="b056739c-b743-4d74-8a01-618a612b4343"/>
+					<textFieldExpression><![CDATA[$F{mainHead2} + " Total"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00###">
+					<reportElement x="320" y="0" width="100" height="20" uuid="7ecac781-7ec9-477a-9aa1-42f6d4c7eb0d"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{clearedBal2_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00###">
+					<reportElement x="420" y="-3" width="100" height="23" uuid="ec91fb70-a23a-4c56-8130-08b4fb87f75e"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{clearedBal2_2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="categoryHead">
+		<groupExpression><![CDATA[$F{categoryHead}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="23">
+				<textField pattern="#,##0.00###">
+					<reportElement x="420" y="1" width="100" height="20" uuid="9141270c-ee2e-4f26-9c32-61c6b42566c1"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{clearedBal1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00###">
+					<reportElement x="320" y="1" width="100" height="20" uuid="780ed2d5-fd6a-45d3-851e-0de7717bc5fe"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{clearedBal1_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="110" y="1" width="200" height="19" uuid="1d6d2e56-c993-468e-a461-d3e66f179759"/>
+					<textFieldExpression><![CDATA[$F{categoryHead}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="3" width="110" height="18" uuid="a41bf6e8-3f21-419a-9e03-5f730381eae6"/>
+					<textFieldExpression><![CDATA[$F{categoryId}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="84" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="560" height="20" uuid="b08c9f0d-dd75-45bf-8240-b0bcf6de93c8"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Araniko Secondary School]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="560" height="20" uuid="b2fde3b9-b3ba-4714-96ff-62b2060da1a0"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Suryabinayak - 4, Bhaktapur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="560" height="25" uuid="31b5f062-b781-418c-a40c-6b23a30f8d5b"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Trial Balance Summary]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="3" width="110" height="17" uuid="0de1b03d-983b-4895-87a2-ad623ce7c675"/>
+				<text><![CDATA[Category Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="3" width="200" height="17" uuid="1cca99d5-b23c-4a68-a3ee-a44dfe44116d"/>
+				<text><![CDATA[Category Head]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="3" width="109" height="17" uuid="253c0183-9100-4259-9d27-d6f7c43a291d"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Debit Balance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="419" y="3" width="90" height="17" uuid="6e10e9d9-7a2d-44e3-83f8-513eeba373e8"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Credit Balance]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="11" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="41" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="25" splitType="Stretch"/>
+	</summary>
+</jasperReport>
