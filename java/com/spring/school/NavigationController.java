@@ -307,8 +307,14 @@ private void commonModels(Model model){
 		return "settings/feeSetting";
 	}
 	
+	@RequestMapping(value="/bulkGradeReportSearch")
+	public String bulkGradeReportSearch(Model model)
+	{
+		model.addAttribute("examlist",operationDao.getExamList());
+		return "exam/bulkGradeReport";
+	}
 	@RequestMapping(value="/bulkReportSearch")
-	public String bulkReportSearch(Model model)
+	public String bulkMarksReportSearch(Model model)
 	{
 		model.addAttribute("examlist",operationDao.getExamList());
 		return "exam/bulkReport";

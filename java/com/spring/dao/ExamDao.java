@@ -34,7 +34,7 @@ public interface ExamDao {
 	public String getGrades(String studentid);
 	public List<ExamModel> getBulkReport(String classname, String section, String examid);
 	public boolean isOptionalSubject(String subjectcode);
-	public List<StudentModel> getOptStudents(String subjectcode,String classname);
+	public List<StudentModel> getOptStudents(String subjectcode,String classname,String section);
 	public boolean updateme(String exammarksid, String grade,String result,String prgrade,String thgrade,double gpa);
 
 

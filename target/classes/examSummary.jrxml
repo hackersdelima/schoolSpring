@@ -34,34 +34,95 @@
 	<field name="finalgpa" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.label" value="finalgpa"/>
 	</field>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
 	<summary>
-		<band height="118" splitType="Stretch">
+		<band height="50" splitType="Stretch">
 			<textField>
-				<reportElement x="80" y="0" width="100" height="30" uuid="c25641d4-da2a-44e4-9c7c-218439fcad03"/>
+				<reportElement x="80" y="20" width="60" height="30" uuid="c25641d4-da2a-44e4-9c7c-218439fcad03"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{percentage}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="80" height="30" uuid="81d9de9e-8ea2-49aa-87a1-d6cf9e8dcffe"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Percentage:]]></text>
+			</staticText>
 			<textField>
-				<reportElement x="270" y="0" width="100" height="30" uuid="6a1ae74b-060b-4f97-972b-d482b723bb15"/>
-				<textFieldExpression><![CDATA[$F{finalgrade}]]></textFieldExpression>
+				<reportElement x="210" y="20" width="80" height="30" uuid="0c900268-f8e0-4aa0-bd13-8996f96ba338"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{finalresult}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="140" y="20" width="70" height="30" uuid="43d62a92-aa47-4e4b-93cb-75cd24b66e06"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Result:]]></text>
+			</staticText>
 			<textField>
-				<reportElement x="460" y="0" width="85" height="30" uuid="38414134-4032-42d8-8542-873e7fe7704a"/>
+				<reportElement x="340" y="20" width="50" height="30" uuid="666ec335-e12c-4f30-a15b-a41a141fc0d0"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{finalgpa}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="0" width="80" height="30" uuid="81d9de9e-8ea2-49aa-87a1-d6cf9e8dcffe"/>
-				<text><![CDATA[Percentage]]></text>
+				<reportElement x="290" y="20" width="50" height="30" uuid="8e2b159d-117c-4855-804d-7e8d1d4f5e1d"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[GPA:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="180" y="0" width="90" height="30" uuid="4b1ede5f-10a5-4e27-8128-e553cb2593dd"/>
-				<text><![CDATA[Grade]]></text>
+				<reportElement x="390" y="20" width="70" height="30" uuid="dbf3235b-b1e2-4acb-801e-4a1cffc1c5a9"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grade:]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="460" y="20" width="50" height="30" uuid="44e1857d-af49-4e1a-8df0-0e64f0ad033b"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{finalgrade}]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement x="370" y="0" width="90" height="30" uuid="c701ce76-796a-4724-b5b6-656d3655a6f5"/>
-				<text><![CDATA[GPA]]></text>
+				<reportElement x="0" y="0" width="510" height="20" uuid="758953b3-db18-49e4-9a4c-ed2fe6df186a"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Over All]]></text>
 			</staticText>
 		</band>
 	</summary>

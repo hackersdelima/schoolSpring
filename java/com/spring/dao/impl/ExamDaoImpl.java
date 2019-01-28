@@ -446,8 +446,8 @@ public class ExamDaoImpl implements ExamDao {
 	}
 
 	@Override
-	public List<StudentModel> getOptStudents(String subjectcode,String classname) {
-		String query="SELECT studentdetail.studentid, studentdetail.studentname,studentdetail.rollno from studentdetail  join optcoursetbl on studentdetail.studentid=optcoursetbl.studentid  join subjectlist on optcoursetbl.subjectid=subjectlist.subjectid where subjectlist.subjectid='"+subjectcode+"' and studentdetail.admissionclass='"+classname+"'";
+	public List<StudentModel> getOptStudents(String subjectcode,String classname,String section) {
+		String query="SELECT studentdetail.studentid, studentdetail.studentname,studentdetail.rollno from studentdetail  join optcoursetbl on studentdetail.studentid=optcoursetbl.studentid  join subjectlist on optcoursetbl.subjectid=subjectlist.subjectid where subjectlist.subjectid='"+subjectcode+"' and studentdetail.admissionclass='"+classname+"' and studentdetail.section='"+section+"'";
 		System.out.println(query);
 		return jdbcTemplate.query(query, new StudentMapper());
 	}

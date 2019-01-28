@@ -263,12 +263,14 @@ public class ExamController {
 		
 	   // param2.put("studentid", "666");
 			param2.put("examid", examid);
-			// JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//examReports.jrxml");
-			JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examGradeReports.jrxml");
+		// JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//examReports.jrxml");
+			JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examReports.jrxml");
 			//JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examReports.jrxml");
 			 jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource.getConnection());
-			 
-			 
+			 //JasperReport jasperSubReport = JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//examSummary.jrxml");
+			 JasperReport jasperSubReport = JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examSummary.jrxml");
+
+			 param2.put("subreportparam",jasperSubReport);
 			for(int i=0;i<studentids.size();i++) {
 				conn = dataSource.getConnection();
 				System.out.println("reached");
@@ -277,6 +279,68 @@ public class ExamController {
 				param2.put("studentid", studentids.get(i).getStudentid());
 			  
 			    jasper= JasperFillManager.fillReport(jasperReport, param2, conn);
+			
+			    List pages=jasper.getPages();
+				JRPrintPage object=(JRPrintPage) pages.get(0);
+				jasperPrint.addPage(object);
+				conn.close();
+			}
+		
+			
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=Report.pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+	  
+	  
+	 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	  }
+	
+	
+	@RequestMapping(value = "/gradeSheet", method = RequestMethod.POST)
+	  @ResponseBody
+	  public void getGradeSheet(HttpServletResponse response,@RequestParam Map<String, String> reqParam) throws JRException, IOException {
+		System.out.println("/exam/gradeSheet");
+	   
+	    Map<String ,Object> param2=new HashMap<String,Object>();
+	    String classname = reqParam.get("classid");
+		String section = reqParam.get("sectionid");
+		String examid = reqParam.get("examid");
+	
+		try {
+			Connection conn=null;
+		
+		List<ExamModel> studentids=examDao.getBulkReport(classname,section,examid);
+		System.out.println(studentids+"student LIst");
+	    JasperPrint jasperPrint,jasper;
+	   		//jasper= JasperFillManager.fillReport(jasperReport, param2, dataSource.getConnection());
+		
+	   // param2.put("studentid", "666");
+			param2.put("examid", examid);
+		// JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//examGradeReports.jrxml");
+			JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examGradeReports.jrxml");
+			//JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examReports.jrxml");
+			// JasperReport jasperSubReport = JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/mmis_01/mmis_01_subreport2.jrxml");
+			// JasperReport jasperSubReport = JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//examGradeSummary.jrxml");
+			 JasperReport jasperSubReport = JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examGradeSummary.jrxml");
+			
+			 jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource.getConnection());
+			
+			 
+			for(int i=0;i<studentids.size();i++) {
+				conn = dataSource.getConnection();
+				System.out.println("reached");
+				
+				System.out.println(studentids.get(i).getStudentid());
+				param2.put("studentid", studentids.get(i).getStudentid());
+				 param2.put("subreportparam",jasperSubReport);
+			    jasper= JasperFillManager.fillReport(jasperReport, param2, conn);
+			    
 			
 			    List pages=jasper.getPages();
 				JRPrintPage object=(JRPrintPage) pages.get(0);
@@ -423,11 +487,12 @@ public class ExamController {
 		List<StudentModel> students=null;
 		
 		if(status) {
-			students=examDao.getOptStudents(subjectcode,classname);
+			students=examDao.getOptStudents(subjectcode,classname,sectionname);
 		}
 		else {
 			students = examDao.getClassStudents(classname, sectionname);
 		}
+		
 		model.addAttribute("students", students);
 		Subjects subjectdetail = examDao.getSubjectDetail(subjectcode);
 		System.out.println(subjectdetail);
