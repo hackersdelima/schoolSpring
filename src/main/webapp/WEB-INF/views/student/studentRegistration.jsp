@@ -552,7 +552,7 @@
 											form="form" required>
 												<option selected value="">Select admission class</option>
 												<c:forEach items="${classlist}" var="cl">
-													<option value="${cl.classname}">${cl.classname }</option>
+													<option value="${cl.classid}">${cl.classname }</option>
 												</c:forEach>
 
 										</select>
