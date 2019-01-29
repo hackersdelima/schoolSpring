@@ -263,11 +263,11 @@ public class ExamController {
 		
 	   // param2.put("studentid", "666");
 			param2.put("examid", examid);
-		// JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//examReports.jrxml");
+		 //JasperReport jasperReport=JasperCompileManager.compileReport("C://Users//Administrator//git//schoolSpring//schoolSpring//reports//examReports.jrxml");
+		//	JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examReports.jrxml");
 			JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examReports.jrxml");
-			//JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examReports.jrxml");
 			 jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource.getConnection());
-			 //JasperReport jasperSubReport = JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//examSummary.jrxml");
+			 //JasperReport jasperSubReport = JasperCompileManager.compileReport("C://Users//Administrator//git//schoolSpring//schoolSpring//reports//examSummary.jrxml");
 			 JasperReport jasperSubReport = JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examSummary.jrxml");
 
 			 param2.put("subreportparam",jasperSubReport);
@@ -275,7 +275,6 @@ public class ExamController {
 				conn = dataSource.getConnection();
 				System.out.println("reached");
 				
-				System.out.println(studentids.get(i).getStudentid());
 				param2.put("studentid", studentids.get(i).getStudentid());
 			  
 			    jasper= JasperFillManager.fillReport(jasperReport, param2, conn);
@@ -480,22 +479,20 @@ public class ExamController {
 
 	@RequestMapping(value = "/getClassStudents", method = RequestMethod.POST)
 	public String getClassStudents(Model model, @RequestParam("subjectid") String subjectcode,
-			@RequestParam("classname") String classname, @RequestParam("sectionname") String sectionname) {
-		System.out.println("/exam/getClassStudents");
+			@RequestParam("classname") String classid, @RequestParam("sectionname") String sectionname) {
 		
 		boolean status=examDao.isOptionalSubject(subjectcode);
 		List<StudentModel> students=null;
 		
 		if(status) {
-			students=examDao.getOptStudents(subjectcode,classname,sectionname);
+			students=examDao.getOptStudents(subjectcode,classid,sectionname);
 		}
 		else {
-			students = examDao.getClassStudents(classname, sectionname);
+			students = examDao.getClassStudents(classid, sectionname);
 		}
 		
 		model.addAttribute("students", students);
 		Subjects subjectdetail = examDao.getSubjectDetail(subjectcode);
-		System.out.println(subjectdetail);
 		model.addAttribute("subjectdetail", subjectdetail);
 
 		return "exam/setStudentSubjectMarks";

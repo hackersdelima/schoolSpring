@@ -61,7 +61,7 @@
 								<select class="form-control" name="classid" id="class" required>
 									<option value="">Select Class</option>
 									<c:forEach items="${classlist }" var="cl">
-									<option value="${cl.classname }">${cl.classname }</option>
+									<option value="${cl.classid }">${cl.classname }</option>
 									</c:forEach>
 								</select>
 							</div>

@@ -22,7 +22,7 @@ public interface ExamDao {
 	public List<ExamModel> specificStudentMarksReport(ExamModel exam, String studentid);
 	
 	public ExamSummaryReportModel specificStudentExamSummary(ExamModel exam, String studentid);
-	public List<StudentModel> getClassStudents(String classname, String sectionname);
+	public List<StudentModel> getClassStudents(String classid, String sectionname);
 	public boolean checkStudentSubAvailability(ExamModel exammodel, int i);
 	public ExamModel editExam(String examId);
 	public boolean updateExam(ExamModel emodel, String examId);
@@ -34,7 +34,7 @@ public interface ExamDao {
 	public String getGrades(String studentid);
 	public List<ExamModel> getBulkReport(String classname, String section, String examid);
 	public boolean isOptionalSubject(String subjectcode);
-	public List<StudentModel> getOptStudents(String subjectcode,String classname,String section);
+	public List<StudentModel> getOptStudents(String subjectcode,String classid,String section);
 	public boolean updateme(String exammarksid, String grade,String result,String prgrade,String thgrade,double gpa);
 
 

@@ -209,7 +209,7 @@ public class StudentDaoImpl implements StudentDao {
 		 return status; 
 	 }
 	 public List<StudentModel> getAllStudents(){
-		 String query="select * from studentdetail";
+		 String query="select *, classlist.classname from studentdetail join classlist on studentdetail.admissionclass=classlist.classid";
 		 return jdbcTemplate.query(query, new StudentMapper());
 	 }
 		public static final class StudentMapper implements RowMapper<StudentModel>{
@@ -224,7 +224,7 @@ public class StudentDaoImpl implements StudentDao {
 				s.setDoben(rs.getString("doben"));
 				s.setBirthcertificateno(rs.getString("sbirthcertificateno"));
 				s.setBirthcertificateissuedby(rs.getString("sbirthcertificateissuedby"));
-				s.setAdmissionclass(rs.getString("admissionclass"));
+				s.setAdmissionclass(rs.getString("classname"));
 				s.setSection(rs.getString("section"));
 				s.setStudentid(rs.getString("studentid"));
 				s.setRollno(rs.getString("rollno"));

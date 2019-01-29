@@ -7,7 +7,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
 <style>
 img {
 	width: auto;
@@ -581,7 +580,7 @@ img {
 												<option selected="" value="">Select admission class</option>
 
 												<c:forEach items="${classlist}" var="cl">
-													<option value="${cl.classname}"
+													<option value="${cl.classid}"
 														<c:if test="${student.admissionclass eq cl.classname }">selected</c:if>>${cl.classname }</option>
 
 												</c:forEach>
