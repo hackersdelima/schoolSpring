@@ -172,6 +172,7 @@
                           </ul>
                         </li>
                         <li><a href="nav/initialDetails" target="iframe_a">Basic Details</a>
+                        <li><a href="nav/attendance" target="iframe_a">Attendance</a>
                         </li>
                     </ul>
                   </li>                  

@@ -524,6 +524,12 @@ private void commonModels(Model model){
 		return "invoice/claimbill/claimbillbulk";
 	}
 	
+	@RequestMapping(value="/attendance")
+	public String viewAttendance(Model model) {
+		model.addAttribute("examlist",operationDao.getExamList());
+		return "exam/attendance";
+	}
+	
 	
 }
 

@@ -16,7 +16,7 @@
 		</box>
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
-			<style backcolor="#E6DAC3"/>
+			<style backcolor="#FFFFFF"/>
 		</conditionalStyle>
 	</style>
 	<parameter name="studentid" class="java.lang.String"/>
