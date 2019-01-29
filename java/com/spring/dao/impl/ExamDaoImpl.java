@@ -451,6 +451,12 @@ public class ExamDaoImpl implements ExamDao {
 		System.out.println(query);
 		return jdbcTemplate.query(query, new StudentMapper());
 	}
+
+	@Override
+	public int attendanceInExam(String examid, String totalDays) {
+		String sql="insert into attendanceinexam(examid,totalDays) values('"+examid+"','"+totalDays+"')";
+		return jdbcTemplate.update(sql);
+	}
 	
 		
 	
