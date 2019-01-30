@@ -457,6 +457,10 @@ public class ExamDaoImpl implements ExamDao {
 		String query = "insert into studentattendance (examid, studentid, presentdays) values ("+examid+", "+studentid+","+presentdays+")";
 		return jdbcTemplate.update(query);
 	}
+	public int attendanceInExam(String examid, String totalDays) {
+		String sql="insert into attendanceinexam(examid,totalDays) values('"+examid+"','"+totalDays+"')";
+		return jdbcTemplate.update(sql);
+	}
 	
 		
 	

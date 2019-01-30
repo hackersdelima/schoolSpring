@@ -562,5 +562,18 @@ public class ExamController {
 		 option ="<option value='"+classSubjects.get(i).getSubjectid()+"'>"+classSubjects.get(i).getSubjectcode()+"-"+classSubjects.get(i).getSubjectname()+"</option>";
 	out.println(option);
 		}
+		
+	}
+	
+	@RequestMapping(value="/attendanceInExam", method = RequestMethod.POST)
+	@ResponseBody
+	public String attendanceInExam(Model model,@RequestParam("examid") String examid,@RequestParam("totalDays") String totalDays) {
+		int status=examDao.attendanceInExam(examid,totalDays);
+		if(status>0)
+		{
+			return "Save Successfull";
+		}
+		return "Save unsuccessfull;";
+				
 	}
 }
