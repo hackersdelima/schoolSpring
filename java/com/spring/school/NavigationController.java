@@ -530,6 +530,12 @@ private void commonModels(Model model){
 		return "exam/attendance";
 	}
 	
+	@RequestMapping(value="/studentattendance")
+	public String studentattendance(Model model) {
+		model.addAttribute("examlist",operationDao.getExamList());
+		return "exam/studentattendance";
+	}
+	
 	
 }
 

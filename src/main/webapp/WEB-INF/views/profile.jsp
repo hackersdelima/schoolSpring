@@ -172,7 +172,8 @@
                           </ul>
                         </li>
                         <li><a href="nav/initialDetails" target="iframe_a">Basic Details</a>
-                        <li><a href="nav/attendance" target="iframe_a">Attendance</a>
+                        <li><a href="nav/attendance" target="iframe_a">Exam Attendance</a>
+                        <li><a href="<spring:url value="/nav/studentattendance"/>" target="iframe_a">Student Attendance</a>
                         </li>
                     </ul>
                   </li>                  

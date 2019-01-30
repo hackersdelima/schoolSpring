@@ -38,5 +38,6 @@ public interface ExamDao {
 	public boolean updateme(String exammarksid, String grade,String result,String prgrade,String thgrade,double gpa);
 	public int attendanceInExam(String examid, String totalDays);
 
+	public int insertStudentPresentDays(int examid, int studentid, int presentdays);
 
 }
