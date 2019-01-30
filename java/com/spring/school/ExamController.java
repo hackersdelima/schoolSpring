@@ -357,7 +357,6 @@ public class ExamController {
 	  
 	 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	  }
@@ -498,6 +497,15 @@ public class ExamController {
 		return "exam/setStudentSubjectMarks";
 	}
 	
+	@RequestMapping(value = "/getStudentsforAttendance", method = RequestMethod.POST)
+	public String getStudentsforAttendance(Model model, @RequestParam("classid") String classid, @RequestParam("sectionname") String sectionname) {
+		List<StudentModel> students = examDao.getClassStudents(classid, sectionname);
+		System.out.println(students);
+		model.addAttribute("students", students);
+
+		return "exam/studentlistforattendance";
+	}
+	
 	@RequestMapping(value="/editExam/{examId}")
 	public String editExam(Model model, @PathVariable("examId") String examId, RedirectAttributes attributes)
 	{
@@ -519,6 +527,27 @@ public class ExamController {
 	{
 		boolean status=examDao.deleteExam(examId);
 		return "redirect:/nav/createExam";
+	}
+	
+	@RequestMapping(value="/setStudentPresentdays")
+	@ResponseBody
+	public String setStudentPresentdays(@RequestParam(value="studentid", required=false) List<String> studentidlist, @RequestParam(value="presentdays",required=false) List<String> presentdayslist, @RequestParam("examid") int examid)
+	{
+		String msg="";
+		try {
+		for(int i=0;i<studentidlist.size();i++) {
+			int studentid = Integer.parseInt(studentidlist.get(i));
+			int presentdays = Integer.parseInt(presentdayslist.get(i));
+			examDao.insertStudentPresentDays(examid, studentid, presentdays);
+		}
+		msg="Data Upload Successful!";
+		}
+		catch (Exception e) {
+			System.out.println(e);
+			msg="Data Upload Failed";
+		}
+		
+		return msg;
 	}
 	
 	@ResponseBody

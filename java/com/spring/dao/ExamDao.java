@@ -37,5 +37,6 @@ public interface ExamDao {
 	public List<StudentModel> getOptStudents(String subjectcode,String classid,String section);
 	public boolean updateme(String exammarksid, String grade,String result,String prgrade,String thgrade,double gpa);
 
+	public int insertStudentPresentDays(int examid, int studentid, int presentdays);
 
 }
