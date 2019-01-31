@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<table class="table jambo_table table-striped table-bordered dt-responsive nowrap display"
+<table class="table jambo_table table-striped table-bordered  nowrap display"
 	cellspacing="0" width="100%" style="font-size: 95%;'">
 	<tr>
 		<th colspan="2">FULL MARKS</th>

@@ -19,7 +19,7 @@
 					style="margin-top: 10px;" class="form" modelAttribute="examModel">
 		<div class="x_panel">
 			<div class="x_title">
-				<h2>Create Student Exam Report</h2>
+				<h2>STUDENT ATTENDANCE</h2>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">

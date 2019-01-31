@@ -179,7 +179,7 @@ aranikodb.exam_marks_tbl.examid=aranikodb.exam.examid
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="26" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Araniko Secondary School]]></text>
+				<text><![CDATA[Arniko Secondary School]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="179" y="35" width="211" height="33" uuid="ba80f681-f3e3-474d-9d4e-6b639612840b"/>

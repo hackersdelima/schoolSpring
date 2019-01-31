@@ -16,6 +16,14 @@
 		<property name="com.jaspersoft.studio.field.label" value="examid"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="exam_marks_tbl"/>
 	</field>
+	<field name="totaldays" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="totaldays"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="attendanceinexam"/>
+	</field>
+	<field name="presentdays" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="presentdays"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="studentattendance"/>
+	</field>
 	<field name="obtfullmarks" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.label" value="obtfullmarks"/>
 	</field>
@@ -35,9 +43,9 @@
 		<property name="com.jaspersoft.studio.field.label" value="finalgpa"/>
 	</field>
 	<summary>
-		<band height="60" splitType="Stretch">
+		<band height="80" splitType="Stretch">
 			<textField>
-				<reportElement x="80" y="20" width="60" height="30" uuid="c25641d4-da2a-44e4-9c7c-218439fcad03"/>
+				<reportElement x="100" y="20" width="60" height="30" uuid="c25641d4-da2a-44e4-9c7c-218439fcad03"/>
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
@@ -47,7 +55,7 @@
 				<textFieldExpression><![CDATA[$F{percentage}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="20" width="80" height="30" uuid="81d9de9e-8ea2-49aa-87a1-d6cf9e8dcffe"/>
+				<reportElement x="20" y="20" width="80" height="30" uuid="81d9de9e-8ea2-49aa-87a1-d6cf9e8dcffe"/>
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
@@ -57,7 +65,7 @@
 				<text><![CDATA[Percentage:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="140" y="20" width="70" height="30" uuid="43d62a92-aa47-4e4b-93cb-75cd24b66e06"/>
+				<reportElement x="160" y="20" width="70" height="30" uuid="43d62a92-aa47-4e4b-93cb-75cd24b66e06"/>
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
@@ -67,7 +75,7 @@
 				<text><![CDATA[Result:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="340" y="20" width="50" height="30" uuid="666ec335-e12c-4f30-a15b-a41a141fc0d0"/>
+				<reportElement x="100" y="50" width="60" height="30" uuid="666ec335-e12c-4f30-a15b-a41a141fc0d0"/>
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
@@ -77,7 +85,7 @@
 				<textFieldExpression><![CDATA[$F{finalgpa}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="290" y="20" width="50" height="30" uuid="8e2b159d-117c-4855-804d-7e8d1d4f5e1d"/>
+				<reportElement x="20" y="50" width="80" height="30" uuid="8e2b159d-117c-4855-804d-7e8d1d4f5e1d"/>
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
@@ -87,7 +95,7 @@
 				<text><![CDATA[GPA:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="390" y="20" width="70" height="30" uuid="dbf3235b-b1e2-4acb-801e-4a1cffc1c5a9"/>
+				<reportElement x="160" y="50" width="70" height="30" uuid="dbf3235b-b1e2-4acb-801e-4a1cffc1c5a9"/>
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
@@ -97,7 +105,7 @@
 				<text><![CDATA[Grade:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="460" y="20" width="50" height="30" uuid="44e1857d-af49-4e1a-8df0-0e64f0ad033b"/>
+				<reportElement x="230" y="50" width="80" height="30" uuid="44e1857d-af49-4e1a-8df0-0e64f0ad033b"/>
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
@@ -107,20 +115,95 @@
 				<textFieldExpression><![CDATA[$F{finalgrade}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="0" width="510" height="20" uuid="758953b3-db18-49e4-9a4c-ed2fe6df186a"/>
+				<reportElement x="20" y="0" width="290" height="20" uuid="758953b3-db18-49e4-9a4c-ed2fe6df186a"/>
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Over All]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="210" y="20" width="80" height="30" uuid="342553ae-eac9-4818-8729-1b68b2f3e3a7"/>
+				<reportElement x="230" y="20" width="80" height="30" uuid="342553ae-eac9-4818-8729-1b68b2f3e3a7"/>
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="340" y="0" width="140" height="20" uuid="0bddcdb3-29bb-473e-a028-b71bcc139862"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Attendance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="20" width="90" height="20" uuid="aca97b07-0779-4bcb-aad9-9c655dc92636"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Days]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="60" width="90" height="20" uuid="3ddfb641-31eb-42ba-ac44-2c22b52d4cd8"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Absent Days]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="40" width="90" height="20" uuid="2c167aa5-fbbb-4fac-9193-87c7ecd93da5"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Present Days]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="430" y="40" width="50" height="20" uuid="1f4a5ddf-683d-4912-b3a3-57d51e687144"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{presentdays}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="20" width="50" height="20" uuid="dbc245a5-623f-4bf9-a9ad-0ad3b3c398f0"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totaldays}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="60" width="50" height="20" uuid="2e66a84b-7249-4a1c-a7f4-4ee7f0acd69a"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totaldays}-$F{presentdays}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>

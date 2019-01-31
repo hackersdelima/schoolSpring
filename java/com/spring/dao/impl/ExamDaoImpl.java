@@ -241,7 +241,7 @@ public class ExamDaoImpl implements ExamDao {
 		}
 	}
 	public List<StudentModel> getClassStudents(String classid, String sectionname){
-		String query="select studentid, studentname, rollno from studentinfo where admissionclass='"+classid+"' and section='"+sectionname+"'";
+		String query="select studentid, studentname, rollno from studentinfo order by studentdetail.rollno where admissionclass='"+classid+"' and section='"+sectionname+"'";
 		System.out.println(query);
 		return jdbcTemplate.query(query, new StudentMapper());
 	}
@@ -447,7 +447,7 @@ public class ExamDaoImpl implements ExamDao {
 
 	@Override
 	public List<StudentModel> getOptStudents(String subjectcode,String classid,String section) {
-		String query="SELECT studentdetail.studentid, studentdetail.studentname,studentdetail.rollno from studentdetail  join optcoursetbl on studentdetail.studentid=optcoursetbl.studentid  join subjectlist on optcoursetbl.subjectid=subjectlist.subjectid where subjectlist.subjectid='"+subjectcode+"' and studentdetail.admissionclass='"+classid+"' and studentdetail.section='"+section+"'";
+		String query="SELECT studentdetail.studentid, studentdetail.studentname,studentdetail.rollno from studentdetail  join optcoursetbl on studentdetail.studentid=optcoursetbl.studentid  join subjectlist on optcoursetbl.subjectid=subjectlist.subjectid order by studentdetail.rollno where subjectlist.subjectid='"+subjectcode+"' and studentdetail.admissionclass='"+classid+"' and studentdetail.section='"+section+"'";
 		System.out.println(query);
 		return jdbcTemplate.query(query, new StudentMapper());
 	}

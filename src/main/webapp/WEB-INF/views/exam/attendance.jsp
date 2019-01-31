@@ -20,7 +20,7 @@
 
 		<div class="x_panel">
 			<div class="x_title">
-				<h2>Create Student Exam Report</h2>
+				<h2>ATTENDANCE</h2>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
@@ -36,10 +36,7 @@
 						</div>
 						<br>
 						<div class="ln_solid"></div>
-						<div class="col-md-3">
-							<input type="text" class="form-control" id="studentname"
-								placeholder="Std. Name" readonly> <br>
-						</div>
+						
 						<div class="col-md-12">
 							<div class="col-md-3">
 								<h6>
@@ -53,7 +50,7 @@
 
 								</select>
 							</div>
-							<div class="col-md-3">
+							<%-- <div class="col-md-3">
 								<h6>
 									<strong>Class*</strong>
 								</h6>
@@ -65,7 +62,7 @@
 
 
 								</select>
-							</div>
+							</div> --%>
 
 							<div class="col-md-3">
 								<h6>
@@ -82,7 +79,7 @@
 		</div>
 	</div>
 
-	<div class="x_panel">
+	<!-- <div class="x_panel">
 		<div class="x_title">
 			<h2>TOTAL DAYS</h2>
 			<div class="clearfix"></div>
@@ -114,7 +111,7 @@
 		</div>
 
 
-	</div>
+	</div> -->
 
 	<script>
 		$('form').submit(function() {

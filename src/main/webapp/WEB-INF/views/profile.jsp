@@ -84,8 +84,9 @@
                       <li><a href="nav/createReportonSubject" target="iframe_a">Create Marks Subject Teacher</a></li>
                       <li><a href="nav/bulkGradeReportSearch" target="iframe_a">Grade Sheet</a></li>
                        <li><a href="nav/bulkReportSearch" target="iframe_a">Marks Sheet</a></li>
-                       <li><a href="nav/marksReportSearch" target="iframe_a">Search Report</a>
-                            </li>
+                       <li><a href="nav/marksReportSearch" target="iframe_a">Search Report</a></li>
+                       <li><a href="nav/attendance" target="iframe_a">Exam Attendance</a>
+                        <li><a href="<spring:url value="/nav/studentattendance"/>" target="iframe_a">Student Attendance</a>
                     </ul>
                   </li>
                   <li><a><span class="fa fa-chevron-down"></span><i class="fa fa-user"></i>Account</a>
@@ -172,8 +173,7 @@
                           </ul>
                         </li>
                         <li><a href="nav/initialDetails" target="iframe_a">Basic Details</a>
-                        <li><a href="nav/attendance" target="iframe_a">Exam Attendance</a>
-                        <li><a href="<spring:url value="/nav/studentattendance"/>" target="iframe_a">Student Attendance</a>
+                        
                         </li>
                     </ul>
                   </li>                  

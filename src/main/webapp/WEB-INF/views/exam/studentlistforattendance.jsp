@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <table id="datatablea"
-	class="table jambo_table table-striped table-bordered dt-responsive nowrap display"
+	class="table jambo_table table-striped table-bordered  nowrap display"
 	cellspacing="0" width="100%" style="font-size: 95%; color:black;'">
 	<thead>
 		<tr style="background-color: white; color: black">
