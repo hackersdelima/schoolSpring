@@ -221,6 +221,7 @@ public class ExamController {
 		String studentid = studentModel.getStudentid();
 
 		List<ExamModel> reportlist = examDao.specificStudentMarksReport(exam, studentid);
+		System.out.println(reportlist);
 		model.addAttribute("reportlist", reportlist);
 
 		ExamSummaryReportModel examSummary = examDao.specificStudentExamSummary(exam, studentid);
@@ -235,10 +236,6 @@ public class ExamController {
 		model.addAttribute("examdate",examdateen);
 		model.addAttribute("examtype",examtype);
 	}
-	
-		
-		
-
 		return "exam/report";
 	}
 	

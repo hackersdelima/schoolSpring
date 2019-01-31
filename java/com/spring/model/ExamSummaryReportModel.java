@@ -2,6 +2,48 @@ package com.spring.model;
 
 public class ExamSummaryReportModel {
 	private String studentid, examid, total_obtained, total, percentage, examname, startdate, examtypename, curdate,result;
+private String totaldays, presentdays, finalresult, finalgrade,finalgpa;
+
+
+	public String getTotaldays() {
+	return totaldays;
+}
+
+public void setTotaldays(String totaldays) {
+	this.totaldays = totaldays;
+}
+
+public String getPresentdays() {
+	return presentdays;
+}
+
+public void setPresentdays(String presentdays) {
+	this.presentdays = presentdays;
+}
+
+public String getFinalresult() {
+	return finalresult;
+}
+
+public void setFinalresult(String finalresult) {
+	this.finalresult = finalresult;
+}
+
+public String getFinalgrade() {
+	return finalgrade;
+}
+
+public void setFinalgrade(String finalgrade) {
+	this.finalgrade = finalgrade;
+}
+
+public String getFinalgpa() {
+	return finalgpa;
+}
+
+public void setFinalgpa(String finalgpa) {
+	this.finalgpa = finalgpa;
+}
 
 	public String getResult() {
 		return result;

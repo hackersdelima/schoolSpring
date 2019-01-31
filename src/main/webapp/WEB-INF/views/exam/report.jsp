@@ -2,204 +2,125 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include.jsp"></jsp:include>
-<c:forEach items="${reportlist }">
+
 <html>
 <head>
+<body class="background">
+	<div class="col-md-12 col-sm-12 col-xs-12">
 
-<style>
-.borderless tfoot tr td {
-	border: none
-}
-
-body {
-	background: rgb(204, 204, 204);
-}
-
-page {
-	background: white;
-	display: block;
-	margin: 0 auto;
-	margin-bottom: 0.5cm;
-	box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
-}
-
-page[size="A4"] {
-	width: 21cm;
-	height: 29.7cm;
-}
-
-@media print {
-	body, page {
-		margin: 0;
-		box-shadow: 0;
-	}
-}
-
-@page {
-	size: auto; /* auto is the current printer page size */
-	margin: 0mm; /* this affects the margin in the printer settings */
-}
-</style>
-
-
-</head>
-
-
-
-
-
-
-<body class="container">
-	<page size="A4">
-	<div id=printMe style="margin-left: 20px; margin-right: 20px;padding-top:15px;">
-		<div class="col-md-12">
-			<div class="col-md-4">
-				<img class="img-circle" id="myImg"
-					src="//124.41.193.91/images/araniko/Logo.jpg"
-					style="width: 150px; height: 150px" />
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>STUDENT DETAIL</h2>
+				<div class="clearfix"></div>
 			</div>
-			<div class="col-md-8">
-				<table class="table">
+			<div class="x_content">
+				<table
+					class="table jambo_table table-striped table-bordered display"
+					style="color: black; font-weight: bold">
+					<tbody>
 					<tr>
-						<td><h1>${sessionScope.systemdetail[0].settingsdescription }</h1></td>
-					</tr>
-					<tr>
-						<td>
-							<h4>${sessionScope.systemdetail[2].settingsdescription }
-								</h4>
-						</td>
-					</tr>
-					<tr>
-						<td><h4>
-								${examtype }
-							</h4></td>
-					</tr>
-				</table>
-			</div>
-		</div>
-
-		<table class="table">
-			<tbody>
-				<tr>
-					<td>Name of Student: <strong>${stdDetail.studentname }</strong></td>
-					<td>Class: <strong>${stdDetail.admissionclass }</strong></td>
-					<td>Section: <strong>${stdDetail.section }</strong></td>
-				</tr>
-				<tr>
-					<td>Roll No: <strong>${stdDetail.rollno }</strong> 
-
-						<td>Exam Date: <strong>${examSummary.startdate }</strong>
-						</td>
+						<td>Exam: ${examtype }</td>
+						<td>Exam Date: ${examdate }</td>
+						<td ></td>
+						<td></td>
 						
 					</tr>
-				</tbody>
-			</table>
-
-		<div>
-
-			<table class="table table-striped table-bordered borderless">
-				<thead>
-
-					<tr style="background-color: white; color: black">
-						<th rowspan="2">S.N.</th>
-						<th colspan="1" style="text-align: center">SUBJECT</th>
-						<th colspan="2">FULL MARKS</th>
-						<th colspan="2">PASS MARKS</th>
-						<th colspan="2">OBTAINED MARKS</th>
-						<th colspan="2">TOTAL</th>
-						<th rowspan="2">REMARKS</th>
-					</tr>
-					<tr class="headings">
-						<th>Name</th>
-
-						<th>Th. Marks</th>
-						<th>Pr. Marks</th>
-
-						<th>Th. Marks</th>
-						<th>Pr. Marks</th>
-
-						<th>Th. Marks</th>
-						<th>Pr. Marks</th>
-
-						<th>Marks</th>
-						<th>Grade</th>
-						
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${reportlist }" var="rep" varStatus="counter">
-
 						<tr>
-							<td>${counter.count}</td>
-							<td>${rep.subjects.subjectname }</td>
-
-							<td>${rep.subjects.fullmarks }</td>
-							<td>${rep.subjects.fullmarks_pr }</td>
-
-							<td>${rep.subjects.passmarks }</td>
-							<td>${rep.subjects.passmarks_pr }</td>
-
-							<td>${rep.subjects.thmarks }</td>
-							<td>${rep.subjects.prmarks }</td>
-
-							<td>${rep.subjects.totalmarks }</td>
-							<td>${rep.subjects.totalgrade }</td>
-
-							<td>${rep.subjects.remarks }</td>
+						
+							<td>Name: ${stdDetail.studentname }</td>
+							<td>Class: ${stdDetail.admissionclass }</td>
+							<td>Section: ${stdDetail.section}</td>
+							<td>Roll No: ${stdDetail.rollno }</td>
 						</tr>
-					</c:forEach>
-				</tbody>
-				<tfoot>
-					<tr>
-						<td colspan="2">Result : <strong></strong></td>
-						<td colspan="2">Full Marks: <strong>${examSummary.total}</strong></td>
-						<td colspan="2"></td>
-						<td colspan="2">Total Obtained: <strong>${examSummary.total_obtained}</strong></td>
+						<tr>
 
-					</tr>
-					<tr>
-						<td colspan="4">Percentage : <strong>${examSummary.percentage }%</strong></td>
-						<td>Rank: <strong>NA</strong></td>
-					</tr>
-					<%-- <tr>
-						<td colspan="3">Date of Issue : <strong>${examSummary.curdate }</strong></td>
-					</tr> --%>
-					
-				</tfoot>
-				
-				
-			</table>
-			<div>
-			<br>
-			<br>
-			  <h2><strong>..........................</strong></h2>
-			  <h2>Head of Faculty</h2>
-			  </div>
-			  <div class="pull-right">
-			
-			
-			  <h2 ><strong>..........................</strong></h2>
-			  <h2 >  &nbsp&nbsp&nbsp&nbsp&nbspPrincipal</h2>
-			  </div>
-			 
-			
-			
-			
+							<td>Gender: <c:if test="${stdDetail.sex eq 'f' }">Female</c:if>
+								<c:if test="${stdDetail.sex eq 'm' }">Male</c:if></td>
+							<td>Father Name: ${stdDetail.fathername }</td>
+							<td>DOB (B.S.): ${stdDetail.dob }</td>
+							<td>DOB (A.D.): ${stdDetail.doben }</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
 		</div>
-</div>
-</page>
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>MARKS DETAIL</h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<table
+					class="table jambo_table table-striped table-bordered display"
+					style="color: black; font-weight: bold">
+					<thead>
+						<tr>
+							<th rowspan="2">Subject</th>
+							<th colspan="2">Full Marks</th>
+							<th colspan="2">Pass Marks</th>
+							<th colspan="2">Obtained Marks</th>
+							<th rowspan="2">Total Marks</th>
+							<th rowspan="2">Total Grade</th>
+						</tr>
+						<tr>
+							<th colspan="1">Th marks</th>
+							<th colspan="1">Pr marks</th>
+							<th colspan="1">Th marks</th>
+							<th colspan="1">Pr marks</th>
+							<th colspan="1">Th marks</th>
+							<th colspan="1">Pr marks</th>
+						</tr>
+					</thead>
+					<tbody>
+					<c:forEach items="${reportlist }" var="r">
+						<tr>
+							<td>${r.subjects.subjectname }</td>
+							<td colspan="1">${r.subjects.fullmarks }</td>
+							<td colspan="1">${r.subjects.fullmarks_pr }</td>
+							<td colspan="1">${r.subjects.passmarks }</td>
+							<td colspan="1">${r.subjects.passmarks_pr }</td>
+							<td colspan="1">${r.subjects.thmarks }</td>
+							<td colspan="1">${r.subjects.prmarks }</td>
+							<td>${r.subjects.totalmarks }</td>
+							<td>${r.subjects.totalgrade }</td>
+						</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>MARKS SUMMARY</h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<table
+					class="table jambo_table table-striped table-bordered display"
+					style="color: black; font-weight: bold">
+					<tbody>
+						<tr>
+							<td>Full Marks: ${examSummary.total }</td>
+							<td>Obtained Marks: ${examSummary.total_obtained }</td>
+							<td>Total Days: ${examSummary.totaldays }</td>
+							<td>Present Days: ${examSummary.presentdays }</td>
+						</tr>
+						<tr>
+							<td>Percentage: ${examSummary.percentage }</td>
+							<td>Final Grade: ${examSummary.finalgrade }</td>
+							<td>Result: ${examSummary.finalresult }</td>
+							<td>Final Gpa: ${examSummary.finalgpa }</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>
 
 
-		<script>
-			function printDiv(divName) {
-				var printContents = document.getElementById(divName).innerHTML;
-				var originalContents = document.body.innerHTML;
-				document.body.innerHTML = printContents;
-				window.print();
-				document.body.innerHTML = originalContents;
-			}
-		</script>
 
 </body>
 </html>
-</c:forEach>
