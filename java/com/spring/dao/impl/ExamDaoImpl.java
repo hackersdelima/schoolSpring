@@ -186,9 +186,8 @@ public class ExamDaoImpl implements ExamDao {
 	}
 
 	public List<ExamModel> specificStudentMarksReport(ExamModel exam, String studentid) {
-		String query = "select exam_marks_tbl.*, subjectlist.subjectname, subjectlist.subjecttype, subjectlist.subjectCode from exam_marks_tbl  join subjectlist using(subjectid) where exam_marks_tbl.studentid = '"
+		String query = "select exam_marks_tbl.*, subjectlist.subjectname, subjectlist.subjecttype, subjectlist.subjectCode from exam_marks_tbl left join subjectlist on exam_marks_tbl.subjectid=subjectlist.subjectCode where exam_marks_tbl.studentid = '"
 				+ studentid + "' and exam_marks_tbl.examid = '" + exam.getExamid() + "'";
-		System.out.println(query);
 		return jdbcTemplate.query(query, new ExamReport());
 	}
 
@@ -229,25 +228,26 @@ public class ExamDaoImpl implements ExamDao {
 		public ExamSummaryReportModel mapRow(ResultSet rs, int rowNum) throws SQLException {
 			ExamSummaryReportModel esm = new ExamSummaryReportModel();
 			
-			esm.setTotal(rs.getString("fullmarks"));
-			esm.setTotal_obtained(rs.getString("obtfullmarks"));
-			esm.setPercentage(rs.getString("percentage"));
-			esm.setFinalgpa(rs.getString("finalgpa"));
-			esm.setFinalgrade(rs.getString("finalgrade"));
-			esm.setFinalresult(rs.getString("finalresult"));
-			esm.setPresentdays(rs.getString("presentdays"));
-			esm.setTotaldays(rs.getString("totaldays"));
+			esm.setTotal(rs.getString("sum(fullmarks)"));
+			esm.setTotal_obtained(rs.getString("sum(totalmarks)"));
+			Double per=Double.parseDouble(rs.getString("percentage"));
+			String percentage=new DecimalFormat("##.##").format(per);
+			esm.setPercentage(percentage);
+			esm.setCurdate(rs.getString("curdate"));
+			esm.setStartdate(rs.getString("startdate"));
+			
+			
 			return esm;
 		}
 	}
 	public List<StudentModel> getClassStudents(String classid, String sectionname){
-		String query="select studentid, studentname, rollno from studentinfo order by studentdetail.rollno where admissionclass='"+classid+"' and section='"+sectionname+"'";
+		String query="select studentid, studentname, rollno from studentinfo where admissionclass='"+classid+"' and section='"+sectionname+"' order by cast(rollno as unsigned)";
 		System.out.println(query);
 		return jdbcTemplate.query(query, new StudentMapper());
 	}
 	public boolean checkStudentSubAvailability(ExamModel exammodel, int i){
 		boolean status=false;
-		String query="select count(*) from exam_marks_tbl where studentid='"+exammodel.getStudentidlist().get(i)+"' and subjectid='"+exammodel.getSubjects().getSubjectid()+"'";
+		String query="select count(*) from exam_marks_tbl where studentid='"+exammodel.getStudentidlist().get(i)+"' and subjectid='"+exammodel.getSubjects().getSubjectid()+"' and examid='"+exammodel.getExamid()+"'";
 			System.out.println(query+"qyer");
 		int count=jdbcTemplate.queryForObject(query, Integer.class);
 		System.out.println("Count is "+count);
@@ -447,7 +447,7 @@ public class ExamDaoImpl implements ExamDao {
 
 	@Override
 	public List<StudentModel> getOptStudents(String subjectcode,String classid,String section) {
-		String query="SELECT studentdetail.studentid, studentdetail.studentname,studentdetail.rollno from studentdetail  join optcoursetbl on studentdetail.studentid=optcoursetbl.studentid  join subjectlist on optcoursetbl.subjectid=subjectlist.subjectid order by studentdetail.rollno where subjectlist.subjectid='"+subjectcode+"' and studentdetail.admissionclass='"+classid+"' and studentdetail.section='"+section+"'";
+		String query="SELECT studentdetail.studentid, studentdetail.studentname,studentdetail.rollno from studentdetail  join optcoursetbl on studentdetail.studentid=optcoursetbl.studentid  join subjectlist on optcoursetbl.subjectid=subjectlist.subjectid where subjectlist.subjectid='"+subjectcode+"' and studentdetail.admissionclass='"+classid+"' and studentdetail.section='"+section+"' order by cast(rollno as unsigned)";
 		System.out.println(query);
 		return jdbcTemplate.query(query, new StudentMapper());
 	}

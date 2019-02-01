@@ -146,7 +146,7 @@ body, html {
 		<div class="card card-container">
 
 			<img id="profile-img4" class="profile-img-card"
-				src="template/images/shramjyoti1.jpg" />
+				src="//124.41.193.91/images/araniko/Logo.jpg" />
 			<p id="profile-name" class="profile-name-card">SCHOOL MANAGEMENT
 				SYSTEM</p>
 			<p style="color: red;">

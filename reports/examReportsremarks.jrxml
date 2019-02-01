@@ -232,8 +232,8 @@ aranikodb.studentinfo.admissionclass=aranikodb.classlist.classid
 				<text><![CDATA[Date :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="50" y="100" width="100" height="20" uuid="804e47af-c62e-43c9-8f99-1c03f01fc9eb"/>
-				<textElement textAlignment="Center">
+				<reportElement x="60" y="100" width="160" height="20" uuid="804e47af-c62e-43c9-8f99-1c03f01fc9eb"/>
+				<textElement textAlignment="Left">
 					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{studentname}]]></textFieldExpression>
@@ -253,7 +253,7 @@ aranikodb.studentinfo.admissionclass=aranikodb.classlist.classid
 				<textFieldExpression><![CDATA[$F{section}]]></textFieldExpression>
 			</textField>
 			<textField pattern="MMMMM dd, yyyy">
-				<reportElement x="380" y="140" width="100" height="20" uuid="eaaa4049-1077-4271-be80-8a33a51564a9"/>
+				<reportElement x="380" y="140" width="160" height="20" uuid="eaaa4049-1077-4271-be80-8a33a51564a9"/>
 				<textElement>
 					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
@@ -434,11 +434,11 @@ aranikodb.studentinfo.admissionclass=aranikodb.classlist.classid
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="30" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<frame>
-				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="30" uuid="a98495d8-3c8d-4fa0-81f5-30c3efc2f766"/>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="20" uuid="a98495d8-3c8d-4fa0-81f5-30c3efc2f766"/>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" x="30" y="0" width="120" height="30" uuid="62811f30-c2dd-40d5-af9a-6ae7b61e9acd">
+					<reportElement style="Detail" x="30" y="0" width="120" height="20" uuid="62811f30-c2dd-40d5-af9a-6ae7b61e9acd">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5f6e677c-dd29-4a49-8213-10a3049375fd"/>
 					</reportElement>
 					<box>
@@ -450,7 +450,7 @@ aranikodb.studentinfo.admissionclass=aranikodb.classlist.classid
 					<textFieldExpression><![CDATA[$F{subjectname}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" x="330" y="0" width="46" height="30" uuid="5779752a-2352-471a-a714-3a696a950915">
+					<reportElement style="Detail" x="330" y="0" width="46" height="20" uuid="5779752a-2352-471a-a714-3a696a950915">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a030c59d-a261-4c99-a956-e11c5479772f"/>
 					</reportElement>
 					<box>
@@ -462,7 +462,7 @@ aranikodb.studentinfo.admissionclass=aranikodb.classlist.classid
 					<textFieldExpression><![CDATA[$F{prmarks}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" x="376" y="0" width="44" height="30" uuid="67ab5b1c-71c5-454e-a7ae-de199a1e4225">
+					<reportElement style="Detail" x="376" y="0" width="44" height="20" uuid="67ab5b1c-71c5-454e-a7ae-de199a1e4225">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="87186d24-ccde-4d52-90f0-7bb8a035d9bb"/>
 					</reportElement>
 					<box>
@@ -474,7 +474,7 @@ aranikodb.studentinfo.admissionclass=aranikodb.classlist.classid
 					<textFieldExpression><![CDATA[$F{thmarks}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" x="420" y="0" width="40" height="30" uuid="79792aab-afba-45ea-819a-c0aacfbeab64">
+					<reportElement style="Detail" x="420" y="0" width="40" height="20" uuid="79792aab-afba-45ea-819a-c0aacfbeab64">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c1b9625a-8715-4b72-a9cc-6e9c0b47ae75"/>
 					</reportElement>
 					<box>
@@ -486,7 +486,7 @@ aranikodb.studentinfo.admissionclass=aranikodb.classlist.classid
 					<textFieldExpression><![CDATA[$F{totalmarks}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" x="460" y="0" width="49" height="30" uuid="ec680043-7e39-4ea6-9740-fbf20f2b501f">
+					<reportElement style="Detail" x="460" y="0" width="49" height="20" uuid="ec680043-7e39-4ea6-9740-fbf20f2b501f">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0d47dcc9-a54e-4d22-ba63-f167e71242b4"/>
 					</reportElement>
 					<box>
@@ -498,7 +498,7 @@ aranikodb.studentinfo.admissionclass=aranikodb.classlist.classid
 					<textFieldExpression><![CDATA[$F{totalgrade}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="509" y="0" width="46" height="30" uuid="170dfd01-3032-4664-a82e-d919c5c30c3a"/>
+					<reportElement x="509" y="0" width="46" height="20" uuid="170dfd01-3032-4664-a82e-d919c5c30c3a"/>
 					<box>
 						<pen lineWidth="0.75"/>
 					</box>
@@ -508,7 +508,7 @@ aranikodb.studentinfo.admissionclass=aranikodb.classlist.classid
 					<text><![CDATA[]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="0" y="0" width="30" height="30" uuid="149e9481-a3da-4b08-beb2-6ec6c5502fb3"/>
+					<reportElement x="0" y="0" width="30" height="20" uuid="149e9481-a3da-4b08-beb2-6ec6c5502fb3"/>
 					<box>
 						<pen lineWidth="0.75"/>
 					</box>
@@ -518,7 +518,7 @@ aranikodb.studentinfo.admissionclass=aranikodb.classlist.classid
 					<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="196" y="0" width="44" height="30" uuid="a8c0d047-aaab-4521-9ce4-7e4db9eeb64c">
+					<reportElement x="196" y="0" width="44" height="20" uuid="a8c0d047-aaab-4521-9ce4-7e4db9eeb64c">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c54feecd-cdae-4403-8461-b917d202d6e5"/>
 					</reportElement>
 					<box>
@@ -530,7 +530,7 @@ aranikodb.studentinfo.admissionclass=aranikodb.classlist.classid
 					<textFieldExpression><![CDATA[$F{fullmarks}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement style="Row" x="150" y="0" width="46" height="30" uuid="e905fa4a-984a-4bc4-a161-dd2d19bca698">
+					<reportElement style="Row" x="150" y="0" width="46" height="20" uuid="e905fa4a-984a-4bc4-a161-dd2d19bca698">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="852fa7a5-3c98-445a-9c1a-24d2331e294e"/>
 					</reportElement>
 					<box>
@@ -542,7 +542,7 @@ aranikodb.studentinfo.admissionclass=aranikodb.classlist.classid
 					<textFieldExpression><![CDATA[$F{fullmarks_pr}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="286" y="0" width="44" height="30" uuid="92deb206-858d-423d-8fea-2f26348775c8">
+					<reportElement x="286" y="0" width="44" height="20" uuid="92deb206-858d-423d-8fea-2f26348775c8">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="36fe900b-9fdf-4d59-bcc3-88803e611f40"/>
 					</reportElement>
 					<box>
@@ -554,7 +554,7 @@ aranikodb.studentinfo.admissionclass=aranikodb.classlist.classid
 					<textFieldExpression><![CDATA[$F{passmarks}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="240" y="0" width="46" height="30" uuid="a7f8f5b7-de87-4a0c-8e81-c5bf61d19e4c">
+					<reportElement x="240" y="0" width="46" height="20" uuid="a7f8f5b7-de87-4a0c-8e81-c5bf61d19e4c">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ab0390f7-492c-4f02-a016-3d21a86932e4"/>
 					</reportElement>
 					<box>
@@ -568,9 +568,6 @@ aranikodb.studentinfo.admissionclass=aranikodb.classlist.classid
 			</frame>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="83"/>
-	</columnFooter>
 	<pageFooter>
 		<band height="147" splitType="Stretch">
 			<staticText>
@@ -604,7 +601,7 @@ aranikodb.studentinfo.admissionclass=aranikodb.classlist.classid
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="31">
+		<band height="58">
 			<subreport>
 				<reportElement x="0" y="1" width="20" height="30" uuid="8dfed74b-3e2c-4935-ade1-98144415ded4"/>
 				<subreportParameter name="studentid">

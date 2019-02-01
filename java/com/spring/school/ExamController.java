@@ -161,6 +161,7 @@ public class ExamController {
 			System.out.println(fullmarks + " "+ prmarks + thmarks+fullmarks_pr+grade);
 			
 			examDao.updateGradeAndResult(sid, subid, grade,result,prgrade,thgrade,gpa);
+			return "Marks Entry Success";
 			}
 
 			
@@ -168,7 +169,7 @@ public class ExamController {
 			}
 		}
 
-		return "Successfull";
+		return "Marks Entry Failed";
 	}
 	@RequestMapping(value = "/updateme", method = RequestMethod.GET)
 	public void updateme() {

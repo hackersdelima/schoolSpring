@@ -28,8 +28,8 @@
 <br>
 <br>
 <table id="datatablea"
-	class="table jambo_table table-striped table-bordered dt-responsive nowrap display"
-	cellspacing="0" width="100%" style="font-size: 95%;'">
+	class="table jambo_table table-striped table-bordered  "
+	cellspacing="0" width="70%" style="font-size: 95%;'">
 	<thead>
 
 		<tr style="background-color: white; color: black">
@@ -105,6 +105,7 @@ $(".buttonClick").click(function(){
 });
 
 $(".zeromarks").val('0');
+ 
 
 
 
