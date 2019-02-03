@@ -218,26 +218,41 @@ public class ExamController {
 
 		StudentModel studentModel = studentDao.getStudentDetail(classname, section, rollno);
 		model.addAttribute("stdDetail", studentModel);
+		String studentid;
+try {
+		 studentid = studentModel.getStudentid();
+		 if(studentid==null || studentid.isEmpty()) {
+				model.addAttribute("msg","Student not found!");
+				return "error";
+				
+			}
+			else {
 
-		String studentid = studentModel.getStudentid();
+			List<ExamModel> reportlist = examDao.specificStudentMarksReport(exam, studentid);
+			System.out.println(reportlist);
+			model.addAttribute("reportlist", reportlist);
 
-		List<ExamModel> reportlist = examDao.specificStudentMarksReport(exam, studentid);
-		System.out.println(reportlist);
-		model.addAttribute("reportlist", reportlist);
-
-		ExamSummaryReportModel examSummary = examDao.specificStudentExamSummary(exam, studentid);
-		model.addAttribute("examSummary", examSummary);
+			ExamSummaryReportModel examSummary = examDao.specificStudentExamSummary(exam, studentid);
+			model.addAttribute("examSummary", examSummary);
+			
+			
+			
+		String startdate = examDao.editExam(examid).getStartdate();
+		String examtype=examDao.editExam(examid).getExamname();
+		if(startdate!=null){
+			String examdateen=dateConverter.englishToNepali(startdate);
+			model.addAttribute("examdate",examdateen);
+			model.addAttribute("examtype",examtype);
+		}
+			return "exam/report";
+			}
+}
+catch (Exception e) {
+	model.addAttribute("msg","Error found!" +e);
+	return "error";
+}
 		
 		
-		
-	String startdate = examDao.editExam(examid).getStartdate();
-	String examtype=examDao.editExam(examid).getExamname();
-	if(startdate!=null){
-		String examdateen=dateConverter.englishToNepali(startdate);
-		model.addAttribute("examdate",examdateen);
-		model.addAttribute("examtype",examtype);
-	}
-		return "exam/report";
 	}
 	
 	
