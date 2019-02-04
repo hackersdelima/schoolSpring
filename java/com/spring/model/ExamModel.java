@@ -4,12 +4,20 @@ import java.util.List;
 
 public class ExamModel {
 	private String examid, examname,examcode, examtype,startdate, studentid,subjectid,companydb,classid,settings_id, type, description, totalmarks;
-	
+	private String exammarksid;
 	private List<String> studentidlist;
 	private ExamTypeModel examTypeModel;
 	private Subjects subjects;
 	
 	
+
+	public String getExammarksid() {
+		return exammarksid;
+	}
+
+	public void setExammarksid(String exammarksid) {
+		this.exammarksid = exammarksid;
+	}
 
 	public List<String> getStudentidlist() {
 		return studentidlist;

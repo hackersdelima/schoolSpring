@@ -186,7 +186,7 @@ public class ExamDaoImpl implements ExamDao {
 	}
 
 	public List<ExamModel> specificStudentMarksReport(ExamModel exam, String studentid) {
-		String query = "select exam_marks_tbl.*, subjectlist.subjectname, subjectlist.subjecttype, subjectlist.subjectCode from exam_marks_tbl left join subjectlist on exam_marks_tbl.subjectid=subjectlist.subjectCode where exam_marks_tbl.studentid = '"
+		String query = "select exam_marks_tbl.*, subjectlist.subjectname, subjectlist.subjecttype, subjectlist.subjectCode from exam_marks_tbl left join subjectlist on exam_marks_tbl.subjectid=subjectlist.subjectid where exam_marks_tbl.studentid = '"
 				+ studentid + "' and exam_marks_tbl.examid = '" + exam.getExamid() + "'";
 		return jdbcTemplate.query(query, new ExamReport());
 	}
@@ -198,6 +198,7 @@ public class ExamDaoImpl implements ExamDao {
 
 			ExamModel em = new ExamModel();
 			Subjects s = new Subjects();
+			em.setExammarksid(rs.getString("exammarksid"));
 			s.setPrmarks(rs.getString("prmarks"));
 			s.setThmarks(rs.getString("thmarks"));
 			s.setTotalmarks(rs.getString("totalmarks"));
@@ -228,13 +229,14 @@ public class ExamDaoImpl implements ExamDao {
 		public ExamSummaryReportModel mapRow(ResultSet rs, int rowNum) throws SQLException {
 			ExamSummaryReportModel esm = new ExamSummaryReportModel();
 			
-			esm.setTotal(rs.getString("sum(fullmarks)"));
-			esm.setTotal_obtained(rs.getString("sum(totalmarks)"));
-			Double per=Double.parseDouble(rs.getString("percentage"));
-			String percentage=new DecimalFormat("##.##").format(per);
-			esm.setPercentage(percentage);
-			esm.setCurdate(rs.getString("curdate"));
-			esm.setStartdate(rs.getString("startdate"));
+			esm.setTotal(rs.getString("fullmarks"));
+			esm.setTotal_obtained(rs.getString("obtfullmarks"));
+			esm.setPercentage(rs.getString("percentage"));
+			esm.setTotaldays(rs.getString("totaldays"));
+			esm.setFinalgrade(rs.getString("finalgrade"));
+			esm.setFinalgpa(rs.getString("finalgpa"));
+			esm.setFinalresult(rs.getString("finalresult"));
+			esm.setPresentdays(rs.getString("presentdays"));
 			
 			
 			return esm;
@@ -460,6 +462,12 @@ public class ExamDaoImpl implements ExamDao {
 	public int attendanceInExam(String examid, String totalDays) {
 		String sql="insert into attendanceinexam(examid,totalDays) values('"+examid+"','"+totalDays+"')";
 		return jdbcTemplate.update(sql);
+	}
+
+	@Override
+	public void updateMarks(Subjects s, String exammarksid) {
+		String query="update exam_marks_tbl set thmarks='"+s.getThmarks()+"', prmarks='"+s.getPrmarks()+"', totalmarks=(thmarks+prmarks), totalgrade=getgrade(round((prmarks+thmarks)/(fullmarks_pr+fullmarks)*100)) where exammarksid='"+exammarksid+"'";
+		jdbcTemplate.update(query);
 	}
 	
 		

@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.security.auth.Subject;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
@@ -218,26 +219,82 @@ public class ExamController {
 
 		StudentModel studentModel = studentDao.getStudentDetail(classname, section, rollno);
 		model.addAttribute("stdDetail", studentModel);
+		String studentid;
+try {
+		 studentid = studentModel.getStudentid();
+		 if(studentid==null || studentid.isEmpty()) {
+				model.addAttribute("msg","Student not found!");
+				return "error";
+				
+			}
+			else {
 
-		String studentid = studentModel.getStudentid();
+			List<ExamModel> reportlist = examDao.specificStudentMarksReport(exam, studentid);
+			System.out.println(reportlist);
+			model.addAttribute("reportlist", reportlist);
 
-		List<ExamModel> reportlist = examDao.specificStudentMarksReport(exam, studentid);
-		System.out.println(reportlist);
-		model.addAttribute("reportlist", reportlist);
-
-		ExamSummaryReportModel examSummary = examDao.specificStudentExamSummary(exam, studentid);
-		model.addAttribute("examSummary", examSummary);
+			ExamSummaryReportModel examSummary = examDao.specificStudentExamSummary(exam, studentid);
+			model.addAttribute("examSummary", examSummary);
+			model.addAttribute("examid",examid);
+			
+			
+			
+		String startdate = examDao.editExam(examid).getStartdate();
+		String examtype=examDao.editExam(examid).getExamname();
+		if(startdate!=null){
+			String examdateen=dateConverter.englishToNepali(startdate);
+			model.addAttribute("examdate",examdateen);
+			model.addAttribute("examtype",examtype);
+		}
+			return "exam/report";
+			}
+}
+catch (Exception e) {
+	model.addAttribute("msg","Error found!" +e);
+	return "error";
+}
 		
 		
-		
-	String startdate = examDao.editExam(examid).getStartdate();
-	String examtype=examDao.editExam(examid).getExamname();
-	if(startdate!=null){
-		String examdateen=dateConverter.englishToNepali(startdate);
-		model.addAttribute("examdate",examdateen);
-		model.addAttribute("examtype",examtype);
 	}
-		return "exam/report";
+	
+	@RequestMapping(value = "/edit/marks", method = RequestMethod.GET)
+	public String editstudent(Model model, @RequestParam Map<String, String> reqParam) {
+		String examid = reqParam.get("examid");
+		String studentid = reqParam.get("id");
+		ExamModel exam=new ExamModel();
+		exam.setExamid(examid);
+		
+		String examdate = examDao.editExam(examid).getStartdate();
+		String examtype=examDao.editExam(examid).getExamname();
+		
+		StudentModel studentModel = studentDao.getStudentDetail(Integer.parseInt(studentid));
+		System.out.println(studentModel);
+		List<ExamModel> reportlist = examDao.specificStudentMarksReport(exam, studentid);
+		
+		model.addAttribute("stdDetail",studentModel);
+		model.addAttribute("reportlist", reportlist);
+		model.addAttribute("examdate",examdate);
+		model.addAttribute("examtype",examtype);
+		return "exam/editmarks";
+	}
+	
+	@RequestMapping(value = "/edit/updatemarks", method = RequestMethod.POST)
+	public String updatemarks(Model model,@RequestParam(value="exammarksid",required=false) String[] exammarksid, @RequestParam(value="thmarks",required=false) String[] thmarks,@RequestParam(value="prmarks", required=false) String[] prmarks) {
+		Subjects s=new Subjects();
+		try {
+		for (int i=0; i<exammarksid.length;i++) {
+			s.setThmarks(thmarks[i]);
+			s.setPrmarks(prmarks[i]);
+			examDao.updateMarks(s, exammarksid[i]);
+		}
+		
+	model.addAttribute("msg","Update Successful!");
+		}
+		catch (Exception e) {
+			System.out.println(e);
+			model.addAttribute("msg", "Error found:"+e);
+		}
+		return "error";
 	}
 	
 	
@@ -293,11 +350,9 @@ public class ExamController {
 	  
 	 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	  }
-	
 	
 	@RequestMapping(value = "/gradeSheet", method = RequestMethod.POST)
 	  @ResponseBody

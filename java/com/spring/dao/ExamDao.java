@@ -39,5 +39,6 @@ public interface ExamDao {
 	public int attendanceInExam(String examid, String totalDays);
 
 	public int insertStudentPresentDays(int examid, int studentid, int presentdays);
+	public void updateMarks(Subjects s, String exammarksid);
 
 }

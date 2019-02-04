@@ -1,13 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <jsp:include page="../include.jsp"></jsp:include>
 
 <html>
 <head>
 <body class="background">
 	<div class="col-md-12 col-sm-12 col-xs-12">
-
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>Actions</h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<a href="<spring:url value="/exam/edit/marks?id=${stdDetail.studentid }&examid=${examid }"/>" class="btn btn-success">Edit Marks</a>
+			</div>
+		</div>
 		<div class="x_panel">
 			<div class="x_title">
 				<h2>STUDENT DETAIL</h2>
@@ -18,15 +27,15 @@
 					class="table jambo_table table-striped table-bordered display"
 					style="color: black; font-weight: bold">
 					<tbody>
-					<tr>
-						<td>Exam: ${examtype }</td>
-						<td>Exam Date: ${examdate }</td>
-						<td ></td>
-						<td></td>
-						
-					</tr>
 						<tr>
-						
+							<td>Exam: ${examtype }</td>
+							<td>Exam Date: ${examdate }</td>
+							<td></td>
+							<td></td>
+
+						</tr>
+						<tr>
+
 							<td>Name: ${stdDetail.studentname }</td>
 							<td>Class: ${stdDetail.admissionclass }</td>
 							<td>Section: ${stdDetail.section}</td>
@@ -73,18 +82,18 @@
 						</tr>
 					</thead>
 					<tbody>
-					<c:forEach items="${reportlist }" var="r">
-						<tr>
-							<td>${r.subjects.subjectname }</td>
-							<td colspan="1">${r.subjects.fullmarks }</td>
-							<td colspan="1">${r.subjects.fullmarks_pr }</td>
-							<td colspan="1">${r.subjects.passmarks }</td>
-							<td colspan="1">${r.subjects.passmarks_pr }</td>
-							<td colspan="1">${r.subjects.thmarks }</td>
-							<td colspan="1">${r.subjects.prmarks }</td>
-							<td>${r.subjects.totalmarks }</td>
-							<td>${r.subjects.totalgrade }</td>
-						</tr>
+						<c:forEach items="${reportlist }" var="r">
+							<tr>
+								<td>${r.subjects.subjectname }</td>
+								<td colspan="1">${r.subjects.fullmarks }</td>
+								<td colspan="1">${r.subjects.fullmarks_pr }</td>
+								<td colspan="1">${r.subjects.passmarks }</td>
+								<td colspan="1">${r.subjects.passmarks_pr }</td>
+								<td colspan="1">${r.subjects.thmarks }</td>
+								<td colspan="1">${r.subjects.prmarks }</td>
+								<td>${r.subjects.totalmarks }</td>
+								<td>${r.subjects.totalgrade }</td>
+							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
