@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <jsp:include page="../include.jsp"></jsp:include>
 
 <html>
@@ -13,7 +14,7 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
-				<a href="" class="btn btn-success">Edit Marks</a>
+				<a href="<spring:url value="/exam/edit/marks?id=${stdDetail.studentid }&examid=${examid }"/>" class="btn btn-success">Edit Marks</a>
 			</div>
 		</div>
 		<div class="x_panel">

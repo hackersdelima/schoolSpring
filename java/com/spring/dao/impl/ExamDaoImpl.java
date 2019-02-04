@@ -198,6 +198,7 @@ public class ExamDaoImpl implements ExamDao {
 
 			ExamModel em = new ExamModel();
 			Subjects s = new Subjects();
+			em.setExammarksid(rs.getString("exammarksid"));
 			s.setPrmarks(rs.getString("prmarks"));
 			s.setThmarks(rs.getString("thmarks"));
 			s.setTotalmarks(rs.getString("totalmarks"));
@@ -461,6 +462,12 @@ public class ExamDaoImpl implements ExamDao {
 	public int attendanceInExam(String examid, String totalDays) {
 		String sql="insert into attendanceinexam(examid,totalDays) values('"+examid+"','"+totalDays+"')";
 		return jdbcTemplate.update(sql);
+	}
+
+	@Override
+	public void updateMarks(Subjects s, String exammarksid) {
+		String query="update exam_marks_tbl set thmarks='"+s.getThmarks()+"', prmarks='"+s.getPrmarks()+"', totalmarks=(thmarks+prmarks), totalgrade=getgrade(round((prmarks+thmarks)/(fullmarks_pr+fullmarks)*100)) where exammarksid='"+exammarksid+"'";
+		jdbcTemplate.update(query);
 	}
 	
 		
