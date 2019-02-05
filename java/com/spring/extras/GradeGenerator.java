@@ -51,6 +51,8 @@ public class GradeGenerator {
 		}
 		return grade;
 	}
+	
+	
 
 	public String singleGrade(double mark) {
 		String grade = null;
