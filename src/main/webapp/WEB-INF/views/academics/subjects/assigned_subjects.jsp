@@ -42,7 +42,7 @@ font-weight:bold;}
 				<tbody>
 				<c:forEach items="${list }" var="c">
 						<tr>
-							<td><span class="badge badge-primary badge-pill">${c.classname }</span></td>
+							<td><span class="badge badge-primary badge-pill">Class ${c.classname }</span></td>
 							<td> <span class="badge badge-primary badge-pill">${c.subjectname }</span></td>
 						</tr>
 						</c:forEach>

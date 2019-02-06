@@ -43,7 +43,7 @@ color: black;}
 				<tbody>
 				<c:forEach items="${courselist }" var="c">
 						<tr>
-							<td><span class="badge badge-primary badge-pill">${c.classname }</span></td>
+							<td><span class="badge badge-primary badge-pill">Class ${c.classname }</span></td>
 							<td> <span class="badge badge-primary badge-pill">${c.subjectid }</span></td>
 							<td><a
 								href="<spring:url value="/operation/view/${c.gradeid }/classsubjects"></spring:url>">Detail</a></td>
