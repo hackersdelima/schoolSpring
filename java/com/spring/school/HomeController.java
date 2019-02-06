@@ -75,7 +75,7 @@ public class HomeController {
 		return "index";
 	}
 	@RequestMapping(value="/logout") 
-	public String logOut(Model model,HttpSession session) {
+	public String logOut(Model model, HttpSession session) {
 		 session.invalidate();
 		 model.addAttribute("msg","Logout Successful!");
 		 return "redirect:/";

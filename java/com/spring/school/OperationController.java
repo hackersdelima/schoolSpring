@@ -209,5 +209,15 @@ public class OperationController {
 		return "academics/subjects/assigned_subjects_class";
 	}
 	
+	@RequestMapping(value="/view/{id}/stdsubjects")
+	public String stdsubjects(@PathVariable String id, Model model)
+	{
+		
+		List<Coursetbl> list = operationDao.fingCourseByStd(id);
+		model.addAttribute("list", list);
+		model.addAttribute("id",id);
+		return "academics/subjects/assigned_subjects_std";
+	}
+	
 	
 }

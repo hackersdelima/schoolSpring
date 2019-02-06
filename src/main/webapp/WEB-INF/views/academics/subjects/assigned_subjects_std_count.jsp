@@ -32,21 +32,25 @@ color: black;}
 				<thead>
 					<tr class="headings">
 						<th>Student Name</th>
-						<th>Class Name</th>
+						<th>Class</th>
+						<th>Section</th>
 						<th>Roll Number</th>
 						<th>Subject Count</th>
 						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
+				<c:forEach items="${courselist }" var="c">
 						<tr>
-							<td></td>
-							<td> </td>
-							<td></td>
-							<td> </td>
+							<td>${c.studentModel.studentname }</td>
+							<td>${c.classname }</td>
+							<td>${c.studentModel.section }</td>
+							<td> ${c.studentModel.rollno }</td>
+							<td> ${c.subjectid }</td>
 							<td><a
-								href="<spring:url value="/operation/view//stdsubjects"></spring:url>">Detail</a></td>
+								href="<spring:url value="/operation/view/${c.studentid }/stdsubjects"></spring:url>">Detail</a></td>
 						</tr>
+						</c:forEach>
 				</tbody>
 			</table>
 		</div>

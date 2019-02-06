@@ -18,6 +18,7 @@ import com.spring.model.ExamModel;
 import com.spring.model.ExamTypeModel;
 import com.spring.model.FeeModel;
 import com.spring.model.FormDetails;
+import com.spring.model.StudentModel;
 import com.spring.model.Subjects;
 import com.spring.model.UserModel;
 
@@ -275,6 +276,43 @@ public class OperationDaoImpl implements OperationDao {
 		String query = "select classlist.classname, subjectlist.subjectname,subjectlist.subjectCode, gradeid from coursetbl join classlist on coursetbl.gradeid=classlist.classid join subjectlist using(subjectid) where gradeid='"+id+"'";
 		return jdbcTemplate.query(query, new ClassCourselist());
 	}
+
+	@Override
+	public List<Coursetbl> fingCourseByStd(String studentid) {
+		String query="select subjectid, subjectlist.subjectCode, subjectlist.subjectname from coursetbl join subjectlist using(subjectid) where gradeid in (select admissionclass from studentinfo where studentid="+studentid+") and subjectlist.subjecttype='common' union select subjectid, subjectlist.subjectCode, subjectlist.subjectname from optcoursetbl join subjectlist using(subjectid) where studentid="+studentid+""; 
+		return jdbcTemplate.query(query, new StdCourselist());
+	}
+	public static final class StdCourselist implements RowMapper<Coursetbl>{
+		@Override
+		public Coursetbl mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Coursetbl c= new Coursetbl();
+			c.setSubjectname(rs.getString("subjectname"));
+			c.setSubjectCode(rs.getString("subjectCode"));
+			return c;
+		}
+	}
+
+	@Override
+	public List<Coursetbl> courseliststdcount() {
+		String query="select studentinfo.studentid, studentinfo.studentname, studentinfo.rollno, studentinfo.section,classlist.classname, count(subjectid) as subjectid from coursetbl join studentinfo on coursetbl.gradeid=studentinfo.admissionclass join classlist on studentinfo.admissionclass=classlist.classid group by studentid";
+		return jdbcTemplate.query(query, new StdCourseCount());
+	}
+	public static final class StdCourseCount implements RowMapper<Coursetbl>{
+		@Override
+		public Coursetbl mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Coursetbl c= new Coursetbl();
+			StudentModel s = new StudentModel();
+			c.setClassname(rs.getString("classname"));
+			c.setSubjectid(rs.getString("subjectid"));
+			c.setStudentid(rs.getString("studentid"));
+			s.setStudentname(rs.getString("studentname"));
+			s.setRollno(rs.getString("rollno"));
+			s.setSection(rs.getString("section"));
+			c.setStudentModel(s);
+			return c;
+		}
+	}
+	
 
 	
 

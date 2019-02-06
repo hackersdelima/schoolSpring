@@ -1,10 +1,25 @@
 package com.spring.model;
 
 public class Coursetbl {
-	String gradeid, subjectid, classname, subjectname, subjectCode;
+	String gradeid, subjectid, classname, subjectname, subjectCode, studentid;
+	StudentModel studentModel;
 	
-	
-	
+	public StudentModel getStudentModel() {
+		return studentModel;
+	}
+
+	public void setStudentModel(StudentModel studentModel) {
+		this.studentModel = studentModel;
+	}
+
+	public String getStudentid() {
+		return studentid;
+	}
+
+	public void setStudentid(String studentid) {
+		this.studentid = studentid;
+	}
+
 	public String getSubjectCode() {
 		return subjectCode;
 	}

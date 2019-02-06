@@ -550,7 +550,7 @@ private void commonModels(Model model){
 	}
 	@RequestMapping(value="/v/assignedsubjectsstd")
 	public String assignedsubjectsstd(Model model) {
-		List<Coursetbl> list = operationDao.coursetbllist();
+		List<Coursetbl> list = operationDao.courseliststdcount();
 		model.addAttribute("courselist", list);
 		return "academics/subjects/assigned_subjects_std_count";
 	}

@@ -41,6 +41,10 @@ public interface OperationDao {
 
 	public List<Coursetbl> getclasssubjects(String id);
 
+	public List<Coursetbl> fingCourseByStd(String studentid);
+	
+	public List<Coursetbl> courseliststdcount();
+
 
 	
 
