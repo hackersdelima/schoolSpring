@@ -206,7 +206,7 @@ public class OperationController {
 		
 		List<Coursetbl> list = operationDao.getclasssubjects(id);
 		model.addAttribute("list", list);
-		return "academics/subjects/assigned_subjects";
+		return "academics/subjects/assigned_subjects_class";
 	}
 	
 	

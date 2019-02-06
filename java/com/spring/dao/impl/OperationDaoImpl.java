@@ -266,12 +266,13 @@ public class OperationDaoImpl implements OperationDao {
 				c.setGradeid(rs.getString("gradeid"));
 			c.setClassname(rs.getString("classname"));
 				c.setSubjectname(rs.getString("subjectname"));
+				c.setSubjectCode(rs.getString("subjectCode"));
 				return c;
 			}
 		}
 	@Override
 	public List<Coursetbl> getclasssubjects(String id) {
-		String query = "select classlist.classname, subjectlist.subjectname, gradeid from coursetbl join classlist on coursetbl.gradeid=classlist.classid join subjectlist using(subjectid) where gradeid='"+id+"'";
+		String query = "select classlist.classname, subjectlist.subjectname,subjectlist.subjectCode, gradeid from coursetbl join classlist on coursetbl.gradeid=classlist.classid join subjectlist using(subjectid) where gradeid='"+id+"'";
 		return jdbcTemplate.query(query, new ClassCourselist());
 	}
 

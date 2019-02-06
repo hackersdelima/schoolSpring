@@ -537,11 +537,22 @@ private void commonModels(Model model){
 		return "exam/studentattendance";
 	}
 	
-	@RequestMapping(value="/v/assignedsubjects")
+	@RequestMapping(value="/assignedsubjects")
 	public String assignedsubjects(Model model) {
+		return "academics/subjects/assigned_subjects_dashboard";
+	}
+	
+	@RequestMapping(value="/v/assignedsubjectsclass")
+	public String assignedsubjectsclass(Model model) {
 		List<Coursetbl> list = operationDao.coursetbllist();
 		model.addAttribute("courselist", list);
-		return "academics/subjects/assigned_subjects_count";
+		return "academics/subjects/assigned_subjects_class_count";
+	}
+	@RequestMapping(value="/v/assignedsubjectsstd")
+	public String assignedsubjectsstd(Model model) {
+		List<Coursetbl> list = operationDao.coursetbllist();
+		model.addAttribute("courselist", list);
+		return "academics/subjects/assigned_subjects_std_count";
 	}
 	
 	

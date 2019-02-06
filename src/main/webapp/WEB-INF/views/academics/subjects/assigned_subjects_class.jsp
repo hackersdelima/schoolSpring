@@ -12,8 +12,8 @@
 	text-align: center;
 }
 table{
-font-weight:bold;
-color: black;}
+color:black;
+font-weight:bold;}
 </style>
 
 </head>
@@ -21,37 +21,33 @@ color: black;}
 <body class="background">
 	<div class="x_panel">
 		<div class="x_title">
-			<h2>ASSIGNED SUBJECTS LIST</h2>
-			<ul class="nav navbar-right panel_toolbox">
-				<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-				</li>
-				<li><a class="close-link"><i class="fa fa-close"></i></a>
-			</ul>
+			<h2>ASSIGNED SUBJECTS : <b>CLASS: ${list[0].classname }</b></h2>
+			
+		<a href="<spring:url value="/nav/v/assignedsubjectsclass"/>" class="btn btn-primary btn-sm">Back</a>
 			<div class="clearfix"></div>
 		</div>
 		<div class="x_content">
 			<table id="datatable"
 				class="table jambo_table table-striped table-bordered"
-				style="font-size: 95%;">
+				style="font-size: 95%;width:50%">
 				<thead>
 					<tr class="headings">
-						<th>Classname</th>
-						<th>Subjects Count</th>
-						<th>Action</th>
+				
+						<th>Subject Name</th>
+							<th>Subject Code</th>
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach items="${courselist }" var="c">
+				<c:forEach items="${list }" var="c">
 						<tr>
-							<td><span class="badge badge-primary badge-pill">Class ${c.classname }</span></td>
-							<td> <span class="badge badge-primary badge-pill">${c.subjectid }</span></td>
-							<td><a
-								href="<spring:url value="/operation/view/${c.gradeid }/classsubjects"></spring:url>">Detail</a></td>
+							
+							<td> ${c.subjectname }</td>
+							<td>${c.subjectCode }</td>
 						</tr>
 						</c:forEach>
 				</tbody>
 			</table>
+			</div>
 		</div>
-	</div>
 </body>
 </html>

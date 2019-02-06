@@ -193,7 +193,7 @@
 												</li>
 												<li><a href="nav/assignSubjects" target="iframe_a">Assign
 														Subjects</a></li>
-												<li><a href="nav/v/assignedsubjects" target="iframe_a">Assigned
+												<li><a href="nav/assignedsubjects" target="iframe_a">Assigned
 														Subjects List</a></li>
 											</ul></li>
 										<li><a>Account Settings<span

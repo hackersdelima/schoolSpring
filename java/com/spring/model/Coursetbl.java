@@ -1,8 +1,18 @@
 package com.spring.model;
 
 public class Coursetbl {
-	String gradeid, subjectid, classname, subjectname;
+	String gradeid, subjectid, classname, subjectname, subjectCode;
 	
+	
+	
+	public String getSubjectCode() {
+		return subjectCode;
+	}
+
+	public void setSubjectCode(String subjectCode) {
+		this.subjectCode = subjectCode;
+	}
+
 	public String getSubjectname() {
 		return subjectname;
 	}
