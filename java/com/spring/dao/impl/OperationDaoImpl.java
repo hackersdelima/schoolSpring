@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.spring.dao.OperationDao;
+import com.spring.model.Coursetbl;
 import com.spring.model.ExamModel;
 import com.spring.model.ExamTypeModel;
 import com.spring.model.FeeModel;
@@ -239,6 +240,39 @@ public class OperationDaoImpl implements OperationDao {
 
 		 String sql="insert into optcoursetbl(subjectid,studentid) values('"+optSubId+"','"+studentid+"')";
 		 jdbcTemplate.update(sql);
+	}
+
+	@Override
+	public List<Coursetbl> coursetbllist() {
+		String query = "select gradeid, count(subjectid) as subjectid, classlist.classname from coursetbl join classlist on coursetbl.gradeid=classlist.classid group by gradeid";
+		return jdbcTemplate.query(query, new Courselist());
+	}
+	
+	 public static final class Courselist implements RowMapper<Coursetbl>{
+			@Override
+			public Coursetbl mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Coursetbl c= new Coursetbl();
+				c.setGradeid(rs.getString("gradeid"));
+				c.setSubjectid(rs.getString("subjectid"));
+				c.setClassname(rs.getString("classname"));
+				return c;
+			}
+		}
+	 
+	 public static final class ClassCourselist implements RowMapper<Coursetbl>{
+			@Override
+			public Coursetbl mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Coursetbl c= new Coursetbl();
+				c.setGradeid(rs.getString("gradeid"));
+			c.setClassname(rs.getString("classname"));
+				c.setSubjectname(rs.getString("subjectname"));
+				return c;
+			}
+		}
+	@Override
+	public List<Coursetbl> getclasssubjects(String id) {
+		String query = "select classlist.classname, subjectlist.subjectname, gradeid from coursetbl join classlist on coursetbl.gradeid=classlist.classid join subjectlist using(subjectid) where gradeid='"+id+"'";
+		return jdbcTemplate.query(query, new ClassCourselist());
 	}
 
 	

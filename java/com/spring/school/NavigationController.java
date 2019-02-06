@@ -35,6 +35,7 @@ import com.spring.dao.StudentDao;
 import com.spring.dao.UserDao;
 import com.spring.extras.Generator;
 import com.spring.model.ClaimBillModel;
+import com.spring.model.Coursetbl;
 import com.spring.model.ExamModel;
 import com.spring.model.FeeModel;
 import com.spring.model.FormDetails;
@@ -534,6 +535,13 @@ private void commonModels(Model model){
 	public String studentattendance(Model model) {
 		model.addAttribute("examlist",operationDao.getExamList());
 		return "exam/studentattendance";
+	}
+	
+	@RequestMapping(value="/v/assignedsubjects")
+	public String assignedsubjects(Model model) {
+		List<Coursetbl> list = operationDao.coursetbllist();
+		model.addAttribute("courselist", list);
+		return "academics/subjects/assigned_subjects_count";
 	}
 	
 	
