@@ -3,6 +3,7 @@ package com.spring.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.spring.model.Coursetbl;
 import com.spring.model.ExamModel;
 import com.spring.model.ExamTypeModel;
 import com.spring.model.FeeModel;
@@ -35,6 +36,14 @@ public interface OperationDao {
 	public List<FormDetails> getOptionalSubject();
 
 	public void assignOptionalSubjects(String optSubId, String string);
+
+	public List<Coursetbl> coursetbllist();
+
+	public List<Coursetbl> getclasssubjects(String id);
+
+	public List<Coursetbl> fingCourseByStd(String studentid);
+	
+	public List<Coursetbl> courseliststdcount();
 
 
 	

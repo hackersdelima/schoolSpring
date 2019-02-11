@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.dao.OperationDao;
+import com.spring.model.Coursetbl;
 import com.spring.model.ExamModel;
 import com.spring.model.SettingsModel;
 import com.spring.model.Subjects;
@@ -197,6 +198,25 @@ public class OperationController {
 		operationDao.assignOptionalSubjects(optSubId,students.get(i));
 		}
 		return "Save Successful";
+	}
+	
+	@RequestMapping(value="/view/{id}/classsubjects")
+	public String classsubjects(@PathVariable String id, Model model)
+	{
+		
+		List<Coursetbl> list = operationDao.getclasssubjects(id);
+		model.addAttribute("list", list);
+		return "academics/subjects/assigned_subjects_class";
+	}
+	
+	@RequestMapping(value="/view/{id}/stdsubjects")
+	public String stdsubjects(@PathVariable String id, Model model)
+	{
+		
+		List<Coursetbl> list = operationDao.fingCourseByStd(id);
+		model.addAttribute("list", list);
+		model.addAttribute("id",id);
+		return "academics/subjects/assigned_subjects_std";
 	}
 	
 	
