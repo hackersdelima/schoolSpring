@@ -424,7 +424,8 @@ private void commonModels(Model model){
 		// JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/claimbill.jrxml");
 
 		ArrayList<ClaimBillModel> data=claimBillDao.getAllDetails(id, month);
-		  StudentModel sm=studentDao.getStudentDetail(Integer.parseInt(id));
+		
+		StudentModel sm=studentDao.getStudentDetail(Integer.parseInt(id));
 		  JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(data);
 		  
 		  System.out.println(ds);
