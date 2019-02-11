@@ -72,8 +72,7 @@ h5 {
 									name="classname" id="class" required>
 										<option value="">Select Class</option>
 										<c:forEach items="${classlist }" var="cl">
-										<c:if test="${fm.sclass eq cl.classname }">selected</c:if>
-											<option value="${cl.classname }" <c:if test="${fm.sclass eq cl.classname }">selected</c:if>>${cl.classname }</option>
+											<option value="${cl.classid }" <c:if test="${fm.sclass eq cl.classid }">selected</c:if>>${cl.classname }</option>
 										</c:forEach>
 
 

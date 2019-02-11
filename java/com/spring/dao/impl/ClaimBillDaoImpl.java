@@ -76,14 +76,14 @@ private JdbcTemplate jdbcTemplate;
 		
 	if(list.get(i).getPaymenttype().equals("M")) {
 		String freq = list.get(i).getFrequency();
-	//String genUpto=list.get(i).getGenerateduptpmonth();
-	String startmonth=list.get(i).getStartmonth();
-	int smonthval=Integer.parseInt(startmonth);//05
+	String genUpto=list.get(i).getGenerateduptpmonth();
+	//String startmonth=list.get(i).getStartmonth();
+	int smonthval=Integer.parseInt(genUpto);//05
 		
 		int frequency=Integer.parseInt(freq);//6
 		
 		
-		if(frequency+smonthval>12) {
+		if(frequency+smonthval>=12) {
 			if(frequency==12) {
 				frequency=12;
 			}
@@ -92,44 +92,12 @@ private JdbcTemplate jdbcTemplate;
 			}
 		}
 		
-		
 		if(Double.parseDouble(list.get(i).getTamount())>0) {
 			list.get(i).setTamount(Double.toString(frequency*Double.parseDouble(list.get(i).getFrate())));
-	/*switch (freq) {
-		
-	case "12":
-		list.get(i).setTamount(Double.toString(frequency*Double.parseDouble(list.get(i).getFrate())));
-		break;
-	case "3":
-		list.get(i).setTamount(Double.toString(4*Double.parseDouble(list.get(i).getFrate())));
-		break;
-	case "6":
-		list.get(i).setTamount(Double.toString(2*Double.parseDouble(list.get(i).getFrate())));
-		break;
-	default:
-		list.get(i).setTamount(Double.toString(Double.parseDouble(list.get(i).getFrate())));
-		break;*/
 	}
-	
-	
 	
 	 if(Double.parseDouble(list.get(i).getNamount())>0) {
 		 list.get(i).setNamount(Double.toString(frequency*Double.parseDouble(list.get(i).getFrate())));
-		/*switch (freq) {
-			
-		case "1":
-			list.get(i).setNamount(Double.toString(12*Double.parseDouble(list.get(i).getFrate())));
-			break;
-		case "3":
-			list.get(i).setNamount(Double.toString(4*Double.parseDouble(list.get(i).getFrate())));
-			break;
-		case "6":
-			list.get(i).setNamount(Double.toString(2*Double.parseDouble(list.get(i).getFrate())));
-			break;
-		default:
-			list.get(i).setNamount(Double.toString(Double.parseDouble(list.get(i).getFrate())));
-			break;
-		}*/
 		
 		}
 	 double totalfrate = Double.parseDouble(list.get(i).getTamount()) + Double.parseDouble(list.get(i).getNamount());
@@ -164,6 +132,7 @@ private JdbcTemplate jdbcTemplate;
 		
 			c.setFrequency(rs.getString("frequency"));
 			c.setStartmonth(rs.getString("startmonth"));
+			c.setGenerateduptpmonth(rs.getString("generateduptomonth"));
 			c.setPaymenttype(rs.getString("paymenttype"));
 			return c;
 		}

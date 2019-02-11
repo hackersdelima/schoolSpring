@@ -35,4 +35,5 @@ public interface StudentDao {
 	public int getTotalUser();
 	public int getTotalTeacher();
 	public String getCurrentBranch();
+	public List<String> getStudentId(String classid, String section);
 }
