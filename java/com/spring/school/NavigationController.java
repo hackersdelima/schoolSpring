@@ -403,11 +403,19 @@ private void commonModels(Model model){
 		    servletOutputStream.close();
 		   
 	}
+	@RequestMapping(value="/searchStudentClaimbill/{id}")
+	public String searchStudentClaimbill(Model model,@PathVariable String id)
+	{
+		model.addAttribute("id",id);
+		return "invoice/claimbill/searchStudentClaimBill";
+	}
 	
 	@RequestMapping(value="/viewClaimBill/{id}")
 	@ResponseBody
-	public void viewClaimBill(Model model,HttpServletResponse response,@PathVariable String id) throws JRException, SQLException, IOException
+	public void viewClaimBill(Model model,HttpServletResponse response,@PathVariable String id, @RequestParam(value="month") String month) throws JRException, SQLException, IOException
 	{
+		
+		
 		byte[] bytes=null;
 		JasperPrint jasperPrint,jasper;
 		
@@ -415,7 +423,7 @@ private void commonModels(Model model){
 		JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//claimbill.jrxml");
 		// JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/claimbill.jrxml");
 
-		ArrayList<ClaimBillModel> data=claimBillDao.getAllDetails(id);
+		ArrayList<ClaimBillModel> data=claimBillDao.getAllDetails(id, month);
 		  StudentModel sm=studentDao.getStudentDetail(Integer.parseInt(id));
 		  JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(data);
 		  

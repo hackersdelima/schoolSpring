@@ -63,14 +63,14 @@ public class ClaimBillController {
 		return "invoice/claimbill/studentList";
 	}
 	
-	@RequestMapping(value="/add/{id}")
+	/*@RequestMapping(value="/add/{id}")
 	public String viewClaimBill(Model model, @PathVariable String id)
 	{	
 		model.addAttribute("s",studentDao.getStudentDetail(Integer.parseInt(id)));
 		model.addAttribute("details",claimBillDao.getAllDetails(id));
 		
 		return "invoice/claimbill/claimbill";
-	}
+	}*/
 
 	
 	@RequestMapping(value = "/review")
@@ -139,7 +139,7 @@ public class ClaimBillController {
 			
 			System.out.println(studentlist.size());
 		for(int i=0;i<studentlist.size();i++) {
-			ArrayList<ClaimBillModel> data=claimBillDao.getAllDetails(studentlist.get(i));
+			ArrayList<ClaimBillModel> data=claimBillDao.getAllDetails(studentlist.get(i), month);
 		  //StudentModel sm=studentDao.getStudentDetail(Integer.parseInt(studentlist.get(i)));
 		  JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(data);
 		 

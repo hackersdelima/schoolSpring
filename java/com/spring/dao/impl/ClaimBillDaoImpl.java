@@ -3,6 +3,7 @@ package com.spring.dao.impl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -67,18 +68,71 @@ private JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public ArrayList<ClaimBillModel> getAllDetails(String id) {
+	public ArrayList<ClaimBillModel> getAllDetails(String id, String getmonth) {
+		
+		
+		
+		
+		
 		String query="select * from claimbillreport where pid='"+id+"'"; 
 	ArrayList<ClaimBillModel> list= (ArrayList<ClaimBillModel>) jdbcTemplate.query(query, new ClaimMapper());
+	
+	
 	
 	for(int i=0;i<list.size();i++) {
 		
 		
+		
+		
 	if(list.get(i).getPaymenttype().equals("M")) {
+		
+		//-------------------------------------------------------------------
+		
 		String freq = list.get(i).getFrequency();
+		System.out.println("frequency is"+freq);
+		
+		String studentid = id;
+		int findForMonth = Integer.parseInt(getmonth);
+		
+		int startmonth=Integer.parseInt(list.get(i).getStartmonth()); // from table
+		
+		List<String> paymonth= new ArrayList<String>();
+		for(int j=startmonth; j<=12; j++) {
+			int tomonth = j+Integer.parseInt(freq)-1;
+			if(tomonth>12) {
+				tomonth=12;
+			}
+			
+			String paymonthstr = j+"-"+tomonth;
+			paymonth.add(paymonthstr);
+			j=tomonth;
+		}
+		String realpaymonth="";
+		//month=04 [3-8, 9-12]
+		for(int k=0; k<paymonth.size();k++) {
+			
+			String paym =	paymonth.get(k);
+			String[] paymsplit = paym.split("-");
+			int first = Integer.parseInt(paymsplit[0]);
+			int second = Integer.parseInt(paymsplit[1]);
+			if(findForMonth>=first && findForMonth<=second) {
+				realpaymonth = paym;
+				System.out.println(realpaymonth);
+			}
+			
+		}
+		System.out.println(paymonth);
+		System.out.println("real paymonth is" +realpaymonth);
+		
+		//----------------------------------------------------------------------------------------
+		
+		
+		
 	String genUpto=list.get(i).getGenerateduptpmonth();
 	//String startmonth=list.get(i).getStartmonth();
-	int smonthval=Integer.parseInt(genUpto);//05
+	String claimBillStartMonth= realpaymonth.split("-")[0];
+	
+	int smonthval=Integer.parseInt(claimBillStartMonth);//05
 		
 		int frequency=Integer.parseInt(freq);//6
 		
