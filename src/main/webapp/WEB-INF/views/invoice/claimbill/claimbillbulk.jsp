@@ -32,20 +32,20 @@
 			<div class="x_content">
 			
 		
-			<spring:url value="/claimbill/add/221" var="formUrl"/>
+			<spring:url value="/claimbill/viewClassClaimBill" var="formUrl"/>
 			<button type="submit" class="btn btn-success" form="form">
 					<i class="fa fa-check"></i> Generate
 				</button>
 		
 			
 				
-				<form:form action="${formUrl }" id="form"></form:form>
+				<form:form action="${formUrl }" id="form">
 				<table class="table">
 					<tbody>
 						<tr>
 						
-							<td><h6>Exam Type *</h6> <select class="form-control categoryid" name="startmonth"
-									id="startmonth">
+							<td><h6>Month *</h6> <select class="form-control " name="month"
+									id="month">
 									<option value="">Select Month</option>
 									<c:forEach items="${monthlist }" var="m">
 										<option value="${m.month }">${m.month }-${m.value }</option>
@@ -55,18 +55,33 @@
 								<td><h6>
 									<strong>Class*</strong>
 								</h6>
-								<select class="form-control class" name="classname" id="class" required>
+								<select class="form-control class" name="classid" id="class" required>
 									<option value="">Select Class</option>
 									<c:forEach items="${classlist }" var="cl">
-									<option value="${cl.classname }">${cl.classname }</option>
+									<option value="${cl.classid }">${cl.classname }</option>
 									</c:forEach>
 									
 									
 								</select></td>
+								
+								<td>
+								
+								<h6>
+									<strong>Section</strong>
+								</h6>
+								<select class="form-control" name="sectionname" id="section">
+									<option value="n">Select Section</option>
+									<c:forEach items="${section }" var="sec">
+									<option value="${sec.sectionname }">${sec.sectionname}</option>
+									</c:forEach>
+								</select>
+							
+								</td>
 							
 						</tr>
 					</tbody>
 				</table>
+				</form:form>
 			</div>
 		</div>
 	</div>

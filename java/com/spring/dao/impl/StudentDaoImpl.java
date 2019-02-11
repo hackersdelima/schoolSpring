@@ -520,4 +520,16 @@ public class StudentDaoImpl implements StudentDao {
 			return jdbcTemplate.queryForObject(query, String.class);
 			
 		}
+
+		@Override
+		public List<String> getStudentId(String classid, String section) {
+			String query="";
+			if(section.equalsIgnoreCase("n")) {
+			 query="select studentid from studentinfo where admissionclass='"+classid+"'";
+			}
+			else {
+			 query="select studentid from studentinfo where admissionclass='"+classid+"' and section='"+section+"'";
+			}
+			return jdbcTemplate.queryForList(query,String.class);
+		}
 }

@@ -355,8 +355,8 @@ private void commonModels(Model model){
 	{
 		byte[] bytes=null;
 		JasperPrint jasperPrint,jasper;
-		 // JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//trialbalance.jrxml");
-		  JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/trialbalance.jrxml");
+		 JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//trialbalance.jrxml");
+		  //JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/trialbalance.jrxml");
 		  jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource.getConnection());
 		 
 		  
@@ -382,8 +382,8 @@ private void commonModels(Model model){
 		
 		
 		 
-		//JasperDesign jd=JRXmlLoader.load("D://DigiNepal//schoolSpring//SchoolMgmt//reports//trialbalancesummary.jrxml");
-		JasperDesign jd=JRXmlLoader.load("/opt/tomcat/webapps/reports/trialbalancesummary.jrxml");
+		JasperDesign jd=JRXmlLoader.load("D://DigiNepal//schoolSpring//SchoolMgmt//reports//trialbalancesummary.jrxml");
+		//JasperDesign jd=JRXmlLoader.load("/opt/tomcat/webapps/reports/trialbalancesummary.jrxml");
 		  JRDesignQuery query=new JRDesignQuery();
 		  query.setText("select demodb.accountstbl.accountNumber,demodb.accountstbl.categoryId,demodb.accountstbl.accountName,demodb.accountstbl.debitBal, demodb.accountstbl.creditBal, demodb.categories.`categoryHead` ,  demodb.mainac.`mainHead` ,  demodb.mainac1.`mainHead1`, demodb.mainac2.`mainHead2` from demodb.accountstbl join  demodb.categories on demodb.accountstbl.categoryId=demodb.categories.categoryId left join  demodb.mainac on demodb.mainac.mainid=mid(demodb.accountstbl.categoryId,1,1) left join  demodb.mainac1 on demodb.mainac1.mainid1=mid(demodb.accountstbl.categoryId,1,2) left join  demodb.mainac2 on demodb.mainac2.mainid2=mid(demodb.accountstbl.categoryId,1,3)");
 		  jd.setQuery(query);
@@ -412,19 +412,16 @@ private void commonModels(Model model){
 		JasperPrint jasperPrint,jasper;
 		
 			//String sourceFileName="D://DigiNepal//schoolSpring//SchoolMgmt//reports//claimbill.jasper";
-		//JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//claimbill.jrxml");
-		 JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/claimbill.jrxml");
-		
-		  
-		  
-		  ArrayList<ClaimBillModel> data=claimBillDao.getAllDetails(id);
+		JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//claimbill.jrxml");
+		// JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/claimbill.jrxml");
+
+		ArrayList<ClaimBillModel> data=claimBillDao.getAllDetails(id);
 		  StudentModel sm=studentDao.getStudentDetail(Integer.parseInt(id));
 		  JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(data);
 		  
 		  System.out.println(ds);
 		  Map parameters=new HashMap<String,Object>();
 		  parameters.put("ds", ds);
-		  parameters.put("sm", sm);
 		  
 		 // jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
 		
@@ -438,6 +435,8 @@ private void commonModels(Model model){
 		    servletOutputStream.close();
 		   
 	}
+	
+	
 	
 	@RequestMapping(value="/viewStatements/{id}")
 	public String viewStatements(Model model,@PathVariable("id") String id)

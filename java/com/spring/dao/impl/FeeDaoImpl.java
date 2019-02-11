@@ -19,6 +19,9 @@ import com.spring.model.FeeStructureModel;
 
 @Repository
 public class FeeDaoImpl implements FeeDao {
+	
+
+	
 	private JdbcTemplate jdbcTemplate;
 
 	private NamedParameterJdbcTemplate template;
