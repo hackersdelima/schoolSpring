@@ -1,7 +1,7 @@
 package com.spring.school;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,20 +27,23 @@ import com.spring.dao.CategoryDao;
 import com.spring.dao.ClaimBillDao;
 import com.spring.dao.StudentDao;
 import com.spring.model.ClaimBillModel;
-import com.spring.model.FeeInvoiceModel;
 import com.spring.model.StudentModel;
 import com.spring.model.UserModel;
 
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRPrintPage;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
+import net.sf.jasperreports.view.JasperViewer;
 
 @Controller
 @RequestMapping("/claimbill")
@@ -118,6 +121,7 @@ public class ClaimBillController {
 		return "";
 	}
 	
+	@SuppressWarnings("deprecation")
 	@RequestMapping(value="/viewClassClaimBill")
 	public void viewClassClaimbill(@RequestParam Map<String,String> map,HttpServletResponse response) throws JRException, IOException {
 		byte[] bytes=null;
@@ -126,7 +130,9 @@ public class ClaimBillController {
 		String section=map.get("sectionname");
 		String month=map.get("month");
 		 Map parameters=new HashMap<String,Object>();
-		List<String> studentlist=studentDao.getStudentId(classid,section);
+		List<String> studentlist= studentDao.getStudentId(classid,section);
+		
+		
 		System.out.println(studentlist);
 		System.out.println(month+section+classid);
 		
@@ -134,38 +140,56 @@ public class ClaimBillController {
 		// JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/claimbill.jrxml");
 		
 		jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
-		  List pages=jasperPrint.getPages();
+		  
 		  
 			
 			System.out.println(studentlist.size());
-		for(int i=0;i<studentlist.size();i++) {
+			
+			List<JasperPrint> jasperPrintList = new ArrayList<JasperPrint>();
+			
+			
+			for(int i=0;i<studentlist.size();i++) {
 			ArrayList<ClaimBillModel> data=claimBillDao.getAllDetails(studentlist.get(i), month);
-		  //StudentModel sm=studentDao.getStudentDetail(Integer.parseInt(studentlist.get(i)));
-		  JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(data);
-		 
-		  
-		  System.out.println(ds);
-		 
-		  parameters.put("ds", ds);
-		  
-		  jasper = JasperFillManager.fillReport(jasperReport, parameters, ds);
-		  
-		  JRPrintPage object=(JRPrintPage) pages.get(0);
-			jasperPrint.addPage(object);
-			 ds.next();
+			StudentModel sm=studentDao.getStudentDetail(Integer.parseInt(studentlist.get(i)));
+			
+			  JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(data);
+			  parameters.put("ds", ds);
+			  parameters.put("sm", sm);
+			  
+			  jasper = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
+			  
+			  jasperPrintList.add(jasper);
+			  
+			  
+			 
+			   
 		}
+			JRPdfExporter exporter = new JRPdfExporter();
+			
+			exporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrintList));
+			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput("D://DigiNepal//report.pdf"));
+			SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+			configuration.setCreatingBatchModeBookmarks(true);
+			exporter.setConfiguration(configuration);
+			exporter.exportReport();
+			
+				
+			
 		
-		
-	
-		
-		  ServletOutputStream servletOutputStream = response.getOutputStream();
-		    bytes = JasperRunManager.runReportToPdf(jasperReport,parameters, new JREmptyDataSource());
+					
+			
+			
+			
+			
+		/*			ServletOutputStream servletOutputStream = response.getOutputStream();
+		//    bytes = JasperRunManager.runReportToPdf(r,parameters, new JREmptyDataSource());
 		    response.setContentType("application/pdf");
-		    response.setContentLength(bytes.length);
+		    response.setContentLength(b.length);
 
 		    servletOutputStream.write(bytes, 0, bytes.length);
 		    servletOutputStream.flush();
-		    servletOutputStream.close();
+		    servletOutputStream.close();*/
+		  	
 		/*  response.setContentType("application/x-pdf");
 		    response.setHeader("Content-disposition", "inline; filename=Report.pdf");
 

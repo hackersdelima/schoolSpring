@@ -424,14 +424,16 @@ private void commonModels(Model model){
 		// JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/claimbill.jrxml");
 
 		ArrayList<ClaimBillModel> data=claimBillDao.getAllDetails(id, month);
-		  StudentModel sm=studentDao.getStudentDetail(Integer.parseInt(id));
+		
+		StudentModel sm=studentDao.getStudentDetail(Integer.parseInt(id));
 		  JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(data);
 		  
 		  System.out.println(ds);
 		  Map parameters=new HashMap<String,Object>();
 		  parameters.put("ds", ds);
+		  parameters.put("sm",sm);
 		  
-		 // jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
+		  jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
 		
 		  ServletOutputStream servletOutputStream = response.getOutputStream();
 		    bytes = JasperRunManager.runReportToPdf(jasperReport,parameters, new JREmptyDataSource());
