@@ -313,7 +313,7 @@ catch (Exception e) {
 		
 		List<ExamModel> studentids=examDao.getBulkReport(classname,section,examid);
 		System.out.println(studentids+"student LIst");
-	    JasperPrint jasperPrint,jasper;
+	    JasperPrint jasperPrint, jasper;
 	   		//jasper= JasperFillManager.fillReport(jasperReport, param2, dataSource.getConnection());
 		
 	   // param2.put("studentid", "666");
