@@ -139,7 +139,7 @@ public class ClaimBillController {
 		JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//claimbill.jrxml");
 		// JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/claimbill.jrxml");
 		
-		//jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
+		jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
 		  
 		  
 			
@@ -150,9 +150,11 @@ public class ClaimBillController {
 			
 			for(int i=0;i<studentlist.size();i++) {
 			ArrayList<ClaimBillModel> data=claimBillDao.getAllDetails(studentlist.get(i), month);
+			StudentModel sm=studentDao.getStudentDetail(Integer.parseInt(studentlist.get(i)));
 			
 			  JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(data);
 			  parameters.put("ds", ds);
+			  parameters.put("sm", sm);
 			  
 			  jasper = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
 			  

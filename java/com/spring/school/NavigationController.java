@@ -431,8 +431,9 @@ private void commonModels(Model model){
 		  System.out.println(ds);
 		  Map parameters=new HashMap<String,Object>();
 		  parameters.put("ds", ds);
+		  parameters.put("sm",sm);
 		  
-		 // jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
+		  jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
 		
 		  ServletOutputStream servletOutputStream = response.getOutputStream();
 		    bytes = JasperRunManager.runReportToPdf(jasperReport,parameters, new JREmptyDataSource());
