@@ -2,6 +2,7 @@ package com.spring.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -86,10 +87,10 @@ private JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public List<PaymentVoucherAccountSingle> getPayments(String id) {
+	public ArrayList<PaymentVoucherAccountSingle> getPayments(String id) {
 		String query="select payment_voucher_account.*,accountstbl.accountName from payment_voucher_account join accountstbl on accountstbl.accountNumber=payment_voucher_account.accountNo where payment_voucher_id='"+id+"'";
 		
-		return jdbcTemplate.query(query, new PaymentAccountMapper());
+		return (ArrayList<com.spring.model.PaymentVoucherAccountSingle>) jdbcTemplate.query(query, new PaymentAccountMapper());
 	}
 	
 	public static final class PaymentAccountMapper implements RowMapper<PaymentVoucherAccountSingle>{

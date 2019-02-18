@@ -1,6 +1,13 @@
 package com.spring.school;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,8 +19,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.spring.dao.OperationDao;
 import com.spring.dao.PaymentVoucherDao;
+import com.spring.model.GeneralDetailsModel;
+import com.spring.model.PaymentVoucherAccountSingle;
 import com.spring.model.PaymentVoucherModel;
+
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 @Controller
 @SessionAttributes("paymentVoucher")
@@ -21,6 +41,10 @@ import com.spring.model.PaymentVoucherModel;
 public class PaymentVoucherController {
 	@Autowired
 	PaymentVoucherDao paymentVoucherDao;
+	@Autowired
+	 DataSource dataSource;
+	@Autowired
+	OperationDao operationDao;
 
 	@RequestMapping(value = "/add")
 	@ResponseBody
@@ -60,6 +84,73 @@ public class PaymentVoucherController {
 		return "generalTransaction/fundsTransfer/paymentVoucher/viewTxn";
 	}
 	
+	@RequestMapping(value="/viewPaymentVoucher/{id}")
+	public void viewPaymentVoucher(Model model, @PathVariable String id,HttpServletResponse response) throws Exception
+	{
+		byte[] bytes=null;
+		JasperPrint jasperPrint,jasper;
+		
+			JasperDesign jd=JRXmlLoader.load("D://DigiNepal//schoolSpring//SchoolMgmt//reports//paymentVoucher.jrxml");
+		//JasperDesign jd=JRXmlLoader.load("/opt/tomcat/webapps/reports/paymentVoucher.jrxml");
+		
+		 JasperReport jasperSubReport = JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//paymentVoucherAccounts.jrxml");
+		 //JasperReport jasperSubReport = JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/paymentVoucherAccounts.jrxml");
+		 
+		 Map<String, Object> parameters=new HashMap<String, Object>();
+		 
+		/*For Initail Details Sub Report*/	
+		 
+		 JasperReport generalSubReport = JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//generalReport.jrxml");
+		 //JasperReport generalSubReport = JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/generalReport.jrxml");
+		 
+		 GeneralDetailsModel gdm=operationDao.getGeneralDetails();
+		 ArrayList<GeneralDetailsModel> gdlist= new ArrayList<GeneralDetailsModel>();
+		 gdlist.add(gdm);
+		
+		 JRBeanCollectionDataSource generalds=new JRBeanCollectionDataSource(gdlist);
+			parameters.put("generalDataSourceParam", generalds);
+			parameters.put("generalsubreportparam",generalSubReport);
+		
+			///------------------sub report-----------------
+			
+			
+			
+			ArrayList<PaymentVoucherAccountSingle> subdata= paymentVoucherDao.getPayments(id);
+		
+			
+			
+			
+			PaymentVoucherModel paymentModel=paymentVoucherDao.getIndividualPayment(id);
+			
+			ArrayList data=new ArrayList<PaymentVoucherModel>();
+			data.add(paymentModel);
+			
+			JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(data);
+		
+			JRBeanCollectionDataSource subds=new JRBeanCollectionDataSource(subdata);
+			parameters.put("dataSourceParam", subds);
+			parameters.put("subreportparam",jasperSubReport);
+			
+			
+			
+			JasperReport jasperReport=JasperCompileManager.compileReport(jd);
+		  //JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/trialbalancesummary.jrxml");
+		 
+			
+			
+			jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,ds);
+		
+		
+			 bytes=JasperExportManager.exportReportToPdf(jasperPrint);
+			//JasperViewer.viewReport(jasperPrint);
+		  ServletOutputStream servletOutputStream = response.getOutputStream();
+		    response.setContentType("application/pdf");
+		    response.setContentLength(bytes.length);
+
+		    servletOutputStream.write(bytes, 0, bytes.length);
+		    servletOutputStream.flush();
+		    servletOutputStream.close();
+	}
 	
 	
 

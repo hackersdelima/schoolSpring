@@ -1,5 +1,6 @@
 package com.spring.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.spring.model.PaymentVoucherAccountSingle;
@@ -15,7 +16,7 @@ public interface PaymentVoucherDao {
 
 	public PaymentVoucherModel getIndividualPayment(String id);
 
-	public List<PaymentVoucherAccountSingle> getPayments(String id);
+	public ArrayList<PaymentVoucherAccountSingle> getPayments(String id);
 
 	public List<StatementModel> viewStatements(String id);
 }

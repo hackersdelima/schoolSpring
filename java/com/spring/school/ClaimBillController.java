@@ -129,7 +129,7 @@ public class ClaimBillController {
 		String classid=map.get("classid");
 		String section=map.get("sectionname");
 		String month=map.get("month");
-		 Map parameters=new HashMap<String,Object>();
+		 Map<String,Object> parameters=new HashMap<String,Object>();
 		List<String> studentlist= studentDao.getStudentId(classid,section);
 		
 		
@@ -137,26 +137,33 @@ public class ClaimBillController {
 		System.out.println(month+section+classid);
 		
 		JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//claimbill.jrxml");
-		// JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/claimbill.jrxml");
-		
+			//JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/claimbill.jrxml");
+		 JasperReport jasperSubReport = JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//studentdetails.jrxml");
+		// JasperReport jasperSubReport = JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/studentdetails.jrxml");
 		jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
 		  
-		  
+		
 			
 			System.out.println(studentlist.size());
 			
 			List<JasperPrint> jasperPrintList = new ArrayList<JasperPrint>();
+			ArrayList<StudentModel> smlist=new ArrayList<StudentModel>();
 			
 			
 			for(int i=0;i<studentlist.size();i++) {
 			ArrayList<ClaimBillModel> data=claimBillDao.getAllDetails(studentlist.get(i), month);
 			StudentModel sm=studentDao.getStudentDetail(Integer.parseInt(studentlist.get(i)));
+			smlist.add(sm);
+			
 			
 			  JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(data);
-			  parameters.put("ds", ds);
-			  parameters.put("sm", sm);
+			  JRBeanCollectionDataSource subds=new JRBeanCollectionDataSource(smlist);
+			  parameters.put("dataSourceParam", subds);
+			  parameters.put("subreportparam",jasperSubReport);
+			 
+			 
 			  
-			  jasper = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
+			  jasper = JasperFillManager.fillReport(jasperReport, parameters, ds);
 			  
 			  jasperPrintList.add(jasper);
 			  

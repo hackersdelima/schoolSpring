@@ -8,6 +8,7 @@ import com.spring.model.ExamModel;
 import com.spring.model.ExamTypeModel;
 import com.spring.model.FeeModel;
 import com.spring.model.FormDetails;
+import com.spring.model.GeneralDetailsModel;
 import com.spring.model.Subjects;
 import com.spring.model.UserModel;
 
@@ -44,6 +45,8 @@ public interface OperationDao {
 	public List<Coursetbl> fingCourseByStd(String studentid);
 	
 	public List<Coursetbl> courseliststdcount();
+
+	public GeneralDetailsModel getGeneralDetails();
 
 
 	

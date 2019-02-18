@@ -355,13 +355,14 @@ private void commonModels(Model model){
 	{
 		byte[] bytes=null;
 		JasperPrint jasperPrint,jasper;
-		 JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//trialbalance.jrxml");
-		  //JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/trialbalance.jrxml");
+		 //JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//trialbalance.jrxml");
+		  JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/trialbalance.jrxml");
 		  jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource.getConnection());
 		 
 		  
 		 
 		  ServletOutputStream servletOutputStream = response.getOutputStream();
+		  
 		    bytes = JasperRunManager.runReportToPdf(jasperReport,new HashMap(), dataSource.getConnection());
 		    response.setContentType("application/pdf");
 		    response.setContentLength(bytes.length);
@@ -382,8 +383,8 @@ private void commonModels(Model model){
 		
 		
 		 
-		JasperDesign jd=JRXmlLoader.load("D://DigiNepal//schoolSpring//SchoolMgmt//reports//trialbalancesummary.jrxml");
-		//JasperDesign jd=JRXmlLoader.load("/opt/tomcat/webapps/reports/trialbalancesummary.jrxml");
+		//JasperDesign jd=JRXmlLoader.load("D://DigiNepal//schoolSpring//SchoolMgmt//reports//trialbalancesummary.jrxml");
+			JasperDesign jd=JRXmlLoader.load("/opt/tomcat/webapps/reports/trialbalancesummary.jrxml");
 		  JRDesignQuery query=new JRDesignQuery();
 		  query.setText("select demodb.accountstbl.accountNumber,demodb.accountstbl.categoryId,demodb.accountstbl.accountName,demodb.accountstbl.debitBal, demodb.accountstbl.creditBal, demodb.categories.`categoryHead` ,  demodb.mainac.`mainHead` ,  demodb.mainac1.`mainHead1`, demodb.mainac2.`mainHead2` from demodb.accountstbl join  demodb.categories on demodb.accountstbl.categoryId=demodb.categories.categoryId left join  demodb.mainac on demodb.mainac.mainid=mid(demodb.accountstbl.categoryId,1,1) left join  demodb.mainac1 on demodb.mainac1.mainid1=mid(demodb.accountstbl.categoryId,1,2) left join  demodb.mainac2 on demodb.mainac2.mainid2=mid(demodb.accountstbl.categoryId,1,3)");
 		  jd.setQuery(query);
@@ -415,28 +416,34 @@ private void commonModels(Model model){
 	public void viewClaimBill(Model model,HttpServletResponse response,@PathVariable String id, @RequestParam(value="month") String month) throws JRException, SQLException, IOException
 	{
 		
-		
 		byte[] bytes=null;
 		JasperPrint jasperPrint,jasper;
 		
-			//String sourceFileName="D://DigiNepal//schoolSpring//SchoolMgmt//reports//claimbill.jasper";
+		//String sourceFileName="D://DigiNepal//schoolSpring//SchoolMgmt//reports//claimbill.jasper";
 		JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//claimbill.jrxml");
-		// JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/claimbill.jrxml");
-
+		//JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/claimbill.jrxml");
+		 
+		 JasperReport jasperSubReport = JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//studentdetails.jrxml");
+		 //JasperReport jasperSubReport = JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/studentdetails.jrxml");
+			
+		 Map<String, Object> parameters=new HashMap<String, Object>();
+		 
 		ArrayList<ClaimBillModel> data=claimBillDao.getAllDetails(id, month);
+		JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(data);
 		
 		StudentModel sm=studentDao.getStudentDetail(Integer.parseInt(id));
-		  JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(data);
+		ArrayList<StudentModel> smlist=new ArrayList<StudentModel>();
+		smlist.add(sm);
+		 JRBeanCollectionDataSource subds=new JRBeanCollectionDataSource(smlist);
 		  
-		  System.out.println(ds);
-		  Map parameters=new HashMap<String,Object>();
-		  parameters.put("ds", ds);
-		  parameters.put("sm",sm);
+		  
+		  parameters.put("subreportparam",jasperSubReport);
+		  parameters.put("dataSourceParam", subds);
 		  
 		  jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
-		
+		  bytes=JasperExportManager.exportReportToPdf(jasperPrint);
+			//JasperViewer.viewReport(jasperPrint);
 		  ServletOutputStream servletOutputStream = response.getOutputStream();
-		    bytes = JasperRunManager.runReportToPdf(jasperReport,parameters, new JREmptyDataSource());
 		    response.setContentType("application/pdf");
 		    response.setContentLength(bytes.length);
 

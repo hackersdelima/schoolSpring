@@ -39,7 +39,9 @@
 					<!-- menu profile quick info -->
 					<div class="profile clearfix">
 						<div class="profile_pic">
-							<img src="//124.41.193.91/images/araniko/Logo.jpg" alt="..."
+							<!-- <img src="//124.41.193.91/images/araniko/Logo.jpg" alt="..."
+								class="img-circle profile_img"> -->
+								<img src="//124.41.193.91/images/schoollogo.png" alt="..."
 								class="img-circle profile_img">
 							<!--   <img class="img-circle profile_img" id="myImg" src="//124.41.193.91/images/araniko/Logo.jpg" /> -->
 

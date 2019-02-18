@@ -18,6 +18,7 @@ import com.spring.model.ExamModel;
 import com.spring.model.ExamTypeModel;
 import com.spring.model.FeeModel;
 import com.spring.model.FormDetails;
+import com.spring.model.GeneralDetailsModel;
 import com.spring.model.StudentModel;
 import com.spring.model.Subjects;
 import com.spring.model.UserModel;
@@ -311,6 +312,28 @@ public class OperationDaoImpl implements OperationDao {
 			c.setStudentModel(s);
 			return c;
 		}
+	}
+	@Override
+	public GeneralDetailsModel getGeneralDetails() {
+		String sql="select * from generaldetails";
+		
+		return jdbcTemplate.queryForObject(sql, new detailsMapper());
+		
+	}
+	public static final class detailsMapper implements RowMapper<GeneralDetailsModel>{
+
+		@Override
+		public GeneralDetailsModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+			GeneralDetailsModel g= new GeneralDetailsModel();
+			g.setName(rs.getString("name"));
+			g.setTitle(rs.getString("title"));
+			g.setAddress(rs.getString("address"));
+			g.setEmail(rs.getString("email"));
+			g.setSession(rs.getString("session"));
+			g.setPhone(rs.getString("phone"));
+			return g;
+		}
+	
 	}
 	
 
