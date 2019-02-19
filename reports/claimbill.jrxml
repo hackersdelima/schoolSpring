@@ -215,7 +215,7 @@
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="238" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<textField>
 				<reportElement x="40" y="0" width="100" height="30" uuid="ec5fa5f6-7365-4dce-beb1-7c3b35fdc328"/>
 				<textFieldExpression><![CDATA[$F{accountNumber}]]></textFieldExpression>

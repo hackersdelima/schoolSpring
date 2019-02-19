@@ -12,26 +12,26 @@
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="84" splitType="Stretch">
+		<band height="61" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="550" height="34" uuid="f815231f-f862-46db-95d0-530283cc43dc"/>
+				<reportElement x="2" y="-10" width="550" height="34" uuid="f815231f-f862-46db-95d0-530283cc43dc"/>
 				<textElement textAlignment="Center">
 					<font size="20"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="163" y="30" width="228" height="30" uuid="538d2aee-259a-4507-bc31-79ce80835ddc"/>
+				<reportElement x="165" y="20" width="228" height="30" uuid="538d2aee-259a-4507-bc31-79ce80835ddc"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="227" y="50" width="100" height="30" uuid="ac194ec8-f9b2-4395-9ef1-717eb9bc4d87"/>
+				<reportElement x="229" y="40" width="100" height="20" uuid="ac194ec8-f9b2-4395-9ef1-717eb9bc4d87"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{phone}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="-20" y="70" width="550" height="1" uuid="289aed2d-e0eb-4646-9f31-7c43d4be3fc8">
+				<reportElement x="-18" y="60" width="550" height="1" uuid="289aed2d-e0eb-4646-9f31-7c43d4be3fc8">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
