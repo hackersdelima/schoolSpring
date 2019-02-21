@@ -7,6 +7,7 @@ public class ClaimBillModel {
 	private String accountNumber,taxable,admissionclass,frate;
 	private String frequency,startmonth,discountamount,paymenttype,pid,tamount,namount,generateduptpmonth;
 	
+	
 	public String getGenerateduptpmonth() {
 		return generateduptpmonth;
 	}

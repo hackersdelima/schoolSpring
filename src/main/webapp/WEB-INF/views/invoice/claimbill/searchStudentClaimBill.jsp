@@ -22,18 +22,18 @@
 					<label class="control-label col-md-2 col-sm-2 col-xs-12">Month</label>
 					<div class="col-md-2 col-sm-2 col-xs-12">
 						<select name="month" class="form-control">
-							<option value="01">01-Baishak</option>
-							<option value="02">02-Jestha</option>
-							<option value="03">03-Asar</option>
-							<option value="04">04-Shrawan</option>
-							<option value="05">05-Bhadra</option>
-							<option value="06">06-Ashoj</option>
-							<option value="07">07-Kartik</option>
-							<option value="08">08-Mangsir</option>
-							<option value="09">09-Poush</option>
-							<option value="10">10-Magh</option>
-							<option value="11">11-Falgun</option>
-							<option value="12">12-Chaitra</option>
+							<option value="01-Baishak">01-Baishak</option>
+							<option value="02-Jestha">02-Jestha</option>
+							<option value="03-Asar">03-Asar</option>
+							<option value="04-Shrawan">04-Shrawan</option>
+							<option value="05-Bhadra">05-Bhadra</option>
+							<option value="06-Ashoj">06-Ashoj</option>
+							<option value="07-Kartik">07-Kartik</option>
+							<option value="08-Mangsir">08-Mangsir</option>
+							<option value="09-Poush">09-Poush</option>
+							<option value="10-Magh">10-Magh</option>
+							<option value="11-Falgun">11-Falgun</option>
+							<option value="12-Chaitra">12-Chaitra</option>
 						</select>
 					</div>
 				</div>

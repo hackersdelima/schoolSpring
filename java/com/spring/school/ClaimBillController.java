@@ -137,9 +137,9 @@ public class ClaimBillController {
 		System.out.println(month+section+classid);
 		
 		JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//claimbill.jrxml");
-			//JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/claimbill.jrxml");
+		//	JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/claimbill.jrxml");
 		 JasperReport jasperSubReport = JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//studentdetails.jrxml");
-		// JasperReport jasperSubReport = JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/studentdetails.jrxml");
+		//JasperReport jasperSubReport = JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/studentdetails.jrxml");
 		jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
 		  
 		
