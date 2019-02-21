@@ -82,7 +82,7 @@ tfoot input {
 								<td>${s.admissiondate }</td>
 								<td>
 								<a href="<spring:url value="/nav/searchStudentClaimbill/${s.studentid }" />">Generate</a>
-								<%-- <a href="<spring:url value="/nav/viewClaimBill/${s.studentid }" />">Generate</a> --%>
+								<%--  <a href="<spring:url value="/nav/viewClaimBill/${s.studentid }" />"> Old Generate</a>  --%>
 								</td>
 							</tr>
 							<%sn++;%>

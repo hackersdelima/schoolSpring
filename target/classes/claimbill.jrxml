@@ -149,6 +149,7 @@
 	<field name="tamount" class="java.lang.String"/>
 	<field name="namount" class="java.lang.String"/>
 	<field name="frate" class="java.lang.String"/>
+	<variable name="total" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -186,30 +187,51 @@
 		<band height="30" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="40" height="30" uuid="21ad1721-eba5-4edd-9587-ff371c3efa50"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 				<text><![CDATA[S.N.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="140" y="0" width="80" height="30" uuid="9e000b4e-957b-46f2-bf33-af8bc52de367"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 				<text><![CDATA[Catefory Id]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="40" y="0" width="100" height="30" uuid="3bc6fbf0-8f3e-4fd6-a915-dee299e89fe6"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 				<text><![CDATA[Account Number]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="220" y="0" width="100" height="30" uuid="9c78353d-a8e6-4528-9bd7-cf7783ac144f"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 				<text><![CDATA[Catefory Head]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="320" y="0" width="80" height="30" uuid="4ca56354-99a5-47b4-84ea-fa5df055921c"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 				<text><![CDATA[tamount]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="400" y="0" width="90" height="30" uuid="cf7d1024-e466-4679-8448-2f7050e378f5"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 				<text><![CDATA[namount]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="490" y="0" width="55" height="30" uuid="64f3e196-bb01-4909-b2c0-d42f490449a1"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 				<text><![CDATA[Total]]></text>
 			</staticText>
 		</band>
@@ -218,41 +240,56 @@
 		<band height="30" splitType="Stretch">
 			<textField>
 				<reportElement x="40" y="0" width="100" height="30" uuid="ec5fa5f6-7365-4dce-beb1-7c3b35fdc328"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 				<textFieldExpression><![CDATA[$F{accountNumber}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="140" y="0" width="80" height="30" uuid="2aa3c728-2bbc-422b-b114-d111730cb082"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 				<textFieldExpression><![CDATA[$F{category.categoryId}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="220" y="0" width="100" height="30" uuid="71ef68c3-9b53-46d3-bcb0-5d25d7f47461"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 				<textFieldExpression><![CDATA[$F{category.categoryHead}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="320" y="0" width="80" height="30" uuid="650c7259-92f0-4661-8e9f-257118d7efe5"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 				<textFieldExpression><![CDATA[$F{tamount}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="400" y="0" width="90" height="30" uuid="83c4b6d7-75b7-45e2-b003-caf9f9440450"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 				<textFieldExpression><![CDATA[$F{namount}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="490" y="0" width="55" height="30" uuid="9bcbc9f6-f0d1-4c43-aa66-9ba58a219d32"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 				<textFieldExpression><![CDATA[$F{frate}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="0" width="40" height="30" uuid="336733fc-06fd-4343-baa1-e4bff38015ff"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="57" splitType="Stretch"/>
 	</summary>
 </jasperReport>

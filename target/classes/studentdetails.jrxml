@@ -6,27 +6,60 @@
 		<![CDATA[]]>
 	</queryString>
 	<field name="studentid" class="java.lang.String"/>
+	<field name="studentname" class="java.lang.String"/>
+	<field name="admissionclass" class="java.lang.String"/>
+	<field name="rollno" class="java.lang.String"/>
+	<field name="section" class="java.lang.String"/>
+	<field name="formonth" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<columnHeader>
-		<band height="30" splitType="Stretch">
+		<band height="90" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="100" height="30" uuid="ca1a4ecd-debd-4f9a-8560-6b327383e92a">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="edc6e5ff-df48-4fbb-a622-12bbcd1c0979"/>
+				<reportElement x="0" y="0" width="100" height="30" uuid="dc805890-f733-492b-8fec-e9faa9e56528">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bf95603f-d60b-4d85-b6ab-bca24d2e8177"/>
 				</reportElement>
-				<text><![CDATA[studentid]]></text>
+				<text><![CDATA[Name :]]></text>
 			</staticText>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="30" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="100" height="30" uuid="4a0695e2-5485-496d-9ba3-523e8034e0e4">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="edc6e5ff-df48-4fbb-a622-12bbcd1c0979"/>
+				<reportElement x="50" y="0" width="100" height="30" uuid="61458b5f-3fd5-47bc-83cc-cb66aee62491">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bf95603f-d60b-4d85-b6ab-bca24d2e8177"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{studentid}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{studentname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="0" width="100" height="30" uuid="68a844a4-7c81-4c67-a3ef-9657fcfb2450"/>
+				<textFieldExpression><![CDATA[$F{admissionclass}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="280" y="0" width="100" height="30" uuid="9d7e3283-34c4-4e00-b224-374b2683ca29"/>
+				<text><![CDATA[Class :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="33" width="100" height="27" uuid="4c2b4ed7-a84c-4a5d-9a79-9d93ef62acdc"/>
+				<textFieldExpression><![CDATA[$F{rollno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="30" width="100" height="30" uuid="c01998d2-f10a-4c9e-bbea-7fe255bdc84d"/>
+				<textFieldExpression><![CDATA[$F{section}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="30" width="50" height="30" uuid="629b46c2-8264-4860-bde5-2a3b981f7f3f"/>
+				<text><![CDATA[Roll No.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="30" width="100" height="30" uuid="4278c70d-d1a0-4aa2-a064-b554171fb5ee"/>
+				<text><![CDATA[Section :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="50" height="30" uuid="d8e6d770-e619-4b35-a480-5f9479e6a8c5"/>
+				<text><![CDATA[Month :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="60" width="100" height="30" uuid="a758f810-e0db-4b6c-9eb2-3a3d513674c1"/>
+				<textFieldExpression><![CDATA[$F{formonth}]]></textFieldExpression>
 			</textField>
 		</band>
-	</detail>
+	</columnHeader>
 </jasperReport>

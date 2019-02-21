@@ -413,9 +413,11 @@ private void commonModels(Model model){
 	
 	@RequestMapping(value="/viewClaimBill/{id}")
 	@ResponseBody
-	public void viewClaimBill(Model model,HttpServletResponse response,@PathVariable String id, @RequestParam(value="month") String month) throws JRException, SQLException, IOException
+	public void viewClaimBill(Model model,HttpServletResponse response,@PathVariable String id, @RequestParam(value="month") String monthnumval) throws JRException, SQLException, IOException
 	{
-		
+		String[] monthnumvalarray=monthnumval.split("-");
+		String month = monthnumvalarray[0];
+		String monthval = monthnumvalarray[1];
 		byte[] bytes=null;
 		JasperPrint jasperPrint,jasper;
 		
@@ -424,7 +426,7 @@ private void commonModels(Model model){
 		//JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/claimbill.jrxml");
 		 
 		 JasperReport jasperSubReport = JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//studentdetails.jrxml");
-		 //JasperReport jasperSubReport = JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/studentdetails.jrxml");
+		// JasperReport jasperSubReport = JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/studentdetails.jrxml");
 			
 		 Map<String, Object> parameters=new HashMap<String, Object>();
 		 
@@ -432,6 +434,7 @@ private void commonModels(Model model){
 		JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(data);
 		
 		StudentModel sm=studentDao.getStudentDetail(Integer.parseInt(id));
+		sm.setFormonth(monthval);
 		ArrayList<StudentModel> smlist=new ArrayList<StudentModel>();
 		smlist.add(sm);
 		 JRBeanCollectionDataSource subds=new JRBeanCollectionDataSource(smlist);
@@ -484,8 +487,8 @@ private void commonModels(Model model){
 		  try {
 			  byte[] bytes=null;
 	
-		//  JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//statements.jrxml");
-		JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/statements.jrxml");
+		  JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//statements.jrxml");
+		//JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/statements.jrxml");
 		  //jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource.getConnection());
 		 
 		  

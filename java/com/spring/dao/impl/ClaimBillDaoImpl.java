@@ -70,10 +70,6 @@ private JdbcTemplate jdbcTemplate;
 	@Override
 	public ArrayList<ClaimBillModel> getAllDetails(String id, String getmonth) {
 		
-		
-		
-		
-		
 		String query="select * from claimbillreport where pid='"+id+"'"; 
 	ArrayList<ClaimBillModel> list= (ArrayList<ClaimBillModel>) jdbcTemplate.query(query, new ClaimMapper());
 	
@@ -130,21 +126,25 @@ private JdbcTemplate jdbcTemplate;
 		
 	String genUpto=list.get(i).getGenerateduptpmonth();
 	//String startmonth=list.get(i).getStartmonth();
-	String claimBillStartMonth= realpaymonth.split("-")[0];
+	String[] realpaymonthsplit=realpaymonth.split("-");
+	String claimBillStartMonth= realpaymonthsplit[0];
+	String claimBillEndMonth= realpaymonthsplit[1];
+	
+	//03-06 .... feemonths = 6-3+1
 	
 	int smonthval=Integer.parseInt(claimBillStartMonth);//05
+		int frequency = Integer.parseInt(claimBillEndMonth)-smonthval+1;
+		//int frequency=Integer.parseInt(freq);//6
 		
-		int frequency=Integer.parseInt(freq);//6
 		
-		
-		if(frequency+smonthval>=12) {
+		/*if(frequency+smonthval>=12) {
 			if(frequency==12) {
 				frequency=12;
 			}
 			else {
 			frequency=12-smonthval;
 			}
-		}
+		}*/
 		
 		if(Double.parseDouble(list.get(i).getTamount())>0) {
 			list.get(i).setTamount(Double.toString(frequency*Double.parseDouble(list.get(i).getFrate())));
@@ -188,6 +188,7 @@ private JdbcTemplate jdbcTemplate;
 			c.setStartmonth(rs.getString("startmonth"));
 			c.setGenerateduptpmonth(rs.getString("generateduptomonth"));
 			c.setPaymenttype(rs.getString("paymenttype"));
+			
 			return c;
 		}
 		
