@@ -19,16 +19,14 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.dao.InitialDetailsDao;
 import com.spring.dao.OperationDao;
 import com.spring.dao.UserDao;
-import com.spring.extras.GradeGenerator;
+import com.spring.model.DynamicData;
 import com.spring.model.UserModel;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
-@SessionAttributes(value = { "userDetail", "systemdetail" })
+@SessionAttributes(value = { "userDetail", "systemdetail","foldername" })
 
 public class HomeController {
 	@Autowired
@@ -39,6 +37,9 @@ public class HomeController {
 
 	@Autowired
 	private OperationDao operationDao;
+	
+	@Autowired
+	private InitialDetailsDao initialDetailsDao;
 	
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -54,8 +55,10 @@ public class HomeController {
 		if (status) {
 			UserModel userDetail = getUser(user);
 			List<UserModel> systemdetail = operationDao.getSystemDetails();
+			DynamicData d =initialDetailsDao.getDynamicDatas();
 			model.put("userDetail", userDetail);
 			model.put("systemdetail", systemdetail);
+			model.put("foldername", d.getFoldername());
 			return "profile";
 		} else {
 			attributes.addFlashAttribute("msg","Invalid Login Credentials!");

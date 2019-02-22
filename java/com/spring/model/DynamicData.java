@@ -1,7 +1,7 @@
 package com.spring.model;
 
 public class DynamicData {
-	private String id, logourl,reporturl;
+	private String id, foldername,reporturl;
 
 	public String getId() {
 		return id;
@@ -11,12 +11,13 @@ public class DynamicData {
 		this.id = id;
 	}
 
-	public String getLogourl() {
-		return logourl;
+
+	public String getFoldername() {
+		return foldername;
 	}
 
-	public void setLogourl(String logourl) {
-		this.logourl = logourl;
+	public void setFoldername(String foldername) {
+		this.foldername = foldername;
 	}
 
 	public String getReporturl() {
@@ -29,7 +30,7 @@ public class DynamicData {
 
 	@Override
 	public String toString() {
-		return "DynamicData [id=" + id + ", logourl=" + logourl + ", reporturl=" + reporturl + "]";
+		return "DynamicData [id=" + id + ", foldername=" + foldername + ", reporturl=" + reporturl + "]";
 	}
 
 }

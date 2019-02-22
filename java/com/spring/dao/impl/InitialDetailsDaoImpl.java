@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.spring.dao.InitialDetailsDao;
+import com.spring.model.DynamicData;
 import com.spring.model.ExamModel;
 import com.spring.model.FormDetails;
 import com.spring.model.Muncipality;
@@ -133,5 +134,21 @@ public class InitialDetailsDaoImpl implements InitialDetailsDao {
 			return m;
 		}
 		}
+	@Override
+	public DynamicData getDynamicDatas() {
+		String query="select * from dynamicdatatbl where id=1";
+		return jdbcTemplate.queryForObject(query, new DynamicDataRowMapper());
+	}
+	
+	public static final class DynamicDataRowMapper implements RowMapper<DynamicData>{
+	@Override
+	public DynamicData mapRow(ResultSet rs, int rowNum) throws SQLException {
+		DynamicData d = new DynamicData();
+		d.setId(rs.getString("id"));
+		d.setFoldername(rs.getString("foldername"));
+		d.setReporturl(rs.getString("reporturl"));
+		return d;
+	}
+	}
 
 }

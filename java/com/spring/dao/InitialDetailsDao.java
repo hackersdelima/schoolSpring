@@ -2,6 +2,7 @@ package com.spring.dao;
 
 import java.util.List;
 
+import com.spring.model.DynamicData;
 import com.spring.model.FormDetails;
 import com.spring.model.Muncipality;
 
@@ -38,6 +39,8 @@ public interface InitialDetailsDao {
 	public List<Muncipality> getMuncipality(String id);
 
 	public Muncipality getwardcount(String id);
+	
+	public DynamicData getDynamicDatas();
 	
 
 	
