@@ -154,7 +154,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="104" splitType="Stretch">
+		<band height="100" splitType="Stretch">
 			<staticText>
 				<reportElement x="20" y="0" width="522" height="20" uuid="4643d21a-34b1-4c29-9609-3f5549d801c7"/>
 				<textElement textAlignment="Center">
@@ -190,6 +190,7 @@
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[S.N.]]></text>
 			</staticText>
 			<staticText>
@@ -197,6 +198,7 @@
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[Catefory Id]]></text>
 			</staticText>
 			<staticText>
@@ -204,6 +206,7 @@
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[Account Number]]></text>
 			</staticText>
 			<staticText>
@@ -211,6 +214,7 @@
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[Catefory Head]]></text>
 			</staticText>
 			<staticText>
@@ -218,20 +222,23 @@
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
-				<text><![CDATA[tamount]]></text>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Taxable Amount]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="400" y="0" width="90" height="30" uuid="cf7d1024-e466-4679-8448-2f7050e378f5"/>
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
-				<text><![CDATA[namount]]></text>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Non Taxable Amount]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="490" y="0" width="55" height="30" uuid="64f3e196-bb01-4909-b2c0-d42f490449a1"/>
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[Total]]></text>
 			</staticText>
 		</band>
@@ -243,6 +250,7 @@
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{accountNumber}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -250,6 +258,7 @@
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{category.categoryId}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -257,6 +266,7 @@
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{category.categoryHead}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -264,6 +274,7 @@
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{tamount}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -271,6 +282,7 @@
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{namount}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -278,6 +290,7 @@
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{frate}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -285,6 +298,7 @@
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
 			</textField>
 		</band>
