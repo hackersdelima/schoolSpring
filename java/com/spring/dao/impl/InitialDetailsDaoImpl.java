@@ -4,6 +4,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.spring.dao.InitialDetailsDao;
 import com.spring.model.FormDetails;
 
+@Repository
 public class InitialDetailsDaoImpl implements InitialDetailsDao {
 
 	private JdbcTemplate jdbcTemplate;

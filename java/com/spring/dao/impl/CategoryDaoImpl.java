@@ -9,12 +9,14 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import com.spring.dao.CategoryDao;
 import com.spring.model.AccountTypeModel;
 import com.spring.model.CategoryModel;
 import com.spring.model.MonthModel;
 
+@Repository
 public class CategoryDaoImpl implements CategoryDao{
 	private JdbcTemplate jdbcTemplate;
 	

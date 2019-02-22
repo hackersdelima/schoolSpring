@@ -8,11 +8,13 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import com.spring.dao.FeeInvoiceDao;
 import com.spring.model.FeeInvoiceModel;
 import com.spring.model.UserModel;
 
+@Repository
 public class FeeInvoiceDaoImpl implements FeeInvoiceDao {
 	private JdbcTemplate jdbcTemplate;
 

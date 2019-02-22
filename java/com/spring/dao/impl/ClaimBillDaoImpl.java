@@ -10,12 +10,13 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.security.authentication.dao.SystemWideSaltSource;
+import org.springframework.stereotype.Repository;
 
 import com.spring.dao.ClaimBillDao;
 import com.spring.model.CategoryModel;
 import com.spring.model.ClaimBillModel;
 
+@Repository
 public class ClaimBillDaoImpl implements ClaimBillDao {
 private JdbcTemplate jdbcTemplate;
 

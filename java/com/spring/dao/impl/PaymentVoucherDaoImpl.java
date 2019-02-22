@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import com.spring.dao.PaymentVoucherDao;
 import com.spring.model.PaymentVoucherAccount;
@@ -18,6 +19,7 @@ import com.spring.model.PaymentVoucherAccountSingle;
 import com.spring.model.PaymentVoucherModel;
 import com.spring.model.StatementModel;
 
+@Repository
 public class PaymentVoucherDaoImpl implements PaymentVoucherDao {
 private JdbcTemplate jdbcTemplate;
 	

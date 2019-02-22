@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.spring.dao.AccountDao;
 import com.spring.model.AccountModel;
@@ -20,29 +21,28 @@ import com.spring.model.CategoryModel;
 import com.spring.model.FeeInvoiceModel;
 import com.spring.model.StudentModel;
 
+@Repository
 public class AccountDaoImpl implements AccountDao {
 
 	private JdbcTemplate jdbcTemplate;
 
-	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate){
+		this.jdbcTemplate=jdbcTemplate;
 	}
-
+	
 	@Autowired
-	private void setDataSource(DataSource dataSource) {
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-
+	public void setDataSource(DataSource dataSource){
+		this.jdbcTemplate=new JdbcTemplate(dataSource);
 	}
-
 	public List<AccountTypeModel> getAccountType() {
 		String query = "select * from accounttype";
-		return jdbcTemplate.query(query, new AccountType());
+		return jdbcTemplate.query(query, new AccountTypeRowMapper());
 	}
 
 	public AccountTypeModel getAccountType(String categoryId) {
 		String query = "select accountType, accountTypeHead from accounttype join categories using(accountType) where categories.categoryId = '"
 				+ categoryId + "'";
-		return jdbcTemplate.queryForObject(query, new AccountType());
+		return jdbcTemplate.queryForObject(query, new AccountTypeRowMapper());
 	}
 
 	public List<AccountModel> getStudentAccount(String id) {
@@ -51,23 +51,7 @@ public class AccountDaoImpl implements AccountDao {
 		return jdbcTemplate.query(query, new AccountRow());
 	}
 
-	public static final class AccountType implements RowMapper<AccountTypeModel> {
-
-		@Override
-		public AccountTypeModel mapRow(ResultSet rs, int rowNum) throws SQLException {
-			AccountTypeModel am = new AccountTypeModel();
-			am.setAccountType(rs.getString("accountType"));
-			am.setAccountTypeHead(rs.getString("accountTypeHead"));
-			/*am.setDrcr(rs.getString("drcr"));*/
-			/*
-			 * am.setAuthorizer(rs.getString("authorizer"));
-			 * am.setInputter(rs.getString("inputter"));
-			 */
-
-			return am;
-		}
-
-	}
+	
 
 	public boolean addAccount(AccountModel am) {
 		boolean status = false;
@@ -107,6 +91,19 @@ public class AccountDaoImpl implements AccountDao {
 				+ "'";
 		return jdbcTemplate.queryForObject(query, new AccountRow());
 	}
+	 public static final class AccountTypeRowMapper implements RowMapper<AccountTypeModel>{
+
+			@Override
+			public AccountTypeModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+				AccountTypeModel am=new AccountTypeModel();
+				am.setAccountType(rs.getString("accountType"));
+				am.setAccountTypeHead(rs.getString("accountTypeHead"));
+				
+				
+				return am;
+			}
+			 
+		 }
 
 	public static final class AccountRow implements RowMapper<AccountModel> {
 

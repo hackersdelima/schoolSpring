@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import com.spring.dao.ExamDao;
 import com.spring.dao.OperationDao;
@@ -20,6 +21,7 @@ import com.spring.model.GradeModel;
 import com.spring.model.StudentModel;
 import com.spring.model.Subjects;
 
+@Repository
 public class ExamDaoImpl implements ExamDao {
 	@Autowired
 	OperationDao operationDao;

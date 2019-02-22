@@ -1,24 +1,8 @@
 package com.spring.extras;
+import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Service;
-
+@Repository
 public class GradeGenerator {
-
-	private JdbcTemplate jdbcTemplate;
-
-	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
-	}
-
-	@Autowired
-	private void setDataSource(DataSource dataSource) {
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-
-	}
 
 	public String grade(double fullmarks, double fullmarks_pr, double obtained_pr, double obtainedmarks) {
 		double obtained_full = obtainedmarks + obtained_pr;

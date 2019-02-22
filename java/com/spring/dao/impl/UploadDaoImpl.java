@@ -9,26 +9,14 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.dao.UploadDao;
 
+@Repository
 public class UploadDaoImpl implements UploadDao {
 
-	
-
-	private JdbcTemplate jdbcTemplate;
-
-	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
-	}
-
-	@Autowired
-	private void setDataSource(DataSource dataSource) {
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-
-	}
-	
 	@Override
 	public void upload(String fileLocation, String saveFileName, MultipartFile file) {
 

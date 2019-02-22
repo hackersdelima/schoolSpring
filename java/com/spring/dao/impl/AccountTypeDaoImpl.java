@@ -9,11 +9,12 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import com.spring.dao.AccountTypeDao;
-import com.spring.dao.impl.AccountDaoImpl.AccountType;
 import com.spring.model.AccountTypeModel;
 
+@Repository
 public class AccountTypeDaoImpl implements AccountTypeDao{
 private JdbcTemplate jdbcTemplate;
 	

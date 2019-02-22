@@ -2,6 +2,8 @@ package com.spring.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.spring.model.AccountModel;
 import com.spring.model.AccountTypeModel;
 import com.spring.model.FeeInvoiceModel;
