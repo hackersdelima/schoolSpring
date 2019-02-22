@@ -423,7 +423,7 @@ private void commonModels(Model model){
 		return "invoice/claimbill/searchStudentClaimBill";
 	}
 	
-	@RequestMapping(value="/viewClaimBill/{id}")
+	@RequestMapping(value="/viewClaimBill/{id}", method=RequestMethod.POST)
 	@ResponseBody
 	public void viewClaimBill(Model model,HttpServletResponse response,@PathVariable String id, @RequestParam(value="month") String monthnumval) throws JRException, SQLException, IOException
 	{

@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -26,7 +28,7 @@ import com.spring.model.DynamicData;
 import com.spring.model.UserModel;
 
 @Controller
-@SessionAttributes(value = { "userDetail", "systemdetail","foldername" })
+@SessionAttributes(value = { "userDetail", "systemdetail", "foldername" })
 
 public class HomeController {
 	@Autowired
@@ -37,31 +39,33 @@ public class HomeController {
 
 	@Autowired
 	private OperationDao operationDao;
-	
+
 	@Autowired
 	private InitialDetailsDao initialDetailsDao;
-	
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model, @ModelAttribute(value="msg") String msg) {
-		model.addAttribute("msg",msg);
+	public String home(Model model, @ModelAttribute(value = "msg") String msg) {
+		DynamicData d = initialDetailsDao.getDynamicDatas();
+		model.addAttribute("foldername", d.getFoldername());
+		model.addAttribute("msg", msg);
 		return "index";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@ModelAttribute UserModel user, ModelMap model, BindingResult result, RedirectAttributes attributes) {
+	public String login(@ModelAttribute UserModel user, ModelMap model, BindingResult result,
+			RedirectAttributes attributes) {
 
 		boolean status = dao.verifyUser(user);
 		if (status) {
 			UserModel userDetail = getUser(user);
 			List<UserModel> systemdetail = operationDao.getSystemDetails();
-			DynamicData d =initialDetailsDao.getDynamicDatas();
+			
 			model.put("userDetail", userDetail);
 			model.put("systemdetail", systemdetail);
-			model.put("foldername", d.getFoldername());
+			
 			return "profile";
 		} else {
-			attributes.addFlashAttribute("msg","Invalid Login Credentials!");
+			attributes.addFlashAttribute("msg", "Invalid Login Credentials!");
 			return "redirect:/";
 		}
 
@@ -76,14 +80,14 @@ public class HomeController {
 		System.out.println(name);
 		return "index";
 	}
-	@RequestMapping(value="/logout") 
-	public String logOut(Model model, HttpSession session) {
-		 session.invalidate();
-		 model.addAttribute("msg","Logout Successful!");
-		 return "redirect:/";
-		  }
-	
-	
+
+	@RequestMapping(value = "/logout")
+	public String logOut(Model model, HttpSession session, SessionStatus status) {
+		status.setComplete();
+		model.addAttribute("msg", "Logout Successful!");
+		return "redirect:/";
+	}
+
 	@RequestMapping("/checkConnection")
 	public ModelAndView greet() {
 		try {
@@ -100,6 +104,12 @@ public class HomeController {
 
 			return new ModelAndView("error", "msg", "Failed to connect database.");
 		}
+	}
+
+	@RequestMapping(value = "/nouser")
+	@ResponseBody
+	public String nouser() {
+		return "No user Found";
 	}
 
 }

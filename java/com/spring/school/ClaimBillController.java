@@ -1,24 +1,25 @@
 package com.spring.school;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -32,23 +33,17 @@ import com.spring.model.ClaimBillModel;
 import com.spring.model.DynamicData;
 import com.spring.model.StudentModel;
 import com.spring.model.UserModel;
+import com.spring.util.Utilities;
 
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JRPrintPage;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
-import net.sf.jasperreports.view.JasperViewer;
 
 @Controller
 @RequestMapping("/claimbill")
@@ -63,6 +58,8 @@ public class ClaimBillController {
 	
 	@Autowired
 	private StudentDao studentDao;
+	
+	Utilities u = new Utilities();
 	
 	@RequestMapping(value="/studentList")
 	public String studentList(Model model){
@@ -124,6 +121,45 @@ public class ClaimBillController {
 	public String search(@PathVariable String id) {
 
 		return "";
+	}
+	
+	@RequestMapping(value="/save/{id}", method=RequestMethod.POST)
+	@Transactional
+	@ResponseBody
+	public String save(@RequestParam Map<String,String> map, @PathVariable("id") String id, HttpServletRequest request) throws JRException, IOException {
+		String username = u.getSessionUsername(request);
+		String monthnumval = map.get("month");
+		System.out.println(username);
+		String msg="";
+		String[] monthnumvalarray=monthnumval.split("-");
+		String month = monthnumvalarray[0];
+		ArrayList<ClaimBillModel> data=claimBillDao.getAllDetails(id, month);
+		List<Integer> status=new ArrayList<Integer>();
+		
+		if(data.size()>0) {
+		for(int i=0;i<data.size();i++) {
+		data.get(i).setInputter(username);
+		int save_status = claimBillDao.saveClaimBill(data.get(i));
+		 status.add(save_status);
+		}
+		System.out.println(status);
+		if(status.size()>0) {
+		if(status.contains(0)) {
+			msg= "Data Upload Failed!";
+		}
+		else {
+			msg= "Data Upload Successful!";
+		}
+		}
+		else {
+			msg= "Data Upload Failed!";
+		}
+		}
+		else {
+			msg="No Claimbill Data Found! Data Upload Failed";
+		}
+		return msg;
+	
 	}
 	
 	@SuppressWarnings("deprecation")

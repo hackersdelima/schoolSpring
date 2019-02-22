@@ -146,7 +146,7 @@ body, html {
 		<div class="card card-container">
 
 			<img id="profile-img4" class="profile-img-card"
-				src="//124.41.193.91/images/schoollogo.png" />
+				src="//124.41.193.91/projectdatas/${sessionScope.foldername }/images/logo.jpg" />
 				
 			<p id="profile-name" class="profile-name-card">SCHOOL MANAGEMENT
 				SYSTEM</p>

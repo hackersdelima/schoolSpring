@@ -6,8 +6,14 @@ public class ClaimBillModel {
 	private String receivedby, claim_bill_id, fromDateEn, fromDateNep, toDateEn, toDateNep, invoiceNo, invoiceDateEn, invoiceDateNep, remarks, inwords;
 	private String accountNumber,taxable,admissionclass,frate;
 	private String frequency,startmonth,discountamount,paymenttype,pid,tamount,namount,generateduptpmonth;
+	private String inputter;
 	
-	
+	public String getInputter() {
+		return inputter;
+	}
+	public void setInputter(String inputter) {
+		this.inputter = inputter;
+	}
 	public String getGenerateduptpmonth() {
 		return generateduptpmonth;
 	}
