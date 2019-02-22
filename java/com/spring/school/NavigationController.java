@@ -3,8 +3,11 @@ package com.spring.school;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
@@ -27,6 +30,7 @@ import com.spring.dao.CategoryDao;
 import com.spring.dao.ClaimBillDao;
 import com.spring.dao.DateConverterDao;
 import com.spring.dao.FeeDao;
+import com.spring.dao.InitialDetailsDao;
 import com.spring.dao.OperationDao;
 import com.spring.dao.PaymentVoucherDao;
 import com.spring.dao.RoleDao;
@@ -39,6 +43,7 @@ import com.spring.model.Coursetbl;
 import com.spring.model.ExamModel;
 import com.spring.model.FeeModel;
 import com.spring.model.FormDetails;
+import com.spring.model.Muncipality;
 import com.spring.model.StatementModel;
 import com.spring.model.StudentModel;
 
@@ -93,6 +98,9 @@ public class NavigationController {
 	@Autowired
 	ClaimBillDao claimBillDao;
 	
+	@Autowired
+	InitialDetailsDao initialDetailsDao;
+	
 	
 @ModelAttribute
 private void commonModels(Model model){
@@ -128,12 +136,17 @@ private void commonModels(Model model){
 	}
 
 	@RequestMapping(value = "/viewMuncipality")
-	public String viewMuncipality() {
+	public String  viewMuncipality(@RequestParam("id") String id, Model model) {
+		List<Muncipality> list = initialDetailsDao.getMuncipality(id);
+		model.addAttribute("list",list);
 		return "onselectpages/viewMuncipality";
+	
 	}
 
 	@RequestMapping(value = "/viewWardNo")
-	public String viewWardNo() {
+	public String viewWardNo(@RequestParam("id") String id, Model model) {
+		Muncipality mun = initialDetailsDao.getwardcount(id);
+		model.addAttribute("mun",mun);
 		return "onselectpages/viewWardNo";
 	}
 

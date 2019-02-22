@@ -16,15 +16,10 @@ import org.springframework.stereotype.Repository;
 import com.spring.dao.FeeDao;
 import com.spring.model.FeeModel;
 import com.spring.model.FeeStructureModel;
-
 @Repository
 public class FeeDaoImpl implements FeeDao {
 	
-
-	
 	private JdbcTemplate jdbcTemplate;
-
-	private NamedParameterJdbcTemplate template;
 
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
@@ -33,7 +28,6 @@ public class FeeDaoImpl implements FeeDao {
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
-		this.template = new NamedParameterJdbcTemplate(dataSource);
 	}
 
 	@Override

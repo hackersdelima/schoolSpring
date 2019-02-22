@@ -16,28 +16,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.spring.dao.DateConverterDao;
 
+@Repository
 public class DateConverterDaoImpl implements DateConverterDao {
-private JdbcTemplate jdbcTemplate;
 
 	@Autowired
 	DataSource dataSource;
 
-	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
-	}
-	 
-	 @Autowired
-	 private void setDataSource(DataSource dataSource)
-	 {
-		 this.jdbcTemplate=new JdbcTemplate(dataSource);
-
-		 
-	 }
-	 
-	 
 	 static PreparedStatement ps=null;
 	 	static ResultSet rs=null;
 		private  Connection conn=null;

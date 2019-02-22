@@ -11,18 +11,19 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import com.spring.dao.OperationDao;
 import com.spring.model.Coursetbl;
 import com.spring.model.ExamModel;
 import com.spring.model.ExamTypeModel;
-import com.spring.model.FeeModel;
 import com.spring.model.FormDetails;
 import com.spring.model.GeneralDetailsModel;
 import com.spring.model.StudentModel;
 import com.spring.model.Subjects;
 import com.spring.model.UserModel;
 
+@Repository
 public class OperationDaoImpl implements OperationDao {
 	private JdbcTemplate jdbcTemplate;
 

@@ -1,16 +1,22 @@
 package com.spring.dao.impl;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import com.spring.dao.InitialDetailsDao;
+import com.spring.model.ExamModel;
 import com.spring.model.FormDetails;
+import com.spring.model.Muncipality;
 
+@Repository
 public class InitialDetailsDaoImpl implements InitialDetailsDao {
 
 	private JdbcTemplate jdbcTemplate;
@@ -105,5 +111,27 @@ public class InitialDetailsDaoImpl implements InitialDetailsDao {
 		jdbcTemplate.update(query);
 	}
 
+	@Override
+	public List<Muncipality> getMuncipality(String id) {
+		String query = "select * from vdccodes where (DistrictCode='" + id +"')";
+		return jdbcTemplate.query(query, new MuncipalityMapper());
+	}
 	
+	@Override
+	public Muncipality getwardcount(String id) {
+		String query = "select * from vdccodes where (vdccode='" + id +"')";
+		return jdbcTemplate.queryForObject(query, new MuncipalityMapper());
+	}
+	public static final class MuncipalityMapper implements RowMapper<Muncipality>{
+
+		@Override
+		public Muncipality mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Muncipality m = new Muncipality();
+			m.setVdccode(rs.getString("vdccode"));
+			m.setVdcname(rs.getString("vdcname"));
+			m.setWardcount(rs.getString("wardcount"));
+			return m;
+		}
+		}
+
 }
