@@ -367,10 +367,11 @@ private void commonModels(Model model){
 	@ResponseBody
 	public void viewTrialBalance(Model model,HttpServletResponse response) throws JRException, SQLException, IOException
 	{
-		
+		DynamicData d= initialDetailsDao.getDynamicDatas();
+		String reporturl = d.getReporturl();
 		byte[] bytes=null;
 		JasperPrint jasperPrint,jasper;
-		  JasperReport jasperReport=JasperCompileManager.compileReport("/trialbalance.jrxml");
+		  JasperReport jasperReport=JasperCompileManager.compileReport(reporturl+"/trialbalance.jrxml");
 		  jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource.getConnection());
 		 
 		  
