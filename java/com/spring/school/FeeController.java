@@ -40,15 +40,24 @@ public class FeeController {
 	@ResponseBody
 	public String getFeeAmount(@RequestParam("id") String id, @RequestParam("catId") String catId)
 	{
+		String amount="";
 		if(id.isEmpty() || id.equals("0"))
 		{
-			return "Student Id not found";
+			amount= "Student Id not found";
 		}
 		else {
 		System.out.println(id+"hello"+catId);
-		String amount=feeDao.getFeeAmount(id,catId);
-		return amount;
+		try {
+		 amount=feeDao.getFeeAmount(id,catId);
 		}
+		catch (Exception e) {
+			System.out.println("Empty");
+			amount= "Amount Not Set";
+		}
+		System.out.println("amount is"+amount);
+		
+		}
+		return amount;
 	}
 
 }

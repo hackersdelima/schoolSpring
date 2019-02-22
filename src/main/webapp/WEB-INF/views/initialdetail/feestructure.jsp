@@ -85,7 +85,7 @@ h5 {
 									data-validation-error-msg=" " required readonly>
 							</div>
 						</div>
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<label class="control-label col-md-2 col-sm-2 col-xs-12">Payment
 								Term</label>
 							<table>
@@ -152,7 +152,7 @@ h5 {
 
 								</tr>
 							</table>
-						</div>
+						</div> -->
 						<div class="form-group" id="cashDeposit">
 							<label class="control-label col-md-2 col-sm-2 col-xs-12">
 								Start Month</label>

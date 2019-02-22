@@ -120,6 +120,7 @@ h5 {
 							<th>S.N.</th>
 							<th>Class</th>
 							<th>Category</th>
+							<th>Category Head</th>
 							<th>Fee Rate</th>
 							<th>Action</th>
 						</tr>
@@ -130,6 +131,7 @@ h5 {
 								<td>${count.index+1 }</td>
 								<td>${f.sclass }</td>
 								<td>${f.categoryId }</td>
+								<td>${f.categoryHead }</td>
 								<td>${f.frate }</td>
 								<td><a href="<spring:url value="/initialDetails/editFeeSetting/${f.feecode}"/>">Edit</a></td>
 							</tr>

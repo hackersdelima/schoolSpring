@@ -9,6 +9,16 @@ public class FeeModel {
 	private String categoryId;
 	
 	private String feecode;
+	
+	private String categoryHead;
+
+	public String getCategoryHead() {
+		return categoryHead;
+	}
+
+	public void setCategoryHead(String categoryHead) {
+		this.categoryHead = categoryHead;
+	}
 
 	public String getFeecode() {
 		return feecode;

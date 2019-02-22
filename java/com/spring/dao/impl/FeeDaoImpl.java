@@ -38,7 +38,7 @@ public class FeeDaoImpl implements FeeDao {
 
 	@Override
 	public List<FeeModel> getFeeDetails() {
-		String query="select * from feerate";
+		String query="select feerate.*,categories.categoryHead,classlist.classname from feerate join classlist on feerate.sclass=classlist.classid join categories on categories.categoryId=feerate.categoryId";
 		return jdbcTemplate.query(query,  new FeeMapper());
 		
 
@@ -51,9 +51,11 @@ public class FeeDaoImpl implements FeeDao {
 		public FeeModel mapRow(ResultSet rs, int rowNum) throws SQLException {
 			FeeModel f=new FeeModel();
 			f.setCategoryId(rs.getString("categoryId"));
+			f.setCategoryHead(rs.getString("categoryHead"));
 			f.setFrate(rs.getString("frate"));
-			f.setSclass(rs.getString("sclass"));
+			f.setSclass(rs.getString("classname"));
 			f.setFeecode(rs.getString("feecode"));
+			
 			return f;
 		}
 		
