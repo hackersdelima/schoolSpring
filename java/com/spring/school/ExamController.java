@@ -28,8 +28,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.dao.DateConverterDao;
 import com.spring.dao.ExamDao;
+import com.spring.dao.InitialDetailsDao;
 import com.spring.dao.StudentDao;
 import com.spring.extras.GradeGenerator;
+import com.spring.model.DynamicData;
 import com.spring.model.ExamModel;
 import com.spring.model.ExamSummaryReportModel;
 import com.spring.model.GradeModel;
@@ -49,6 +51,8 @@ import net.sf.jasperreports.engine.JasperRunManager;
 @Controller
 @RequestMapping("/exam")
 public class ExamController {
+	@Autowired
+	InitialDetailsDao initialDetailsDao;
 	@Autowired
 	ExamDao examDao;
 @Autowired
@@ -309,21 +313,18 @@ catch (Exception e) {
 		String examid = reqParam.get("examid");
 	
 		try {
+			DynamicData d= initialDetailsDao.getDynamicDatas();
+			String reporturl = d.getReporturl();
 			Connection conn=null;
 		
 		List<ExamModel> studentids=examDao.getBulkReport(classname,section,examid);
-		System.out.println(studentids+"student LIst");
 	    JasperPrint jasperPrint, jasper;
-	   		//jasper= JasperFillManager.fillReport(jasperReport, param2, dataSource.getConnection());
-		
-	   // param2.put("studentid", "666");
+	    
 			param2.put("examid", examid);
-		 //JasperReport jasperReport=JasperCompileManager.compileReport("C://Users//Administrator//git//schoolSpring//schoolSpring//reports//examReports.jrxml");
-		//	JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examReports.jrxml");
-			JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examReports.jrxml");
+			
+			JasperReport jasperReport=JasperCompileManager.compileReport(reporturl+"/examReports.jrxml");
 			 jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource.getConnection());
-			 //JasperReport jasperSubReport = JasperCompileManager.compileReport("C://Users//Administrator//git//schoolSpring//schoolSpring//reports//examSummary.jrxml");
-			 JasperReport jasperSubReport = JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examSummary.jrxml");
+			 JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl+"/examSummary.jrxml");
 
 			 param2.put("subreportparam",jasperSubReport);
 			for(int i=0;i<studentids.size();i++) {
@@ -365,21 +366,16 @@ catch (Exception e) {
 		String examid = reqParam.get("examid");
 	
 		try {
+			DynamicData d= initialDetailsDao.getDynamicDatas();
+			String reporturl = d.getReporturl();
 			Connection conn=null;
 		
 		List<ExamModel> studentids=examDao.getBulkReport(classname,section,examid);
 		System.out.println(studentids+"student LIst");
 	    JasperPrint jasperPrint,jasper;
-	   		//jasper= JasperFillManager.fillReport(jasperReport, param2, dataSource.getConnection());
-		
-	   // param2.put("studentid", "666");
 			param2.put("examid", examid);
-		// JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//examGradeReports.jrxml");
-			JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examGradeReports.jrxml");
-			//JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examReports.jrxml");
-			// JasperReport jasperSubReport = JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/mmis_01/mmis_01_subreport2.jrxml");
-			// JasperReport jasperSubReport = JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//examGradeSummary.jrxml");
-			 JasperReport jasperSubReport = JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/examGradeSummary.jrxml");
+			JasperReport jasperReport=JasperCompileManager.compileReport(reporturl+"/examGradeReports.jrxml");
+			 JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl+"/examGradeSummary.jrxml");
 			
 			 jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource.getConnection());
 			

@@ -40,6 +40,7 @@ import com.spring.dao.UserDao;
 import com.spring.extras.Generator;
 import com.spring.model.ClaimBillModel;
 import com.spring.model.Coursetbl;
+import com.spring.model.DynamicData;
 import com.spring.model.ExamModel;
 import com.spring.model.FeeModel;
 import com.spring.model.FormDetails;
@@ -366,10 +367,10 @@ private void commonModels(Model model){
 	@ResponseBody
 	public void viewTrialBalance(Model model,HttpServletResponse response) throws JRException, SQLException, IOException
 	{
+		
 		byte[] bytes=null;
 		JasperPrint jasperPrint,jasper;
-		 //JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//trialbalance.jrxml");
-		  JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/trialbalance.jrxml");
+		  JasperReport jasperReport=JasperCompileManager.compileReport("/trialbalance.jrxml");
 		  jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource.getConnection());
 		 
 		  
@@ -391,21 +392,18 @@ private void commonModels(Model model){
 	@ResponseBody
 	public void viewTrialBalanceSummary(Model model,HttpServletResponse response) throws JRException, SQLException, IOException
 	{
+		DynamicData d= initialDetailsDao.getDynamicDatas();
+		String reporturl = d.getReporturl();
 		byte[] bytes=null;
 		JasperPrint jasperPrint,jasper;
-		
-		
 		 
-		//JasperDesign jd=JRXmlLoader.load("D://DigiNepal//schoolSpring//SchoolMgmt//reports//trialbalancesummary.jrxml");
-			JasperDesign jd=JRXmlLoader.load("/opt/tomcat/webapps/reports/trialbalancesummary.jrxml");
+			JasperDesign jd=JRXmlLoader.load(reporturl+"/trialbalancesummary.jrxml");
 		  JRDesignQuery query=new JRDesignQuery();
 		  query.setText("select demodb.accountstbl.accountNumber,demodb.accountstbl.categoryId,demodb.accountstbl.accountName,demodb.accountstbl.debitBal, demodb.accountstbl.creditBal, demodb.categories.`categoryHead` ,  demodb.mainac.`mainHead` ,  demodb.mainac1.`mainHead1`, demodb.mainac2.`mainHead2` from demodb.accountstbl join  demodb.categories on demodb.accountstbl.categoryId=demodb.categories.categoryId left join  demodb.mainac on demodb.mainac.mainid=mid(demodb.accountstbl.categoryId,1,1) left join  demodb.mainac1 on demodb.mainac1.mainid1=mid(demodb.accountstbl.categoryId,1,2) left join  demodb.mainac2 on demodb.mainac2.mainid2=mid(demodb.accountstbl.categoryId,1,3)");
 		  jd.setQuery(query);
 		  JasperReport jasperReport=JasperCompileManager.compileReport(jd);
-		  //JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/trialbalancesummary.jrxml");
 		 
 		  jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource.getConnection());
-		 // JasperViewer.viewReport(jasperPrint);
 		  
 		  ServletOutputStream servletOutputStream = response.getOutputStream();
 		    bytes = JasperRunManager.runReportToPdf(jasperReport,new HashMap(), dataSource.getConnection());
@@ -428,18 +426,18 @@ private void commonModels(Model model){
 	@ResponseBody
 	public void viewClaimBill(Model model,HttpServletResponse response,@PathVariable String id, @RequestParam(value="month") String monthnumval) throws JRException, SQLException, IOException
 	{
+		DynamicData d= initialDetailsDao.getDynamicDatas();
+		String reporturl = d.getReporturl();
+		
 		String[] monthnumvalarray=monthnumval.split("-");
 		String month = monthnumvalarray[0];
 		String monthval = monthnumvalarray[1];
 		byte[] bytes=null;
 		JasperPrint jasperPrint,jasper;
 		
-		//String sourceFileName="D://DigiNepal//schoolSpring//SchoolMgmt//reports//claimbill.jasper";
-		JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//claimbill.jrxml");
-		//JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/claimbill.jrxml");
+		JasperReport jasperReport=JasperCompileManager.compileReport(reporturl+"/claimbill.jrxml");
 		 
-		 JasperReport jasperSubReport = JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//studentdetails.jrxml");
-		// JasperReport jasperSubReport = JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/studentdetails.jrxml");
+		 JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl+"/studentdetails.jrxml");
 			
 		 Map<String, Object> parameters=new HashMap<String, Object>();
 		 
@@ -486,6 +484,7 @@ private void commonModels(Model model){
 	public void viewDateStatements(Model model,@PathVariable("id") String id,@RequestParam Map<String, String> map,HttpServletResponse response)
 	{
 		
+		
 		String fromDate=map.get("fromDate");
 		String toDate=map.get("toDate");
 		System.out.println("reached"+fromDate+toDate);
@@ -498,13 +497,11 @@ private void commonModels(Model model){
 	//	model.addAttribute("statements",statements);
 		
 		  try {
+			  DynamicData d= initialDetailsDao.getDynamicDatas();
+				String reporturl = d.getReporturl();
 			  byte[] bytes=null;
 	
-		  JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//statements.jrxml");
-		//JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/statements.jrxml");
-		  //jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource.getConnection());
-		 
-		  
+		  JasperReport jasperReport=JasperCompileManager.compileReport(reporturl+"/statements.jrxml");
 		 
 		  ServletOutputStream servletOutputStream = response.getOutputStream();
 		    bytes = JasperRunManager.runReportToPdf(jasperReport,param, dataSource.getConnection());

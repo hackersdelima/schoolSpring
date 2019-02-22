@@ -26,8 +26,10 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.spring.dao.CategoryDao;
 import com.spring.dao.ClaimBillDao;
+import com.spring.dao.InitialDetailsDao;
 import com.spring.dao.StudentDao;
 import com.spring.model.ClaimBillModel;
+import com.spring.model.DynamicData;
 import com.spring.model.StudentModel;
 import com.spring.model.UserModel;
 
@@ -52,8 +54,8 @@ import net.sf.jasperreports.view.JasperViewer;
 @RequestMapping("/claimbill")
 @SessionAttributes("claimBill")
 public class ClaimBillController {
-	
-	
+	@Autowired
+	InitialDetailsDao initialDetailsDao;
 	@Autowired
 	CategoryDao categoryDao;
 	@Autowired
@@ -127,6 +129,9 @@ public class ClaimBillController {
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value="/viewClassClaimBill")
 	public void viewClassClaimbill(@RequestParam Map<String,String> map,HttpServletResponse response) throws JRException, IOException {
+		DynamicData d= initialDetailsDao.getDynamicDatas();
+		String reporturl = d.getReporturl();
+		
 		byte[] bytes=null;
 		JasperPrint jasperPrint = null,jasper = null;
 		String classid=map.get("classid");
@@ -139,17 +144,14 @@ public class ClaimBillController {
 		System.out.println(studentlist);
 		System.out.println(month+section+classid);
 		
-		JasperReport jasperReport=JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//claimbill.jrxml");
-		//	JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/claimbill.jrxml");
-		 JasperReport jasperSubReport = JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//studentdetails.jrxml");
-		//JasperReport jasperSubReport = JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/studentdetails.jrxml");
+		JasperReport jasperReport=JasperCompileManager.compileReport(reporturl+"/claimbill.jrxml");
+		 JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl+"/studentdetails.jrxml");
 		jasperPrint = JasperFillManager.fillReport(jasperReport, null, new JREmptyDataSource());
 		  
 		
 			
 			System.out.println(studentlist.size());
 			
-			//List<JasperPrint> jasperPrintList = new ArrayList<JasperPrint>();
 			ArrayList<StudentModel> smlist=new ArrayList<StudentModel>();
 			
 			
@@ -163,20 +165,12 @@ public class ClaimBillController {
 			  JRBeanCollectionDataSource subds=new JRBeanCollectionDataSource(smlist);
 			  parameters.put("dataSourceParam", subds);
 			  parameters.put("subreportparam",jasperSubReport);
-			 
-			 
 			  
 			  jasper = JasperFillManager.fillReport(jasperReport, parameters, ds);
-			  
-			  
 			  
 			  List pages=jasper.getPages();
 				JRPrintPage object=(JRPrintPage) pages.get(0);
 				jasperPrint.addPage(object);
-			  
-			  
-			 
-			   
 		}
 			 bytes=JasperExportManager.exportReportToPdf(jasperPrint);
 				//JasperViewer.viewReport(jasperPrint);
@@ -187,16 +181,6 @@ public class ClaimBillController {
 			    servletOutputStream.write(bytes, 0, bytes.length);
 			    servletOutputStream.flush();
 			    servletOutputStream.close();
-			   
-			
-		
-					
-			
-			
-			
-		
-		  
-		   
 	}
 
 }

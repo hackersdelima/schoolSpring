@@ -101,8 +101,7 @@ String totalstd=s.totalstudents(); %> --%>
               <h5 class="widget-user-desc">${sessionScope.systemdetail[1].settingsdescription }</h5>
             </div>
             <div class="widget-user-image">
-             <%--  <img class="img-circle" src="${pageContext.request.contextPath}/resources/images/download.png" alt="User Avatar"> --%>
-              <img class="img-circle" id="myImg" src="//124.41.193.91/images/araniko/Logo.jpg" />
+              <img class="img-circle" id="myImg" src="//124.41.193.91/projectdatas/${sessionScope.foldername }/images/logo.jpg" />
             </div>
             <div class="box-footer">
               <div class="row">
