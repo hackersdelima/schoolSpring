@@ -23,6 +23,9 @@ public class StudentDaoImpl implements StudentDao {
 
 	private JdbcTemplate jdbcTemplate;
 	
+	@Autowired
+	private DataSource dataSource;
+	
 
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
@@ -183,8 +186,10 @@ public class StudentDaoImpl implements StudentDao {
 			String sql5="insert into slocalguardiantbl(studentid,localguardianname,localadd,relationtype,localmob) values('"+studentid+"','"+s.getLocal1()+"','"+s.getLocaladd1()+"','"+s.getRelationtype1()+"','"+s.getLocalmob1()+"')";
 			String sql6="insert into saddresstbl(studentid,district,vdcmun,wardno,tole,tempaddress) values('"+studentid+"','"+s.getDistrict()+"','"+s.getVdcMun()+"','"+s.getWardNo()+"','"+s.getTole()+"','"+s.getTempaddress()+"')";
 			
-			ApplicationContext context=new ClassPathXmlApplicationContext("root-context.xml");
-			DataSource dataSource=(DataSource) context.getBean("dataSource");
+			/*ApplicationContext context=new ClassPathXmlApplicationContext("root-context.xml");
+			ApplicationContext context=new A
+			DataSource dataSource=(DataSource) context.getBean("dataSource");*/
+		
 			boolean status=false;
 			int[] i = null;
 			Connection con=null;
@@ -393,9 +398,8 @@ public class StudentDaoImpl implements StudentDao {
 
 		public boolean updateStudent(StudentModel s)
 		{
-			ApplicationContext context=new ClassPathXmlApplicationContext("root-context.xml");
-			DataSource dataSource=(DataSource) context.getBean("dataSource");
-			int status=0;
+			
+			int status[] = null;
 			
 			
 			String sqlf="update sfatherdetailtbl set fathername='"+s.getFathername()+"',faddress='"+s.getFaddress()+"',foffice='"+s.getFoffice()+"',fposition='"+s.getFposition()+"',fincome='"+s.getFincome()+"',fmobile='"+s.getFmobile()+"', ftelephone='"+s.getFtelephone()+"',femail='"+s.getFemail()+"',fephone='"+s.getFephone()+"' where studentid='"+s.getStudentid()+"'";
@@ -424,12 +428,12 @@ public class StudentDaoImpl implements StudentDao {
 			stmt.addBatch(sqls);
 			stmt.addBatch(sqla);
 			
-			stmt.executeBatch();
+			status=stmt.executeBatch();
 			}catch(Exception e){
 				System.out.println(e);
 			}
 				
-			 if(status>0)
+			 if(status.length>0)
 			 {
 				 return true;
 				 }
@@ -438,8 +442,7 @@ public class StudentDaoImpl implements StudentDao {
 		
 		public void insertImage(StudentModel s){
 			try {	
-			ApplicationContext context=new ClassPathXmlApplicationContext("root-context.xml");
-			DataSource dataSource=(DataSource) context.getBean("dataSource");
+			
 			Connection con=null;
 			Statement stmt=null;
 			
@@ -467,8 +470,6 @@ public class StudentDaoImpl implements StudentDao {
 		}
 		public boolean deleteStudent(String id)
 		{
-			ApplicationContext context=new ClassPathXmlApplicationContext("root-context.xml");
-			DataSource dataSource=(DataSource) context.getBean("dataSource");
 			
 			Statement stmt=null;
 			Connection con=null;

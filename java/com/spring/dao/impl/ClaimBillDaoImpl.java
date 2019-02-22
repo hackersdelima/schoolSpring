@@ -128,7 +128,7 @@ private JdbcTemplate jdbcTemplate;
 	//String startmonth=list.get(i).getStartmonth();
 	String[] realpaymonthsplit=realpaymonth.split("-");
 	String claimBillStartMonth= realpaymonthsplit[0];
-	String claimBillEndMonth= realpaymonthsplit[1];
+	String claimBillEndMonth=   realpaymonthsplit[1];
 	
 	//03-06 .... feemonths = 6-3+1
 	

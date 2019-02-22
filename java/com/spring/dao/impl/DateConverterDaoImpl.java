@@ -22,7 +22,8 @@ import com.spring.dao.DateConverterDao;
 public class DateConverterDaoImpl implements DateConverterDao {
 private JdbcTemplate jdbcTemplate;
 
-	
+	@Autowired
+	DataSource dataSource;
 
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
@@ -39,19 +40,9 @@ private JdbcTemplate jdbcTemplate;
 	 
 	 static PreparedStatement ps=null;
 	 	static ResultSet rs=null;
-		private static Connection conn=null;
+		private  Connection conn=null;
 	  
-	    public static Connection getConnection(){
-	    	
-			try {
-				ApplicationContext context=new ClassPathXmlApplicationContext("root-context.xml");
-				DataSource dataSource=(DataSource) context.getBean("dataSource");
-				conn=dataSource.getConnection();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-	        return conn;
-	    }
+	   
 		public String nepaliToEnglish(String nepaliDate){
 	    	
 	    	String[] ndate=nepaliDate.split("-");
@@ -62,7 +53,7 @@ private JdbcTemplate jdbcTemplate;
 	    				nmonth=ndate[1];
 	    						int nday=Integer.parseInt(ndate[2])-1;
 	    		String query="select * from tbldateconv where NYr="+nyear+"";
-	    		conn=getConnection();
+	    		conn=dataSource.getConnection();
 	    		ps=conn.prepareStatement(query);
 	    		rs=ps.executeQuery();
 	    		int result=0;
@@ -112,7 +103,7 @@ private JdbcTemplate jdbcTemplate;
 			String convertedNepaliDate="";
 	    	try{
 	    		String query="select * from tbldateconv where EDate like '"+eyear+"%' ";
-	    		conn=getConnection();
+	    		conn=dataSource.getConnection();
 	    		ps=conn.prepareStatement(query);
 	    		rs=ps.executeQuery();
 	    		if(rs.next()){
@@ -162,7 +153,7 @@ private JdbcTemplate jdbcTemplate;
 	    	try{
 	    		String query="select * from tbldateconv where NYr='"+nyr+"'";
 	    		String newYearEngDate;
-	    		conn=getConnection();
+	    		conn=dataSource.getConnection();
 	    		ps=conn.prepareStatement(query);
 	    		rs=ps.executeQuery();
 	    		if(rs.next()){
