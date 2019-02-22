@@ -2,6 +2,7 @@ package com.spring.school;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +34,9 @@ import com.spring.model.UserModel;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JRPrintPage;
 import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -140,13 +143,13 @@ public class ClaimBillController {
 		//	JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/claimbill.jrxml");
 		 JasperReport jasperSubReport = JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//studentdetails.jrxml");
 		//JasperReport jasperSubReport = JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/studentdetails.jrxml");
-		jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
+		jasperPrint = JasperFillManager.fillReport(jasperReport, null, new JREmptyDataSource());
 		  
 		
 			
 			System.out.println(studentlist.size());
 			
-			List<JasperPrint> jasperPrintList = new ArrayList<JasperPrint>();
+			//List<JasperPrint> jasperPrintList = new ArrayList<JasperPrint>();
 			ArrayList<StudentModel> smlist=new ArrayList<StudentModel>();
 			
 			
@@ -165,43 +168,33 @@ public class ClaimBillController {
 			  
 			  jasper = JasperFillManager.fillReport(jasperReport, parameters, ds);
 			  
-			  jasperPrintList.add(jasper);
+			  
+			  
+			  List pages=jasper.getPages();
+				JRPrintPage object=(JRPrintPage) pages.get(0);
+				jasperPrint.addPage(object);
 			  
 			  
 			 
 			   
 		}
-			JRPdfExporter exporter = new JRPdfExporter();
-			
-			exporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrintList));
-			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput("D://DigiNepal//report.pdf"));
-			SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
-			configuration.setCreatingBatchModeBookmarks(true);
-			exporter.setConfiguration(configuration);
-			exporter.exportReport();
-			
-				
+			 bytes=JasperExportManager.exportReportToPdf(jasperPrint);
+				//JasperViewer.viewReport(jasperPrint);
+			  ServletOutputStream servletOutputStream = response.getOutputStream();
+			    response.setContentType("application/pdf");
+			    response.setContentLength(bytes.length);
+
+			    servletOutputStream.write(bytes, 0, bytes.length);
+			    servletOutputStream.flush();
+			    servletOutputStream.close();
+			   
 			
 		
 					
 			
 			
 			
-			
-		/*			ServletOutputStream servletOutputStream = response.getOutputStream();
-		//    bytes = JasperRunManager.runReportToPdf(r,parameters, new JREmptyDataSource());
-		    response.setContentType("application/pdf");
-		    response.setContentLength(b.length);
-
-		    servletOutputStream.write(bytes, 0, bytes.length);
-		    servletOutputStream.flush();
-		    servletOutputStream.close();*/
-		  	
-		/*  response.setContentType("application/x-pdf");
-		    response.setHeader("Content-disposition", "inline; filename=Report.pdf");
-
-		    final OutputStream outStream = response.getOutputStream();
-		    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);*/
+		
 		  
 		   
 	}

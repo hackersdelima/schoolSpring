@@ -119,9 +119,12 @@ public class StudentController {
 					e.printStackTrace();
 				}
 		}
-		@RequestMapping(value="/updateStudent")
-		public String update(@ModelAttribute StudentModel student, Model model)
+		@RequestMapping(value="/updateStudent/{id}")
+		public String update(@PathVariable String id,
+				@ModelAttribute StudentModel student, Model model)
 		{
+			System.out.println("id is "+id);
+			student.setStudentid(id);
 
 			System.out.println("reached herh");
 			boolean status=studentDao.updateStudent(student);

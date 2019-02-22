@@ -16,28 +16,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 
 import com.spring.dao.DateConverterDao;
 
-@Repository
 public class DateConverterDaoImpl implements DateConverterDao {
+private JdbcTemplate jdbcTemplate;
+
+	@Autowired
+	DataSource dataSource;
+
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+	 
+	 @Autowired
+	 private void setDataSource(DataSource dataSource)
+	 {
+		 this.jdbcTemplate=new JdbcTemplate(dataSource);
+
+		 
+	 }
+	 
 	 
 	 static PreparedStatement ps=null;
 	 	static ResultSet rs=null;
-		private static Connection conn=null;
+		private  Connection conn=null;
 	  
-	    public static Connection getConnection(){
-	    	
-			try {
-				ApplicationContext context=new ClassPathXmlApplicationContext("root-context.xml");
-				DataSource dataSource=(DataSource) context.getBean("dataSource");
-				conn=dataSource.getConnection();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-	        return conn;
-	    }
+	   
 		public String nepaliToEnglish(String nepaliDate){
 	    	
 	    	String[] ndate=nepaliDate.split("-");
@@ -48,7 +53,7 @@ public class DateConverterDaoImpl implements DateConverterDao {
 	    				nmonth=ndate[1];
 	    						int nday=Integer.parseInt(ndate[2])-1;
 	    		String query="select * from tbldateconv where NYr="+nyear+"";
-	    		conn=getConnection();
+	    		conn=dataSource.getConnection();
 	    		ps=conn.prepareStatement(query);
 	    		rs=ps.executeQuery();
 	    		int result=0;
@@ -98,7 +103,7 @@ public class DateConverterDaoImpl implements DateConverterDao {
 			String convertedNepaliDate="";
 	    	try{
 	    		String query="select * from tbldateconv where EDate like '"+eyear+"%' ";
-	    		conn=getConnection();
+	    		conn=dataSource.getConnection();
 	    		ps=conn.prepareStatement(query);
 	    		rs=ps.executeQuery();
 	    		if(rs.next()){
@@ -148,7 +153,7 @@ public class DateConverterDaoImpl implements DateConverterDao {
 	    	try{
 	    		String query="select * from tbldateconv where NYr='"+nyr+"'";
 	    		String newYearEngDate;
-	    		conn=getConnection();
+	    		conn=dataSource.getConnection();
 	    		ps=conn.prepareStatement(query);
 	    		rs=ps.executeQuery();
 	    		if(rs.next()){

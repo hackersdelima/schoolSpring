@@ -39,7 +39,7 @@ img {
 					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 					</li>
 				</ul>
-<spring:url value="/student/updateStudent" var="updateUrl"/>
+<spring:url value="/student/updateStudent/${studentid}" var="updateUrl"/>
 
 				<form method="get" action="${updateUrl }" id="form"></form>
 				<button type="submit" class="btn btn-success " form="form">
@@ -80,8 +80,7 @@ img {
 										<td>
 											<h6>
 												<strong>Student Legacy ID</strong>
-											</h6> <input type="hidden" name="studentid"
-											value="${student.studentid}" form="form"> <input
+											</h6>  <input
 											type="text" class="form-control" name="LegacyId" form="form"
 											value="${student.legacyId}">
 										</td>
