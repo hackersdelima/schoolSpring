@@ -56,9 +56,6 @@ public class HomeController {
 			List<UserModel> systemdetail = operationDao.getSystemDetails();
 			model.put("userDetail", userDetail);
 			model.put("systemdetail", systemdetail);
-			GradeGenerator g=new GradeGenerator();
-			String grade=g.grade(50, 27,10,10);
-			System.out.println("Grade is" +grade);
 			return "profile";
 		} else {
 			attributes.addFlashAttribute("msg","Invalid Login Credentials!");

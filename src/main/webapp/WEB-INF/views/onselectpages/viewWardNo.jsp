@@ -1,28 +1,5 @@
-<%@page import='java.sql.*'%>
-<%
-  String id="";
-  id = request.getParameter("id");
-  
-   try {
-        Class.forName("com.mysql.jdbc.Driver");
-      // Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/aranikodb", "root", "123456");
-      Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/aranikodb", "root", "DigCen@1Pep");
-        Statement smt = con.createStatement(); //Create Statement to interact
-        ResultSet rs = smt.executeQuery("select WardCount from vdccodes where (VDCCode='" + id + "');");
-        int i=0;
-        %>
-        <option  value="" selected>Select ward no.</option>
-        <%
-        while (rs.next()) {
-        	for(i=1;i<=Integer.parseInt(rs.getString(1));i++){
-         %>
-         <option value="<%=i%>"><%=i %></option>
-         <%
-        	}
-        }
-   
-   } catch (Exception e) {
-        e.printStackTrace();
-   }
-  
-%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+${mun.wardcount}
+<c:forEach begin="1" end="${mun.wardcount }" varStatus="i">
+<option value="${i.index }">${i.index }</option>
+</c:forEach>
