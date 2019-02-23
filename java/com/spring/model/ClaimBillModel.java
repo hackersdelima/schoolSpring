@@ -4,9 +4,9 @@ import java.util.List;
 
 public class ClaimBillModel {
 	private String receivedby, claim_bill_id, fromDateEn, fromDateNep, toDateEn, toDateNep, invoiceNo, invoiceDateEn, invoiceDateNep, remarks, inwords;
-	private String accountNumber,taxable,admissionclass,frate;
-	private String frequency,startmonth,discountamount,paymenttype,pid,tamount,namount,generateduptpmonth;
-	
+	private String accountNumber,taxable,admissionclass;
+	private String frequency,startmonth,paymenttype,pid,generateduptpmonth;
+	private Double tamount,namount,frate,discountamount;
 	
 	public String getGenerateduptpmonth() {
 		return generateduptpmonth;
@@ -14,18 +14,24 @@ public class ClaimBillModel {
 	public void setGenerateduptpmonth(String generateduptpmonth) {
 		this.generateduptpmonth = generateduptpmonth;
 	}
-	public String getTamount() {
+	
+	public Double getTamount() {
 		return tamount;
 	}
-	public void setTamount(String tamount) {
+	public void setTamount(Double tamount) {
 		this.tamount = tamount;
 	}
-
-	public String getNamount() {
+	public Double getNamount() {
 		return namount;
 	}
-	public void setNamount(String namount) {
+	public void setNamount(Double namount) {
 		this.namount = namount;
+	}
+	public void setFrate(Double frate) {
+		this.frate = frate;
+	}
+	public void setDiscountamount(Double discountamount) {
+		this.discountamount = discountamount;
 	}
 	public String getPid() {
 		return pid;
@@ -51,12 +57,7 @@ public class ClaimBillModel {
 	public void setStartmonth(String startmonth) {
 		this.startmonth = startmonth;
 	}
-	public String getDiscountamount() {
-		return discountamount;
-	}
-	public void setDiscountamount(String discountamount) {
-		this.discountamount = discountamount;
-	}
+	
 	public String getAccountNumber() {
 		return accountNumber;
 	}
@@ -75,12 +76,14 @@ public class ClaimBillModel {
 	public void setAdmissionclass(String admissionclass) {
 		this.admissionclass = admissionclass;
 	}
-	public String getFrate() {
+	
+	public Double getFrate() {
 		return frate;
 	}
-	public void setFrate(String frate) {
-		this.frate = frate;
+	public Double getDiscountamount() {
+		return discountamount;
 	}
+
 	private StudentModel student;
 	private CategoryModel category;
 	private List<String> nontaxableamount, taxableamount, totalamount;

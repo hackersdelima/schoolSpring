@@ -147,16 +147,16 @@ private JdbcTemplate jdbcTemplate;
 			}
 		}*/
 		
-		if(Double.parseDouble(list.get(i).getTamount())>0) {
-			list.get(i).setTamount(Double.toString(frequency*Double.parseDouble(list.get(i).getFrate())));
+		if((list.get(i).getTamount())>0) {
+			list.get(i).setTamount((frequency*(list.get(i).getFrate())));
 	}
 	
-	 if(Double.parseDouble(list.get(i).getNamount())>0) {
-		 list.get(i).setNamount(Double.toString(frequency*Double.parseDouble(list.get(i).getFrate())));
+	 if((list.get(i).getNamount())>0) {
+		 list.get(i).setNamount((frequency*(list.get(i).getFrate())));
 		
 		}
-	 double totalfrate = Double.parseDouble(list.get(i).getTamount()) + Double.parseDouble(list.get(i).getNamount());
-	 list.get(i).setFrate(Double.toString(totalfrate));
+	 double totalfrate =(list.get(i).getTamount()) + (list.get(i).getNamount());
+	 list.get(i).setFrate((totalfrate));
 	}
 	}
 		
@@ -178,17 +178,19 @@ private JdbcTemplate jdbcTemplate;
 			
 			c.setAccountNumber(rs.getString("accountNumber"));
 			//c.setAdmissionclass(rs.getString("admissionclass"));
-			c.setFrate(rs.getString("amount"));
 		
+			c.setFrate(rs.getDouble("amount"));
 		
 			c.setTaxable(rs.getString("taxable"));
-			c.setTamount(rs.getString("tamount"));
-			c.setNamount(rs.getString("namount"));
+			c.setTamount(rs.getDouble("tamount"));
+			c.setNamount(rs.getDouble("namount"));
+			
 		
 			c.setFrequency(rs.getString("frequency"));
 			c.setStartmonth(rs.getString("startmonth"));
 			c.setGenerateduptpmonth(rs.getString("generateduptomonth"));
 			c.setPaymenttype(rs.getString("paymenttype"));
+			c.setDiscountamount(rs.getDouble("discountamount"));
 			
 			return c;
 		}
