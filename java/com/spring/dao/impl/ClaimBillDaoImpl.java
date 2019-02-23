@@ -196,6 +196,11 @@ private JdbcTemplate jdbcTemplate;
 		}
 		
 	}
+	@Override
+	public int saveClaimBill(ClaimBillModel c) {
+		String query = "insert into generatedclaimbill (studentid, accountNumber, categoryId, taxableAmount, nonTaxableAmount, total, inputter, datetime) values ('"+c.getStudent().getStudentid()+"','"+c.getAccountNumber()+"','"+c.getCategory().getCategoryId()+"','"+c.getTaxableamount()+"','"+c.getNontaxableamount()+"','"+c.getTotal()+"','inputter',now())";
+		return jdbcTemplate.update(query);
+	}
 	
 
 }

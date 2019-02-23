@@ -4,12 +4,14 @@
 <body class="background">
 
 	<div class="col-md-12 col-sm-12 col-xs-12">
-		<spring:url value="/nav/viewClaimBill/${id }" var="formUrl"></spring:url>
-		<form method="get" action="${formUrl }">
+		<spring:url value="/nav/viewClaimBill/${id }" var="viewUrl"/>
+		<spring:url value="/claimbill/save/${id }" var="saveUrl"/>
+		<form method="post" action="">
 			<div class="x_panel">
 				<div class="x_title">
 					<h2>Student Claim Bill Search</h2>
-					<input type="submit" class="btn btn-success" value="Submit">
+					<input formaction="${viewUrl }" type="submit" class="btn btn-success" value="View">
+					<input formaction="${saveUrl }" type="submit" class="btn btn-success" value="Save">
 					<div class="clearfix"></div>
 				</div>
 				<div class="x_content">
