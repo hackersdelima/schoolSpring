@@ -25,7 +25,9 @@ import com.spring.dao.InitialDetailsDao;
 import com.spring.dao.OperationDao;
 import com.spring.dao.UserDao;
 import com.spring.model.DynamicData;
+import com.spring.model.HibernateModel;
 import com.spring.model.UserModel;
+import com.spring.service.HibernateService;
 
 @Controller
 @SessionAttributes(value = { "userDetail", "systemdetail", "foldername" })
@@ -36,6 +38,9 @@ public class HomeController {
 
 	@Autowired
 	private UserDao dao;
+	
+	@Autowired
+	private HibernateService hibernateService;
 
 	@Autowired
 	private OperationDao operationDao;
@@ -51,6 +56,13 @@ public class HomeController {
 		return "index";
 	}
 
+	@RequestMapping(value = "/hibernate", method = RequestMethod.POST)
+	public boolean hibernate(Model model,@ModelAttribute HibernateModel hm) {
+		return hibernateService.insert(hm);
+		
+	}
+	
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@ModelAttribute UserModel user, ModelMap model, BindingResult result,
 			RedirectAttributes attributes) {
