@@ -23,11 +23,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.dao.InitialDetailsDao;
 import com.spring.dao.OperationDao;
+import com.spring.dao.UploadDao;
 import com.spring.dao.UserDao;
 import com.spring.model.DynamicData;
 import com.spring.model.HibernateModel;
 import com.spring.model.UserModel;
 import com.spring.service.HibernateService;
+import com.spring.util.Utilities;
 
 @Controller
 @SessionAttributes(value = { "userDetail", "systemdetail", "foldername" })
@@ -47,7 +49,7 @@ public class HomeController {
 
 	@Autowired
 	private InitialDetailsDao initialDetailsDao;
-
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model, @ModelAttribute(value = "msg") String msg) {
 		DynamicData d = initialDetailsDao.getDynamicDatas();
@@ -123,5 +125,4 @@ public class HomeController {
 	public String nouser() {
 		return "No user Found";
 	}
-
 }

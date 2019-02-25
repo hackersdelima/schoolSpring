@@ -11,6 +11,7 @@ import org.springframework.validation.MessageCodesResolver;
 import org.springframework.validation.Validator;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
@@ -42,6 +43,13 @@ public class WebMvcConfig implements WebMvcConfigurer{
 		 vr.setOrder(1);
 
 		return vr;
+	}
+	
+	@Bean
+	public CommonsMultipartResolver multipartResolver(){
+	    CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+	    resolver.setMaxUploadSize(5242880); // set the size limit
+	    return resolver;
 	}
 
 	@Override
