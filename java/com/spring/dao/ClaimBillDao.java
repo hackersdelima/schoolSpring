@@ -10,6 +10,6 @@ public interface ClaimBillDao {
 	public String maxClaimBillId();
 	public boolean insertClaimBillContent(ClaimBillModel c, int i);
 	public ArrayList<ClaimBillModel> getAllDetails(String id, String claimBillStartMonth);
-	public int saveClaimBill(ClaimBillModel claimBillModel);
+	public int saveClaimBill(ClaimBillModel claimBillModel,String month);
 	
 }

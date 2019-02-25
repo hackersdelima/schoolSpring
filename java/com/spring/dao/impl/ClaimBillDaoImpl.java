@@ -197,8 +197,40 @@ private JdbcTemplate jdbcTemplate;
 		
 	}
 	@Override
-	public int saveClaimBill(ClaimBillModel c) {
-		String query = "insert into generatedclaimbill (studentid, accountNumber, categoryId, taxableAmount, nonTaxableAmount, total, inputter, datetime) values ('"+c.getStudent().getStudentid()+"','"+c.getAccountNumber()+"','"+c.getCategory().getCategoryId()+"','"+c.getTaxableamount()+"','"+c.getNontaxableamount()+"','"+c.getTotal()+"','inputter',now())";
+	public int saveClaimBill(ClaimBillModel c,String getmonth) {
+		
+		int startmonth=Integer.parseInt(c.getStartmonth()); 
+		String freq=c.getFrequency();
+		int findForMonth = Integer.parseInt(getmonth);
+	
+		List<String> paymonth= new ArrayList<String>();
+		for(int j=startmonth; j<=12; j++) {
+			int tomonth = j+Integer.parseInt(freq)-1;
+			if(tomonth>12) {
+				tomonth=12;
+			}
+			
+			String paymonthstr = j+"-"+tomonth;
+			paymonth.add(paymonthstr);
+			j=tomonth;
+		}
+		String realpaymonth="";
+		//month=04 [3-8, 9-12]
+		for(int k=0; k<paymonth.size();k++) {
+			
+			String paym =	paymonth.get(k);
+			String[] paymsplit = paym.split("-");
+			int first = Integer.parseInt(paymsplit[0]);
+			int second = Integer.parseInt(paymsplit[1]);
+			if(findForMonth>=first && findForMonth<=second) {
+				realpaymonth = paym;
+				System.out.println(realpaymonth);
+			}
+		}
+		System.out.println(c);
+		Double totalAmount=(c.getTamount()+c.getNamount())-c.getDiscountamount();
+		String query = "insert into generatedclaimbill ( accountNumber, categoryId, taxableAmount, nonTaxableAmount,inputter, datetime,formonth,discountamount,total) values ('"+c.getAccountNumber()+"','"+c.getCategory().getCategoryId()+"','"+c.getTamount()+"','"+c.getNamount()+"','inputter',now(),'"+realpaymonth+"','"+c.getDiscountamount()+"','"+totalAmount+"')";
+		System.out.println(query);
 		return jdbcTemplate.update(query);
 	}
 	
