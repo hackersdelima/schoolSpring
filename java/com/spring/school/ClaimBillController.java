@@ -134,12 +134,15 @@ public class ClaimBillController {
 		String[] monthnumvalarray=monthnumval.split("-");
 		String month = monthnumvalarray[0];
 		ArrayList<ClaimBillModel> data=claimBillDao.getAllDetails(id, month);
+		System.out.println("Available Data "+ data);
 		List<Integer> status=new ArrayList<Integer>();
-		
+		System.out.println("id is"+id);
 		if(data.size()>0) {
 		for(int i=0;i<data.size();i++) {
 		data.get(i).setInputter(username);
-		int save_status = claimBillDao.saveClaimBill(data.get(i));
+		data.get(i).setGenerateduptpmonth(month);
+		//data.get(i).getStudent().setStudentid(id);
+		int save_status = claimBillDao.saveClaimBill(data.get(i),month);
 		 status.add(save_status);
 		}
 		System.out.println(status);
