@@ -140,6 +140,8 @@
 	<parameter name="ds" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<parameter name="subreportparam" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="dataSourceParam" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="taxrate" class="java.lang.Double"/>
+	<parameter name="previousReceivable" class="java.lang.Double"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -161,6 +163,12 @@
 	</variable>
 	<variable name="totalDiscount" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{discountamount}]]></variableExpression>
+	</variable>
+	<variable name="totalTax" class="java.lang.Double">
+		<variableExpression><![CDATA[($P{taxrate}*$V{totalTaxable})/100]]></variableExpression>
+	</variable>
+	<variable name="grandTotal" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{totalTax}+$V{TotalAmount}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -384,25 +392,78 @@
 				<textFieldExpression><![CDATA[$V{totalDiscount}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="-10" y="30" width="290" height="30" uuid="5e434c9a-1245-4ddb-981d-55c0c9c4bb6c"/>
+				<reportElement x="-10" y="30" width="510" height="30" uuid="5e434c9a-1245-4ddb-981d-55c0c9c4bb6c"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 				<textElement textAlignment="Center"/>
-				<text><![CDATA[Education Service Tax(%)]]></text>
+				<text><![CDATA[Education Service Tax]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="-10" y="60" width="290" height="30" uuid="47c641c1-8125-4354-a366-f5284f10b203"/>
+				<reportElement x="-10" y="60" width="510" height="30" uuid="47c641c1-8125-4354-a366-f5284f10b203"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Grand Total]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="-10" y="90" width="290" height="30" uuid="12eec9df-5317-4062-8a1d-aedae52c20cd"/>
+				<reportElement x="-10" y="90" width="510" height="30" uuid="12eec9df-5317-4062-8a1d-aedae52c20cd"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Dr/Cr Previous Balance]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="-10" y="120" width="290" height="30" uuid="18c940a2-ca4a-42d4-8082-988b9dddd92b"/>
+				<reportElement x="-10" y="120" width="510" height="30" uuid="18c940a2-ca4a-42d4-8082-988b9dddd92b"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Total Receivable]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="500" y="30" width="65" height="30" uuid="d0f9a82a-15cc-47ea-9877-05ddf9f846f2"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{totalTax}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="60" width="65" height="30" uuid="527b1e88-7167-4622-a5f3-9e0df2693a0d"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{grandTotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="350" y="30" width="70" height="30" uuid="8a7bf5aa-2c31-4a12-9336-541333465bd7"/>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="300" y="30" width="50" height="30" uuid="7bd8cac3-4cb3-40de-a8a1-f1bc08e234bc"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{taxrate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="90" width="64" height="30" uuid="b3a6ea73-dc1d-449f-a44b-f6e948a3c914"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{previousReceivable}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="120" width="64" height="30" uuid="44faebfc-207b-49df-845a-4e7274fa7542"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{grandTotal}+$P{previousReceivable}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>

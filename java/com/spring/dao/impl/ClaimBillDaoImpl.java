@@ -74,12 +74,7 @@ private JdbcTemplate jdbcTemplate;
 		String query="select * from claimbillreport where pid='"+id+"'"; 
 	ArrayList<ClaimBillModel> list= (ArrayList<ClaimBillModel>) jdbcTemplate.query(query, new ClaimMapper());
 	
-	
-	
 	for(int i=0;i<list.size();i++) {
-		
-		
-		
 		
 	if(list.get(i).getPaymenttype().equals("M")) {
 		
@@ -118,6 +113,21 @@ private JdbcTemplate jdbcTemplate;
 			}
 			
 		}
+		
+		//for checking if claim bill generated already
+		String[] realpaymonthpart=realpaymonth.split("-");
+		int low=Integer.parseInt(realpaymonthpart[0]);
+		int high=Integer.parseInt(realpaymonthpart[1]);
+		int formonth=Integer.parseInt(getmonth);
+		
+		if(formonth>low && formonth<=high)
+		{
+			System.out.println("Claim Bill Exists Already");
+			return null;
+		}
+			
+		
+		
 		System.out.println(paymonth);
 		System.out.println("real paymonth is" +realpaymonth);
 		
@@ -197,7 +207,7 @@ private JdbcTemplate jdbcTemplate;
 		
 	}
 	@Override
-	public int saveClaimBill(ClaimBillModel c,String getmonth) {
+	public int saveClaimBill(String studentId,ClaimBillModel c,String getmonth,Double taxRate) {
 		
 		int startmonth=Integer.parseInt(c.getStartmonth()); 
 		String freq=c.getFrequency();
@@ -228,10 +238,46 @@ private JdbcTemplate jdbcTemplate;
 			}
 		}
 		System.out.println(c);
-		Double totalAmount=(c.getTamount()+c.getNamount())-c.getDiscountamount();
-		String query = "insert into generatedclaimbill ( accountNumber, categoryId, taxableAmount, nonTaxableAmount,inputter, datetime,formonth,discountamount,total) values ('"+c.getAccountNumber()+"','"+c.getCategory().getCategoryId()+"','"+c.getTamount()+"','"+c.getNamount()+"','inputter',now(),'"+realpaymonth+"','"+c.getDiscountamount()+"','"+totalAmount+"')";
+		
+		Double taxAmount=c.getTamount()*(taxRate/100);
+		
+		Double totalAmount=(c.getTamount()+c.getNamount())+taxAmount-c.getDiscountamount();
+		String query = "insert into generatedclaimbill (studentid, accountNumber, categoryId, taxableAmount, nonTaxableAmount,inputter, datetime,formonth,discountamount,total,taxAmount) values ('"+studentId+"','"+c.getAccountNumber()+"','"+c.getCategory().getCategoryId()+"','"+c.getTamount()+"','"+c.getNamount()+"','inputter',now(),'"+realpaymonth+"','"+c.getDiscountamount()+"','"+totalAmount+"','"+taxAmount+"')";
 		System.out.println(query);
+		try {
 		return jdbcTemplate.update(query);
+		}
+		catch(Exception s) {
+			System.out.println("Sql Exception "+s);
+			return 0;
+		}
+	}
+
+	@Override
+	public boolean updateBalance(ClaimBillModel c, String id) {
+		
+		
+		Double totalAmount=(c.getTamount()+c.getNamount())-c.getDiscountamount();
+		String sql="update accountstbl set debitbal=debitbal+'"+totalAmount+"' where pid='"+id+"' and accountNumber='"+c.getAccountNumber()+"'";
+		System.out.println(sql);
+		int status=jdbcTemplate.update(sql);
+		if(status>0) {
+			return true;
+		}
+			
+		return false;
+	}
+
+	@Override
+	public Double calculatePreviousBalance(String id) {
+		String sql="select debitbal from accountstbl where pid=565 and categoryId like '22%'";
+		List<Double> list= jdbcTemplate.queryForList(sql, Double.class);
+		Double previousReceivable=0.00;
+		for(int i=0;i<list.size();i++) {
+			previousReceivable=previousReceivable+list.get(i);
+		}
+		System.out.println("previousReceivable "+previousReceivable);
+		return previousReceivable;
 	}
 	
 

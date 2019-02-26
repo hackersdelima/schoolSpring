@@ -425,11 +425,12 @@ private void commonModels(Model model){
 	
 	@RequestMapping(value="/viewClaimBill/{id}", method=RequestMethod.POST)
 	@ResponseBody
-	public void viewClaimBill(Model model,HttpServletResponse response,@PathVariable String id, @RequestParam(value="month") String monthnumval) throws JRException, SQLException, IOException
+	public String viewClaimBill(Model model,HttpServletResponse response,@PathVariable String id, @RequestParam(value="month") String monthnumval) throws JRException, SQLException, IOException
 	{
 		DynamicData d= initialDetailsDao.getDynamicDatas();
 		String reporturl = d.getReporturl();
 		
+		Double rate=13.00;
 		String[] monthnumvalarray=monthnumval.split("-");
 		String month = monthnumvalarray[0];
 		String monthval = monthnumvalarray[1];
@@ -442,7 +443,12 @@ private void commonModels(Model model){
 			
 		 Map<String, Object> parameters=new HashMap<String, Object>();
 		 
+		 Double previousReceivable=claimBillDao.calculatePreviousBalance(id);
+		 
 		ArrayList<ClaimBillModel> data=claimBillDao.getAllDetails(id, month);
+		
+		if(data!=null) {
+		System.out.println(data.size()+"data size");
 		JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(data);
 		
 		StudentModel sm=studentDao.getStudentDetail(Integer.parseInt(id));
@@ -454,6 +460,8 @@ private void commonModels(Model model){
 		  
 		  parameters.put("subreportparam",jasperSubReport);
 		  parameters.put("dataSourceParam", subds);
+		  parameters.put("taxrate",rate);
+		  parameters.put("previousReceivable",previousReceivable);
 		  
 		  jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
 		  bytes=JasperExportManager.exportReportToPdf(jasperPrint);
@@ -465,6 +473,12 @@ private void commonModels(Model model){
 		    servletOutputStream.write(bytes, 0, bytes.length);
 		    servletOutputStream.flush();
 		    servletOutputStream.close();
+		    
+		    return "Claim Bill Found";
+		}
+		else {
+			return "Claim Bill Not Found";
+		}
 		   
 	}
 	
