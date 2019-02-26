@@ -254,14 +254,20 @@ private JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public boolean updateBalance(ClaimBillModel c, String id) {
+	public boolean updateBalance(ClaimBillModel c, String id,Double taxRate) {
 		
+		Double taxAmount=c.getTamount()*(taxRate/100);
+		Double totalAmount=(c.getTamount()+c.getNamount())+taxAmount-c.getDiscountamount();
 		
-		Double totalAmount=(c.getTamount()+c.getNamount())-c.getDiscountamount();
 		String sql="update accountstbl set debitbal=debitbal+'"+totalAmount+"' where pid='"+id+"' and accountNumber='"+c.getAccountNumber()+"'";
-		System.out.println(sql);
 		int status=jdbcTemplate.update(sql);
-		if(status>0) {
+		
+		String sql1="update accountstbl set debitbal=debitbal+'"+taxAmount+"' where pid='"+id+"' and categoryid='12200'";
+		int stat=jdbcTemplate.update(sql1);
+		
+		System.out.println(sql);
+		
+		if(status>0 && stat>0) {
 			return true;
 		}
 			
@@ -270,7 +276,7 @@ private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public Double calculatePreviousBalance(String id) {
-		String sql="select debitbal from accountstbl where pid=565 and categoryId like '22%'";
+		String sql="select debitbal from accountstbl where pid='"+id+"' and categoryId like '22%'";
 		List<Double> list= jdbcTemplate.queryForList(sql, Double.class);
 		Double previousReceivable=0.00;
 		for(int i=0;i<list.size();i++) {

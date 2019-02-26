@@ -17,6 +17,7 @@ import com.spring.dao.InitialDetailsDao;
 import com.spring.dao.OperationDao;
 import com.spring.model.FeeModel;
 import com.spring.model.FormDetails;
+import com.spring.model.RateModel;
 
 @Controller
 @RequestMapping("/initialDetails")
@@ -229,6 +230,13 @@ public class InitialDetailsController {
 			model.addAttribute("msg","Fee Head Failed");
 			return "redirect:/nav/viewFeeHead";
 		}
+	}
+	
+	@RequestMapping(value="/rate/add")
+	@ResponseBody
+	public String addRate(Model model,@ModelAttribute RateModel rm) {
+		boolean status=initialDetailsDao.addRate(rm);
+		return "Saved";
 	}
 	
 

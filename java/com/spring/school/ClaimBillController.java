@@ -163,7 +163,7 @@ public class ClaimBillController {
 				
 				//if inserted update balance else dont
 				if(save_status>0) {
-				boolean stats=claimBillDao.updateBalance(data.get(i),id);
+				boolean stats=claimBillDao.updateBalance(data.get(i),id,taxRate);
 				}
 				
 			}

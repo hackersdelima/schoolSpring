@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.dao.InitialDetailsDao;
 import com.spring.dao.OperationDao;
+import com.spring.dao.StudentDao;
 import com.spring.dao.UploadDao;
 import com.spring.dao.UserDao;
 import com.spring.model.DynamicData;
@@ -50,6 +51,9 @@ public class HomeController {
 	@Autowired
 	private InitialDetailsDao initialDetailsDao;
 	
+	@Autowired
+	StudentDao studentDao;
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model, @ModelAttribute(value = "msg") String msg) {
 		DynamicData d = initialDetailsDao.getDynamicDatas();
@@ -76,6 +80,11 @@ public class HomeController {
 			
 			model.put("userDetail", userDetail);
 			model.put("systemdetail", systemdetail);
+			
+			model.addAttribute("totalstudents",studentDao.getTotalStudents());
+			model.addAttribute("totaluser",studentDao.getTotalUser());
+			model.addAttribute("totalteacher",studentDao.getTotalTeacher());
+			model.addAttribute("currentBranch",studentDao.getCurrentBranch());
 			
 			return "dashboard";
 		} else {

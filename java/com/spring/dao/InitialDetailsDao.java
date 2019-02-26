@@ -5,6 +5,7 @@ import java.util.List;
 import com.spring.model.DynamicData;
 import com.spring.model.FormDetails;
 import com.spring.model.Muncipality;
+import com.spring.model.RateModel;
 
 public interface InitialDetailsDao {
 
@@ -41,6 +42,8 @@ public interface InitialDetailsDao {
 	public Muncipality getwardcount(String id);
 	
 	public DynamicData getDynamicDatas();
+
+	public boolean addRate(RateModel rm);
 	
 
 	

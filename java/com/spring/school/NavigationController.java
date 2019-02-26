@@ -615,6 +615,11 @@ private void commonModels(Model model){
 		return "student/promotion/studentlist";
 	}
 	
+	@RequestMapping(value="/rateSetting")
+	public String rateSetting(Model model) {
+		return "settings/rateSetup";
+	}
+	
 	
 }
 
