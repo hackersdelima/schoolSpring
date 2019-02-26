@@ -3,35 +3,8 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include page="../include.jsp"></jsp:include>
-
-
-<html>
-<head></head>
-<body class="background">
-	<div class="breadcrumb-line">
-		<nav aria-label="breadcrumb" role="navigation">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><i class="fa fa-home"
-					aria-hidden="true"></i>&nbsp;<a href="#">General</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Exam</li>
-				<li class="breadcrumb-item active" aria-current="page">Create
-					Exam</li>
-			</ol>
-		</nav>
-	</div>
-	<div class="col-md-12 col-sm-12 col-xs-12">
-
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>CREATE EXAM</h2>
-				<ul class="nav navbar-right panel_toolbox">
-					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-					</li>
-				</ul>
-				<div class="clearfix"></div>
-			</div>
-			<div class="x_content">
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title="CREATE EXAM"/>
 			
 			<c:if test="${empty em.examname }">
 			<spring:url value="/operation/insertExam" var="formUrl"/>
@@ -93,9 +66,7 @@
 						</tr>
 					</tbody>
 				</table>
-			</div>
-		</div>
-	</div>
+		
 	<div class="col-md-12 col-sm-12 col-xs-12">
 
 		<div class="x_panel">
@@ -136,6 +107,7 @@
 		</div>
 	</div>
 <jsp:include page="../msgmodal.jsp"></jsp:include>
+<tag:footer/>
 	<script>
 		$('#form').submit(function() {
 			return confirm('CONFIRM SAVE?');
@@ -185,5 +157,4 @@
 		return confirm('CONFIRM SUBJECT DELETE?');
 	});
 	</script>
-</body>
-</html>
+

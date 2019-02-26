@@ -3,23 +3,11 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-
-<html>
-<head>
-<style>
-	.background{
-    	background-color:#F7F7F7;}
-</style>
- <!-- Theme style -->
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<!-- Theme style -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/AdminLTE.min.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/_all-skins.min.css">
-  
- <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
-   <link href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css" rel="stylesheet">
-
-</head>
-<body class="background">
+<tag:header title="Find Assigned Subjects By:"/>
 <div class="panel panel-primary">
   <div class="panel-heading">Find Assigned Subjects By:</div>
   <div class="panel-body">
@@ -56,7 +44,4 @@
   
   </div>
 </div>
-
-</body>
-
-</html>
+<tag:footer/>

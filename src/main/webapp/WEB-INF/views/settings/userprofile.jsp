@@ -1,20 +1,5 @@
-
-<jsp:include page="../include.jsp"></jsp:include>
-<html>
-<head>
-</head>
-<body class="background">
-	<div class="col-md-12 col-sm-12 col-xs-12">
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>User Report</h2>
-				<ul class="nav navbar-right panel_toolbox">
-					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-					</li>
-				</ul>
-				<div class="clearfix"></div>
-			</div>
-			<div class="x_content">
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title="USER DETAILS"/>
 				<div class="col-md-3 col-sm-3 col-xs-12 profile_left">
 					<div class="profile_img">
 						<div id="crop-avatar">
@@ -98,9 +83,4 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
-
-</body>
-</html>
+	<tag:footer/>

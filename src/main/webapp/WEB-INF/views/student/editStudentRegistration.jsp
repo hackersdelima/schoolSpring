@@ -3,53 +3,16 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include page="../include.jsp"></jsp:include>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<style>
-img {
-	width: auto;
-	height: auto;
-	max-height: 100%;
-	max-width: 100%;
-}
-</style>
-</head>
-
-<body class="background">
-	<div class="breadcrumb-line">
-		<nav aria-label="breadcrumb" role="navigation">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><i class="fa fa-home"
-					aria-hidden="true"></i>&nbsp;<a href="#">Home</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Student</li>
-				<li class="breadcrumb-item active" aria-current="page">Student
-					Admission</li>
-			</ol>
-		</nav>
-	</div>
-	<div class="col-md-12 col-sm-12 col-xs-12">
-
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>STUDENT Edit</h2>
-
-				<ul class="nav navbar-right panel_toolbox">
-					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-					</li>
-				</ul>
-<spring:url value="/student/updateStudent/${studentid}" var="updateUrl"/>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title="EDIT STUDENT"/>
+			<spring:url value="/student/updateStudent/${studentid}" var="updateUrl"/>
 
 				<form method="get" action="${updateUrl }" id="form"></form>
 				<button type="submit" class="btn btn-success " form="form">
 					<i class="fa fa-check"></i> Update
 				</button>
 				<a href="<spring:url value="/student/deleteStudent/${studentid }"></spring:url>" class="btn btn-danger delete">X Delete</a>
-				<div class="clearfix"></div>
-
-			</div>
-			<div class="x_content">
+				
 				<div class="" role="tabpanel" data-example-id="togglable-tabs">
 					<ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
 						<li role="presentation" class="active"><a
@@ -674,9 +637,7 @@ img {
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
+	<tag:footer/>
 <script>function nepaliToEnglish(nepalidate,englishdate){
 	var date = $(nepalidate).val();
 	var dataString = {'nepalidate' : date};
@@ -752,6 +713,5 @@ $(".delete").click(function(){
 	return confirm('Delete Confirm?');
 });
 </script>
-</body>
-</html>
+
 

@@ -2,39 +2,8 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <spring:url value="/paymentVoucher/review" var="formUrl" />
-
-<jsp:include page="../../../include.jsp"></jsp:include>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Purchase Invoice</title>
-<link rel="stylesheet"
-	href="<spring:url value="/resources/css/invoice.css"/>" media="all" />
-<style>
-.displaynone {
-	display: none;
-}
-
-.itemdetailinput {
-	width: 10%;
-}
-
-.inputdetails {
-	width: 60%;
-	float: right;
-}
-
-.top {
-	width: 65%;
-	float: right;
-}
-table th {
-    width: auto !important;
-}
-</style>
-</head>
-<body class="background">
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title=""/>
 	
 	
 	<form action="${formUrl }" method="post">
@@ -294,7 +263,7 @@ table th {
 			
 		</div>
 	</form>
-	
+	<tag:footer/>
 	<script src="<spring:url value="/resources/js/dateAction.js"/>"></script>
 	
 	<script>

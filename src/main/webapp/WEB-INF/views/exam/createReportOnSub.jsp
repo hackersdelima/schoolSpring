@@ -1,31 +1,13 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include page="../include.jsp"></jsp:include>
-
-<spring:url value="/exam/getClassStudents" var="getStudents"/>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag"%>
+<tag:header title="CREATE STUDENT EXAM REPORT" />
+			<input type="hidden" value="${classSubject}" class="getClassSubjects">
+<input type="hidden" value="${getStudents }" id="getClassStudents">
+			<spring:url value="/exam/getClassStudents" var="getStudents"/>
 <spring:url value="/exam/addSubMarks" var="formUrl"/>
 <spring:url value="/exam/classSubject" var="classSubject"></spring:url>
-<html>
-<head>
-<style>
-.workform input{
-	border:none;
-	width: 100%;
-	}
-	</style>
-</head>
-<body class="background">
-<input type="hidden" value="${classSubject}" class="getClassSubjects">
-<input type="hidden" value="${getStudents }" id="getClassStudents">
-	<div class="col-md-12 col-sm-12 col-xs-12">
-
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>Create Student Exam Report</h2>
-				<div class="clearfix"></div>
-			</div>
-			<div class="x_content">
 				<form:form action="${formUrl }" method="post" 
 					style="margin-top: 10px;" class="form" modelAttribute="examModel">
 					<div role="tabpanel" class="tab-pane" aria-labelledby="profile-tab">
@@ -95,11 +77,7 @@
 					<br>
 					<div id="markstable"></div>
 				</form:form>
-				
-			</div>
-		</div>
-	</div>
-	
+		<tag:footer/>
 	<script>
 	$('form').submit(function() {
 		return confirm("CONFIRM?");
@@ -143,5 +121,3 @@
 		});
 				
 	</script>
-</body>
-</html>

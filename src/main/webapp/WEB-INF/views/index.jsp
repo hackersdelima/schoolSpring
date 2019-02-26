@@ -166,12 +166,6 @@ body, html {
 				<button class="btn btn-lg btn-primary btn-block btn-signin"
 					type="submit">Sign in</button>
 			</form>
-			
-			<form action="hibernate" method="post">
-<input type="text" name="name">
-<button class="btn btn-lg btn-primary btn-block btn-signin"
-					type="submit">Sign in</button>
-</form>
 			<!-- /form -->
 		</div>
 		<!-- /card-container -->
