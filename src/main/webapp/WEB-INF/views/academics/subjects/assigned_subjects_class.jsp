@@ -3,30 +3,10 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include page="../../include.jsp"></jsp:include>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title="ASSIGNED SUBJECTS : CLASS: ${list[0].classname }"/>
 
-<html>
-<head>
-<style>
-.tbltophead th {
-	text-align: center;
-}
-table{
-color:black;
-font-weight:bold;}
-</style>
-
-</head>
-
-<body class="background">
-	<div class="x_panel">
-		<div class="x_title">
-			<h2>ASSIGNED SUBJECTS : <b>CLASS: ${list[0].classname }</b></h2>
-			
 		<a href="<spring:url value="/nav/v/assignedsubjectsclass"/>" class="btn btn-primary btn-sm">Back</a>
-			<div class="clearfix"></div>
-		</div>
-		<div class="x_content">
 			<table id="datatable"
 				class="table jambo_table table-striped table-bordered"
 				style="font-size: 95%;width:50%">
@@ -47,7 +27,4 @@ font-weight:bold;}
 						</c:forEach>
 				</tbody>
 			</table>
-			</div>
-		</div>
-</body>
-</html>
+	<tag:footer/>

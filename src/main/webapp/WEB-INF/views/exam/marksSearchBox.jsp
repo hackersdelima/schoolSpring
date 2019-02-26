@@ -1,29 +1,9 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<spring:url value="/exam/searchMarksReport" var="formUrl"/>
-<jsp:include page="../include.jsp"></jsp:include>
-<html>
-<body class="background">
-	<div class="breadcrumb-line">
-		<nav aria-label="breadcrumb" role="navigation">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><i class="fa fa-home"
-					aria-hidden="true"></i>&nbsp;<a href="#">General</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Exam</li>
-				<li class="breadcrumb-item active" aria-current="page">Search
-					Student Report</li>
-			</ol>
-		</nav>
-	</div>
-	<div class="col-md-10 col-sm-10 col-xs-10">
-
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>REPORT SEARCH-BOX</h2>
-				<div class="clearfix"></div>
-			</div>
-			<div class="x_content">
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title="REPORT SEARCH-BOX"/>
+			<spring:url value="/exam/searchMarksReport" var="formUrl"/>
 			<form:form action="${formUrl }" 
 					style="margin-top: 10px;" class="form">
 					<div role="tabpanel" class="tab-pane" aria-labelledby="profile-tab">
@@ -82,10 +62,4 @@
 					</div>
 					<div id="markstable"></div>
 				</form:form>
-			</div>
-		</div>
-	</div>
-	
-
-</body>
-</html>
+		<tag:footer/>

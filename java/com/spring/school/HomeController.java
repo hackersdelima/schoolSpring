@@ -77,7 +77,7 @@ public class HomeController {
 			model.put("userDetail", userDetail);
 			model.put("systemdetail", systemdetail);
 			
-			return "profile";
+			return "dashboard";
 		} else {
 			attributes.addFlashAttribute("msg", "Invalid Login Credentials!");
 			return "redirect:/";

@@ -1,43 +1,14 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include page="../include.jsp"></jsp:include>
-
-<html>
-<head>
-</head>
-<body class="background">
-	<div class="breadcrumb-line">
-		<nav aria-label="breadcrumb" role="navigation">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><i class="fa fa-home"
-					aria-hidden="true"></i>&nbsp;<a href="#">Home</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Student</li>
-				<li class="breadcrumb-item active" aria-current="page">Student
-					Admission</li>
-			</ol>
-		</nav>
-	</div>
-	<div class="col-md-12 col-sm-12 col-xs-12">
-
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>STUDENT REGISTRATION</h2>
-
-				<ul class="nav navbar-right panel_toolbox">
-					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-					</li>
-				</ul>
-				<spring:url value="/student/studentRegistration" var="url" />
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title="STUDENT ADMISSION"/>
+			<spring:url value="/student/studentRegistration" var="url" />
 				<form method="post" action="${url }" id="form"
 					enctype="multipart/form-data"></form>
 				<button type="submit" class="btn btn-success " form="form">
 					<i class="fa fa-check"></i> SUBMIT
 				</button>
-				<div class="clearfix"></div>
-
-			</div>
-			<div class="x_content">
 				<div class="" role="tabpanel" data-example-id="togglable-tabs">
 					<ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
 						<li role="presentation" class="active"><a
@@ -626,11 +597,9 @@
 						</div>
 
 					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 	<jsp:include page="../msgmodal.jsp"></jsp:include>
+	<tag:footer/>
 	<script>
 		function nepaliToEnglish(nepalidate, englishdate) {
 			var date = $(nepalidate).val();
@@ -670,10 +639,4 @@
 			});
 		}
 	</script>
-	
-	
-
-
-</body>
-</html>
 

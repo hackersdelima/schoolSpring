@@ -1,56 +1,10 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
-
-<jsp:include page="../../include.jsp"></jsp:include>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title="CREATE FINANCIAL ACCOUNT"/>
+		<spring:url value="/nav/financialAccountNo" var="accountGen"></spring:url>
 <spring:url value="/account/add" var="formUrl" />
-
-<html>
-<head>
-	<style>
-
-body {
-	font-size: 14px;
-	font-weight: bold;
-	color:#00030a;
-}
-
-
-
-textarea:focus, input:focus {
-    color: #0206ef;
-}
-
-
-.black_color {
-font-weight: bold;
-  color: #00030a;
-  font-size: 14px;
-}
-
-</style>
-
-</head>
-<spring:url value="/nav/financialAccountNo" var="accountGen"></spring:url>
-
-<body class="background">
-	<div class="breadcrumb-line">
-		<nav aria-label="breadcrumb" role="navigation">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><i class="fa fa-home"
-					aria-hidden="true"></i>&nbsp;<a href="#">Home</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Account</li>
-				<li class="breadcrumb-item active" aria-current="page">Add
-					Account</li>
-			</ol>
-		</nav>
-	</div>
-	<div class="panel panel-default" style="width: 95%; margin: auto;">
-		<div class="panel-heading">
-			<h4>Add Account</h4>
-		</div>
-		<div class="panel-body">
-
 			<form  action="${formUrl }" method="post">
 				<div id="1" class="tab-pane fade in active">
 					<table class="table">
@@ -110,8 +64,6 @@ font-weight: bold;
 					</table>
 				</div>
 			</form>
-		</div>
-	</div>
 	<jsp:include page="../../msgmodal.jsp"></jsp:include>
 	<div class="modal fade" id="memberidmsgmodal" role="dialog">
     <div class="modal-dialog modal-sm">
@@ -125,7 +77,7 @@ font-weight: bold;
       </div>
     </div>
 </div>
-
+<tag:footer/>
 	<script>
 	<%if(request.getAttribute("msg")!=null){%>
 	   $('#myModal').modal('show');
@@ -152,5 +104,4 @@ font-weight: bold;
 	     });
   });
 </script>
-</body>
-</html>
+

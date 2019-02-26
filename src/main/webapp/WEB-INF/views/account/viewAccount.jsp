@@ -3,40 +3,17 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include page="../include.jsp"></jsp:include>
-<html>
+
+
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title="MEMBER ACCOUNT DETAILS ${msg }"/>
 <style>
 .resulttable{
 display:none;}
 </style>
-<head>
-</head>
-<body class="background">
-	<div class="breadcrumb-line">
-		<nav aria-label="breadcrumb" role="navigation">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><i class="fa fa-home"
-					aria-hidden="true"></i>&nbsp;<a href="#">Home</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Account</li>
-				<li class="breadcrumb-item active" aria-current="page">View</li>
-			</ol>
-		</nav>
-	</div>
-	<div class="col-md-12 col-sm-12 col-xs-12 ">
 
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>
-					<B>MEMBER ACCOUNT DETAILS ${msg }</B>
-				</h2>
-
-				<a href="insertaccount.click" class="btn btn-info pull-right btn-sm"
+				<a href="<spring:url value="/nav/account" />" class="btn btn-info pull-right btn-sm"
 					href="">Add New Account</a>
-
-
-				<div class="clearfix"></div>
-			</div>
-			<div class="x_content">
 			<div class="loader"><p>Loading Please Wait......</p></div>
 				<table id="datatable"
 					class="table jambo_table table-striped table-bordered resulttable"
@@ -74,9 +51,6 @@ display:none;}
 						
 					</tbody>
 				</table>
-			</div>
-		</div>
-	</div>
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
@@ -89,6 +63,7 @@ display:none;}
 			</div>
 		</div>
 	</div>
+	<tag:footer/>
 	<script type="text/javascript">
 	 $('#datatable').each(function() 
 				{
@@ -106,5 +81,4 @@ display:none;}
 	<%}%>
 		$('#example').DataTable();
 	</script>
-</body>
-</html>
+

@@ -3,36 +3,10 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include page="../../include.jsp"></jsp:include>
-<spring:url value="/operation/assignsubjects" var="formUrl" />
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title="ASSIGN COMMON SUBJECTS"/>
+			<spring:url value="/operation/assignsubjects" var="formUrl" />
 <spring:url value="/operation/assignOptionalSubjects" var="optSubUrl" />
-
-
-<body class="background">
-	<div class="breadcrumb-line">
-		<nav aria-label="breadcrumb" role="navigation">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><i class="fa fa-home"
-					aria-hidden="true"></i>&nbsp;<a href="#">Home</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Academic</li>
-				<li class="breadcrumb-item active" aria-current="page">Subjects</li>
-				<li class="breadcrumb-item active" aria-current="page">Assign
-					Subjects</li>
-			</ol>
-		</nav>
-	</div>
-	<div class="col-md-12 col-sm-12 col-xs-12">
-
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>ASSIGN COMMON SUBJECTS</h2>
-				<ul class="nav navbar-right panel_toolbox">
-					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-					</li>
-				</ul>
-				<div class="clearfix"></div>
-			</div>
-			<div class="x_content">
 				<form:form method="post" action="${formUrl }" id="form"
 					style="width: 100%">
 					<div>
@@ -91,10 +65,7 @@
 						</div>
 						</div>
 				</form:form>
-			</div>
-		</div>
-	</div>
-
+		<tag:footer/>
 	<div class="col-md-12 col-sm-12 col-xs-12">
 
 		<div class="x_panel">
@@ -117,6 +88,7 @@
 						<div class="col-md-4">
 							<h6>Subjects</h6>
 							<select class="form-control" name="optsubjectid">
+							<option value="">Select Subject</option>
 								<c:forEach items="${optsubjectlist }" var="s">
 									<option value="${s.subjectid }">${s.subjectCode }-${s.subjectname }</option>
 								</c:forEach>
@@ -248,4 +220,3 @@
     	scrollY:        '15vh'
 	});
 	</script>
-</body>

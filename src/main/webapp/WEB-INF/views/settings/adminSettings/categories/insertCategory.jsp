@@ -4,45 +4,8 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<jsp:include page="../../../include.jsp"></jsp:include>
-
-<html>
-<head>
-<style>
-h5 {
-	font-size: 80%;
-	font-weight: bold;
-}
-/* .borderless td, .borderless th {
-    border-bottom-style: hidden;
-     border-top-style: hidden;
-} */
-</style>
-</head>
-<body class="background">
-
-	<div class="breadcrumb-line">
-		<nav aria-label="breadcrumb" role="navigation">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><i class="fa fa-home"
-					aria-hidden="true"></i>&nbsp;<a href="#">Home</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Category</li>
-				<li class="breadcrumb-item active" aria-current="page">Add</li>
-			</ol>
-		</nav>
-	</div>
-	<div class="col-md-8 col-sm-8 col-xs-8">
-
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>ADD CATEGORY${msg }</h2>
-				<ul class="nav navbar-right panel_toolbox">
-					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-					</li>
-				</ul>
-				<div class="clearfix"></div>
-			</div>
-			<div class="x_content">
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title="ADD CATEGORY ${msg }"/>
 
 				<spring:url value="/category/add" var="formUrl" />
 
@@ -87,9 +50,6 @@ h5 {
 						</tbody>
 					</table>
 				</form:form>
-			</div>
-		</div>
-	</div>
 	<div class="col-md-12 col-sm-12 col-xs-12">
 
 		<div class="x_panel">
@@ -133,25 +93,11 @@ h5 {
 	<div class="categorymodal"></div>
 
 	<jsp:include page="../../../msgmodal.jsp"></jsp:include>
-
+<tag:footer/>
 	<script type="text/javascript">
 	$(document).ready(function(){
 		 $('#categorytbl').DataTable();
-		/*  $('#categorytbl').DataTable( {
-		        
-		        "ajax": "getCategoriesDetail.click",
-		        "columns":[
-		        	{"data":"categoryId"},
-		        	{"data":"categoryHead"},
-		        	{"data":"accountType"},
-		        	{  "targets": 1,
-		        	    "data": "categoryId",
-		        	    "render": function ( data, type, row, meta ) {
-		        	      return '<a  class="btn btn-default" data-toggle="confirmation" href="editCategory.update?id='+data+'">Edit</a>';
-		        	    }
-		        	},
-		        ]
-		    } ); */
+	
 		} );
 	$('.categoryid').click(function(){
 		var id=$(this).html();

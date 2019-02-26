@@ -2,45 +2,11 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<jsp:include page="../include.jsp"></jsp:include>
-<spring:url value="/account/createBulkAccounts" var="formUrl"></spring:url>
-<html>
-<head>
-<style>
-h5 {
-	font-size: 80%;
-	font-weight: bold;
-}
-</style>
-</head>
-<body class="background">
-	<div class="breadcrumb-line">
-		<nav aria-label="breadcrumb" role="navigation">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><i class="fa fa-home"
-					aria-hidden="true"></i>&nbsp;<a href="#">Home</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Account</li>
-				<li class="breadcrumb-item active" aria-current="page">Add
-					Account</li>
-			</ol>
-		</nav>
-	</div>
-	<div class="col-md-12 col-sm-12 col-xs-12">
-			<div class="col-md-8 col-xs-12">
-		<div class="x_panel">
-			<form:form class="form-horizontal form-label-left input_mask"
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title="CREATE NEW ACCOUNT"/>
+				<spring:url value="/account/createBulkAccounts" var="formUrl"></spring:url>
+						<form:form class="form-horizontal form-label-left input_mask"
 				action="${formUrl }">
-
-				<div class="x_title">
-					<h2>Add New Account</h2>
-					<div class="col-md-4 col-sm-4 col-xs-12 pull-right">
-						<input type="text" id="membername"
-									class="form-control" name="membername"
-									value="" readonly >
-					</div>
-					<div class="clearfix"></div>
-				</div>
-				<div class="x_content">
 					<br />
 
 					<div class="form-group">
@@ -123,13 +89,9 @@ h5 {
 									class="form-control memberid" name="accountName" id="accountname" value="" readonly>
 						</div>
 					</div>
-				</div>
 			</form:form>
-		</div>
-							</div>
-	</div>
 	<jsp:include page="../msgmodal.jsp"></jsp:include>
-	
+	<tag:footer/>
 <script>
  $("#validate").click(function()
 		{
@@ -190,5 +152,4 @@ $("#categories").change(function()
 		});
 
 </script>
-</body>
-</html>
+

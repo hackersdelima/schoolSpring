@@ -1,29 +1,12 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include page="../include.jsp"></jsp:include>
-<spring:url value="/exam/getStudentsforAttendance" var="getStudents"/>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title="STUDENT ATTENDANCE LIST"/>
+				<spring:url value="/exam/getStudentsforAttendance" var="getStudents"/>
 <spring:url value="/exam/setStudentPresentdays" var="formUrl"/>
-<html>
-<head>
-<style>
-.workform input{
-	border:none;
-	width: 100%;
-	}
-	</style>
-</head>
-<body class="background">
-	<div class="col-md-12 col-sm-12 col-xs-12">
 <form:form action="${formUrl }" method="post" 
 					style="margin-top: 10px;" class="form" modelAttribute="examModel">
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>STUDENT ATTENDANCE</h2>
-				<div class="clearfix"></div>
-			</div>
-			<div class="x_content">
-				
 					<div role="tabpanel" class="tab-pane" aria-labelledby="profile-tab">
 					<div class="form-group">
 						<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
@@ -75,17 +58,14 @@
 					</div>
 					
 				
-			</div>
-		</div>
 			<div class="x_panel">
 			<div class="col-md-8" id="markstable"></div>
 			<div class="x_content">
 			</div>
 			</div>
 		</form:form>
-	</div>
 	<input type="hidden" value="${getStudents}" id="getstudents">
-	
+	<tag:footer/>
 	<script>
 	$(document).ready(function() {
 	
@@ -110,5 +90,3 @@
 		});
 	});
 	</script>
-</body>
-</html>

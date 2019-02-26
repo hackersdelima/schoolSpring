@@ -585,6 +585,22 @@ private void commonModels(Model model){
 		return "academics/subjects/assigned_subjects_std_count";
 	}
 	
+	@RequestMapping(value="/promotion")
+	public String promotion(Model model) {
+		List<FormDetails> classlist=studentDao.getAdmissionClass();
+	model.addAttribute("classlist",classlist);
+		return "student/promotion/promotion";
+	}
+	
+	@RequestMapping(value="/v/getClassStudents", method=RequestMethod.POST)
+	public String getClassStudents(@RequestParam("classid") String classid, Model model) {
+		System.out.println(classid);
+		List<StudentModel> list = studentDao.getStudents(classid);
+		System.out.println("list is"+list);
+	model.addAttribute("slist",list);
+		return "student/promotion/studentlist";
+	}
+	
 	
 }
 

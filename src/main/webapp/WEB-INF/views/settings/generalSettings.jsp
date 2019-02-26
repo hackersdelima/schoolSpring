@@ -3,32 +3,10 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include page="../include.jsp"></jsp:include>
-<html>
-<head>
-</head>
-<body class="hiddenscroll bgcolor background">
-
-	<div class="breadcrumb-line">
-		<nav aria-label="breadcrumb" role="navigation">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><i class="fa fa-home"
-					aria-hidden="true"></i>&nbsp;<a href="#">Settings</a></li>
-				<li class="breadcrumb-item active" aria-current="page">General
-					Settings</li>
-			</ol>
-		</nav>
-	</div>
-
-	<div class="col-md-8 col-xs-12">
-		<div class="x_panel">
-			<form method="post" action="<spring:url value="/operation/updateGeneralSetting"/>" class="form-horizontal form-label-left input_mask" >
-
-				<div class="x_title">
-					<h2>SYSTEM SETTINGS</h2>
-					<div class="clearfix"></div>
-				</div>
-				<div class="x_content">
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title="SYSTEM SETTINGS"/>
+							<form method="post" action="<spring:url value="/operation/updateGeneralSetting"/>" class="form-horizontal form-label-left input_mask" >
+				
 					<br />
 					<c:forEach items="${sessionScope.systemdetail}" var="sysdetail">
 						<div class="form-group">
@@ -50,11 +28,6 @@
 					</div>
 
 
-				</div>
 			</form>
-		</div>
-	</div>
 	<jsp:include page="../msgmodal.jsp"></jsp:include>
-	
-</body>
-</html>
+	<tag:footer/>

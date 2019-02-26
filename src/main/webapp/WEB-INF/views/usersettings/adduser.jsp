@@ -4,61 +4,8 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
-<jsp:include page="../include.jsp"></jsp:include>
-<html>
-<head>
-
-<style>
-
-.green {
-	color: green
-}
-
-.red {
-	color: red
-}
-
-.updatebtn {
-	display: none;
-}
-
-</style>
-</head>
-<body class="background">
-
-
-	<div class="breadcrumb-line">
-		<nav aria-label="breadcrumb" role="navigation">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><i class="fa fa-home"
-					aria-hidden="true"></i>&nbsp;<a href="#">Home</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Settings</li>
-				<li class="breadcrumb-item active" aria-current="page">User
-					Settings</li>
-				<li class="breadcrumb-item active" aria-current="page">Add
-					Users</li>
-			</ol>
-		</nav>
-	</div>
-
-
-
-
-	<div class="col-md-12 col-xs-12">
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>
-					<strong>ADD NEW USER</strong>
-				</h2>
-				<ul class="nav navbar-right panel_toolbox">
-					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-					</li>
-					<li><a class="close-link"><i class="fa fa-close"></i></a></li>
-				</ul>
-				<div class="clearfix"></div>
-			</div>
-			<div class="x_content">
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title="ADD NEW USER"/>
 
 				<form method="post" name="Form1">
 					<table class="table">
@@ -172,9 +119,6 @@
 						onclick="return OnButton2()">
 
 				</form>
-			</div>
-		</div>
-	</div>
 	<div class="col-md-12 col-xs-12">
 		<div class="x_panel">
 			<div class="x_title">
@@ -226,8 +170,7 @@
 
 		</div>
 	</div>
-
-
+<tag:footer/>
 	<script>
 		$(document).ready(function() {
 			
@@ -315,15 +258,8 @@
 			$('#myModal').modal('show');
 		</script>
 	</c:if>
-<!-- <script>
-$('.hash').on('keypress',function(e){
-	var value=$(this).val();
-	$('.hash').val('#'+value);
-});
-</script> -->
 
-    <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"
-        type="text/javascript"></script>
+
     <script type="text/javascript">
         $(function () {
             $('#branches').multiselect({
@@ -339,6 +275,3 @@ $('.hash').on('keypress',function(e){
             });
         });
     </script>
-</body>
-
-</html>

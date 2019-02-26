@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<jsp:include page="include.jsp"></jsp:include>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body class="background">
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title=""/>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -24,6 +18,4 @@
         </div>
     </div>
 </div>
-
-</body>
-</html>
+<tag:footer/>

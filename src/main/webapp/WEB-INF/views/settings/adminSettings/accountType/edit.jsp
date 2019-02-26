@@ -3,29 +3,8 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include page="../../../include.jsp"></jsp:include>
-
-<html>
-<head>
-<style>
-h5 {
-	font-size: 80%;
-	font-weight: bold;
-}
-</style>
-</head>
-<body class="background">
-	<div class="col-md-6 col-sm-6 col-xs-6">
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>UPDATE ACCOUNT TYPE</h2>
-				<ul class="nav navbar-right panel_toolbox">
-					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-					</li>
-				</ul>
-				<div class="clearfix"></div>
-			</div>
-			<div class="x_content">
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title="UPDATE ACCOUNT TYPE"/>
 			<spring:url value="/accountType/update" var="formUrl"/>
 				<form class="form-horizontal" method="post"
 					action="${formUrl }">
@@ -56,25 +35,11 @@ h5 {
 
 							</div>
 						</div>
-					<%-- 	<div class="form-group">
-							<div class="col-md-9 col-sm-9 col-xs-12 ">
-								<h5>Dr/Cr</h5>
-								<select name="drcr" class="form-control" required>
-									<option value="dr" <c:if test="${accountType.drcr eq 'dr' }">selected</c:if>>Dr.</option>
-									<option value="cr" <c:if test="${accountType.drcr eq 'cr' }">selected</c:if>>Cr.</option>
-								</select>
-							</div>
-						</div> --%>
-
 					</div>
 				</form>
-			</div>
-		</div>
-	</div>
+		<<tag:footer/>
 	<script>
 	$(".cm").click(function(){
 		return confirm('Confirm?')
 	});
 	</script> 
-</body>
-</html>

@@ -3,44 +3,8 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include page="../../include.jsp"></jsp:include>
-
-<html>
-	<head>
-		<style>
-		.tbltophead th{
-		text-align: center;}
-		</style>
-	
-	</head>
-
-<body class="background">
-
-	<div class="breadcrumb-line">
-		<nav aria-label="breadcrumb" role="navigation">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><i class="fa fa-home"
-					aria-hidden="true"></i>&nbsp;<a href="#">Home</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Settings</li>
-				<li class="breadcrumb-item active" aria-current="page">Academic</li>
-				<li class="breadcrumb-item active" aria-current="page">Subjects</li>
-			</ol>
-		</nav>
-	</div>
-	<div class="col-md-12 col-sm-12 col-xs-12">
-
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>ADD NEW SUBJECT</h2>
-				<ul class="nav navbar-right panel_toolbox">
-					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-					</li>
-				</ul>
-
-				<div class="clearfix"></div>
-
-			</div>
-			<div class="x_content">
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title="ADD NEW SUBJECT"/>
 			
 			<c:if test="${empty sub }">
 			<spring:url value="/operation/addsubject" var="formUrl"/>
@@ -93,9 +57,7 @@
 						</tbody>
 					</table>
 				</form:form>
-			</div>
-		</div>
-	</div>
+		<tag:footer/>
 	<div class="col-md-12 col-sm-12 col-xs-12">
 
 		<div class="x_panel">
@@ -163,5 +125,4 @@
 		});
 		
 	</script>
-	</body>
-	</html>
+	

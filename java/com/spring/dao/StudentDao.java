@@ -24,6 +24,8 @@ public interface StudentDao {
 	public StudentModel getStudentImage(int id);
 	
 	public StudentModel getStudentDetail(String classname, String section, String rollno);
+	
+	public List<StudentModel> getStudents(String classname);
 
 	public boolean updateStudent(StudentModel student);
 	public List<StudentModel> getLocalGuardian(int id);
@@ -36,4 +38,5 @@ public interface StudentDao {
 	public int getTotalTeacher();
 	public String getCurrentBranch();
 	public List<String> getStudentId(String classid, String section);
+	public void promoteStudent(String currentclass, String promotetoclass);
 }

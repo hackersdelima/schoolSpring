@@ -35,7 +35,7 @@ public class StudentController {
 
 	@Autowired
 	Generator generator;
-	
+
 	@Autowired
 	UploadDao uploadDao;
 
@@ -43,20 +43,19 @@ public class StudentController {
 	public String insert(@RequestParam("files") MultipartFile file, @ModelAttribute StudentModel student, Model model) {
 		System.out.println("reached");
 		int studentid = studentDao.insertStudent(student);
-		
-		String saveFileName ="";
-		//String fileLocation="F:/check"; //can be taken from database
-		String fileLocation="/usr/local/tomcat7/webapps/images/sagarmatha";
+
+		String saveFileName = "";
+		// String fileLocation="F:/check"; //can be taken from database
+		String fileLocation = "/usr/local/tomcat7/webapps/images/sagarmatha";
 
 		boolean otherStatus = studentDao.insertStudentOtherDetails(student, studentid);
 		if (otherStatus) {
 			model.addAttribute("msg", "Insert Successful");
 			if (!file.getOriginalFilename().isEmpty()) {
-				saveFileName=studentid+"ST"+".jpg";
+				saveFileName = studentid + "ST" + ".jpg";
 				uploadDao.upload(fileLocation, saveFileName, file);
-				
-			} 
-			else{
+
+			} else {
 				System.out.println("upload faileds");
 			}
 		}
@@ -66,185 +65,154 @@ public class StudentController {
 		}
 		return "student/studentRegistration";
 	}
-	
-	//For COmmon Attributes
-		@ModelAttribute
-		public void CommonModels(Model model){
-			model.addAttribute("language",studentDao.getLanguages());
-			model.addAttribute("interest", studentDao.SpecialInterest());
-			model.addAttribute("housegroup", studentDao.HouseGroup());
-			model.addAttribute("section", studentDao.getSection());
-			model.addAttribute("classlist", studentDao.getAdmissionClass());
-			model.addAttribute("dislist", studentDao.getDistricts());
-			model.addAttribute("disabledlist", studentDao.getDisabledType());
-			model.addAttribute("caste",studentDao.getCaste());
-			model.addAttribute("specialinterest",studentDao.SpecialInterest());
-		}
-		
-		@RequestMapping(value="/editStudent/{id}", method=RequestMethod.GET)
-		public String edit(@PathVariable int id, Model model)
-		{
-			StudentModel student=studentDao.getStudentDetail(id);
-			
-			List<StudentModel> localguardian=studentDao.getLocalGuardian(id);
-			
-			
-			//String image = generator.imageDownloadPath()+"/"+Integer.toString(id)+".png";
-			
-			model.addAttribute("student", student);
-			model.addAttribute("localguardian",localguardian);
-			model.addAttribute("studentid",id);
-			
-			return "student/editStudentRegistration";
-		}
-		
-		@RequestMapping(value="/studentImage")
-		public void studentImage(@RequestParam("id") int id, HttpServletResponse response, HttpServletRequest request) throws IOException{
-			System.out.println("student id called ="+id);	
-			try {
-				byte[] bytes=studentDao.getStudentImage(id).getImageData();
-			
-					System.out.println(bytes);
-					
-					FileOutputStream fos = new FileOutputStream("C:/Users/Sunil/Desktop/test.jpg");
-					 fos.write(bytes);
-			            fos.close();
-					response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-					
-					int length=bytes.length;
-					response.getOutputStream().write(bytes);
-					
-				} catch (Exception e) {
-					System.out.println(e);
-					e.printStackTrace();
-				}
-		}
-		@RequestMapping(value="/updateStudent/{id}")
-		public String update(@PathVariable String id,
-				@ModelAttribute StudentModel student, Model model)
-		{
-			System.out.println("id is "+id);
-			student.setStudentid(id);
 
-			System.out.println("reached herh");
-			boolean status=studentDao.updateStudent(student);
-			System.out.println(status);
-			return "redirect:/nav/listStudents";
+	// For COmmon Attributes
+	@ModelAttribute
+	public void CommonModels(Model model) {
+		model.addAttribute("language", studentDao.getLanguages());
+		model.addAttribute("interest", studentDao.SpecialInterest());
+		model.addAttribute("housegroup", studentDao.HouseGroup());
+		model.addAttribute("section", studentDao.getSection());
+		model.addAttribute("classlist", studentDao.getAdmissionClass());
+		model.addAttribute("dislist", studentDao.getDistricts());
+		model.addAttribute("disabledlist", studentDao.getDisabledType());
+		model.addAttribute("caste", studentDao.getCaste());
+		model.addAttribute("specialinterest", studentDao.SpecialInterest());
+	}
+
+	@RequestMapping(value = "/editStudent/{id}", method = RequestMethod.GET)
+	public String edit(@PathVariable int id, Model model) {
+		StudentModel student = studentDao.getStudentDetail(id);
+
+		List<StudentModel> localguardian = studentDao.getLocalGuardian(id);
+
+		// String image = generator.imageDownloadPath()+"/"+Integer.toString(id)+".png";
+
+		model.addAttribute("student", student);
+		model.addAttribute("localguardian", localguardian);
+		model.addAttribute("studentid", id);
+
+		return "student/editStudentRegistration";
+	}
+
+	@RequestMapping(value = "/studentImage")
+	public void studentImage(@RequestParam("id") int id, HttpServletResponse response, HttpServletRequest request)
+			throws IOException {
+		System.out.println("student id called =" + id);
+		try {
+			byte[] bytes = studentDao.getStudentImage(id).getImageData();
+
+			System.out.println(bytes);
+
+			FileOutputStream fos = new FileOutputStream("C:/Users/Sunil/Desktop/test.jpg");
+			fos.write(bytes);
+			fos.close();
+			response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+
+			int length = bytes.length;
+			response.getOutputStream().write(bytes);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			e.printStackTrace();
 		}
-		
-		
-		@RequestMapping(value="/studentName", method=RequestMethod.POST)
-		public void studentName(@RequestParam Map<String, String> requestParams, HttpServletResponse response) throws Exception
-		{
-			response.setContentType("text/plain");
-			PrintWriter out=response.getWriter();
-			String classname=requestParams.get("classname");
-			String section=requestParams.get("section");
-			String rollno = requestParams.get("rollno");
-			
-			StudentModel studentModel = studentDao.getStudentDetail(classname, section, rollno);
-			
-			if(studentModel!=null){
+	}
+
+	@RequestMapping(value = "/updateStudent/{id}")
+	public String update(@PathVariable String id, @ModelAttribute StudentModel student, Model model) {
+		System.out.println("id is " + id);
+		student.setStudentid(id);
+
+		System.out.println("reached herh");
+		boolean status = studentDao.updateStudent(student);
+		System.out.println(status);
+		return "redirect:/nav/listStudents";
+	}
+
+	@RequestMapping(value = "/studentName", method = RequestMethod.POST)
+	public void studentName(@RequestParam Map<String, String> requestParams, HttpServletResponse response)
+			throws Exception {
+		response.setContentType("text/plain");
+		PrintWriter out = response.getWriter();
+		String classname = requestParams.get("classname");
+		String section = requestParams.get("section");
+		String rollno = requestParams.get("rollno");
+
+		StudentModel studentModel = studentDao.getStudentDetail(classname, section, rollno);
+
+		if (studentModel != null) {
 			String studentname = studentModel.getStudentname();
-			
+
 			out.println(studentname);
-			}
-			else
-			{
-				out.println("Student Id Not Found");
-			}
-		
+		} else {
+			out.println("Student Id Not Found");
 		}
-		
-		@RequestMapping(value="/getClassStudents", method= RequestMethod.POST)
-		@ResponseBody
-		public String getStudentClassonSub(@RequestParam Map<String,String> requestParams,Model model) 
-		{
-			System.out.println("studentSubjects reached");
-			String classname=requestParams.get("classname");
-			String section=requestParams.get("section");
-			System.out.println(classname);
-			
-			
-			List<StudentModel> student=studentDao.getSpecificSubjects(classname,section);
-			System.out.println(student);
-			
-			model.addAttribute("student",student);
-			return "exam/setStudentSubjectMarks";
-		}
-		@RequestMapping(value="/deleteStudent/{id}")
-		public String deleteStudent(@PathVariable String id)
-		{
-			boolean status=studentDao.deleteStudent(id);
-			return "redirect:/nav/listStudents";
-		}
-		
-		
-		
-		
 
-		
-		@RequestMapping(value = "/photo_upload", method = RequestMethod.POST)
-		@ResponseBody
-		public String photoUpload(@RequestParam("file") CommonsMultipartFile[] file, @RequestParam("classid") String classid, @RequestParam("sectionid") String sectionid,  @RequestParam("rollno") String rollno, Model model, HttpSession session) throws IOException {
-			//operations
-			// Save file on system
-			StudentModel s=studentDao.getStudentDetail(classid, sectionid, rollno);
-			if(s!=null){
+	}
+
+	@RequestMapping(value = "/getClassStudents", method = RequestMethod.POST)
+	@ResponseBody
+	public String getStudentClassonSub(@RequestParam Map<String, String> requestParams, Model model) {
+		System.out.println("studentSubjects reached");
+		String classname = requestParams.get("classname");
+		String section = requestParams.get("section");
+		System.out.println(classname);
+
+		List<StudentModel> student = studentDao.getSpecificSubjects(classname, section);
+		System.out.println(student);
+
+		model.addAttribute("student", student);
+		return "exam/setStudentSubjectMarks";
+	}
+
+	@RequestMapping(value = "/deleteStudent/{id}")
+	public String deleteStudent(@PathVariable String id) {
+		boolean status = studentDao.deleteStudent(id);
+		return "redirect:/nav/listStudents";
+	}
+
+	@RequestMapping(value = "/photo_upload", method = RequestMethod.POST)
+	@ResponseBody
+	public String photoUpload(@RequestParam("file") CommonsMultipartFile[] file,
+			@RequestParam("classid") String classid, @RequestParam("sectionid") String sectionid,
+			@RequestParam("rollno") String rollno, Model model, HttpSession session) throws IOException {
+		// operations
+		// Save file on system
+		StudentModel s = studentDao.getStudentDetail(classid, sectionid, rollno);
+		if (s != null) {
 			s.setStudentid(s.getStudentid());
-			
-			}
-			 if (file != null && file.length > 0) {
-				 System.out.println(file.length+" file length");
-		            for (CommonsMultipartFile aFile : file){
-		                System.out.println("Saving file: " + aFile.getOriginalFilename());
-		                s.setImageName(aFile.getOriginalFilename());
-		                s.setImageData(aFile.getBytes());
-		                
-		                studentDao.insertImage(s);               
-		            }
-		        }
-			
-		
-		return "Upload Successful!";
-			
-		/*	StudentModel s=studentDao.getStudentDetail(classid, sectionid, rollno);
-			if(s!=null){
-			String studentid=s.getStudentid();
-			
-		
-			String saveFileName=null;
-			String fileLocation=null; 
-			if (!file.getOriginalFilename().isEmpty()) {
-				saveFileName=studentid+".png";
-				fileLocation=generator.imageUploadPath();
-				
-				//File upload location from database
-				 //can be taken from database
-				
-				//create folder if not exists
-				File uploadDir = new File(fileLocation);
-				if (!uploadDir.exists()) {
-					uploadDir.mkdir();
-				}
-				//upload file
-				BufferedOutputStream outputStream = new BufferedOutputStream(
-						new FileOutputStream(new File(fileLocation, saveFileName)));
-				outputStream.write(file.getBytes());
-				outputStream.flush();
-				outputStream.close();
 
-				return "file uploaded";
-			} else {
-				return "please select file";
+		}
+		if (file != null && file.length > 0) {
+			System.out.println(file.length + " file length");
+			for (CommonsMultipartFile aFile : file) {
+				System.out.println("Saving file: " + aFile.getOriginalFilename());
+				s.setImageName(aFile.getOriginalFilename());
+				s.setImageData(aFile.getBytes());
+
+				studentDao.insertImage(s);
 			}
-			}
-			else
-			{
-				return "Student Id Not Found!! Please Validate First";
-			}*/
-			
-			}
-		
-		
+		}
+
+		return "Upload Successful!";
+	}
+	
+	@RequestMapping(value="/promote", method=RequestMethod.POST)
+	@ResponseBody
+	public String promote(@RequestParam("currentclass") String currentclass,@RequestParam("promotetoclass") String promotetoclass
+			, @RequestParam("studentid") String[] studentid) {
+		String msg="";
+		try {
+		for(int i=0;i<studentid.length;i++) {
+		studentDao.promoteStudent(currentclass, promotetoclass);
+		}
+		msg="Students Promoted!";
+		}
+		catch (Exception e) {
+			System.out.println(e);
+			msg="Students Promotion Failed!";
+		}
+		return msg;
+	}
+
 }

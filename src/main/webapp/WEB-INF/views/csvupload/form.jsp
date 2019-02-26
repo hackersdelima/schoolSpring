@@ -1,26 +1,8 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include page="../include.jsp"></jsp:include>
-<html>
-<head>
-<style>
-.workform input {
-	border: none;
-	width: 100%;
-}
-</style>
-</head>
-<body class="background">
-
-	<div class="col-md-12 col-sm-12 col-xs-12">
-
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>Upload CSV</h2>
-				<div class="clearfix"></div>
-			</div>
-			<div class="x_content">
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title="UPLOAD CSV"/>
 			<spring:url value="/csv/upload" var="formUrl"/>
 				<form action="${formUrl }" style="margin-top: 10px;"
 					class="form" enctype="multipart/form-data" method="post">
@@ -57,8 +39,4 @@
 						</div>
 					</div>
 				</form>
-			</div>
-		</div>
-	</div>
-</body>
-</html>
+		<tag:footer/>

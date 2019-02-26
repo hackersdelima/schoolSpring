@@ -469,6 +469,25 @@ public class StudentDaoImpl implements StudentDao {
 			System.out.println(query);
 			return jdbcTemplate.query(query, new StudentMapper());
 		}
+		
+		public List<StudentModel> getStudents(String classname)
+		{
+			String query="select studentid,studentname,rollno from studentinfo where admissionclass="+classname+"";
+			System.out.println(query);
+			return jdbcTemplate.query(query, new StudentListMapper());
+		}
+		public static final class StudentListMapper implements RowMapper<StudentModel>{
+
+			@Override
+			public StudentModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+				StudentModel s=new StudentModel();
+				s.setStudentid(rs.getString("studentid"));
+				s.setStudentname(rs.getString("studentname"));
+				s.setRollno(rs.getString("rollno"));
+				return s;
+			}
+		}
+		
 		public boolean deleteStudent(String id)
 		{
 			
@@ -533,5 +552,11 @@ public class StudentDaoImpl implements StudentDao {
 			 query="select studentid from studentinfo where admissionclass='"+classid+"' and section='"+section+"'";
 			}
 			return jdbcTemplate.queryForList(query,String.class);
+		}
+
+		@Override
+		public void promoteStudent(String currentclass, String promotetoclass) {
+			String query = "update studentinfo set admissionclass="+promotetoclass+" where admissionclass="+currentclass+"";
+			jdbcTemplate.update(query);
 		}
 }

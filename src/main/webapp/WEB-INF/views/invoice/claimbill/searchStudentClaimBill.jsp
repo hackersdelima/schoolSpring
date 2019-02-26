@@ -1,20 +1,15 @@
 
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<jsp:include page="../../include.jsp"></jsp:include>
-<body class="background">
-
-	<div class="col-md-12 col-sm-12 col-xs-12">
-		<spring:url value="/nav/viewClaimBill/${id }" var="viewUrl"/>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title="STUDENT CLAIM BILL"/>
+				<spring:url value="/nav/viewClaimBill/${id }" var="viewUrl"/>
 		<spring:url value="/claimbill/save/${id }" var="saveUrl"/>
 		<form method="post" action="">
-			<div class="x_panel">
-				<div class="x_title">
-					<h2>Student Claim Bill Search</h2>
-					<input formaction="${viewUrl }" type="submit" class="btn btn-success" value="View">
+		<div class="col-md-12">
+		<input formaction="${viewUrl }" type="submit" class="btn btn-success" value="View">
 					<input formaction="${saveUrl }" type="submit" class="btn btn-success" value="Save">
-					<div class="clearfix"></div>
-				</div>
-				<div class="x_content">
+					</div>
+					<div class="col-md-12">
 					<label class="control-label col-md-2 col-sm-2 col-xs-12">Student
 						Id</label>
 					<div class="col-md-2 col-sm-2 col-xs-12">
@@ -38,8 +33,7 @@
 							<option value="12-Chaitra">12-Chaitra</option>
 						</select>
 					</div>
-				</div>
-			</div>
+					</div>
+			
 		</form>
-	</div>
-</body>
+<tag:footer/>

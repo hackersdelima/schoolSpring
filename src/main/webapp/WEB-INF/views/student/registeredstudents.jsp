@@ -3,41 +3,9 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include page="../include.jsp"></jsp:include>
-<html>
-<head>
-<style type="text/css">
-tfoot input {
-        width: 100%;
-        padding: 3px;
-        box-sizing: border-box;
-    }
-    </style></head>
-
-<body class="background">
-	<div class="breadcrumb-line">
-		<nav aria-label="breadcrumb" role="navigation">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><i class="fa fa-home"
-					aria-hidden="true"></i>&nbsp;<a href="#">Home</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Student</li>
-				<li class="breadcrumb-item active" aria-current="page">Student
-					List</li>
-			</ol>
-		</nav>
-	</div>
-	<div class="col-md-12 col-sm-12 col-xs-12">
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>REGISTERED STUDENTS</h2>
-				<ul class="nav navbar-right panel_toolbox">
-					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-					</li>
-				</ul>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title="STUDENTS LIST"/>
 				<a type="button" class="btn btn-info btn-sm pull-right" href="studentadmission.click">Add Student</a>
-				<div class="clearfix"></div>
-			</div>
-			<div class="x_content">
 
 				<table id="datatable-buttons"
 					class="table jambo_table table-striped table-bordered dt-responsive nowrap display"
@@ -88,9 +56,7 @@ tfoot input {
 						</c:forEach>
 					</tbody>
 				</table>
-			</div>
-		</div>
-	</div>
+		
 <div class="modal fade bs-example-modal-lg" id="studentDetailModal" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                       <div class="modal-content studentdetail">
@@ -101,7 +67,7 @@ tfoot input {
                     </div>
                   </div>
 	
-	
+		<tag:footer/>
 	<script>
 
 <%if(request.getAttribute("msg")!=null){%>
@@ -150,5 +116,4 @@ $(".viewdetail").click(function()
 		});
 });
 </script>
-</body>
-</html>
+
