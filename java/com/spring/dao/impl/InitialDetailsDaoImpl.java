@@ -5,7 +5,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.sql.DataSource;
+import javax.transaction.Transactional;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,14 +16,23 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.dao.InitialDetailsDao;
 import com.spring.model.DynamicData;
-import com.spring.model.ExamModel;
 import com.spring.model.FormDetails;
 import com.spring.model.Muncipality;
+import com.spring.model.RateModel;
 
 @Repository
+@Transactional
 public class InitialDetailsDaoImpl implements InitialDetailsDao {
 
 	private JdbcTemplate jdbcTemplate;
+	
+	private SessionFactory sessionFactory;
+	
+	 @Autowired
+	    public void setSessionFactory(SessionFactory sf) {
+	        this.sessionFactory = sf;
+	        
+	    }
 
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
@@ -149,6 +161,13 @@ public class InitialDetailsDaoImpl implements InitialDetailsDao {
 		d.setReporturl(rs.getString("reporturl"));
 		return d;
 	}
+	}
+	@Override
+	public boolean addRate(RateModel rm) {
+
+		Session session =this.sessionFactory.getCurrentSession();
+		session.saveOrUpdate(rm);
+		return true;
 	}
 
 }

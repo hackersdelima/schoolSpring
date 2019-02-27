@@ -28,7 +28,7 @@ public class DatabaseConnection {
 
 		DriverManagerDataSource bds = new DriverManagerDataSource();
 		bds.setDriverClassName("com.mysql.jdbc.Driver");
-		bds.setUrl("jdbc:mysql://localhost:3306/jadeja");
+		bds.setUrl("jdbc:mysql://localhost:3306/aranikodb");
 		bds.setUsername("root");
 		bds.setPassword("123456");
 
@@ -50,7 +50,7 @@ public class DatabaseConnection {
 	    public DataSource dataSource() {
 	        BasicDataSource dataSource = new BasicDataSource();
 	        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-	        dataSource.setUrl("jdbc:mysql://localhost:3306/jadeja");
+	        dataSource.setUrl("jdbc:mysql://localhost:3306/aranikodb");
 	        dataSource.setUsername("root");
 	        dataSource.setPassword("123456");
 	 

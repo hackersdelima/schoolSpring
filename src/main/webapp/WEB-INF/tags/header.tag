@@ -206,6 +206,7 @@
 										<li><a>Account Settings<span
 												class="fa fa-chevron-down"></span></a>
 											<ul class="nav child_menu">
+												<li><a href="<spring:url value="/nav/rateSetting"/>" >Rate Setting</a></li>
 												<li><a href="<spring:url value="/nav/category"/>" >Category</a></li>
 												<li><a href="<spring:url value="/nav/accountType"/>" >Account
 														Type</a></li>
