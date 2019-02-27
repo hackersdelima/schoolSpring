@@ -120,9 +120,11 @@ public class HomeController {
 		}
 	}
 
-	@RequestMapping(value = "/nouser")
-	@ResponseBody
-	public String nouser() {
-		return "No user Found";
+	@RequestMapping(value = "/nosession")
+	public String nouser(Model model) {
+		DynamicData d = initialDetailsDao.getDynamicDatas();
+		model.addAttribute("foldername", d.getFoldername());
+		model.addAttribute("msg", "Session Not Found!");
+		return "index";
 	}
 }
