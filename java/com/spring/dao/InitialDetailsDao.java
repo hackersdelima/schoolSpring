@@ -44,6 +44,8 @@ public interface InitialDetailsDao {
 	public DynamicData getDynamicDatas();
 
 	public boolean addRate(RateModel rm);
+
+	public List<RateModel> viewRate();
 	
 
 	

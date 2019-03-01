@@ -8,6 +8,9 @@
 			
 		
 			<spring:url value="/claimbill/viewClassClaimBill" var="formUrl"/>
+			
+		
+		
 			<button type="submit" class="btn btn-success" form="form">
 					<i class="fa fa-check"></i> Generate
 				</button>
@@ -23,7 +26,7 @@
 									id="month">
 									<option value="">Select Month</option>
 									<c:forEach items="${monthlist }" var="m">
-										<option value="${m.month }">${m.month }-${m.value }</option>
+										<option value="${m.month }-${m.value }">${m.month }-${m.value }</option>
 									</c:forEach>
 								</select></td>
 								

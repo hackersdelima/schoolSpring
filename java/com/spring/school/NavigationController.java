@@ -45,6 +45,7 @@ import com.spring.model.ExamModel;
 import com.spring.model.FeeModel;
 import com.spring.model.FormDetails;
 import com.spring.model.Muncipality;
+import com.spring.model.RateModel;
 import com.spring.model.StatementModel;
 import com.spring.model.StudentModel;
 
@@ -437,7 +438,7 @@ private void commonModels(Model model){
 		byte[] bytes=null;
 		JasperPrint jasperPrint,jasper;
 		
-		JasperReport jasperReport=JasperCompileManager.compileReport(reporturl+"/claimbill.jrxml");
+	   	JasperReport jasperReport=JasperCompileManager.compileReport(reporturl+"/claimbill.jrxml");
 		 
 		 JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl+"/studentdetails.jrxml");
 			
@@ -445,7 +446,7 @@ private void commonModels(Model model){
 		 
 		 Double previousReceivable=claimBillDao.calculatePreviousBalance(id);
 		 
-		ArrayList<ClaimBillModel> data=claimBillDao.getAllDetails(id, month);
+		 ArrayList<ClaimBillModel> data=claimBillDao.getAllDetails(id, month);
 		
 		if(data!=null) {
 		System.out.println(data.size()+"data size");
@@ -617,6 +618,10 @@ private void commonModels(Model model){
 	
 	@RequestMapping(value="/rateSetting")
 	public String rateSetting(Model model) {
+		System.out.println("rateSetting in nav called");
+		List<RateModel> list=initialDetailsDao.viewRate();
+		System.out.println(list+"list");
+		model.addAttribute("list",list);
 		return "settings/rateSetup";
 	}
 	

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.sql.DataSource;
 import javax.transaction.Transactional;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,8 +167,28 @@ public class InitialDetailsDaoImpl implements InitialDetailsDao {
 	public boolean addRate(RateModel rm) {
 
 		Session session =this.sessionFactory.getCurrentSession();
+	
+		/*String hql="update RateModel set ratevalue=:ratevalue where rateid=:rateid";
+		Query query=session.createQuery(hql);
+		query.setParameter("rateid", 1);
+		query.setParameter("ratevalue", rm.getRatevalue());
+		int result = query.executeUpdate();
+		System.out.println("Rows affected: " + result);*/
+		
+		rm.setRateid(1);
 		session.saveOrUpdate(rm);
 		return true;
 	}
+
+	
+	
+	@Override
+	public List<RateModel> viewRate() {
+		Session session =this.sessionFactory.getCurrentSession();
+		List<RateModel> list=session.createQuery("from RateModel").list();
+		System.out.println(list);
+		return list;
+	}
+
 
 }
