@@ -13,7 +13,6 @@ public class SessionHandler extends HandlerInterceptorAdapter{
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		System.out.println("-----session interceptor called-----------");
 		HttpSession session =request.getSession();
 		UserModel user = (UserModel)session.getAttribute("userDetail");
 		if(user!=null) {
@@ -21,8 +20,7 @@ public class SessionHandler extends HandlerInterceptorAdapter{
 			return true;
 		}
 		else {
-		System.out.println("user not found");
-		response.sendRedirect(request.getContextPath()+"/nouser");
+		response.sendRedirect(request.getContextPath()+"/nosession");
 		return false;
 		}
 	}
