@@ -12,8 +12,16 @@ private String imageName;
 private byte[] imageData;
 private Blob studentImage;
 FormDetails formdetail;
+private String status;
 
 
+public String getStatus() {
+	return status;
+}
+
+public void setStatus(String status) {
+	this.status = status;
+}
 
 public String getFormonth() {
 	return formonth;

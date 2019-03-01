@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.spring.dao.UploadDao;
+import com.spring.model.Status;
 import com.spring.model.UserModel;
 
 public class Utilities {
@@ -23,6 +24,13 @@ public class Utilities {
 			username=null;
 		}
 		return username;
+	}
+	
+	public Status getinititalstatus() {
+		Status s = new Status();
+		s.setId(1);
+		s.setName("Live/Regular");
+		return s;
 	}
 }
 

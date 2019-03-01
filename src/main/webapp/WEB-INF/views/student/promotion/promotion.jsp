@@ -31,6 +31,16 @@
 									</c:forEach>
 								</select>
 							</div>
+							<div class="col-md-12">
+
+								<h6>Status</h6>
+								<select class="form-control" name="status">
+									<option value="">Select Status</option>
+									<c:forEach items="${status }" var="s">
+										<option value="${s.id }">${s.name }</option>
+									</c:forEach>
+								</select>
+							</div>
 						</div>
 						<div class="col-md-8" id="studentstbl">
 						</div>

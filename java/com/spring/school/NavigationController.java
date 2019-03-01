@@ -3,11 +3,8 @@ package com.spring.school;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
@@ -46,9 +43,10 @@ import com.spring.model.FeeModel;
 import com.spring.model.FormDetails;
 import com.spring.model.Muncipality;
 import com.spring.model.StatementModel;
+import com.spring.model.Status;
 import com.spring.model.StudentModel;
+import com.spring.service.StatusService;
 
-import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -60,7 +58,6 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JasperViewer;
 
 @Controller
 @RequestMapping("/nav")
@@ -101,6 +98,9 @@ public class NavigationController {
 	
 	@Autowired
 	InitialDetailsDao initialDetailsDao;
+	
+	@Autowired
+	StatusService statusService;
 	
 	
 @ModelAttribute
@@ -602,6 +602,8 @@ private void commonModels(Model model){
 	@RequestMapping(value="/promotion")
 	public String promotion(Model model) {
 		List<FormDetails> classlist=studentDao.getAdmissionClass();
+		List<Status> status = statusService.findAll();
+		model.addAttribute("status",status);
 	model.addAttribute("classlist",classlist);
 		return "student/promotion/promotion";
 	}

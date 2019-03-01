@@ -28,8 +28,10 @@ import com.spring.dao.UploadDao;
 import com.spring.dao.UserDao;
 import com.spring.model.DynamicData;
 import com.spring.model.HibernateModel;
+import com.spring.model.Status;
 import com.spring.model.UserModel;
 import com.spring.service.HibernateService;
+import com.spring.service.StatusService;
 import com.spring.util.Utilities;
 
 @Controller
@@ -54,13 +56,28 @@ public class HomeController {
 	@Autowired
 	StudentDao studentDao;
 	
+	@Autowired
+	StatusService statusService;
+	
+	Utilities utilities = new Utilities();
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model, @ModelAttribute(value = "msg") String msg) {
+		Status status = utilities.getinititalstatus();
+		statusService.saveOrUpdate(status);
 		DynamicData d = initialDetailsDao.getDynamicDatas();
 		model.addAttribute("foldername", d.getFoldername());
 		model.addAttribute("msg", msg);
 		return "index";
 	}
+	
+	@RequestMapping(value = "/message", method = RequestMethod.GET)
+	public String message(Model model, @ModelAttribute(value = "msg") String msg) {
+		model.addAttribute("msg", msg);
+		return "message/message";
+	}
+	
+	
 
 	@RequestMapping(value = "/hibernate", method = RequestMethod.POST)
 	public boolean hibernate(Model model,@ModelAttribute HibernateModel hm) {

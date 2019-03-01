@@ -21,11 +21,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.dao.StudentDao;
 import com.spring.dao.UploadDao;
 import com.spring.extras.Generator;
+import com.spring.model.Status;
 import com.spring.model.StudentModel;
+import com.spring.service.StatusService;
 
 @Controller
 @RequestMapping("/student")
@@ -38,10 +41,14 @@ public class StudentController {
 
 	@Autowired
 	UploadDao uploadDao;
+	
+	@Autowired
+	StatusService statusService;
 
 	@RequestMapping(value = "/studentRegistration", method = RequestMethod.POST)
 	public String insert(@RequestParam("files") MultipartFile file, @ModelAttribute StudentModel student, Model model) {
 		System.out.println("reached");
+		student.setStatus("1");
 		int studentid = studentDao.insertStudent(student);
 
 		String saveFileName = "";
@@ -53,7 +60,7 @@ public class StudentController {
 			model.addAttribute("msg", "Insert Successful");
 			if (!file.getOriginalFilename().isEmpty()) {
 				saveFileName = studentid + "ST" + ".jpg";
-				uploadDao.upload(fileLocation, saveFileName, file);
+			//	uploadDao.upload(fileLocation, saveFileName, file);
 
 			} else {
 				System.out.println("upload faileds");
@@ -85,9 +92,8 @@ public class StudentController {
 		StudentModel student = studentDao.getStudentDetail(id);
 
 		List<StudentModel> localguardian = studentDao.getLocalGuardian(id);
-
-		// String image = generator.imageDownloadPath()+"/"+Integer.toString(id)+".png";
-
+		List<Status> status = statusService.findAll();
+model.addAttribute("status",status);
 		model.addAttribute("student", student);
 		model.addAttribute("localguardian", localguardian);
 		model.addAttribute("studentid", id);
@@ -122,7 +128,7 @@ public class StudentController {
 	public String update(@PathVariable String id, @ModelAttribute StudentModel student, Model model) {
 		System.out.println("id is " + id);
 		student.setStudentid(id);
-
+System.out.println("status is"+student.getStatus());
 		System.out.println("reached herh");
 		boolean status = studentDao.updateStudent(student);
 		System.out.println(status);
@@ -196,15 +202,19 @@ public class StudentController {
 
 		return "Upload Successful!";
 	}
+
 	
 	@RequestMapping(value="/promote", method=RequestMethod.POST)
-	@ResponseBody
 	public String promote(@RequestParam("currentclass") String currentclass,@RequestParam("promotetoclass") String promotetoclass
-			, @RequestParam("studentid") String[] studentid) {
+			,@RequestParam("status") int status, @RequestParam("studentid") String[] studentid, RedirectAttributes attributes) {
 		String msg="";
 		try {
+			if(promotetoclass.isEmpty() || promotetoclass==null) {
+				promotetoclass=currentclass;
+			}
 		for(int i=0;i<studentid.length;i++) {
-		studentDao.promoteStudent(currentclass, promotetoclass);
+			
+		studentDao.promoteStudent(currentclass, promotetoclass, status);
 		}
 		msg="Students Promoted!";
 		}
@@ -212,7 +222,15 @@ public class StudentController {
 			System.out.println(e);
 			msg="Students Promotion Failed!";
 		}
-		return msg;
+		attributes.addFlashAttribute("msg",msg);
+		
+		return "redirect:/message";
+	}
+	@RequestMapping(value = "/listStudents")
+	public String listStudents(Model model) {
+		List<StudentModel> list = studentDao.getAllStudents();
+		model.addAttribute("slist", list);
+		return "student/registeredstudents";
 	}
 
-}
+	}

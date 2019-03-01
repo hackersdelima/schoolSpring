@@ -53,6 +53,15 @@
 											</h6> <input type="text" class="form-control" name="studentname"
 											id="studentname" form="form" value="${student.studentname}" pattern="^[a-zA-Z ][a-zA-Z ]{1,30}"">
 										</td>
+										<td>
+											<h6>
+												<strong>Student Status</strong>
+											</h6> <select class="form-control" name="status" form="form" required>
+											<c:forEach items="${status }" var="status">
+											<option value="${status.id }" <c:if test="${status.id eq student.status }">selected</c:if>>${status.name }</option>
+											</c:forEach>
+											</select>
+										</td>
 									</tr>
 									<tr>
 										<td>

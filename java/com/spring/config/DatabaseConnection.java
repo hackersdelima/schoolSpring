@@ -22,19 +22,6 @@ public class DatabaseConnection {
 	 @Autowired
 	   private Environment env;
 	
-	@Bean
-	public DriverManagerDataSource getDataSource() {
-		System.out.println("reached datasource");
-
-		DriverManagerDataSource bds = new DriverManagerDataSource();
-		bds.setDriverClassName("com.mysql.jdbc.Driver");
-		bds.setUrl("jdbc:mysql://localhost:3306/aranikodb");
-		bds.setUsername("root");
-		bds.setPassword("123456");
-
-		return bds;
-	}
-	
 	  @Bean
 	    public LocalSessionFactoryBean sessionFactory() {
 		  System.out.println("reached Hibernate Datasource");

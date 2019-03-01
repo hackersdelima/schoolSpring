@@ -38,5 +38,5 @@ public interface StudentDao {
 	public int getTotalTeacher();
 	public String getCurrentBranch();
 	public List<String> getStudentId(String classid, String section);
-	public void promoteStudent(String currentclass, String promotetoclass);
+	public void promoteStudent(String currentclass, String promotetoclass, int status);
 }
