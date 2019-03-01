@@ -37,7 +37,7 @@ public class DatabaseConnection {
 	    public DataSource dataSource() {
 	        BasicDataSource dataSource = new BasicDataSource();
 	        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-	        dataSource.setUrl("jdbc:mysql://localhost:3306/aranikodb");
+	        dataSource.setUrl("jdbc:mysql://localhost:3306/jadeja");
 	        dataSource.setUsername("root");
 	        dataSource.setPassword("123456");
 	 

@@ -1,11 +1,12 @@
 package com.spring.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.spring.dao.UploadDao;
+import com.spring.model.Generaldetails;
 import com.spring.model.Status;
 import com.spring.model.UserModel;
 
@@ -26,11 +27,14 @@ public class Utilities {
 		return username;
 	}
 	
-	public Status getinititalstatus() {
+	public List<Object> getinititalstatus() {
+		List<Object> list = new ArrayList<Object>();
 		Status s = new Status();
 		s.setId(1);
 		s.setName("Live/Regular");
-		return s;
+		
+		list.add(s);
+		return list;
 	}
 }
 
