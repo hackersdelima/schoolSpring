@@ -52,7 +52,6 @@ public class StatusDaoImpl implements StatusDao{
 	@Override
 	public void saveOrUpdate(Status status) {
 		 Session session =this.sessionFactory.getCurrentSession();
-		 System.out.println("status is"+status);
 		 session.saveOrUpdate(status);
 	}
 

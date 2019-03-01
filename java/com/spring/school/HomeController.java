@@ -63,8 +63,8 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model, @ModelAttribute(value = "msg") String msg) {
-		Status status = utilities.getinititalstatus();
-		statusService.saveOrUpdate(status);
+		List<Object> initiallist= utilities.getinititalstatus();
+		operationDao.tablevaluessetup(initiallist);
 		DynamicData d = initialDetailsDao.getDynamicDatas();
 		model.addAttribute("foldername", d.getFoldername());
 		model.addAttribute("msg", msg);

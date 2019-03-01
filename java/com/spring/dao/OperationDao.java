@@ -6,9 +6,9 @@ import java.util.Map;
 import com.spring.model.Coursetbl;
 import com.spring.model.ExamModel;
 import com.spring.model.ExamTypeModel;
-import com.spring.model.FeeModel;
 import com.spring.model.FormDetails;
 import com.spring.model.GeneralDetailsModel;
+import com.spring.model.Status;
 import com.spring.model.Subjects;
 import com.spring.model.UserModel;
 
@@ -47,6 +47,9 @@ public interface OperationDao {
 	public List<Coursetbl> courseliststdcount();
 
 	public GeneralDetailsModel getGeneralDetails();
+	
+	
+	public void tablevaluessetup(List<Object> initiallist);
 
 
 	

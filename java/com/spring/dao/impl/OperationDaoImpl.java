@@ -19,12 +19,22 @@ import com.spring.model.ExamModel;
 import com.spring.model.ExamTypeModel;
 import com.spring.model.FormDetails;
 import com.spring.model.GeneralDetailsModel;
+import com.spring.model.Generaldetails;
+import com.spring.model.Status;
 import com.spring.model.StudentModel;
 import com.spring.model.Subjects;
 import com.spring.model.UserModel;
+import com.spring.service.GeneraldetailsService;
+import com.spring.service.StatusService;
 
 @Repository
 public class OperationDaoImpl implements OperationDao {
+	@Autowired
+	StatusService statusService;
+	
+	@Autowired
+	GeneraldetailsService generaldetailsService;
+	
 	private JdbcTemplate jdbcTemplate;
 
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -335,6 +345,11 @@ public class OperationDaoImpl implements OperationDao {
 			return g;
 		}
 	
+	}
+	@Override
+	public void tablevaluessetup(List<Object> initiallist) {
+		Status status = (Status) initiallist.get(0);
+		statusService.saveOrUpdate(status);
 	}
 	
 
