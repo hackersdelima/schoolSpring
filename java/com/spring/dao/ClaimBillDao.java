@@ -13,5 +13,6 @@ public interface ClaimBillDao {
 	public int saveClaimBill(String id,ClaimBillModel claimBillModel,String month,Double taxRate);
 	public boolean updateBalance(ClaimBillModel claimBillModel, String id,Double taxRate);
 	public Double calculatePreviousBalance(String id);
+	public boolean updateSuspenceAccount(Double suspenseReceival);
 	
 }

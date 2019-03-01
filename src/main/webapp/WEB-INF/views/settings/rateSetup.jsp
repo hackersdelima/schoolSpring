@@ -7,7 +7,7 @@
 <tag:header title="ADD RATE DETAILS"/>
 				
 				<spring:url value="/initialDetails/rate/add" var="formUrl" />
-				<form:form class="form-horizontal" action="${formUrl }">
+				<form:form class="form-horizontal" action="${formUrl }" >
 				<input type="submit" class="btn btn-success" value="Save">
 			
 				<%-- 	<c:if test="${not empty fm.sclass}">

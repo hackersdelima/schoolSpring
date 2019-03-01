@@ -1,5 +1,6 @@
 package com.spring.school;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -237,6 +238,12 @@ public class InitialDetailsController {
 	public String addRate(Model model,@ModelAttribute RateModel rm) {
 		boolean status=initialDetailsDao.addRate(rm);
 		return "Saved";
+	}
+	
+	@RequestMapping(value="/rate/viewAll")
+	public String viewRate(Model model){
+		
+		return  null;
 	}
 	
 

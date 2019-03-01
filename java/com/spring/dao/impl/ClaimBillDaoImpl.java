@@ -242,7 +242,7 @@ private JdbcTemplate jdbcTemplate;
 		Double taxAmount=c.getTamount()*(taxRate/100);
 		
 		Double totalAmount=(c.getTamount()+c.getNamount())+taxAmount-c.getDiscountamount();
-		String query = "insert into generatedclaimbill (studentid, accountNumber, categoryId, taxableAmount, nonTaxableAmount,inputter, datetime,formonth,discountamount,total,taxAmount) values ('"+studentId+"','"+c.getAccountNumber()+"','"+c.getCategory().getCategoryId()+"','"+c.getTamount()+"','"+c.getNamount()+"','inputter',now(),'"+realpaymonth+"','"+c.getDiscountamount()+"','"+totalAmount+"','"+taxAmount+"')";
+		String query = "insert into generatedclaimbill (studentid, accountNumber, categoryId, taxableAmount, nonTaxableAmount,inputter, datetime,formonth,discountamount,total,taxAmount,isTaxable) values ('"+studentId+"','"+c.getAccountNumber()+"','"+c.getCategory().getCategoryId()+"','"+c.getTamount()+"','"+c.getNamount()+"','inputter',now(),'"+realpaymonth+"','"+c.getDiscountamount()+"','"+totalAmount+"','"+taxAmount+"','"+c.getTaxable()+"')";
 		System.out.println(query);
 		try {
 		return jdbcTemplate.update(query);
@@ -257,20 +257,26 @@ private JdbcTemplate jdbcTemplate;
 	public boolean updateBalance(ClaimBillModel c, String id,Double taxRate) {
 		
 		Double taxAmount=c.getTamount()*(taxRate/100);
-		Double totalAmount=(c.getTamount()+c.getNamount())+taxAmount-c.getDiscountamount();
+		Double totalAmount=(c.getTamount()+c.getNamount())+taxAmount-c.getDiscountamount();//100
+		System.out.println(totalAmount+"total Amount");
 		
 		String sql="update accountstbl set debitbal=debitbal+'"+totalAmount+"' where pid='"+id+"' and accountNumber='"+c.getAccountNumber()+"'";
+		System.out.println(sql);
 		int status=jdbcTemplate.update(sql);
 		
-		String sql1="update accountstbl set debitbal=debitbal+'"+taxAmount+"' where pid='"+id+"' and categoryid='12200'";
+		String query="update accountstbl set creditbal=creditbal+'"+totalAmount+"' where categoryId='12100'";
+		System.out.println(query);
+		int sta= jdbcTemplate.update(query);
+		
+		
+		
+		String sql1="update accountstbl set debitbal=debitbal+'"+taxAmount+"'where categoryid='12200'";
+		System.out.println(sql1);
 		int stat=jdbcTemplate.update(sql1);
 		
-		System.out.println(sql);
 		
-		if(status>0 && stat>0) {
-			return true;
-		}
-			
+		
+		
 		return false;
 	}
 
@@ -284,6 +290,16 @@ private JdbcTemplate jdbcTemplate;
 		}
 		System.out.println("previousReceivable "+previousReceivable);
 		return previousReceivable;
+	}
+
+	@Override
+	public boolean updateSuspenceAccount(Double suspenseReceival) {
+		String query="update accountstbl set creditbal=creditbal+'"+suspenseReceival+"' where categoryId='12100'";
+		int status= jdbcTemplate.update(query);
+		if(status>0) {
+			return true;
+		}
+		return false;
 	}
 	
 

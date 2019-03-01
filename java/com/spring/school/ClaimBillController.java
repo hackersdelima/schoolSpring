@@ -167,6 +167,10 @@ public class ClaimBillController {
 				}
 				
 			}
+			
+			
+			
+			
 			System.out.println(status);
 			if (status.size() > 0) {
 				if (status.contains(0)) {
@@ -197,7 +201,13 @@ public class ClaimBillController {
 		JasperPrint jasperPrint = null, jasper = null;
 		String classid = map.get("classid");
 		String section = map.get("sectionname");
-		String month = map.get("month");
+		String monthBoth = map.get("month");
+		
+		Double rate=13.00;
+		String[] monthnumvalarray=monthBoth.split("-");
+		String month = monthnumvalarray[0];
+		String monthval = monthnumvalarray[1];
+		
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		List<String> studentlist = studentDao.getStudentId(classid, section);
 
@@ -210,23 +220,42 @@ public class ClaimBillController {
 
 		System.out.println(studentlist.size());
 
-		ArrayList<StudentModel> smlist = new ArrayList<StudentModel>();
 
 		for (int i = 0; i < studentlist.size(); i++) {
-			ArrayList<ClaimBillModel> data = claimBillDao.getAllDetails(studentlist.get(i), month);
+		/*	ArrayList<ClaimBillModel> data = claimBillDao.getAllDetails(studentlist.get(i), month);
 			StudentModel sm = studentDao.getStudentDetail(Integer.parseInt(studentlist.get(i)));
 			smlist.add(sm);
+			*/
+			 
+			 Double previousReceivable=claimBillDao.calculatePreviousBalance(studentlist.get(i));
+			 
+			ArrayList<ClaimBillModel> data=claimBillDao.getAllDetails(studentlist.get(i), month);
+			
+			if(data!=null) {
+			System.out.println(data.size()+"data size");
+			if(data.size()>0) {
+			JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(data);
+			
+			StudentModel sm=studentDao.getStudentDetail(Integer.parseInt(studentlist.get(i)));
+			sm.setFormonth(monthval);
+			ArrayList<StudentModel> smlist=new ArrayList<StudentModel>();
+			smlist.add(sm);
+			 JRBeanCollectionDataSource subds=new JRBeanCollectionDataSource(smlist);
+			
 
-			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(data);
-			JRBeanCollectionDataSource subds = new JRBeanCollectionDataSource(smlist);
+			
 			parameters.put("dataSourceParam", subds);
 			parameters.put("subreportparam", jasperSubReport);
+			parameters.put("taxrate",rate);
+			  parameters.put("previousReceivable",previousReceivable);
 
 			jasper = JasperFillManager.fillReport(jasperReport, parameters, ds);
 
 			List pages = jasper.getPages();
 			JRPrintPage object = (JRPrintPage) pages.get(0);
 			jasperPrint.addPage(object);
+			}
+			}
 		}
 		bytes = JasperExportManager.exportReportToPdf(jasperPrint);
 		// JasperViewer.viewReport(jasperPrint);
@@ -238,5 +267,5 @@ public class ClaimBillController {
 		servletOutputStream.flush();
 		servletOutputStream.close();
 	}
-
+	
 }
