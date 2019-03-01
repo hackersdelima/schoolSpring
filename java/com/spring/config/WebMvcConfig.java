@@ -90,7 +90,7 @@ public class WebMvcConfig implements WebMvcConfigurer{
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new SessionHandler()).addPathPatterns("/nav/*");;
+	/*	registry.addInterceptor(new SessionHandler()).addPathPatterns("/nav/*");;*/
 		
 	}
 

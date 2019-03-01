@@ -46,6 +46,10 @@ public interface InitialDetailsDao {
 	public boolean addRate(RateModel rm);
 
 	public List<RateModel> viewRate();
+
+	public RateModel editRate(int id);
+	
+	public double getAcademicRate();
 	
 
 	

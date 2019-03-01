@@ -190,5 +190,20 @@ public class InitialDetailsDaoImpl implements InitialDetailsDao {
 		return list;
 	}
 
+	@Override
+	public RateModel editRate(int id) {
+		Session session =this.sessionFactory.getCurrentSession();
+		RateModel rm=(RateModel) session.get(RateModel.class, id);
+		return rm;
+	}
+
+	@Override
+	public double getAcademicRate() {
+		Session session =this.sessionFactory.getCurrentSession();
+		RateModel rm=(RateModel) session.get(RateModel.class, 1);
+		return Double.parseDouble(rm.getRatevalue());
+		
+	}
+
 
 }

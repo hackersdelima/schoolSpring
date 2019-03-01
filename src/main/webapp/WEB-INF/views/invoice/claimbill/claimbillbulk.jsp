@@ -4,12 +4,12 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
-<tag:header title="BLUCK CLAIM BILL"/>
+<tag:header title="BULK CLAIM BILL"/>
 			
 		
-			<spring:url value="/claimbill/viewClassClaimBill" var="formUrl"/>
 			
-		
+			<spring:url value="/claimbill/viewClassClaimBill" var="viewUrl"/>
+			<spring:url value="/claimbill/saveClassClaimBill/" var="saveUrl"/>
 		
 			<button type="submit" class="btn btn-success" form="form">
 					<i class="fa fa-check"></i> Generate
@@ -17,7 +17,10 @@
 		
 			
 				
-				<form:form action="${formUrl }" id="form">
+				<form:form action="" >
+				
+				<input formaction="${viewUrl }" type="submit" class="btn btn-success" value="View">
+					<input formaction="${saveUrl }" type="submit" class="btn btn-success" value="Save">
 				<table class="table">
 					<tbody>
 						<tr>

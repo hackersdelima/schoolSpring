@@ -242,9 +242,22 @@ public class InitialDetailsController {
 	
 	@RequestMapping(value="/rate/viewAll")
 	public String viewRate(Model model){
-		
-		return  null;
+		List<RateModel> list=initialDetailsDao.viewRate();
+		model.addAttribute("list",list);
+		return  "settings/rateSetup";
 	}
+	
+	@RequestMapping(value="/rate/edit/{id}")
+	public String editRate(Model model, @PathVariable int id)
+	{
+		RateModel rm=initialDetailsDao.editRate(id);
+		model.addAttribute("rm",rm);
+		List<RateModel> list=initialDetailsDao.viewRate();
+		model.addAttribute("list",list);
+		return "settings/rateSetup";
+	}
+	
+	
 	
 
 }
