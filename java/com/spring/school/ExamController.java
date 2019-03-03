@@ -29,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.dao.DateConverterDao;
 import com.spring.dao.ExamDao;
 import com.spring.dao.InitialDetailsDao;
+import com.spring.dao.OperationDao;
 import com.spring.dao.StudentDao;
 import com.spring.extras.GradeGenerator;
 import com.spring.model.DynamicData;
@@ -59,6 +60,9 @@ public class ExamController {
  DataSource dataSource;
 	@Autowired
 	StudentDao studentDao;
+	
+	@Autowired
+	OperationDao operationDao;
 	
 	@Autowired
 	DateConverterDao dateConverter;
@@ -623,6 +627,17 @@ catch (Exception e) {
 			return "Save Successfull";
 		}
 		return "Save unsuccessfull;";
-				
 	}
+	
+	
+	//----CONSOLIDATE
+	@RequestMapping(value="/consolidate/setform", method = RequestMethod.GET)
+	public String consolidateset(Model model) {
+		List<ExamModel> examlist =operationDao.getExamList();
+		System.out.println(examlist);
+		model.addAttribute("examlist",examlist);
+		
+		return "exam/consolidate/insert";
+	}
+	//-----------------------------------------
 }

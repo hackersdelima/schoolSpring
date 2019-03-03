@@ -17,11 +17,20 @@
 						</div>
 					</div>
 					<div class="ln_solid"></div>
+					<div class="form-group">
+						<label class="control-label col-md-2 col-sm-2 col-xs-12">School Code
+						</label>
+						<div class="col-md-5 col-sm-5 col-xs-12">
+							<input type="text"
+									class="form-control " name="code" value="${g.code }">
+						</div>
+					</div>
+						<div class="form-group">
 						<label class="control-label col-md-2 col-sm-2 col-xs-12">Name</label>
 						<div class="col-md-2 col-sm-2 col-xs-12">
 							 <input type="text" class="form-control memberid" name="name" value="${g.name }" >
 						</div>
-						
+						</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-md-2 col-sm-2 col-xs-12">Title
@@ -56,19 +65,15 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-md-2 col-sm-2 col-xs-12">Academic Date(NP)
+						<label class="control-label col-md-2 col-sm-2 col-xs-12">Academic Date
 						</label>
 						<div class="col-md-5 col-sm-5 col-xs-12">
-							<input type="text"
-									class="form-control " name="academicdate" value="${g.academicdate }">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-md-2 col-sm-2 col-xs-12">Academic Date(EN)
-						</label>
-						<div class="col-md-5 col-sm-5 col-xs-12">
-							<input type="text"
-									class="form-control " name="academicdateen" value="${g.academicdateen }" >
+						<select class="form-control" name="academicdates.id">
+						<option value="">Select Academic Date</option>
+						<c:forEach items="${academicdates }" var="a">
+							<option value="${a.id }" <c:if test="${a.id eq g.academicdates.id }">selected</c:if>>${a.academicdate } (${a.academicdateen })</option>
+						</c:forEach>
+						</select>
 						</div>
 					</div>
 			</form>

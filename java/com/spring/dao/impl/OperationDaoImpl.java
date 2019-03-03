@@ -62,7 +62,7 @@ public class OperationDaoImpl implements OperationDao {
 	}
 	public boolean insertTableDetail(String tablename,String columns, String value){
 		boolean status=false;
-		String sql="INSERT INTO "+tablename+" "+columns+"  VALUES ('"+value+"')";
+		String sql="INSERT INTO "+tablename+" "+columns+"  VALUES ("+value+")";
 		System.out.println(sql);
 		int i=jdbcTemplate.update(sql);
 		if(i>0){
@@ -112,7 +112,7 @@ public class OperationDaoImpl implements OperationDao {
 		}
 		}
 	public List<ExamModel> getExamList(){
-		 String sql="select * from exam left join exam_type using(examtypeid)";
+		 String sql="select * from exam left join exam_type using(examtypeid)  where academicyear=(select academicdates_id from generaldetails where general_details_id=1);";
 		 try{
 			return jdbcTemplate.query(sql, new ExamList());
 		 }
