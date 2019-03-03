@@ -131,9 +131,7 @@ public class ClaimBillController {
 	public String save(@RequestParam Map<String, String> map, @PathVariable("id") String id, HttpServletRequest request)
 			throws JRException, IOException {
 
-		String branchid = "001";
-
-		Double taxRate = 13.00;
+		Double taxRate= initialDetailsDao.getAcademicRate();
 
 		String username = u.getSessionUsername(request);
 		String monthnumval = map.get("month");
@@ -203,7 +201,7 @@ public class ClaimBillController {
 		String section = map.get("sectionname");
 		String monthBoth = map.get("month");
 		
-		Double rate=13.00;
+		Double taxRate= initialDetailsDao.getAcademicRate();
 		String[] monthnumvalarray=monthBoth.split("-");
 		String month = monthnumvalarray[0];
 		String monthval = monthnumvalarray[1];
@@ -246,7 +244,7 @@ public class ClaimBillController {
 			
 			parameters.put("dataSourceParam", subds);
 			parameters.put("subreportparam", jasperSubReport);
-			parameters.put("taxrate",rate);
+			parameters.put("taxrate",taxRate);
 			  parameters.put("previousReceivable",previousReceivable);
 
 			jasper = JasperFillManager.fillReport(jasperReport, parameters, ds);
@@ -266,6 +264,74 @@ public class ClaimBillController {
 		servletOutputStream.write(bytes, 0, bytes.length);
 		servletOutputStream.flush();
 		servletOutputStream.close();
+	}
+	
+	
+	@RequestMapping("/saveClassClaimBill")
+	public void saveClassClaimBill(Model model,@RequestParam Map<String, String> map, HttpServletRequest request) {
+		
+
+		String classid = map.get("classid");
+		String section = map.get("sectionname");
+		String monthBoth = map.get("month");
+		String msg=null;
+		Double rate=13.00;
+		String[] monthnumvalarray=monthBoth.split("-");
+		String month = monthnumvalarray[0];
+		String monthval = monthnumvalarray[1];
+		Double taxRate= initialDetailsDao.getAcademicRate();
+		String username = u.getSessionUsername(request);
+		
+		
+		List<String> studentlist = studentDao.getStudentId(classid, section);
+		for(int i=0;i<studentlist.size();i++) {
+			
+			String id=studentlist.get(i);
+			ArrayList<ClaimBillModel> data = claimBillDao.getAllDetails(id, month);
+			System.out.println("Available Data " + data);
+			List<Integer> status = new ArrayList<Integer>();
+			System.out.println("id is" + id);
+			
+			if(data!=null) {
+				
+			
+			if (data.size() > 0) {
+
+				for (int j = 0; j < data.size(); j++) {
+					data.get(j).setInputter(username);
+					data.get(j).setGenerateduptpmonth(month);
+					// data.get(i).getStudent().setStudentid(id);
+				
+					//only inserted unique month
+					int save_status = claimBillDao.saveClaimBill(id, data.get(j), month, taxRate);
+					status.add(save_status);
+					
+					//if inserted update balance else dont
+					if(save_status>0) {
+					boolean stats=claimBillDao.updateBalance(data.get(j),id,taxRate);
+					}
+					
+				}
+				
+				
+				
+				
+				System.out.println(status);
+				if (status.size() > 0) {
+					if (status.contains(0)) {
+						
+						msg = "Data Upload Failed!";
+					} else {
+						msg = "Data Upload Successful!";
+					}
+				} else {
+					msg = "Data Upload Failed!";
+				}
+			} 
+			}else {
+				msg = "No Claimbill Data Found! Data Upload Failed";
+			}
+		}
 	}
 	
 }

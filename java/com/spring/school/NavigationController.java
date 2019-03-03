@@ -431,7 +431,7 @@ private void commonModels(Model model){
 		DynamicData d= initialDetailsDao.getDynamicDatas();
 		String reporturl = d.getReporturl();
 		
-		Double rate=13.00;
+		Double taxRate= initialDetailsDao.getAcademicRate();
 		String[] monthnumvalarray=monthnumval.split("-");
 		String month = monthnumvalarray[0];
 		String monthval = monthnumvalarray[1];
@@ -461,7 +461,7 @@ private void commonModels(Model model){
 		  
 		  parameters.put("subreportparam",jasperSubReport);
 		  parameters.put("dataSourceParam", subds);
-		  parameters.put("taxrate",rate);
+		  parameters.put("taxrate",taxRate);
 		  parameters.put("previousReceivable",previousReceivable);
 		  
 		  jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
