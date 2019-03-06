@@ -35,6 +35,7 @@ import com.spring.dao.StaffDao;
 import com.spring.dao.StudentDao;
 import com.spring.dao.UserDao;
 import com.spring.extras.Generator;
+import com.spring.model.Academicdates;
 import com.spring.model.ClaimBillModel;
 import com.spring.model.Coursetbl;
 import com.spring.model.DynamicData;
@@ -46,6 +47,7 @@ import com.spring.model.RateModel;
 import com.spring.model.StatementModel;
 import com.spring.model.Status;
 import com.spring.model.StudentModel;
+import com.spring.service.AcademicdatesService;
 import com.spring.service.StatusService;
 
 import net.sf.jasperreports.engine.JRException;
@@ -102,6 +104,9 @@ public class NavigationController {
 	
 	@Autowired
 	StatusService statusService;
+	
+	@Autowired
+	AcademicdatesService academicdatesService;
 	
 	
 @ModelAttribute
@@ -332,6 +337,8 @@ private void commonModels(Model model){
 	@RequestMapping(value="/bulkReportSearch")
 	public String bulkMarksReportSearch(Model model)
 	{
+		List<Academicdates> academicdates = academicdatesService.findAll();
+		model.addAttribute("academicdates",academicdates);
 		model.addAttribute("examlist",operationDao.getExamList());
 		return "exam/bulkReport";
 	}

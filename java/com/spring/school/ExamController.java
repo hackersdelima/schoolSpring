@@ -32,6 +32,8 @@ import com.spring.dao.InitialDetailsDao;
 import com.spring.dao.OperationDao;
 import com.spring.dao.StudentDao;
 import com.spring.extras.GradeGenerator;
+import com.spring.model.ConsolidateReportModel;
+import com.spring.model.Consolidatemarkssetting;
 import com.spring.model.DynamicData;
 import com.spring.model.ExamModel;
 import com.spring.model.ExamSummaryReportModel;
@@ -632,12 +634,104 @@ catch (Exception e) {
 	
 	//----CONSOLIDATE
 	@RequestMapping(value="/consolidate/setform", method = RequestMethod.GET)
-	public String consolidateset(Model model) {
+	public String consolidateset(@ModelAttribute("msg") String msg,Model model) {
 		List<ExamModel> examlist =operationDao.getExamList();
 		System.out.println(examlist);
+		model.addAttribute("examlist",examlist);
+		model.addAttribute("msg",msg);
+		System.out.println(msg);
+		return "exam/consolidate/insert";
+	}
+	
+	@RequestMapping(value="/consolidate/list", method = RequestMethod.GET)
+	public String consolidatelist(Model model) {
+		List<Consolidatemarkssetting> list =operationDao.getConsolidatemarkslist();
+		model.addAttribute("list",list);
+		
+		return "exam/consolidate/list";
+	}
+	
+	@RequestMapping(value="/consolidate/edit/{id}", method = RequestMethod.GET)
+	public String consolidateget(@PathVariable("id") int id, Model model) {
+		Consolidatemarkssetting consolidatemarkssetting = new Consolidatemarkssetting();
+		consolidatemarkssetting.setExamid(id);
+		Consolidatemarkssetting get = operationDao.getConsolidatemarks(consolidatemarkssetting);
+		model.addAttribute("c",get);
+		
+		List<ExamModel> examlist =operationDao.getExamList();
 		model.addAttribute("examlist",examlist);
 		
 		return "exam/consolidate/insert";
 	}
+	
+	@RequestMapping(value="/consolidate/set", method = RequestMethod.POST)
+	public String consolidatesave(@ModelAttribute Consolidatemarkssetting consolidatemarkssetting, RedirectAttributes rd) {
+		String msg="";
+		try {
+		operationDao.setConsolidate(consolidatemarkssetting);
+		msg= "Save Successful!";
+		}
+		catch (Exception e) {
+			System.out.println(e);
+			msg="Save Failed!";
+		}
+		System.out.println(msg);
+		rd.addFlashAttribute("msg", msg);
+		return "redirect: ../consolidate/setform";
+	}
+	
+	  @RequestMapping(value = "/consolidate/bulkreport", method = RequestMethod.POST)
+	  @ResponseBody
+	  public void consolidatebulkreport(HttpServletResponse response,@RequestParam Map<String, String> reqParam) throws JRException, IOException {
+	   
+	    Map<String ,Object> param2=new HashMap<String,Object>();
+	    String classname = reqParam.get("classid");
+		String section = reqParam.get("sectionid");
+		String academicdate = reqParam.get("academicdate");
+		try {
+			DynamicData d= initialDetailsDao.getDynamicDatas();
+			String reporturl = d.getReporturl();
+			Connection conn=null;
+		
+			//-----get consolidate marks list for all students
+		List<ConsolidateReportModel> consolidatemarks=examDao.getConsolidateReport(classname, section, academicdate);
+	    System.out.println(consolidatemarks);
+		
+		JasperPrint jasperPrint, jasper;
+	    
+			//----call report
+			JasperReport jasperReport=JasperCompileManager.compileReport(reporturl+"/examReports.jrxml");
+			 jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource.getConnection());
+			 JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl+"/examSummary.jrxml");
+
+			 param2.put("subreportparam",jasperSubReport);
+			for(int i=0;i<consolidatemarks.size();i++) {
+				conn = dataSource.getConnection();
+				System.out.println("reached");
+				
+				param2.put("studentid", consolidatemarks.get(i).getStudentModel().getStudentid());
+			  
+			    jasper= JasperFillManager.fillReport(jasperReport, param2, conn);
+			
+			    List pages=jasper.getPages();
+				JRPrintPage object=(JRPrintPage) pages.get(0);
+				jasperPrint.addPage(object);
+				conn.close();
+			}
+		
+			
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=Report.pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+	  
+	  
+	 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	  }
+	
 	//-----------------------------------------
 }

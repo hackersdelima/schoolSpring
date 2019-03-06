@@ -4,7 +4,8 @@
 
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
 <tag:header title="SET CONSOLIDATE MARKS"/>
-				<spring:url value="/consolidate/set" var="formUrl"/>
+<p style="color:red">${msg }</p>
+				<spring:url value="/exam/consolidate/set" var="formUrl"/>
 						<form:form class="form-horizontal form-label-left input_mask"
 				action="${formUrl }">
 					<br />
@@ -25,19 +26,17 @@
 									class="form-control" name="examid" required>
 									<option value="">Select Exam</option>
 									<c:forEach items="${examlist }" var="e">
-									<option value="${e.examid }">${e.examname }</option>
+									<option value="${e.examid }" <c:if test="${c.examid eq e.examid}">selected</c:if>>${e.examname }</option>
 									</c:forEach>
 									</select>
 						</div>
-						
 					</div>
-					
 					<div class="form-group">
 						<label class="control-label col-md-2 col-sm-2 col-xs-12">Theory %
 						</label>
 						<div class="col-md-2 col-sm-2 col-xs-12">
 							<input type="text"
-									class="form-control" name="theoryper">
+									class="form-control" name="thper" value="${c.thper }">
 						</div>
 					</div>
 					
@@ -46,10 +45,9 @@
 						</label>
 						<div class="col-md-2 col-sm-2 col-xs-12">
 							<input type="text"
-									class="form-control" name="practicalper">
+									class="form-control" name="prper" value="${c.prper }">
 						</div>
 					</div>
 			</form:form>
 	<tag:footer/>
-
 

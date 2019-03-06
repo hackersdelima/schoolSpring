@@ -2,6 +2,7 @@ package com.spring.dao;
 
 import java.util.List;
 
+import com.spring.model.ConsolidateReportModel;
 import com.spring.model.ExamModel;
 import com.spring.model.ExamSummaryReportModel;
 import com.spring.model.GradeModel;
@@ -40,5 +41,9 @@ public interface ExamDao {
 
 	public int insertStudentPresentDays(int examid, int studentid, int presentdays);
 	public void updateMarks(Subjects s, String exammarksid);
+	
+	
+	//--------CONSOLIDATE MARKS
+	public List<ConsolidateReportModel> getConsolidateReport(String classname, String section, String academicdate);
 
 }

@@ -8,8 +8,6 @@ public class ExamModel {
 	private List<String> studentidlist;
 	private ExamTypeModel examTypeModel;
 	private Subjects subjects;
-	
-	
 
 	public String getExammarksid() {
 		return exammarksid;

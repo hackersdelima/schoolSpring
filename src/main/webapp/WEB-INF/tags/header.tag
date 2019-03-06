@@ -277,6 +277,7 @@ table {
 												class="fa fa-chevron-down"></span></a>
 											<ul class="nav child_menu">
 												<li><a href="<spring:url value="/exam/consolidate/setform"/>">Set Consolidate Marks</a></li>
+												<li><a href="<spring:url value="/exam/consolidate/list"/>">Consolidate Marks List</a></li>
 											</ul></li>
 									<li><a>School Settings<span
 												class="fa fa-chevron-down"></span></a>
