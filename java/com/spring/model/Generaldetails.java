@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,16 +20,28 @@ public class Generaldetails {
 	@Id
 	@Column(name="general_details_id")
 	private int id;
-	
+	private String code;
 	private String name;
 	private String title;
 	private String address;
 	private BigInteger phone;
 	private String email;
 	
-	private String academicdate;
+	@OneToOne
+	Academicdates academicdates;
 	
-	private String academicdateen;
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public Academicdates getAcademicdates() {
+		return academicdates;
+	}
+	public void setAcademicdates(Academicdates academicdates) {
+		this.academicdates = academicdates;
+	}
 	public int getId() {
 		return id;
 	}
@@ -66,17 +79,4 @@ public class Generaldetails {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getAcademicdate() {
-		return academicdate;
-	}
-	public void setAcademicdate(String academicdate) {
-		this.academicdate = academicdate;
-	}
-	public String getAcademicdateen() {
-		return academicdateen;
-	}
-	public void setAcademicdateen(String academicdateen) {
-		this.academicdateen = academicdateen;
-	}
-	
 }

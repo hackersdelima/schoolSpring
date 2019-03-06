@@ -2,7 +2,6 @@ package com.spring.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.dao.ExamDao;
 import com.spring.dao.OperationDao;
+import com.spring.model.ConsolidateReportModel;
 import com.spring.model.ExamModel;
 import com.spring.model.ExamSummaryReportModel;
 import com.spring.model.ExamTypeModel;
@@ -231,6 +231,10 @@ public class ExamDaoImpl implements ExamDao {
 		public ExamSummaryReportModel mapRow(ResultSet rs, int rowNum) throws SQLException {
 			ExamSummaryReportModel esm = new ExamSummaryReportModel();
 			
+			esm.setConsolidate_prmarks(rs.getString("consolidate_prmarks"));
+			esm.setConsolidate_thmarks(rs.getString("consolidate_thmarks"));
+			esm.setObtprmarks(rs.getString("obtprmarks"));
+			esm.setObtthmarks(rs.getString("obtthmarks"));
 			esm.setTotal(rs.getString("fullmarks"));
 			esm.setTotal_obtained(rs.getString("obtfullmarks"));
 			esm.setPercentage(rs.getString("percentage"));
@@ -421,9 +425,6 @@ public class ExamDaoImpl implements ExamDao {
 		}
 		
 		return jdbcTemplate.query(query, new StudentidMapper());
-		
-			
-		
 	}
 	
 	public static final class StudentidMapper implements RowMapper<ExamModel> {
@@ -470,6 +471,62 @@ public class ExamDaoImpl implements ExamDao {
 	public void updateMarks(Subjects s, String exammarksid) {
 		String query="update exam_marks_tbl set thmarks='"+s.getThmarks()+"', prmarks='"+s.getPrmarks()+"', totalmarks=(thmarks+prmarks), totalgrade=getgrade(round((prmarks+thmarks)/(fullmarks_pr+fullmarks)*100)) where exammarksid='"+exammarksid+"'";
 		jdbcTemplate.update(query);
+	}
+	
+	
+	
+	//---------CONSOLIDATE MARKS
+	@Override
+	public List<ConsolidateReportModel> getConsolidateReport(String classname, String section, String academicdate) {
+		String query="";
+		if(section.isEmpty()) {
+			System.out.println(query);
+		 query="select *, exam_type.examtypename, studentinfo.studentname, studentinfo.admissionclass, studentinfo.section from exam_summary join studentinfo using(studentid) join exam using(examid) join exam_type on exam.examtypeid=exam_type.examtypeid where studentid in (select studentid from studentinfo where admissionclass="+classname+") and examid in (select examid from exam where academicyear="+academicdate+")";
+		}
+		else {
+			
+			 query="";
+			 System.out.println(query);
+		}
+		
+		return jdbcTemplate.query(query, new ConsolidateReportMapper());
+	}
+	
+	public static final class ConsolidateReportMapper implements RowMapper<ConsolidateReportModel> {
+
+		@Override
+		public ConsolidateReportModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+			ConsolidateReportModel c = new ConsolidateReportModel();
+			ExamSummaryReportModel esm = new ExamSummaryReportModel();
+			esm.setConsolidate_prmarks(rs.getString("consolidate_prmarks"));
+			esm.setConsolidate_thmarks(rs.getString("consolidate_thmarks"));
+			esm.setObtprmarks(rs.getString("obtprmarks"));
+			esm.setObtthmarks(rs.getString("obtthmarks"));
+			esm.setTotal(rs.getString("fullmarks"));
+			esm.setTotal_obtained(rs.getString("obtfullmarks"));
+			esm.setPercentage(rs.getString("percentage"));
+			esm.setTotaldays(rs.getString("totaldays"));
+			esm.setFinalgrade(rs.getString("finalgrade"));
+			esm.setFinalgpa(rs.getString("finalgpa"));
+			esm.setFinalresult(rs.getString("finalresult"));
+			esm.setPresentdays(rs.getString("presentdays"));
+			esm.setExamtypename(rs.getString("examtypename"));
+			esm.setStudentid(rs.getString("studentid"));
+			esm.setExamid(rs.getString("examid"));
+			
+			StudentModel  s = new StudentModel();
+			s.setAdmissionclass(rs.getString("admissionclass"));
+			s.setRollno(rs.getString("rollno"));
+			s.setSection(rs.getString("section"));
+			s.setStudentname(rs.getString("studentname"));
+			s.setStudentid(rs.getString("studentid"));
+			
+			c.setExamSummaryReportModel(esm);
+			c.setStudentModel(s);
+			
+			
+			return c;
+		}
 	}
 	
 		

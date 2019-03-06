@@ -93,7 +93,7 @@ public class OperationController {
 		else if(model.getExamtypename()!=null){
 			tablename="exam_type";
 			columns="(examtypename,description)";
-			value=model.getExamtypename()+"','"+model.getExamdescription();
+			value="'"+model.getExamtypename()+"','"+model.getExamdescription()+"'";
 		}
 		boolean status=operationDao.insertTableDetail(tablename,columns,value);
 		if(status){
@@ -120,7 +120,7 @@ public class OperationController {
 		else{
 		String tablename="subjectlist";
 		String columns="(subjectname,subjecttype,subjectCode, fullmarks, passmarks, fullmarks_pr, passmarks_pr)";
-		String value=sub.getSubjectname()+"','"+sub.getSubjecttype()+"','"+sub.getSubjectcode()+"','"+sub.getFullmarks()+"','"+sub.getPassmarks()+"','"+sub.getFullmarks_pr()+"','"+sub.getPassmarks_pr();
+		String value="'"+sub.getSubjectname()+"','"+sub.getSubjecttype()+"','"+sub.getSubjectcode()+"','"+sub.getFullmarks()+"','"+sub.getPassmarks()+"','"+sub.getFullmarks_pr()+"','"+sub.getPassmarks_pr()+"'";
 		boolean status=operationDao.insertTableDetail(tablename, columns, value);
 		if(status){
 			msg="Save Successful!";
@@ -140,7 +140,7 @@ public class OperationController {
 		String value="";
 		for(int i=0;i<subjectid.length;i++){
 			sub.setSubjectid(subjectid[i]);
-			value=subjectid[i]+"','"+sub.getClassid();
+			value="'"+subjectid[i]+"','"+sub.getClassid()+"'";
 			operationDao.insertTableDetail(tablename, columns, value);
 		}
 		String msg="Save Successful!";
@@ -154,8 +154,8 @@ public class OperationController {
 	@RequestMapping(value="/insertExam" ,method=RequestMethod.POST)
 	public String insertExam(@ModelAttribute ExamModel m,Model model){
 		String tablename="exam";
-		String columns="(examtypeid,examname,startdate,examcode)";
-		String value=m.getExamTypeModel().getExamtypeid() + "','"+ m.getExamname() + "','" + m.getStartdate() + "','"+m.getExamcode();
+		String columns="(examtypeid,examname,startdate,examcode,academicyear)";
+		String value="'"+m.getExamTypeModel().getExamtypeid() + "','"+ m.getExamname() + "','" + m.getStartdate() + "','"+m.getExamcode()+"', (select academicdates_id from generaldetails where general_details_id=1)";
 		String msg="";
 		boolean status=operationDao.insertTableDetail(tablename, columns, value);
 		if(status){

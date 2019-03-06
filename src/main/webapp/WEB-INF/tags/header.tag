@@ -210,8 +210,6 @@ table {
 								<li><a><i class="fa fa-sitemap"></i> Settings <span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="<spring:url value="/nav/generalSettings"/>">Office
-												Settings</a>
 										<li><a><span class="fa fa-chevron-down"></span>User</a>
 											<ul class="nav child_menu">
 
@@ -275,10 +273,17 @@ table {
 											
 
 									</ul></li>
+										<li><a>Exam Settings<span
+												class="fa fa-chevron-down"></span></a>
+											<ul class="nav child_menu">
+												<li><a href="<spring:url value="/exam/consolidate/setform"/>">Set Consolidate Marks</a></li>
+												<li><a href="<spring:url value="/exam/consolidate/list"/>">Consolidate Marks List</a></li>
+											</ul></li>
 									<li><a>School Settings<span
 												class="fa fa-chevron-down"></span></a>
 											<ul class="nav child_menu">
-												<li><a href="<spring:url value="/generaldetails/"/>">Basic Details</a></li>
+												<li><a href="<spring:url value="/generaldetails/"/>">General Details</a></li>
+												<li><a href="<spring:url value="/academicdates/"/>">Set Academic Dates</a></li>
 											</ul></li>
 											</ul></li>
 							</ul>

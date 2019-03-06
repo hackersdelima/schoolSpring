@@ -3,6 +3,7 @@ package com.spring.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.spring.model.Consolidatemarkssetting;
 import com.spring.model.Coursetbl;
 import com.spring.model.ExamModel;
 import com.spring.model.ExamTypeModel;
@@ -50,6 +51,13 @@ public interface OperationDao {
 	
 	
 	public void tablevaluessetup(List<Object> initiallist);
+	
+	public void setConsolidate(Consolidatemarkssetting consolidatemarkssetting);
+
+	public List<Consolidatemarkssetting> getConsolidatemarkslist();
+	
+	public Consolidatemarkssetting getConsolidatemarks(Consolidatemarkssetting consolidatemarkssetting);
+	
 
 
 	

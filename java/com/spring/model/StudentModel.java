@@ -1,6 +1,7 @@
 package com.spring.model;
 
 import java.sql.Blob;
+import java.util.Arrays;
 import java.util.List;
 
 public class StudentModel {
@@ -895,4 +896,49 @@ public void setInputter(String inputter) {
 	this.inputter = inputter;
 }
 
+@Override
+public String toString() {
+	return "StudentModel [entrydate=" + entrydate + ", studentid=" + studentid + ", admissiondate=" + admissiondate
+			+ ", admissiondateen=" + admissiondateen + ", legacyId=" + legacyId + ", studentname=" + studentname
+			+ ", sex=" + sex + ", smotherlanguage=" + smotherlanguage + ", sethinicgroup=" + sethinicgroup
+			+ ", sReligion=" + sReligion + ", dob=" + dob + ", doben=" + doben + ", differentlyabledYN="
+			+ differentlyabledYN + ", differentlyabledtype=" + differentlyabledtype + ", district=" + district
+			+ ", VdcMun=" + VdcMun + ", WardNo=" + WardNo + ", tole=" + tole + ", tempaddress=" + tempaddress
+			+ ", fathername=" + fathername + ", faddress=" + faddress + ", foffice=" + foffice + ", fposition="
+			+ fposition + ", fincome=" + fincome + ", fmobile=" + fmobile + ", ftelephone=" + ftelephone + ", femail="
+			+ femail + ", fephone=" + fephone + ", mothername=" + mothername + ", maddress=" + maddress + ", moffice="
+			+ moffice + ", mposition=" + mposition + ", mincome=" + mincome + ", mmobile=" + mmobile + ", mtelephone="
+			+ mtelephone + ", memail=" + memail + ", mephone=" + mephone + ", local1=" + local1 + ", localadd1="
+			+ localadd1 + ", localmob1=" + localmob1 + ", local2=" + local2 + ", localadd2=" + localadd2
+			+ ", localmob2=" + localmob2 + ", admissionclass=" + admissionclass + ", section=" + section + ", rollno="
+			+ rollno + ", housegroup=" + housegroup + ", oldschool=" + oldschool + ", reasonleav=" + reasonleav
+			+ ", hobby=" + hobby + ", specialinterest=" + specialinterest + ", inputter=" + inputter
+			+ ", relationtype1=" + relationtype1 + ", relationtype2=" + relationtype2 + ", birthcertificateno="
+			+ birthcertificateno + ", birthcertificateissuedby=" + birthcertificateissuedby
+			+ ", birthcertificateissueddate=" + birthcertificateissueddate + ", birthcertificateissueddateen="
+			+ birthcertificateissueddateen + ", fcitizenshipno=" + fcitizenshipno + ", fcitizenshipissuedby="
+			+ fcitizenshipissuedby + ", fcitizenshipissueddate=" + fcitizenshipissueddate
+			+ ", fcitizenshipissueddateen=" + fcitizenshipissueddateen + ", flicenseno=" + flicenseno
+			+ ", flicenseissuedby=" + flicenseissuedby + ", flicenseissueddate=" + flicenseissueddate
+			+ ", flicenseissueddateen=" + flicenseissueddateen + ", fofficialidno=" + fofficialidno
+			+ ", fofficialidissuedby=" + fofficialidissuedby + ", fofficialidissueddate=" + fofficialidissueddate
+			+ ", fofficialidissueddateen=" + fofficialidissueddateen + ", fvoteridno=" + fvoteridno
+			+ ", fvoteridissuedby=" + fvoteridissuedby + ", fvoteridissueddate=" + fvoteridissueddate
+			+ ", fvoteridissueddateen=" + fvoteridissueddateen + ", fpassportno=" + fpassportno + ", fpassportissuedby="
+			+ fpassportissuedby + ", fpassportissueddate=" + fpassportissueddate + ", fpassportissueddateen="
+			+ fpassportissueddateen + ", mcitizenshipno=" + mcitizenshipno + ", mcitizenshipissuedby="
+			+ mcitizenshipissuedby + ", mcitizenshipissueddate=" + mcitizenshipissueddate
+			+ ", mcitizenshipissueddateen=" + mcitizenshipissueddateen + ", mlicenseno=" + mlicenseno
+			+ ", mlicenseissuedby=" + mlicenseissuedby + ", mlicenseissueddate=" + mlicenseissueddate
+			+ ", mlicenseissueddateen=" + mlicenseissueddateen + ", mofficialidno=" + mofficialidno
+			+ ", mofficialidissuedby=" + mofficialidissuedby + ", mofficialidissueddate=" + mofficialidissueddate
+			+ ", mofficialidissueddateen=" + mofficialidissueddateen + ", mvoteridno=" + mvoteridno
+			+ ", mvoteridissuedby=" + mvoteridissuedby + ", mvoteridissueddate=" + mvoteridissueddate
+			+ ", mvoteridissueddateen=" + mvoteridissueddateen + ", mpassportno=" + mpassportno + ", mpassportissuedby="
+			+ mpassportissuedby + ", mpassportissueddate=" + mpassportissueddate + ", mpassportissueddateen="
+			+ mpassportissueddateen + ", formonth=" + formonth + ", slocalguardianid=" + slocalguardianid
+			+ ", localguardianname=" + localguardianname + ", localadd=" + localadd + ", relationtype=" + relationtype
+			+ ", localmob=" + localmob + ", imageName=" + imageName + ", imageData=" + Arrays.toString(imageData)
+			+ ", studentImage=" + studentImage + ", formdetail=" + formdetail + ", status=" + status + "]";
+}
 }

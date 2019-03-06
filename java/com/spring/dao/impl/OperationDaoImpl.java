@@ -7,19 +7,22 @@ import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
+import javax.transaction.Transactional;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.spring.dao.OperationDao;
+import com.spring.model.Consolidatemarkssetting;
 import com.spring.model.Coursetbl;
 import com.spring.model.ExamModel;
 import com.spring.model.ExamTypeModel;
 import com.spring.model.FormDetails;
 import com.spring.model.GeneralDetailsModel;
-import com.spring.model.Generaldetails;
 import com.spring.model.Status;
 import com.spring.model.StudentModel;
 import com.spring.model.Subjects;
@@ -28,6 +31,7 @@ import com.spring.service.GeneraldetailsService;
 import com.spring.service.StatusService;
 
 @Repository
+@Transactional
 public class OperationDaoImpl implements OperationDao {
 	@Autowired
 	StatusService statusService;
@@ -40,6 +44,13 @@ public class OperationDaoImpl implements OperationDao {
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+	
+	private SessionFactory sessionFactory;
+	 
+	 @Autowired
+	    public void setSessionFactory(SessionFactory sf) {
+	        this.sessionFactory = sf;
+	    }
 
 	@Autowired
 	private void setDataSource(DataSource dataSource) {
@@ -62,7 +73,7 @@ public class OperationDaoImpl implements OperationDao {
 	}
 	public boolean insertTableDetail(String tablename,String columns, String value){
 		boolean status=false;
-		String sql="INSERT INTO "+tablename+" "+columns+"  VALUES ('"+value+"')";
+		String sql="INSERT INTO "+tablename+" "+columns+"  VALUES ("+value+")";
 		System.out.println(sql);
 		int i=jdbcTemplate.update(sql);
 		if(i>0){
@@ -112,7 +123,7 @@ public class OperationDaoImpl implements OperationDao {
 		}
 		}
 	public List<ExamModel> getExamList(){
-		 String sql="select * from exam left join exam_type using(examtypeid)";
+		 String sql="select * from exam left join exam_type using(examtypeid)  where academicyear=(select academicdates_id from generaldetails where general_details_id=1);";
 		 try{
 			return jdbcTemplate.query(sql, new ExamList());
 		 }
@@ -351,12 +362,25 @@ public class OperationDaoImpl implements OperationDao {
 		Status status = (Status) initiallist.get(0);
 		statusService.saveOrUpdate(status);
 	}
-	
 
-	
+	@Override
+	public void setConsolidate(Consolidatemarkssetting consolidatemarkssetting) {
+		Session session =this.sessionFactory.getCurrentSession();
+		session.saveOrUpdate(consolidatemarkssetting);
+	}
 
+	@Override
+	public List<Consolidatemarkssetting> getConsolidatemarkslist() {
+		Session session =this.sessionFactory.getCurrentSession();
+		List<Consolidatemarkssetting> list = session.createQuery("from Consolidatemarkssetting").list();
+		return list;
+	}
 
-	
-
-
+	@Override
+	public Consolidatemarkssetting getConsolidatemarks(Consolidatemarkssetting consolidatemarkssetting) {
+		Session session =this.sessionFactory.getCurrentSession();
+		int id = consolidatemarkssetting.getExamid();
+		Consolidatemarkssetting consolidatemarkssetting1 = (Consolidatemarkssetting)session.get(Consolidatemarkssetting.class, id);
+		return consolidatemarkssetting1;
+	}
 }

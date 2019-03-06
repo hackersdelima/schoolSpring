@@ -1,9 +1,57 @@
 package com.spring.model;
 
 public class ExamSummaryReportModel {
-	private String studentid, examid, total_obtained, total, percentage, examname, startdate, examtypename, curdate,result;
-private String totaldays, presentdays, finalresult, finalgrade,finalgpa;
+	private String studentid, 
+	examid, 
+	total_obtained, 
+	total, percentage, 
+	examname, startdate, 
+	examtypename, 
+	curdate,
+	result;
+private String totaldays, 
+presentdays, 
+finalresult, 
+finalgrade,
+finalgpa,
+consolidate_prmarks,
+consolidate_thmarks,
+obtprmarks,
+obtthmarks;
 
+
+
+	public String getObtprmarks() {
+	return obtprmarks;
+}
+
+public void setObtprmarks(String obtprmarks) {
+	this.obtprmarks = obtprmarks;
+}
+
+public String getObtthmarks() {
+	return obtthmarks;
+}
+
+public void setObtthmarks(String obtthmarks) {
+	this.obtthmarks = obtthmarks;
+}
+
+	public String getConsolidate_prmarks() {
+	return consolidate_prmarks;
+}
+
+public void setConsolidate_prmarks(String consolidate_prmarks) {
+	this.consolidate_prmarks = consolidate_prmarks;
+}
+
+public String getConsolidate_thmarks() {
+	return consolidate_thmarks;
+}
+
+public void setConsolidate_thmarks(String consolidate_thmarks) {
+	this.consolidate_thmarks = consolidate_thmarks;
+}
 
 	public String getTotaldays() {
 	return totaldays;
@@ -129,8 +177,11 @@ public void setFinalgpa(String finalgpa) {
 	public String toString() {
 		return "ExamSummaryReportModel [studentid=" + studentid + ", examid=" + examid + ", total_obtained="
 				+ total_obtained + ", total=" + total + ", percentage=" + percentage + ", examname=" + examname
-				+ ", startdate=" + startdate + ", examtypename=" + examtypename + ", curdate=" + curdate + "]";
+				+ ", startdate=" + startdate + ", examtypename=" + examtypename + ", curdate=" + curdate + ", result="
+				+ result + ", totaldays=" + totaldays + ", presentdays=" + presentdays + ", finalresult=" + finalresult
+				+ ", finalgrade=" + finalgrade + ", finalgpa=" + finalgpa + ", consolidate_prmarks="
+				+ consolidate_prmarks + ", consolidate_thmarks=" + consolidate_thmarks + ", obtprmarks=" + obtprmarks
+				+ ", obtthmarks=" + obtthmarks + "]";
 	}
-	
 
 }
