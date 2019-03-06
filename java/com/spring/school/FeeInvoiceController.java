@@ -1,7 +1,12 @@
 package com.spring.school;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +16,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -19,9 +23,25 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.spring.dao.AccountDao;
 import com.spring.dao.CategoryDao;
 import com.spring.dao.FeeInvoiceDao;
+import com.spring.dao.InitialDetailsDao;
+import com.spring.dao.OperationDao;
 import com.spring.dao.StudentDao;
+import com.spring.model.DynamicData;
 import com.spring.model.FeeInvoiceModel;
+import com.spring.model.GeneralDetailsModel;
+import com.spring.model.PaymentVoucherAccountSingle;
+import com.spring.model.PaymentVoucherModel;
 import com.spring.model.StudentModel;
+import com.spring.util.Utilities;
+
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 @Controller
 @RequestMapping("/invoice")
@@ -34,12 +54,23 @@ public class FeeInvoiceController {
 	CategoryDao categoryDao;
 	@Autowired
 	FeeInvoiceDao feeInvoiceDao;
+	@Autowired
+	InitialDetailsDao initialDetailsDao;
+	@Autowired
+	OperationDao operationDao;
 
 	@Autowired
 	private StudentDao studentDao;
 	
 	@RequestMapping(value = "/add/{id}")
 	public String add(Model model, @PathVariable("id") String pid) {
+		
+		
+		Utilities u=new Utilities();
+		String word=u.numToWordFromJs(12);
+		
+		System.out.println(word);
+		
 		model.addAttribute("pid",pid);
 		model.addAttribute("scategory",accountDao.getStudentAccount(pid));
 		model.addAttribute("categorylist", categoryDao.getCategories());
@@ -131,5 +162,53 @@ public class FeeInvoiceController {
 		model.addAttribute("slist", list);
 		return "/invoice/studentList";
 	}
+	
+	
+/*	@RequestMapping(value="/viewPaymentVoucher/{id}")
+	public void viewPaymentVoucher(Model model, @PathVariable String id,HttpServletResponse response) throws Exception
+	{
+		DynamicData d = initialDetailsDao.getDynamicDatas();
+		String reporturl = d.getReporturl();
+		byte[] bytes=null;
+		JasperPrint jasperPrint,jasper;
+		
+			JasperDesign jd=JRXmlLoader.load(reporturl+"/paymentVoucher.jrxml");
+		
+		 JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl+"/paymentVoucherAccounts.jrxml");
+		 
+		 Map<String, Object> parameters=new HashMap<String, Object>();
+		 
+		For Initail Details Sub Report	
+		 
+		 JasperReport generalSubReport = JasperCompileManager.compileReport(reporturl+"/generalReport.jrxml");
+		 
+		 GeneralDetailsModel gdm=operationDao.getGeneralDetails();
+		 ArrayList<GeneralDetailsModel> gdlist= new ArrayList<GeneralDetailsModel>();
+		 gdlist.add(gdm);
+		
+		 JRBeanCollectionDataSource generalds=new JRBeanCollectionDataSource(gdlist);
+			parameters.put("generalDataSourceParam", generalds);
+			parameters.put("generalsubreportparam",generalSubReport);
+		
+			///------------------sub report-----------------
+			
+			
+			JasperReport jasperReport=JasperCompileManager.compileReport(jd);
+		 
+			
+			
+			jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,ds);
+		
+		
+			 bytes=JasperExportManager.exportReportToPdf(jasperPrint);
+			//JasperViewer.viewReport(jasperPrint);
+		  ServletOutputStream servletOutputStream = response.getOutputStream();
+		    response.setContentType("application/pdf");
+		    response.setContentLength(bytes.length);
+
+		    servletOutputStream.write(bytes, 0, bytes.length);
+		    servletOutputStream.flush();
+		    servletOutputStream.close();
+	}*/
 
 }

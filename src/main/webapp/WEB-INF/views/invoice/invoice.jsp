@@ -1,37 +1,36 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<spring:url value="/invoice/review" var="formUrl" />
+
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title="STUDENT ADMISSION"/>
+
 <jsp:include page="../include.jsp"></jsp:include>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Purchase Invoice</title>
+
+
 <link rel="stylesheet"
 	href="<spring:url value="/resources/css/invoice.css"/>" media="all" />
-<style>
-.displaynone {
-	display: none;
-}
 
-.itemdetailinput {
-	width: 10%;
-}
+<spring:url value="/invoice/review" var="formUrl" />
+<div id="notices">
+					<div class="form-group">
+						<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+							<a class="btn btn-danger" id="cancel"
+								href="<spring:url value="/invoice/search" />">Go Back</a>
+							<button class="btn btn-info" type="button" id="validate">Validate</button>
+							<a class="btn btn-danger" id="cancel"
+								href="<spring:url value="/invoice/cancel" />">Cancel</a>
+								 <input
+								type="submit" class="btn btn-success" value="Submit" form="form">
 
-.inputdetails {
-	width: 60%;
-	float: right;
-}
+						</div>
+					</div>
 
-.top {
-	width: 65%;
-	float: right;
-}
-</style>
-</head>
-<body class="background">
-	<form action="${formUrl }" method="post">
+					<div class="notice"></div>
+				</div>
+				
+			<div class="x_panel">
+	<form action="${formUrl }" method="post" id="form">
 	<input type="hidden" name="receivedby" value="${sessionScope.userDetail.username }">
 	
 		<div class="row">
@@ -125,40 +124,40 @@
 				<table border="0" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
+							<th>S. No.</th>
 							<th>Account Number </th>
 							<th>Category Id</th>
-							<th>Category Head</th>
-							<th class="desc" colspan="1">Working Balance</th>
-							<th class="desc" colspan="1">DISCOUNT</th>
-							<th class="total itemdetailinput " colspan="1">BALANCE</th>
+							<th colspan="2">Category Head</th>
+							
+							<th class="total itemdetailinput " colspan="2">BALANCE</th>
 
 						</tr>
 					</thead>
 					<tbody>
-						<%-- <c:choose></c:choose> --%>
-							<%-- <c:when test="${empty sessionScope.feeInvoice.charges}">	</c:when> --%>
+						<c:choose>
+							<c:when test="${empty sessionScope.feeInvoice.charges}">	
 							
-								<c:forEach items="${scategory }" var="s"></c:forEach>
+								<c:forEach items="${scategory }" var="s" varStatus="theCount">
 								
-								<%-- <c:if test="${empty s.workingBal }"> --%><%-- </c:if> --%>
+								<c:if test="${empty s.workingBal }"></c:if>
 								<tr id="tablerow">
+										<td>${theCount.count} </td>
 										<td><input type="text"
 										class="form-control" name="account" value="${s.accountNumber }"></td>
 										<td><input type="text"
 										class="form-control" name="category.categoryIdList" value="${s.categoryModel.categoryId }"></td>
-										<td><input type="text"
+										<td colspan="2"><input type="text" 
 										class="form-control" name="category.categoryHeadList" value="${s.categoryModel.categoryHead }"></td>
-										<td class="desc" colspan="1"><input type="text"
-										class="form-control one" name="charges" value="${s.workingBal }"></td>
-									<td class="desc" colspan="1"><input type="text"
-										class="form-control two" name="discount"
-										value=""></td>
-									<td class="total" colspan="1"><input
-										class="form-control balance" type="number" step="any" value=""
+										
+									<td class="total" colspan="2"><input
+										class="form-control balance" type="number" step="any" value="${s.debitBal }"
 										name="balance"></td>
 								</tr>
 								
-							<%-- <c:otherwise>
+								</c:forEach>
+								</c:when>
+								
+							<c:otherwise>
 								<c:forEach items="${sessionScope.feeInvoice.charges }"
 									var="desc" varStatus="descIndex">
 
@@ -186,7 +185,8 @@
 
 								</tr>
 								</c:forEach>
-							</c:otherwise> --%>
+							</c:otherwise>
+							</c:choose>
 						
 					</tbody>
 					<tfoot>
@@ -250,7 +250,7 @@
 							<td colspan="1">BALANCE DUE(Rs)</td>
 							<td><input name="balanceDue" id="balance-due" type="number"
 								step="any" class="form-control"
-								value="${sessionScope.feeInvoice.balanceDue }"></td>
+								value="${sessionScope.feeInvoice.balanceDue }" readonly></td>
 						</tr>
 						<tr>
 							<td colspan="2"></td>
@@ -266,21 +266,9 @@
 						</tr>
 					</tfoot>
 				</table>
+				
 
-				<div id="notices">
-					<div class="form-group">
-						<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-
-							<button class="btn btn-info" type="button" id="validate">Validate</button>
-							<a class="btn btn-danger" id="cancel"
-								href="<spring:url value="/invoice/cancel" />">Cancel</a> <input
-								type="submit" class="btn btn-success" value="Submit">
-
-						</div>
-					</div>
-
-					<div class="notice"></div>
-				</div>
+				
 
 				</main>
 			</div>
@@ -288,9 +276,14 @@
 			<div class="col-md-1"></div>
 		</div>
 	</form>
+	</div>
 	<script src="<spring:url value="/resources/js/dynamicpurchase.js"/>"></script>
 	<script src="<spring:url value="/resources/js/dateAction.js"/>"></script>
 	<script>
+	$(document).ready(function(){
+		 calculateSubTotal();
+	});
+	
 		$("table").on("change", "input", function() { /* //use event delegation */
 			var tableRow = $(this).closest("tr"); /* //from input find row */
 			var one = Number(tableRow.find(".one").val()); /* //get first textbox */
@@ -304,9 +297,7 @@
 			tableRow.find(".categoryHead").val(categoryHead);
 		});
 
-		$(document).on('blur', "input", function() {
-			calculateSubTotal();
-		});
+	
 		function calculateSubTotal() {
 			var sum = 0;
 			$(".balance").each(function() {
@@ -319,7 +310,7 @@ $("#studentid").blur(function(){
 	
 	
 });
-		$("#balance-due").focus(function() {
+		$("#amount-paid").keyup(function() {
 			var grandTotal = $("#number").val();
 			var amountPaid = $("#amount-paid").val();
 			var balanceDue = grandTotal - amountPaid;
@@ -327,6 +318,7 @@ $("#studentid").blur(function(){
 		});
 		 $("#validate").click(function()
 					{
+			
 					membername();
 					accountno();
 					}); 
@@ -383,6 +375,3 @@ $("#studentid").blur(function(){
 			};
 		
 	</script>
-</body>
-
-</html>

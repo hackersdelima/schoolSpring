@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.spring.dao.InitialDetailsDao;
 import com.spring.dao.OperationDao;
 import com.spring.dao.PaymentVoucherDao;
+import com.spring.model.DynamicData;
 import com.spring.model.GeneralDetailsModel;
 import com.spring.model.PaymentVoucherAccountSingle;
 import com.spring.model.PaymentVoucherModel;
@@ -45,6 +47,12 @@ public class PaymentVoucherController {
 	 DataSource dataSource;
 	@Autowired
 	OperationDao operationDao;
+	
+	@Autowired
+	InitialDetailsDao initialDetailsDao;
+	
+	
+
 
 	@RequestMapping(value = "/add")
 	@ResponseBody
@@ -87,21 +95,20 @@ public class PaymentVoucherController {
 	@RequestMapping(value="/viewPaymentVoucher/{id}")
 	public void viewPaymentVoucher(Model model, @PathVariable String id,HttpServletResponse response) throws Exception
 	{
+		DynamicData d = initialDetailsDao.getDynamicDatas();
+		String reporturl = d.getReporturl();
 		byte[] bytes=null;
 		JasperPrint jasperPrint,jasper;
 		
-			JasperDesign jd=JRXmlLoader.load("D://DigiNepal//schoolSpring//SchoolMgmt//reports//paymentVoucher.jrxml");
-		//JasperDesign jd=JRXmlLoader.load("/opt/tomcat/webapps/reports/paymentVoucher.jrxml");
+			JasperDesign jd=JRXmlLoader.load(reporturl+"/paymentVoucher.jrxml");
 		
-		 JasperReport jasperSubReport = JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//paymentVoucherAccounts.jrxml");
-		 //JasperReport jasperSubReport = JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/paymentVoucherAccounts.jrxml");
+		 JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl+"/paymentVoucherAccounts.jrxml");
 		 
 		 Map<String, Object> parameters=new HashMap<String, Object>();
 		 
 		/*For Initail Details Sub Report*/	
 		 
-		 JasperReport generalSubReport = JasperCompileManager.compileReport("D://DigiNepal//schoolSpring//SchoolMgmt//reports//generalReport.jrxml");
-		 //JasperReport generalSubReport = JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/generalReport.jrxml");
+		 JasperReport generalSubReport = JasperCompileManager.compileReport(reporturl+"/generalReport.jrxml");
 		 
 		 GeneralDetailsModel gdm=operationDao.getGeneralDetails();
 		 ArrayList<GeneralDetailsModel> gdlist= new ArrayList<GeneralDetailsModel>();
@@ -134,7 +141,6 @@ public class PaymentVoucherController {
 			
 			
 			JasperReport jasperReport=JasperCompileManager.compileReport(jd);
-		  //JasperReport jasperReport=JasperCompileManager.compileReport("/opt/tomcat/webapps/reports/trialbalancesummary.jrxml");
 		 
 			
 			

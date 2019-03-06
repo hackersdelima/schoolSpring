@@ -3,6 +3,10 @@ package com.spring.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -35,6 +39,28 @@ public class Utilities {
 		
 		list.add(s);
 		return list;
+	}
+	
+	public String numToWordFromJs(int number) {
+		
+		ScriptEngine engine=new ScriptEngineManager().getEngineByName("nashorn");
+		String s="";
+		try {
+			String jsPath="C://Users//Sunil//Desktop//numtoword.js";
+			engine.eval("load('"+jsPath+"')");
+			
+			Invocable inv = (Invocable) engine;
+			
+			 s=(String) inv.invokeFunction("inWords",number);
+			//inv.invokeMethod(cf, "inWords");
+			
+			
+		} catch (ScriptException | NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return s;
+		
 	}
 }
 

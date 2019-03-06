@@ -1,7 +1,24 @@
 package com.spring.model;
 
 public class AccountModel {
-private String  memberId, accountNumber,alternativeAccountId, accountName, inputter , previousAccountNumber,workingBal;
+private String  memberId, accountNumber,alternativeAccountId, accountName, inputter , previousAccountNumber,workingBal,debitBal,creditBal;
+
+
+
+public String getDebitBal() {
+	return debitBal;
+}
+public void setDebitBal(String debitBal) {
+	this.debitBal = debitBal;
+}
+public String getCreditBal() {
+	return creditBal;
+}
+public void setCreditBal(String creditBal) {
+	this.creditBal = creditBal;
+}
+
+
 
 
 

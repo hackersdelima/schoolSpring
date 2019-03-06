@@ -116,6 +116,8 @@ public class AccountDaoImpl implements AccountDao {
 
 			am.setAccountNumber(rs.getString("accountNumber"));
 			am.setWorkingBal(rs.getString("workingBal"));
+			am.setDebitBal(rs.getString("debitBal"));
+			
 			am.setAccountName(rs.getString("accountName"));
 			am.setAlternativeAccountId(rs.getString("alternativeAccountId"));
 			am.setMemberId(rs.getString("pid"));
