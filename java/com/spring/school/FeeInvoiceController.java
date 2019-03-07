@@ -1,5 +1,6 @@
 package com.spring.school;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -26,6 +28,7 @@ import com.spring.dao.FeeInvoiceDao;
 import com.spring.dao.InitialDetailsDao;
 import com.spring.dao.OperationDao;
 import com.spring.dao.StudentDao;
+import com.spring.model.AccountModel;
 import com.spring.model.DynamicData;
 import com.spring.model.FeeInvoiceModel;
 import com.spring.model.GeneralDetailsModel;
@@ -65,18 +68,53 @@ public class FeeInvoiceController {
 	@RequestMapping(value = "/add/{id}")
 	public String add(Model model, @PathVariable("id") String pid) {
 		
-		
-		Utilities u=new Utilities();
-		String word=u.numToWordFromJs(12);
-		
-		System.out.println(word);
-		
 		model.addAttribute("pid",pid);
 		model.addAttribute("scategory",accountDao.getStudentAccount(pid));
 		model.addAttribute("categorylist", categoryDao.getCategories());
 		return "invoice/invoice";
 	}
 
+	@RequestMapping(value="/viewInvoice/{id}")
+	public void viewInvoice(@PathVariable("id") String pid,@RequestParam("amountPaid") int amountPaid,HttpServletResponse response) throws Exception {
+		DynamicData d = initialDetailsDao.getDynamicDatas();
+		String reporturl = d.getReporturl();
+		byte[] bytes=null;
+		JasperPrint jasperPrint,jasper;
+		
+		System.out.println(amountPaid);
+		
+			
+		
+		 
+		 Map<String, Object> parameters=new HashMap<String, Object>();
+		 
+			
+		 List<AccountModel> data=accountDao.getStudentAccount(pid);
+			
+		 JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(data);
+			JasperDesign jd=JRXmlLoader.load(reporturl+"/invoice.jrxml");
+			JasperReport jasperReport=JasperCompileManager.compileReport(jd);
+			
+			parameters.put("amountPaid", amountPaid);
+			
+			Utilities util= new Utilities();
+			String amountInWord=util.numToWordFromJs(amountPaid);
+			parameters.put("amountPaidInWord",amountInWord);
+		 
+			jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,ds);
+		
+		
+			 bytes=JasperExportManager.exportReportToPdf(jasperPrint);
+			//JasperViewer.viewReport(jasperPrint);
+		  ServletOutputStream servletOutputStream = response.getOutputStream();
+		    response.setContentType("application/pdf");
+		    response.setContentLength(bytes.length);
+
+		    servletOutputStream.write(bytes, 0, bytes.length);
+		    servletOutputStream.flush();
+		    servletOutputStream.close();
+	}
+	
 	@RequestMapping(value = "/review")
 	public String review(@ModelAttribute FeeInvoiceModel feeInvoice, ModelMap model) {
 

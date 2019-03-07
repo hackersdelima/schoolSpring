@@ -115,8 +115,8 @@ public class AccountDaoImpl implements AccountDao {
 			CategoryModel cm = new CategoryModel();
 
 			am.setAccountNumber(rs.getString("accountNumber"));
-			am.setWorkingBal(rs.getString("workingBal"));
-			am.setDebitBal(rs.getString("debitBal"));
+			am.setWorkingBal(rs.getDouble("workingBal"));
+			am.setDebitBal(rs.getDouble("debitBal"));
 			
 			am.setAccountName(rs.getString("accountName"));
 			am.setAlternativeAccountId(rs.getString("alternativeAccountId"));

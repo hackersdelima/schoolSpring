@@ -10,10 +10,13 @@ import javax.script.ScriptException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.spring.model.Generaldetails;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import com.spring.model.Status;
 import com.spring.model.UserModel;
 
+@Component
 public class Utilities {
 	
 	
@@ -42,7 +45,7 @@ public class Utilities {
 	}
 	
 	public String numToWordFromJs(int number) {
-		
+		System.out.println("reached");
 		ScriptEngine engine=new ScriptEngineManager().getEngineByName("nashorn");
 		String s="";
 		try {

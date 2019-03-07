@@ -1,27 +1,16 @@
 package com.spring.model;
 
 public class AccountModel {
-private String  memberId, accountNumber,alternativeAccountId, accountName, inputter , previousAccountNumber,workingBal,debitBal,creditBal;
+private String  memberId, accountNumber,alternativeAccountId, accountName, inputter , previousAccountNumber;
 
+private double workingBal,debitBal,creditBal,amountPaid;
 
-
-public String getDebitBal() {
-	return debitBal;
+public double getAmountPaid() {
+	return amountPaid;
 }
-public void setDebitBal(String debitBal) {
-	this.debitBal = debitBal;
+public void setAmountPaid(double amountPaid) {
+	this.amountPaid = amountPaid;
 }
-public String getCreditBal() {
-	return creditBal;
-}
-public void setCreditBal(String creditBal) {
-	this.creditBal = creditBal;
-}
-
-
-
-
-
 private CategoryModel categoryModel;
 private AccountTypeModel accountTypeModel;
 private StudentModel studentModel;
@@ -82,17 +71,28 @@ public void setAccountTypeModel(AccountTypeModel accountTypeModel) {
 	this.accountTypeModel = accountTypeModel;
 }
 
-public String getWorkingBal() {
+
+
+
+
+public double getWorkingBal() {
 	return workingBal;
 }
-public void setWorkingBal(String workingBal) {
+public void setWorkingBal(double workingBal) {
 	this.workingBal = workingBal;
 }
-
-
-
-
-
+public double getDebitBal() {
+	return debitBal;
+}
+public void setDebitBal(double debitBal) {
+	this.debitBal = debitBal;
+}
+public double getCreditBal() {
+	return creditBal;
+}
+public void setCreditBal(double creditBal) {
+	this.creditBal = creditBal;
+}
 @Override
 public String toString() {
 	return "AccountModel [memberId=" + memberId + ", accountNumber=" + accountNumber + ", alternativeAccountId="

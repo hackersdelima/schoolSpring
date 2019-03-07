@@ -50,6 +50,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Controller
 @RequestMapping("/exam")
@@ -688,49 +689,47 @@ catch (Exception e) {
 	    String classname = reqParam.get("classid");
 		String section = reqParam.get("sectionid");
 		String academicdate = reqParam.get("academicdate");
-		try {
-			DynamicData d= initialDetailsDao.getDynamicDatas();
-			String reporturl = d.getReporturl();
-			Connection conn=null;
-		
-			//-----get consolidate marks list for all students
-		List<ConsolidateReportModel> consolidatemarks=examDao.getConsolidateReport(classname, section, academicdate);
-	    System.out.println(consolidatemarks);
-		
-		JasperPrint jasperPrint, jasper;
-	    
-			//----call report
-			JasperReport jasperReport=JasperCompileManager.compileReport(reporturl+"/examReports.jrxml");
-			 jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource.getConnection());
-			 JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl+"/examSummary.jrxml");
+		DynamicData d= initialDetailsDao.getDynamicDatas();
+		String reporturl = d.getReporturl();
 
-			 param2.put("subreportparam",jasperSubReport);
-			for(int i=0;i<consolidatemarks.size();i++) {
-				conn = dataSource.getConnection();
-				System.out.println("reached");
-				
-				param2.put("studentid", consolidatemarks.get(i).getStudentModel().getStudentid());
-			  
-			    jasper= JasperFillManager.fillReport(jasperReport, param2, conn);
-			
-			    List pages=jasper.getPages();
-				JRPrintPage object=(JRPrintPage) pages.get(0);
-				jasperPrint.addPage(object);
-				conn.close();
-			}
-		
-			
-	    response.setContentType("application/x-pdf");
-	    response.setHeader("Content-disposition", "inline; filename=Report.pdf");
+		//-----get consolidate marks list for all students
+List<ConsolidateReportModel> consolidatemarks=examDao.getConsolidateReport(classname, section, academicdate);
 
-	    final OutputStream outStream = response.getOutputStream();
-	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
-	  
-	  
-	 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(consolidatemarks);
+
+System.out.println(consolidatemarks);
+
+JasperPrint  jasper = null;
+byte[] bytes=null;
+   
+		//----call report
+		JasperReport jasperReport=JasperCompileManager.compileReport(reporturl+"/consolidateReport.jrxml");
+//		 JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl+"/examSummary.jrxml");
+//
+//		 param2.put("subreportparam",jasperSubReport);
+		
+			System.out.println("reached");
+			
+			System.out.println(consolidatemarks.get(1).getStudentModel().getStudentid());
+			
+			param2.put("studentid", consolidatemarks.get(1).getStudentModel().getStudentid());
+		  
+		    jasper= JasperFillManager.fillReport(jasperReport, param2, ds);
+		
+		   /* List pages=jasper.getPages();
+			JRPrintPage object=(JRPrintPage) pages.get(0);
+			jasper.addPage(object);*/
+		
+
+		    bytes = JasperExportManager.exportReportToPdf(jasper);
+			// JasperViewer.viewReport(jasperPrint);
+			ServletOutputStream servletOutputStream = response.getOutputStream();
+			response.setContentType("application/pdf");
+			response.setContentLength(bytes.length);
+
+			servletOutputStream.write(bytes, 0, bytes.length);
+			servletOutputStream.flush();
+			servletOutputStream.close();
 	  }
 	
 	//-----------------------------------------

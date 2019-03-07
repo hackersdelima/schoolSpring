@@ -11,15 +11,15 @@
 <link rel="stylesheet"
 	href="<spring:url value="/resources/css/invoice.css"/>" media="all" />
 
-<spring:url value="/invoice/review" var="formUrl" />
+<spring:url value="/invoice/viewInvoice/${pid}" var="formUrl" />
 <div id="notices">
 					<div class="form-group">
 						<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
 							<a class="btn btn-danger" id="cancel"
 								href="<spring:url value="/invoice/search" />">Go Back</a>
 							<button class="btn btn-info" type="button" id="validate">Validate</button>
-							<a class="btn btn-danger" id="cancel"
-								href="<spring:url value="/invoice/cancel" />">Cancel</a>
+							<a class="btn btn-danger" id="cancel"  
+								href="<spring:url value="/invoice/review" />">Review</a>
 								 <input
 								type="submit" class="btn btn-success" value="Submit" form="form">
 
@@ -44,43 +44,6 @@
 							<strong>STUDENT FEE INVOICE</strong>
 						</h2>
 					</center>
-					<hr>
-					
-					<div id="seller">
-						<div>
-							<span class="label label-default">From Date(English)*</span> <br>
-							<input type="text" maxlength="10" id="englishDate"
-								class="form-control date" name="fromDateEn"
-								value="${sessionScope.feeInvoice.fromDateEn }"
-								placeholder="yyyy-mm-dd">
-						</div>
-						<br>
-						<div>
-							<span class="label label-default ">From Date(Nepali)*</span> <br>
-							<input type="text" maxlength="10" id="nepaliDate"
-								name="fromDateNep" class="form-control date"
-								placeholder="yyyy-mm-dd"
-								value="${sessionScope.feeInvoice.fromDateNep }">
-						</div>
-					</div>
-					<div id="client">
-						<div>
-							<span class="label label-default ">To Date(English)*</span> <br>
-							<input type="text" maxlength="10" id="englishDate1"
-								class="form-control date" name="toDateEn"
-								placeholder="yyyy-mm-dd"
-								value="${sessionScope.feeInvoice.toDateEn }">
-						</div>
-						<br>
-						<div>
-							<span class="label label-default ">To Date(Nepali)*</span> <br>
-							<input type="text" maxlength="10" id="nepaliDate1"
-								name="toDateNep" class="form-control date"
-								placeholder="yyyy-mm-dd"
-								value="${sessionScope.feeInvoice.toDateNep }">
-						</div>
-						<br>
-					</div>
 
 				</header>
 				<main>
@@ -193,12 +156,12 @@
 
 						<tr>
 							<td colspan="4"></td>
-							<td colspan="1">SUB-TOTAL(Rs)</td>
+							<td colspan="1">TOTAL(Rs)</td>
 							<td><input class="form-control subtotal" type="number"
 								step="any" name="subTotal"
 								value="${sessionScope.feeInvoice.subTotal }" readonly></td>
 						</tr>
-						<tr>
+						<%-- <tr>
 							<td colspan="4"></td>
 							<td colspan="1"><span class="label label-default">Overall Discount
 									%*</span><br> <input name="discountPercentage" type="number"
@@ -210,15 +173,15 @@
 								value="0" name="discountAmount" type="number" step="any"
 								class="form-control discountAmount "
 								value="${sessionScope.feeInvoice.discountAmount }" readonly></td>
-						</tr>
-						<tr>
+						</tr> --%>
+						<%-- <tr>
 							<td colspan="4"></td>
 							<td colspan="1">TOTAL(Rs)</td>
 							<td><input class="form-control resulttotal" type="number"
 								step="any" name="total"
 								value="${sessionScope.feeInvoice.total }" readonly></td>
-						</tr>
-						<tr>
+						</tr> --%>
+						<%-- <tr>
 							<td colspan="4"></td>
 							<td colspan="1"><span class="label label-default">TAX
 									%*</span><br> <input name="taxPercentage" step="any"
@@ -230,14 +193,14 @@
 								class="form-control taxAmount"
 								value="${sessionScope.feeInvoice.taxAmount }"></td>
 						</tr>
-
-						<tr>
+ --%>
+						<%-- <tr>
 							<td colspan="4"></td>
 							<td colspan="1">GRAND TOTAL(Rs)</td>
 							<td><input name="grandTotal"  id="number" type="number"
 								step="any" class="form-control grandTotal"
 								value="${sessionScope.feeInvoice.grandTotal }" readonly></td>
-						</tr>
+						</tr> --%>
 						<tr>
 							<td colspan="4"></td>
 							<td colspan="1">AMOUNT PAID(Rs)</td>
@@ -277,7 +240,7 @@
 		</div>
 	</form>
 	</div>
-	<script src="<spring:url value="/resources/js/dynamicpurchase.js"/>"></script>
+	<script src="<spring:url value="/resources/js/numtowordold.js"/>"></script>
 	<script src="<spring:url value="/resources/js/dateAction.js"/>"></script>
 	<script>
 	$(document).ready(function(){
@@ -311,7 +274,7 @@ $("#studentid").blur(function(){
 	
 });
 		$("#amount-paid").keyup(function() {
-			var grandTotal = $("#number").val();
+			var grandTotal = $(".subtotal").val();
 			var amountPaid = $("#amount-paid").val();
 			var balanceDue = grandTotal - amountPaid;
 			$("#balance-due").val(balanceDue);
