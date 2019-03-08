@@ -2,6 +2,7 @@ package com.spring.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -11,11 +12,14 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.spring.dao.FeeInvoiceDao;
+import com.spring.model.AccountModel;
 import com.spring.model.FeeInvoiceModel;
+import com.spring.model.InvoiceModel;
 import com.spring.model.UserModel;
 
 @Repository
 public class FeeInvoiceDaoImpl implements FeeInvoiceDao {
+
 	private JdbcTemplate jdbcTemplate;
 
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -51,9 +55,9 @@ public class FeeInvoiceDaoImpl implements FeeInvoiceDao {
 		return jdbcTemplate.queryForObject(sql, String.class);
 	}
 
-	public boolean insertFeeInvoiceContent(FeeInvoiceModel f, int i) {
+	public boolean insertFeeInvoiceContent(String invoiceNo, List<AccountModel> list,int i) {
 		boolean status = false;
-		String sql = "insert into fee_invoice_content(categoryId, fee_amount, discount_amount, balance_amount, fee_invoice_id) values('"+f.getCategory().getCategoryIdList().get(i)+"','"+f.getCharges().get(i)+"','"+f.getDiscount().get(i)+"','"+f.getBalance().get(i)+"','"+f.getFee_invoice_id()+"')";
+		String sql = "insert into fee_invoice_content(categoryId, accountNo, amount, fee_invoice_id,invoiceNo) values('"+list.get(i).getCategoryModel().getCategoryId()+"','"+list.get(i).getAccountNumber()+"','"+list.get(i).getDebitBal()+"','"+invoiceNo+"','"+invoiceNo+"')";
 		System.out.println(sql);
 
 		int j = jdbcTemplate.update(sql);
@@ -79,4 +83,23 @@ public class FeeInvoiceDaoImpl implements FeeInvoiceDao {
 			return fm;
 		}
 	}
+
+	@Override
+	public boolean insertInvoice(InvoiceModel f) {
+		boolean status = false;
+		String sql = "insert into fee_invoice_tbl (studentid, invoiceNo, invoiceDateEn, invoiceDateNep,  total, amountPaid, balanceDue, inwords, remarks) values ('"
+				+ f.getStudent().getStudentid() + "','" + f.getInvoiceNo() + "','" + f.getInvoiceDateEn()
+				+ "','" + f.getInvoiceDate() + "','" + f.getTotal()+ "','" + f.getAmountPaid() + "','" + f.getBalanceDue() + "','"
+				+ f.getInwords() + "','" + f.getRemarks() + "')";
+		System.out.println(sql);
+
+		int i = jdbcTemplate.update(sql);
+
+		if (i > 0) {
+			status = true;
+		}
+		return status;
+	}
+
+	
 }

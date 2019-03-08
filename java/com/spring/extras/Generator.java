@@ -12,19 +12,16 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class Generator {
-private JdbcTemplate jdbcTemplate;
-	
+	private JdbcTemplate jdbcTemplate;
 
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
-	 
-	 @Autowired
-	 private void setDataSource(DataSource dataSource)
-	 {
-		 this.jdbcTemplate=new JdbcTemplate(dataSource);
-		 
-	 }
+
+	@Autowired
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
 	public String addHash(String givenValue){
 		String[] str=givenValue.split(",");
 		String result=null;
@@ -95,6 +92,57 @@ private JdbcTemplate jdbcTemplate;
 		}
 		
 		return transactionid;
+	}
+	
+	
+	public String invoiceIdGenerator() {
+
+		String invoiceNo="";
+		
+		DateFormat yy = new SimpleDateFormat("yy");
+		DateFormat mm = new SimpleDateFormat("MM");
+		DateFormat dd = new SimpleDateFormat("dd");
+		
+		Date currentDate=new Date();
+		System.out.println(yy.format(currentDate));
+		System.out.println(mm.format(currentDate));
+		System.out.println(dd.format(currentDate));
+		String day=dd.format(currentDate);
+		String month=mm.format(currentDate);
+		String yr=yy.format(currentDate);
+		
+		
+		String query="select invoiceNo from fee_invoice_tbl where invoiceNo LIKE '"+yr+month+day+"%' order by fee_invoice_id DESC;";
+		System.out.println(query);
+		try {
+			System.out.println(jdbcTemplate);
+		 invoiceNo= (String)jdbcTemplate.queryForObject(query, String.class);
+		 if(invoiceNo!=null) {
+				int number=0;
+				System.out.println(invoiceNo);
+				
+				String[] splitCode = invoiceNo.split(yr+month+day);
+				
+				System.out.println("tid"+splitCode[1]);
+				number=Integer.parseInt(splitCode[1]);
+				number++;
+				String num=String.format("%06d", number);
+				
+				invoiceNo = yr+month+day+num;
+				System.out.println(invoiceNo);
+				
+				}
+				
+				return invoiceNo;
+		}catch(Exception e){
+			System.out.println("caught"+e);
+			invoiceNo= yr+month+day+"001";
+			System.out.println(invoiceNo);
+			return invoiceNo;
+		}
+		
+		
+		
 	}
 
 }

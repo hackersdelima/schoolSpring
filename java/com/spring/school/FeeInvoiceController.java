@@ -1,6 +1,5 @@
 package com.spring.school;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,15 +24,16 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.spring.dao.AccountDao;
 import com.spring.dao.CategoryDao;
 import com.spring.dao.FeeInvoiceDao;
+import com.spring.dao.GeneratorDao;
 import com.spring.dao.InitialDetailsDao;
 import com.spring.dao.OperationDao;
 import com.spring.dao.StudentDao;
+import com.spring.extras.Generator;
 import com.spring.model.AccountModel;
 import com.spring.model.DynamicData;
 import com.spring.model.FeeInvoiceModel;
 import com.spring.model.GeneralDetailsModel;
-import com.spring.model.PaymentVoucherAccountSingle;
-import com.spring.model.PaymentVoucherModel;
+import com.spring.model.InvoiceModel;
 import com.spring.model.StudentModel;
 import com.spring.util.Utilities;
 
@@ -65,13 +65,36 @@ public class FeeInvoiceController {
 	@Autowired
 	private StudentDao studentDao;
 	
+	@Autowired
+	private GeneratorDao genDao;
+	
 	@RequestMapping(value = "/add/{id}")
 	public String add(Model model, @PathVariable("id") String pid) {
 		
+		model.addAttribute("invoiceNo",genDao.invoiceIdGenerator());
 		model.addAttribute("pid",pid);
 		model.addAttribute("scategory",accountDao.getStudentAccount(pid));
 		model.addAttribute("categorylist", categoryDao.getCategories());
 		return "invoice/invoice";
+	}
+	
+	@RequestMapping(value="/save/{id}")
+	@ResponseBody
+	public String saveInvoice(Model model,@PathVariable("id") String pid,@ModelAttribute InvoiceModel im) {
+		System.out.println("invoice Saving");
+		boolean invoiceSaveStatus = feeInvoiceDao.insertInvoice(im);
+		if (invoiceSaveStatus) {
+			String invoiceNo=im.getInvoiceNo();
+		
+		
+			List<AccountModel> listOfAccount=accountDao.getStudentAccount(pid);
+			
+			for(int i=0;i<listOfAccount.size();i++) {
+				feeInvoiceDao.insertFeeInvoiceContent(invoiceNo,listOfAccount, i);
+			}
+				return "Data Saved";
+		}
+		return "Saving Failed";
 	}
 
 	@RequestMapping(value="/viewInvoice/{id}")
@@ -79,14 +102,36 @@ public class FeeInvoiceController {
 		DynamicData d = initialDetailsDao.getDynamicDatas();
 		String reporturl = d.getReporturl();
 		byte[] bytes=null;
-		JasperPrint jasperPrint,jasper;
+		JasperPrint jasperPrint;
+		 Map<String, Object> parameters=new HashMap<String, Object>();
 		
 		System.out.println(amountPaid);
 		
-			
+		/*For Initail Details Sub Report*/	
+		 
+		 JasperReport generalSubReport = JasperCompileManager.compileReport(reporturl+"/generalReport.jrxml");
+		 
+		 GeneralDetailsModel gdm=operationDao.getGeneralDetails();
+		 ArrayList<GeneralDetailsModel> gdlist= new ArrayList<GeneralDetailsModel>();
+		 gdlist.add(gdm);
+		
+		 JRBeanCollectionDataSource generalds=new JRBeanCollectionDataSource(gdlist);
+			parameters.put("generalDataSourceParam", generalds);
+			parameters.put("generalsubreportparam",generalSubReport);
+		
+		
+	/*	For Student Details Sub Report*/	
+			 JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl+"/studentdetails.jrxml");
+			StudentModel sm=studentDao.getStudentDetail(Integer.parseInt(pid));
+			ArrayList<StudentModel> smlist=new ArrayList<StudentModel>();
+			smlist.add(sm);
+			 JRBeanCollectionDataSource subds=new JRBeanCollectionDataSource(smlist);
+			 
+			  parameters.put("subreportparam",jasperSubReport);
+			  parameters.put("dataSourceParam", subds);
 		
 		 
-		 Map<String, Object> parameters=new HashMap<String, Object>();
+	
 		 
 			
 		 List<AccountModel> data=accountDao.getStudentAccount(pid);
@@ -124,10 +169,9 @@ public class FeeInvoiceController {
 		return "invoice/printableInvoice";
 	}
 
-	@RequestMapping(value = "/save")
+	/*@RequestMapping(value = "/save")
 	@ResponseBody
-	public String save(HttpSession session, SessionStatus status) {
-		FeeInvoiceModel feeInvoice = (FeeInvoiceModel) session.getAttribute("feeInvoice");
+	public String save(HttpSession session, SessionStatus status,@ModelAttribute FeeInvoiceModel feeInvoice) {
 		System.out.println(feeInvoice+" Fee InVoice");
 		boolean invoiceSaveStatus = feeInvoiceDao.insertFeeInvoice(feeInvoice);
 		if (invoiceSaveStatus) {
@@ -178,7 +222,7 @@ public class FeeInvoiceController {
 		status.setComplete();
 		return "<h3>Data Save Failed!</h3>";
 		}
-	}
+	}*/
 
 	@RequestMapping(value = "/cancel")
 	@ResponseBody
@@ -202,51 +246,6 @@ public class FeeInvoiceController {
 	}
 	
 	
-/*	@RequestMapping(value="/viewPaymentVoucher/{id}")
-	public void viewPaymentVoucher(Model model, @PathVariable String id,HttpServletResponse response) throws Exception
-	{
-		DynamicData d = initialDetailsDao.getDynamicDatas();
-		String reporturl = d.getReporturl();
-		byte[] bytes=null;
-		JasperPrint jasperPrint,jasper;
-		
-			JasperDesign jd=JRXmlLoader.load(reporturl+"/paymentVoucher.jrxml");
-		
-		 JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl+"/paymentVoucherAccounts.jrxml");
-		 
-		 Map<String, Object> parameters=new HashMap<String, Object>();
-		 
-		For Initail Details Sub Report	
-		 
-		 JasperReport generalSubReport = JasperCompileManager.compileReport(reporturl+"/generalReport.jrxml");
-		 
-		 GeneralDetailsModel gdm=operationDao.getGeneralDetails();
-		 ArrayList<GeneralDetailsModel> gdlist= new ArrayList<GeneralDetailsModel>();
-		 gdlist.add(gdm);
-		
-		 JRBeanCollectionDataSource generalds=new JRBeanCollectionDataSource(gdlist);
-			parameters.put("generalDataSourceParam", generalds);
-			parameters.put("generalsubreportparam",generalSubReport);
-		
-			///------------------sub report-----------------
-			
-			
-			JasperReport jasperReport=JasperCompileManager.compileReport(jd);
-		 
-			
-			
-			jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,ds);
-		
-		
-			 bytes=JasperExportManager.exportReportToPdf(jasperPrint);
-			//JasperViewer.viewReport(jasperPrint);
-		  ServletOutputStream servletOutputStream = response.getOutputStream();
-		    response.setContentType("application/pdf");
-		    response.setContentLength(bytes.length);
 
-		    servletOutputStream.write(bytes, 0, bytes.length);
-		    servletOutputStream.flush();
-		    servletOutputStream.close();
-	}*/
 
 }

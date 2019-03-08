@@ -213,7 +213,7 @@ public class ClaimBillController {
 		
 	   	JasperReport jasperReport=JasperCompileManager.compileReport(reporturl+"/claimbill.jrxml");
 		 
-		 JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl+"/studentdetails.jrxml");
+		
 			
 		 Map<String, Object> parameters=new HashMap<String, Object>();
 		 
@@ -245,6 +245,8 @@ public class ClaimBillController {
 		 parameters.put("generalDataSourceParam", generalds);
 			parameters.put("generalsubreportparam",generalSubReport);
 		  
+			
+			 JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl+"/studentdetails.jrxml");
 		  
 		  parameters.put("subreportparam",jasperSubReport);
 		  parameters.put("dataSourceParam", subds);

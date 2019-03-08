@@ -4,11 +4,11 @@ import java.util.List;
 
 public class FeeInvoiceModel {
 	private StudentModel student;
-	private CategoryModel category;
 	private List<String> charges;
 	private List<String> discount;
 	private List<String> balance;
 	private List<String> account;
+	private CategoryModel category;
 	
 	public List<String> getAccount() {
 		return account;

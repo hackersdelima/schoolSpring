@@ -11,7 +11,7 @@
 <link rel="stylesheet"
 	href="<spring:url value="/resources/css/invoice.css"/>" media="all" />
 
-<spring:url value="/invoice/viewInvoice/${pid}" var="formUrl" />
+<spring:url value="/invoice/save/${pid}" var="formUrl" />
 <div id="notices">
 					<div class="form-group">
 						<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
@@ -19,7 +19,7 @@
 								href="<spring:url value="/invoice/search" />">Go Back</a>
 							<button class="btn btn-info" type="button" id="validate">Validate</button>
 							<a class="btn btn-danger" id="cancel"  
-								href="<spring:url value="/invoice/review" />">Review</a>
+								href="<spring:url value="/invoice/viewInvoice/${pid}" />">View</a>
 								 <input
 								type="submit" class="btn btn-success" value="Submit" form="form">
 
@@ -54,7 +54,7 @@
 						<h4 class="name">
 							<span class="label label-default">Invoice No*</span><input
 								type="text" class="form-control " name="invoiceNo"
-								value="${sessionScope.feeInvoice.invoiceNo }">
+								value="${invoiceNo }">
 						</h4>
 
 						<h4 class="name">
@@ -70,7 +70,7 @@
 								type="text" maxlength="10" id="billDateEnglish"
 								class="form-control date" name="invoiceDateEn"
 								placeholder="yyyy-mm-dd"
-								value="${sessionScope.feeInvoice.invoiceDateEn }">
+								>
 						</div>
 						<br>
 						<div class="date">
@@ -78,7 +78,7 @@
 								type="text" maxlength="10" id="billDateNepali"
 								name="invoiceDateNep" class="form-control date"
 								placeholder="yyyy-mm-dd"
-								value="${sessionScope.feeInvoice.invoiceDateNep }">
+								value="">
 						</div>
 					</div>
 
@@ -105,16 +105,13 @@
 								<c:if test="${empty s.workingBal }"></c:if>
 								<tr id="tablerow">
 										<td>${theCount.count} </td>
-										<td><input type="text"
-										class="form-control" name="account" value="${s.accountNumber }"></td>
-										<td><input type="text"
-										class="form-control" name="category.categoryIdList" value="${s.categoryModel.categoryId }"></td>
-										<td colspan="2"><input type="text" 
-										class="form-control" name="category.categoryHeadList" value="${s.categoryModel.categoryHead }"></td>
+										<td>${s.accountNumber }</td>
+										<td>${s.categoryModel.categoryId }</td>
+										<td colspan="2">${s.categoryModel.categoryHead }</td>
 										
 									<td class="total" colspan="2"><input
 										class="form-control balance" type="number" step="any" value="${s.debitBal }"
-										name="balance"></td>
+										name="balance" disabled></td>
 								</tr>
 								
 								</c:forEach>
@@ -158,49 +155,10 @@
 							<td colspan="4"></td>
 							<td colspan="1">TOTAL(Rs)</td>
 							<td><input class="form-control subtotal" type="number"
-								step="any" name="subTotal"
+								step="any" name="total"
 								value="${sessionScope.feeInvoice.subTotal }" readonly></td>
 						</tr>
-						<%-- <tr>
-							<td colspan="4"></td>
-							<td colspan="1"><span class="label label-default">Overall Discount
-									%*</span><br> <input name="discountPercentage" type="number"
-								step="any" min=0 max=100
-								class="form-control discountPercentage inputdetails "
-								value="${sessionScope.feeInvoice.discountPercentage }"></td>
-
-							<td><span class="label label-default">Overall Discount(Rs)</span> <input
-								value="0" name="discountAmount" type="number" step="any"
-								class="form-control discountAmount "
-								value="${sessionScope.feeInvoice.discountAmount }" readonly></td>
-						</tr> --%>
-						<%-- <tr>
-							<td colspan="4"></td>
-							<td colspan="1">TOTAL(Rs)</td>
-							<td><input class="form-control resulttotal" type="number"
-								step="any" name="total"
-								value="${sessionScope.feeInvoice.total }" readonly></td>
-						</tr> --%>
-						<%-- <tr>
-							<td colspan="4"></td>
-							<td colspan="1"><span class="label label-default">TAX
-									%*</span><br> <input name="taxPercentage" step="any"
-								type="number" min=0 max=100
-								class="form-control taxPercentage inputdetails"
-								value="${sessionScope.feeInvoice.taxPercentage }"></td>
-							<td><span class="label label-default">TAX Amount(Rs)</span>
-								<input value="0" name="taxAmount" type="number" step="any"
-								class="form-control taxAmount"
-								value="${sessionScope.feeInvoice.taxAmount }"></td>
-						</tr>
- --%>
-						<%-- <tr>
-							<td colspan="4"></td>
-							<td colspan="1">GRAND TOTAL(Rs)</td>
-							<td><input name="grandTotal"  id="number" type="number"
-								step="any" class="form-control grandTotal"
-								value="${sessionScope.feeInvoice.grandTotal }" readonly></td>
-						</tr> --%>
+						
 						<tr>
 							<td colspan="4"></td>
 							<td colspan="1">AMOUNT PAID(Rs)</td>
