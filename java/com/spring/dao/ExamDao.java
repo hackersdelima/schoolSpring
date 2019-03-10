@@ -44,6 +44,6 @@ public interface ExamDao {
 	
 	
 	//--------CONSOLIDATE MARKS
-	public List<ConsolidateReportModel> getConsolidateReport(String classname, String section, String academicdate);
+	public List<ConsolidateReportModel> getConsolidateReport(int studentid, String academicdate);
 
 }

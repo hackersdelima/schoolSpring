@@ -471,6 +471,14 @@ public class StudentDaoImpl implements StudentDao {
 			return jdbcTemplate.query(query, new StudentMapper());
 		}
 		
+		public List<StudentModel> getStudentidFromClassAndSection(String classname, String section)
+		{
+			
+			String query="select studentid from studentinfo where admissionclass='"+classname+"' and section='"+section+"'";
+			System.out.println(query);
+			return jdbcTemplate.query(query, new StudentMapper());
+		}
+		
 		public List<StudentModel> getStudents(String classname)
 		{
 			String query="select studentid,studentname,rollno from studentinfo where admissionclass="+classname+"";
@@ -559,5 +567,19 @@ public class StudentDaoImpl implements StudentDao {
 		public void promoteStudent(String currentclass, String promotetoclass, int status) {
 			String query = "update studentinfo set admissionclass="+promotetoclass+", status = "+status+" where admissionclass="+currentclass+"";
 			jdbcTemplate.update(query);
+		}
+		
+		
+		//----------------------STUDENT SEARCHES
+		@Override
+		public List<Integer> studentIdsFromClassAndSection(String classid, String section) {
+			String query="";
+			if(section.isEmpty() || section==null) {
+			 query="select studentid from studentinfo where admissionclass='"+classid+"'";
+			}
+			else {
+			 query="select studentid from studentinfo where admissionclass='"+classid+"' and section='"+section+"'";
+			}
+			return jdbcTemplate.queryForList(query,Integer.class);
 		}
 }

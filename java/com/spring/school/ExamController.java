@@ -15,6 +15,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import org.bouncycastle.crypto.tls.SupplementalDataEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -121,7 +122,6 @@ public class ExamController {
 					) {
 			
 					
-			System.out.println("catchesd");
 			examDao.addMissingMarks(exammodel, i);
 			
 			}
@@ -633,7 +633,7 @@ catch (Exception e) {
 	}
 	
 	
-	//----CONSOLIDATE
+	//-------------------------------------------------CONSOLIDATE MARKS
 	@RequestMapping(value="/consolidate/setform", method = RequestMethod.GET)
 	public String consolidateset(@ModelAttribute("msg") String msg,Model model) {
 		List<ExamModel> examlist =operationDao.getExamList();
@@ -684,44 +684,45 @@ catch (Exception e) {
 	  @RequestMapping(value = "/consolidate/bulkreport", method = RequestMethod.POST)
 	  @ResponseBody
 	  public void consolidatebulkreport(HttpServletResponse response,@RequestParam Map<String, String> reqParam) throws JRException, IOException {
-	   
-	    Map<String ,Object> param2=new HashMap<String,Object>();
-	    String classname = reqParam.get("classid");
+	    String classid = reqParam.get("classid");
 		String section = reqParam.get("sectionid");
 		String academicdate = reqParam.get("academicdate");
-		DynamicData d= initialDetailsDao.getDynamicDatas();
+		DynamicData d = initialDetailsDao.getDynamicDatas();
 		String reporturl = d.getReporturl();
+		List<StudentModel> studentlist = null;
+		  JasperPrint jasper =null;
+		try {
+			List<Integer> studentids = studentDao.studentIdsFromClassAndSection(classid, section);
+			for(int i=0;i<studentids.size();i++) {
+				int studentid = studentids.get(i);
+			studentlist = new ArrayList<StudentModel>();
+				StudentModel student = studentDao.getStudentDetail(studentid);
+				studentlist.add(student);
+				List<ConsolidateReportModel> consolidatemarks=examDao.getConsolidateReport(studentid, academicdate);
+				
+				//---------JASPER PRINT
+				JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(consolidatemarks);
+				JRBeanCollectionDataSource subds=new JRBeanCollectionDataSource(studentlist);
+				
+				Map<String, Object> parameters = new HashMap<String, Object>();
+				
+				try {
+					 JasperReport jasperReport = JasperCompileManager.compileReport(reporturl + "/consolidatemarks.jrxml"); 
+			         JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl + "/studentdetails.jrxml"); 
+			         
+			         parameters.put("dataSourceParam", subds);
+			         parameters.put("subreportparam", jasperSubReport);
+			         
+			          jasper = JasperFillManager.fillReport(jasperReport, parameters, ds);
 
-		//-----get consolidate marks list for all students
-List<ConsolidateReportModel> consolidatemarks=examDao.getConsolidateReport(classname, section, academicdate);
-
-JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(consolidatemarks);
-
-System.out.println(consolidatemarks);
-
-JasperPrint  jasper = null;
-byte[] bytes=null;
-   
-		//----call report
-		JasperReport jasperReport=JasperCompileManager.compileReport(reporturl+"/consolidateReport.jrxml");
-//		 JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl+"/examSummary.jrxml");
-//
-//		 param2.put("subreportparam",jasperSubReport);
-		
-			System.out.println("reached");
-			
-			System.out.println(consolidatemarks.get(1).getStudentModel().getStudentid());
-			
-			param2.put("studentid", consolidatemarks.get(1).getStudentModel().getStudentid());
-		  
-		    jasper= JasperFillManager.fillReport(jasperReport, param2, ds);
-		
-		   /* List pages=jasper.getPages();
-			JRPrintPage object=(JRPrintPage) pages.get(0);
-			jasper.addPage(object);*/
-		
-
-		    bytes = JasperExportManager.exportReportToPdf(jasper);
+					List pages = jasper.getPages();
+					JRPrintPage object = (JRPrintPage) pages.get(0);
+					jasper.addPage(object);
+				} catch (JRException e) {
+			         e.printStackTrace();
+			      }
+			}
+			byte[] bytes = JasperExportManager.exportReportToPdf(jasper);
 			// JasperViewer.viewReport(jasperPrint);
 			ServletOutputStream servletOutputStream = response.getOutputStream();
 			response.setContentType("application/pdf");
@@ -730,6 +731,9 @@ byte[] bytes=null;
 			servletOutputStream.write(bytes, 0, bytes.length);
 			servletOutputStream.flush();
 			servletOutputStream.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	  }
 	
 	//-----------------------------------------

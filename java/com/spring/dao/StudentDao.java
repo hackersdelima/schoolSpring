@@ -39,4 +39,7 @@ public interface StudentDao {
 	public String getCurrentBranch();
 	public List<String> getStudentId(String classid, String section);
 	public void promoteStudent(String currentclass, String promotetoclass, int status);
+	
+	//------------STUDENT SEARCHES
+	public List<Integer> studentIdsFromClassAndSection(String classid, String section);
 }
