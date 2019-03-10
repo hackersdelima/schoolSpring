@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.dao.ExamDao;
 import com.spring.dao.OperationDao;
+import com.spring.dao.impl.StudentDaoImpl.Exam;
 import com.spring.model.ConsolidateReportModel;
 import com.spring.model.ExamModel;
 import com.spring.model.ExamSummaryReportModel;
@@ -477,18 +478,8 @@ public class ExamDaoImpl implements ExamDao {
 	
 	//---------CONSOLIDATE MARKS
 	@Override
-	public List<ConsolidateReportModel> getConsolidateReport(String classname, String section, String academicdate) {
-		String query="";
-		if(section.isEmpty()) {
-			System.out.println(query);
-		 query="select *, exam_type.examtypename, studentinfo.studentname, studentinfo.admissionclass, studentinfo.section from exam_summary join studentinfo using(studentid) join exam using(examid) join exam_type on exam.examtypeid=exam_type.examtypeid where studentid in (select studentid from studentinfo where admissionclass="+classname+") and examid in (select examid from exam where academicyear="+academicdate+")";
-		}
-		else {
-			
-			 query="";
-			 System.out.println(query);
-		}
-		
+	public List<ConsolidateReportModel> getConsolidateReport(int studentid, String academicdate) {
+		 String query="select subjectname, sum(fullmarks) as fullmarks, sum(thmarks) as thmarks, sum(consolidate_thmarks) as consolidate_thmarks, getgrade(sum(consolidate_thmarks)) as consolidate_thgrade, sum(prmarks) as prmarks, sum(consolidate_prmarks) as consolidate_prmarks, getgrade(sum(consolidate_prmarks)) consolidate_prgrade from consolidatemarks where studentid="+studentid+" and examid in (select examid from exam where academicyear='"+academicdate+"') group by subjectid;";
 		return jdbcTemplate.query(query, new ConsolidateReportMapper());
 	}
 	
@@ -497,34 +488,16 @@ public class ExamDaoImpl implements ExamDao {
 		@Override
 		public ConsolidateReportModel mapRow(ResultSet rs, int rowNum) throws SQLException {
 			ConsolidateReportModel c = new ConsolidateReportModel();
-			ExamSummaryReportModel esm = new ExamSummaryReportModel();
-			esm.setConsolidate_prmarks(rs.getString("consolidate_prmarks"));
-			esm.setConsolidate_thmarks(rs.getString("consolidate_thmarks"));
-			esm.setObtprmarks(rs.getString("obtprmarks"));
-			esm.setObtthmarks(rs.getString("obtthmarks"));
-			esm.setTotal(rs.getString("fullmarks"));
-			esm.setTotal_obtained(rs.getString("obtfullmarks"));
-			esm.setPercentage(rs.getString("percentage"));
-			esm.setTotaldays(rs.getString("totaldays"));
-			esm.setFinalgrade(rs.getString("finalgrade"));
-			esm.setFinalgpa(rs.getString("finalgpa"));
-			esm.setFinalresult(rs.getString("finalresult"));
-			esm.setPresentdays(rs.getString("presentdays"));
-			esm.setExamtypename(rs.getString("examtypename"));
-			esm.setStudentid(rs.getString("studentid"));
-			esm.setExamid(rs.getString("examid"));
-			
-			StudentModel  s = new StudentModel();
-			s.setAdmissionclass(rs.getString("admissionclass"));
-			s.setRollno(rs.getString("rollno"));
-			s.setSection(rs.getString("section"));
-			s.setStudentname(rs.getString("studentname"));
-			s.setStudentid(rs.getString("studentid"));
-			
-			c.setExamSummaryReportModel(esm);
-			c.setStudentModel(s);
-			
-			
+			Subjects s = new Subjects();
+			s.setSubjectname(rs.getString("subjectname"));
+			s.setFullmarks(rs.getString("fullmarks"));
+			s.setThmarks(rs.getString("thmarks"));
+			c.setConsolidate_thmarks(rs.getDouble("consolidate_thmarks"));
+			c.setConsolidate_thgrade(rs.getString("consolidate_thgrade"));
+			s.setPrmarks(rs.getString("prmarks"));
+			c.setConsolidate_prmarks(rs.getDouble("consolidate_prmarks"));
+			c.setConsolidate_prgrade(rs.getString("consolidate_prgrade"));
+			c.setSubjects(s);
 			return c;
 		}
 	}

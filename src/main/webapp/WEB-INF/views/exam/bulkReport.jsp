@@ -58,7 +58,8 @@
 </form:form>
 <tag:footer />
 <div class="panel panel-default">
-	<div class="panel-heading">Consolidate Marks</div>
+	<div class="panel-heading">
+	<h4>CONSOLIDATE MARKS</h4></div>
 	<div class="panel-body">
 		<spring:url value="/exam/consolidate/bulkreport" var="formUrl" />
 		<form:form action="${formUrl }" style="margin-top: 10px;" class="form">
@@ -68,8 +69,6 @@
 						<button class="btn btn-info" type="button" id="validate">Validate</button>
 						<button class="btn btn-primary" type="reset">Reset</button>
 						<input type="submit" class="btn btn-success" value="Submit">
-						<input type="submit" class="btn btn-success"
-							value="Submit">
 					</div>
 				</div>
 				<br>
@@ -79,7 +78,7 @@
 						<h6>
 							<strong>Academic Session</strong>
 						</h6>
-						<select class="form-control" name="academicdate" id="section">
+						<select class="form-control" name="academicdate" id="academicdate" required>
 							<option value="">Select Academic Date</option>
 						<c:forEach items="${academicdates }" var="a">
 							<option value="${a.id }" <c:if test="${a.id eq g.academicdates.id }">selected</c:if>>${a.academicdate } (${a.academicdateen })</option>
@@ -108,7 +107,6 @@
 							</c:forEach>
 						</select>
 					</div>
-
 				</div>
 			</div>
 		</form:form>

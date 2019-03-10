@@ -15,6 +15,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import org.bouncycastle.crypto.tls.SupplementalDataEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -120,7 +121,6 @@ public class ExamController {
 					) {
 			
 					
-			System.out.println("catchesd");
 			examDao.addMissingMarks(exammodel, i);
 			
 			}
@@ -632,7 +632,7 @@ catch (Exception e) {
 	}
 	
 	
-	//----CONSOLIDATE
+	//-------------------------------------------------CONSOLIDATE MARKS
 	@RequestMapping(value="/consolidate/setform", method = RequestMethod.GET)
 	public String consolidateset(@ModelAttribute("msg") String msg,Model model) {
 		List<ExamModel> examlist =operationDao.getExamList();
@@ -685,50 +685,19 @@ catch (Exception e) {
 	  public void consolidatebulkreport(HttpServletResponse response,@RequestParam Map<String, String> reqParam) throws JRException, IOException {
 	   
 	    Map<String ,Object> param2=new HashMap<String,Object>();
-	    String classname = reqParam.get("classid");
+	    String classid = reqParam.get("classid");
 		String section = reqParam.get("sectionid");
 		String academicdate = reqParam.get("academicdate");
 		try {
-			DynamicData d= initialDetailsDao.getDynamicDatas();
-			String reporturl = d.getReporturl();
-			Connection conn=null;
-		
-			//-----get consolidate marks list for all students
-		List<ConsolidateReportModel> consolidatemarks=examDao.getConsolidateReport(classname, section, academicdate);
-	    System.out.println(consolidatemarks);
-		
-		JasperPrint jasperPrint, jasper;
-	    
-			//----call report
-			JasperReport jasperReport=JasperCompileManager.compileReport(reporturl+"/examReports.jrxml");
-			 jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource.getConnection());
-			 JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl+"/examSummary.jrxml");
-
-			 param2.put("subreportparam",jasperSubReport);
-			for(int i=0;i<consolidatemarks.size();i++) {
-				conn = dataSource.getConnection();
-				System.out.println("reached");
-				
-				param2.put("studentid", consolidatemarks.get(i).getStudentModel().getStudentid());
-			  
-			    jasper= JasperFillManager.fillReport(jasperReport, param2, conn);
-			
-			    List pages=jasper.getPages();
-				JRPrintPage object=(JRPrintPage) pages.get(0);
-				jasperPrint.addPage(object);
-				conn.close();
+			List<Integer> studentids = studentDao.studentIdsFromClassAndSection(classid, section);
+			for(int i=0;i<studentids.size();i++) {
+				int studentid = studentids.get(i);
+				StudentModel student = studentDao.getStudentDetail(studentid);
+				System.out.println(student);
+				List<ConsolidateReportModel> consolidatemarks=examDao.getConsolidateReport(studentid, academicdate);
+				System.out.println(consolidatemarks);
 			}
-		
-			
-	    response.setContentType("application/x-pdf");
-	    response.setHeader("Content-disposition", "inline; filename=Report.pdf");
-
-	    final OutputStream outStream = response.getOutputStream();
-	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
-	  
-	  
-	 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	  }

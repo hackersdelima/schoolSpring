@@ -242,7 +242,4 @@ public String toString() {
 			+ thmarkslist + ", prmarkslist=" + prmarkslist + ", totalgradelist=" + totalgradelist + ", remarkslist="
 			+ remarkslist + "]";
 }
-
-
-
 }
