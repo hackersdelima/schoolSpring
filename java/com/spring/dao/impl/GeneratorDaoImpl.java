@@ -69,14 +69,17 @@ private JdbcTemplate jdbcTemplate;
 				System.out.println(invoiceNo);
 				
 				}
+		 else {
+				invoiceNo= yr+month+day+"001";
+				System.out.println(invoiceNo);
+				
+		 }
 				
 				return invoiceNo;
 		}catch(Exception e){
-			System.out.println("caught"+e);
-			invoiceNo= yr+month+day+"001";
-			System.out.println(invoiceNo);
-			return invoiceNo;
+			invoiceNo="Error Generating";
 		}
+		return invoiceNo;
 		
 		
 		
@@ -105,7 +108,7 @@ private JdbcTemplate jdbcTemplate;
 		 transactionid= jdbcTemplate.queryForObject(query, String.class);
 		}catch(Exception e){
 			System.out.println("caught");
-			transactionid= "MT"+yr+month+day+branchid+"001";
+			transactionid= "Generation Error";
 			System.out.println(transactionid);
 			return transactionid;
 		}
@@ -125,6 +128,11 @@ private JdbcTemplate jdbcTemplate;
 		transactionid = "MT"+yr+month+day+num;
 		System.out.println(transactionid);
 		
+		}
+		else {
+			transactionid= "MT"+yr+month+day+branchid+"001";
+			System.out.println(transactionid);
+			return transactionid;
 		}
 		
 		return transactionid;
