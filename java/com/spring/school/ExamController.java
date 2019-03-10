@@ -684,10 +684,10 @@ catch (Exception e) {
 	  @RequestMapping(value = "/consolidate/bulkreport", method = RequestMethod.POST)
 	  @ResponseBody
 	  public void consolidatebulkreport(HttpServletResponse response,@RequestParam Map<String, String> reqParam) throws JRException, IOException {
-	    Map<String ,Object> param2=new HashMap<String,Object>();
 	    String classid = reqParam.get("classid");
 		String section = reqParam.get("sectionid");
 		String academicdate = reqParam.get("academicdate");
+		
 		try {
 			List<Integer> studentids = studentDao.studentIdsFromClassAndSection(classid, section);
 			for(int i=0;i<studentids.size();i++) {
@@ -696,6 +696,17 @@ catch (Exception e) {
 				System.out.println(student);
 				List<ConsolidateReportModel> consolidatemarks=examDao.getConsolidateReport(studentid, academicdate);
 				System.out.println(consolidatemarks);
+				
+				//---------JASPER PRINT
+				/*JRBeanCollectionDataSource beanColDataSource = new 
+				         JRBeanCollectionDataSource(consolidatemarks);
+				Map parameters = new HashMap();
+				try {
+			         JasperFillManager.fillReportToFile( 
+			        		 reporturl + "/consolidateexamreport.jasper", parameters, dataSource.getConnection());
+			      } catch (JRException e) {
+			         e.printStackTrace();
+			      }*/
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
