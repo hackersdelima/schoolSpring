@@ -1,6 +1,7 @@
 package com.spring.school;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,15 +31,16 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.spring.dao.CategoryDao;
 import com.spring.dao.ClaimBillDao;
 import com.spring.dao.InitialDetailsDao;
+import com.spring.dao.OperationDao;
 import com.spring.dao.StudentDao;
 import com.spring.extras.Generator;
 import com.spring.model.ClaimBillModel;
 import com.spring.model.DynamicData;
+import com.spring.model.GeneralDetailsModel;
 import com.spring.model.StudentModel;
 import com.spring.model.UserModel;
 import com.spring.util.Utilities;
 
-import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRPrintPage;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -50,6 +54,8 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 @RequestMapping("/claimbill")
 @SessionAttributes("claimBill")
 public class ClaimBillController {
+	
+	private Logger logger=LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	InitialDetailsDao initialDetailsDao;
 	@Autowired
@@ -62,6 +68,9 @@ public class ClaimBillController {
 
 	@Autowired
 	private Generator generator;
+	
+	@Autowired
+	OperationDao operationDao;
 
 	Utilities u = new Utilities();
 
@@ -188,6 +197,81 @@ public class ClaimBillController {
 
 	}
 
+	@RequestMapping(value="/viewClaimBill/{id}", method=RequestMethod.POST)
+	@ResponseBody
+	public String viewClaimBill(Model model,HttpServletResponse response,@PathVariable String id, @RequestParam(value="month") String monthnumval) throws JRException, SQLException, IOException
+	{
+		DynamicData d= initialDetailsDao.getDynamicDatas();
+		String reporturl = d.getReporturl();
+		
+		Double taxRate= initialDetailsDao.getAcademicRate();
+		String[] monthnumvalarray=monthnumval.split("-");
+		String month = monthnumvalarray[0];
+		String monthval = monthnumvalarray[1];
+		byte[] bytes=null;
+		JasperPrint jasperPrint,jasper;
+		
+	   	JasperReport jasperReport=JasperCompileManager.compileReport(reporturl+"/claimbill.jrxml");
+		 
+		
+			
+		 Map<String, Object> parameters=new HashMap<String, Object>();
+		 
+		 Double previousReceivable=claimBillDao.calculatePreviousBalance(id);
+		 
+		 ArrayList<ClaimBillModel> data=claimBillDao.getAllDetails(id, month);
+		
+		if(data!=null) {
+		System.out.println(data.size()+"data size");
+		JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(data);
+		
+		StudentModel sm=studentDao.getStudentDetail(Integer.parseInt(id));
+		sm.setFormonth(monthval);
+		ArrayList<StudentModel> smlist=new ArrayList<StudentModel>();
+		smlist.add(sm);
+		 JRBeanCollectionDataSource subds=new JRBeanCollectionDataSource(smlist);
+		 
+		 /*For Initail Details Sub Report*/	
+		 
+		 JasperReport generalSubReport = JasperCompileManager.compileReport(reporturl+"/generalReport.jrxml");
+		 
+		 GeneralDetailsModel gdm=operationDao.getGeneralDetails();
+		 System.out.println(gdm+"dsfsdfs");
+		 ArrayList<GeneralDetailsModel> gdlist= new ArrayList<GeneralDetailsModel>();
+		 gdlist.add(gdm);
+		
+		 JRBeanCollectionDataSource generalds=new JRBeanCollectionDataSource(gdlist);
+
+		 parameters.put("generalDataSourceParam", generalds);
+			parameters.put("generalsubreportparam",generalSubReport);
+		  
+			
+			 JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl+"/studentdetails.jrxml");
+		  
+		  parameters.put("subreportparam",jasperSubReport);
+		  parameters.put("dataSourceParam", subds);
+		  parameters.put("taxrate",taxRate);
+		  parameters.put("previousReceivable",previousReceivable);
+		  
+		  jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
+		  bytes=JasperExportManager.exportReportToPdf(jasperPrint);
+			//JasperViewer.viewReport(jasperPrint);
+		  ServletOutputStream servletOutputStream = response.getOutputStream();
+		    response.setContentType("application/pdf");
+		    response.setContentLength(bytes.length);
+
+		    servletOutputStream.write(bytes, 0, bytes.length);
+		    servletOutputStream.flush();
+		    servletOutputStream.close();
+		    
+		    return "Claim Bill Found";
+		}
+		else {
+			return "Claim Bill Not Found";
+		}
+		   
+	}
+	
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/viewClassClaimBill")
 	public void viewClassClaimbill(@RequestParam Map<String, String> map, HttpServletResponse response)
@@ -196,7 +280,7 @@ public class ClaimBillController {
 		String reporturl = d.getReporturl();
 
 		byte[] bytes = null;
-		JasperPrint jasperPrint = null, jasper = null;
+		JasperPrint  jasper = null;
 		String classid = map.get("classid");
 		String section = map.get("sectionname");
 		String monthBoth = map.get("month");
@@ -214,7 +298,7 @@ public class ClaimBillController {
 
 		JasperReport jasperReport = JasperCompileManager.compileReport(reporturl + "/claimbill.jrxml");
 		JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl + "/studentdetails.jrxml");
-		jasperPrint = JasperFillManager.fillReport(jasperReport, null, new JREmptyDataSource());
+		
 
 		System.out.println(studentlist.size());
 
@@ -239,9 +323,22 @@ public class ClaimBillController {
 			ArrayList<StudentModel> smlist=new ArrayList<StudentModel>();
 			smlist.add(sm);
 			 JRBeanCollectionDataSource subds=new JRBeanCollectionDataSource(smlist);
+			 
+			 /*For Initail Details Sub Report*/	
+			 
+			 JasperReport generalSubReport = JasperCompileManager.compileReport(reporturl+"/generalReport.jrxml");
+			 
+			 GeneralDetailsModel gdm=operationDao.getGeneralDetails();
+			 System.out.println(gdm+"dsfsdfs");
+			 ArrayList<GeneralDetailsModel> gdlist= new ArrayList<GeneralDetailsModel>();
+			 gdlist.add(gdm);
+			
+			 JRBeanCollectionDataSource generalds=new JRBeanCollectionDataSource(gdlist);
+				
 			
 
-			
+			 parameters.put("generalDataSourceParam", generalds);
+				parameters.put("generalsubreportparam",generalSubReport);
 			parameters.put("dataSourceParam", subds);
 			parameters.put("subreportparam", jasperSubReport);
 			parameters.put("taxrate",taxRate);
@@ -251,11 +348,11 @@ public class ClaimBillController {
 
 			List pages = jasper.getPages();
 			JRPrintPage object = (JRPrintPage) pages.get(0);
-			jasperPrint.addPage(object);
+			jasper.addPage(object);
 			}
 			}
 		}
-		bytes = JasperExportManager.exportReportToPdf(jasperPrint);
+		bytes = JasperExportManager.exportReportToPdf(jasper);
 		// JasperViewer.viewReport(jasperPrint);
 		ServletOutputStream servletOutputStream = response.getOutputStream();
 		response.setContentType("application/pdf");

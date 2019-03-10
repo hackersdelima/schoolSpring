@@ -42,6 +42,7 @@ public class DatabaseConnection {
 
 	        dataSource.setUsername("root");
 	        dataSource.setPassword("123456");
+	        //dataSource.setPassword("DigCen@1Pep");
 	 
 	        return dataSource;
 	    }

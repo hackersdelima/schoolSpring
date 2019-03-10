@@ -239,9 +239,10 @@ private JdbcTemplate jdbcTemplate;
 		}
 		System.out.println(c);
 		
-		Double taxAmount=c.getTamount()*(taxRate/100);
+		Double taxAmount=(c.getTamount()-c.getDiscountamount())*(taxRate/100);
 		
 		Double totalAmount=(c.getTamount()+c.getNamount())+taxAmount-c.getDiscountamount();
+		
 		String query = "insert into generatedclaimbill (studentid, accountNumber, categoryId, taxableAmount, nonTaxableAmount,inputter, datetime,formonth,discountamount,total,taxAmount,isTaxable) values ('"+studentId+"','"+c.getAccountNumber()+"','"+c.getCategory().getCategoryId()+"','"+c.getTamount()+"','"+c.getNamount()+"','inputter',now(),'"+realpaymonth+"','"+c.getDiscountamount()+"','"+totalAmount+"','"+taxAmount+"','"+c.getTaxable()+"')";
 		System.out.println(query);
 		try {
@@ -256,7 +257,7 @@ private JdbcTemplate jdbcTemplate;
 	@Override
 	public boolean updateBalance(ClaimBillModel c, String id,Double taxRate) {
 		
-		Double taxAmount=c.getTamount()*(taxRate/100);
+		Double taxAmount=(c.getTamount()-c.getDiscountamount())*(taxRate/100);
 		Double totalAmount=(c.getTamount()+c.getNamount())+taxAmount-c.getDiscountamount();//100
 		System.out.println(totalAmount+"total Amount");
 		

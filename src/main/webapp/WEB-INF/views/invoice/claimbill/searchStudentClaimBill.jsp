@@ -2,7 +2,7 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
 <tag:header title="STUDENT CLAIM BILL"/>
-				<spring:url value="/nav/viewClaimBill/${id }" var="viewUrl"/>
+				<spring:url value="/claimbill/viewClaimBill/${id }" var="viewUrl"/>
 		<spring:url value="/claimbill/save/${id }" var="saveUrl"/>
 		<form method="post" action="">
 		<div class="col-md-12">

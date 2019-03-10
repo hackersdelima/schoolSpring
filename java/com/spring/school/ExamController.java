@@ -51,6 +51,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Controller
 @RequestMapping("/exam")
@@ -683,7 +684,6 @@ catch (Exception e) {
 	  @RequestMapping(value = "/consolidate/bulkreport", method = RequestMethod.POST)
 	  @ResponseBody
 	  public void consolidatebulkreport(HttpServletResponse response,@RequestParam Map<String, String> reqParam) throws JRException, IOException {
-	   
 	    Map<String ,Object> param2=new HashMap<String,Object>();
 	    String classid = reqParam.get("classid");
 		String section = reqParam.get("sectionid");

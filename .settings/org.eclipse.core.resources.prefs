@@ -1,11 +1,13 @@
 eclipse.preferences.version=1
 encoding//reports/claimbill.jrxml=UTF-8
+encoding//reports/consolidateReport.jrxml=UTF-8
 encoding//reports/examGradeReports.jrxml=UTF-8
 encoding//reports/examGradeSummary.jrxml=UTF-8
 encoding//reports/examReports.jrxml=UTF-8
 encoding//reports/examReportsremarks.jrxml=UTF-8
 encoding//reports/examSummary.jrxml=UTF-8
 encoding//reports/generalReport.jrxml=UTF-8
+encoding//reports/invoice.jrxml=UTF-8
 encoding//reports/paymentVoucher.jrxml=UTF-8
 encoding//reports/paymentVoucherAccounts.jrxml=UTF-8
 encoding//reports/report.jrxml=UTF-8

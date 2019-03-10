@@ -11,9 +11,7 @@
 			<spring:url value="/claimbill/viewClassClaimBill" var="viewUrl"/>
 			<spring:url value="/claimbill/saveClassClaimBill/" var="saveUrl"/>
 		
-			<button type="submit" class="btn btn-success" form="form">
-					<i class="fa fa-check"></i> Generate
-				</button>
+			
 		
 			
 				

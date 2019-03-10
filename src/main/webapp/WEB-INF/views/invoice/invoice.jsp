@@ -1,37 +1,36 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<spring:url value="/invoice/review" var="formUrl" />
+
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tag" %>
+<tag:header title="STUDENT ADMISSION"/>
+
 <jsp:include page="../include.jsp"></jsp:include>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Purchase Invoice</title>
+
+
 <link rel="stylesheet"
 	href="<spring:url value="/resources/css/invoice.css"/>" media="all" />
-<style>
-.displaynone {
-	display: none;
-}
 
-.itemdetailinput {
-	width: 10%;
-}
+<spring:url value="/invoice/save/${pid}" var="formUrl" />
+<div id="notices">
+					<div class="form-group">
+						<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+							<a class="btn btn-danger" id="cancel"
+								href="<spring:url value="/invoice/search" />">Go Back</a>
+							<button class="btn btn-info" type="button" id="validate">Validate</button>
+							<a class="btn btn-danger" id="cancel"  
+								href="<spring:url value="/invoice/viewInvoice/${pid}" />">View</a>
+								 <input
+								type="submit" class="btn btn-success" value="Submit" form="form">
 
-.inputdetails {
-	width: 60%;
-	float: right;
-}
+						</div>
+					</div>
 
-.top {
-	width: 65%;
-	float: right;
-}
-</style>
-</head>
-<body class="background">
-	<form action="${formUrl }" method="post">
+					<div class="notice"></div>
+				</div>
+				
+			<div class="x_panel">
+	<form action="${formUrl }" method="post" id="form">
 	<input type="hidden" name="receivedby" value="${sessionScope.userDetail.username }">
 	
 		<div class="row">
@@ -45,43 +44,6 @@
 							<strong>STUDENT FEE INVOICE</strong>
 						</h2>
 					</center>
-					<hr>
-					
-					<div id="seller">
-						<div>
-							<span class="label label-default">From Date(English)*</span> <br>
-							<input type="text" maxlength="10" id="englishDate"
-								class="form-control date" name="fromDateEn"
-								value="${sessionScope.feeInvoice.fromDateEn }"
-								placeholder="yyyy-mm-dd">
-						</div>
-						<br>
-						<div>
-							<span class="label label-default ">From Date(Nepali)*</span> <br>
-							<input type="text" maxlength="10" id="nepaliDate"
-								name="fromDateNep" class="form-control date"
-								placeholder="yyyy-mm-dd"
-								value="${sessionScope.feeInvoice.fromDateNep }">
-						</div>
-					</div>
-					<div id="client">
-						<div>
-							<span class="label label-default ">To Date(English)*</span> <br>
-							<input type="text" maxlength="10" id="englishDate1"
-								class="form-control date" name="toDateEn"
-								placeholder="yyyy-mm-dd"
-								value="${sessionScope.feeInvoice.toDateEn }">
-						</div>
-						<br>
-						<div>
-							<span class="label label-default ">To Date(Nepali)*</span> <br>
-							<input type="text" maxlength="10" id="nepaliDate1"
-								name="toDateNep" class="form-control date"
-								placeholder="yyyy-mm-dd"
-								value="${sessionScope.feeInvoice.toDateNep }">
-						</div>
-						<br>
-					</div>
 
 				</header>
 				<main>
@@ -92,7 +54,7 @@
 						<h4 class="name">
 							<span class="label label-default">Invoice No*</span><input
 								type="text" class="form-control " name="invoiceNo"
-								value="${sessionScope.feeInvoice.invoiceNo }">
+								value="${invoiceNo }">
 						</h4>
 
 						<h4 class="name">
@@ -108,7 +70,7 @@
 								type="text" maxlength="10" id="billDateEnglish"
 								class="form-control date" name="invoiceDateEn"
 								placeholder="yyyy-mm-dd"
-								value="${sessionScope.feeInvoice.invoiceDateEn }">
+								>
 						</div>
 						<br>
 						<div class="date">
@@ -116,7 +78,7 @@
 								type="text" maxlength="10" id="billDateNepali"
 								name="invoiceDateNep" class="form-control date"
 								placeholder="yyyy-mm-dd"
-								value="${sessionScope.feeInvoice.invoiceDateNep }">
+								value="">
 						</div>
 					</div>
 
@@ -125,40 +87,37 @@
 				<table border="0" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
+							<th>S. No.</th>
 							<th>Account Number </th>
 							<th>Category Id</th>
-							<th>Category Head</th>
-							<th class="desc" colspan="1">Working Balance</th>
-							<th class="desc" colspan="1">DISCOUNT</th>
-							<th class="total itemdetailinput " colspan="1">BALANCE</th>
+							<th colspan="2">Category Head</th>
+							
+							<th class="total itemdetailinput " colspan="2">BALANCE</th>
 
 						</tr>
 					</thead>
 					<tbody>
-						<%-- <c:choose></c:choose> --%>
-							<%-- <c:when test="${empty sessionScope.feeInvoice.charges}">	</c:when> --%>
+						<c:choose>
+							<c:when test="${empty sessionScope.feeInvoice.charges}">	
 							
-								<c:forEach items="${scategory }" var="s"></c:forEach>
+								<c:forEach items="${scategory }" var="s" varStatus="theCount">
 								
-								<%-- <c:if test="${empty s.workingBal }"> --%><%-- </c:if> --%>
+								<c:if test="${empty s.workingBal }"></c:if>
 								<tr id="tablerow">
-										<td><input type="text"
-										class="form-control" name="account" value="${s.accountNumber }"></td>
-										<td><input type="text"
-										class="form-control" name="category.categoryIdList" value="${s.categoryModel.categoryId }"></td>
-										<td><input type="text"
-										class="form-control" name="category.categoryHeadList" value="${s.categoryModel.categoryHead }"></td>
-										<td class="desc" colspan="1"><input type="text"
-										class="form-control one" name="charges" value="${s.workingBal }"></td>
-									<td class="desc" colspan="1"><input type="text"
-										class="form-control two" name="discount"
-										value=""></td>
-									<td class="total" colspan="1"><input
-										class="form-control balance" type="number" step="any" value=""
-										name="balance"></td>
+										<td>${theCount.count} </td>
+										<td>${s.accountNumber }</td>
+										<td>${s.categoryModel.categoryId }</td>
+										<td colspan="2">${s.categoryModel.categoryHead }</td>
+										
+									<td class="total" colspan="2"><input
+										class="form-control balance" type="number" step="any" value="${s.debitBal }"
+										name="balance" disabled></td>
 								</tr>
 								
-							<%-- <c:otherwise>
+								</c:forEach>
+								</c:when>
+								
+							<c:otherwise>
 								<c:forEach items="${sessionScope.feeInvoice.charges }"
 									var="desc" varStatus="descIndex">
 
@@ -186,58 +145,20 @@
 
 								</tr>
 								</c:forEach>
-							</c:otherwise> --%>
+							</c:otherwise>
+							</c:choose>
 						
 					</tbody>
 					<tfoot>
 
 						<tr>
 							<td colspan="4"></td>
-							<td colspan="1">SUB-TOTAL(Rs)</td>
+							<td colspan="1">TOTAL(Rs)</td>
 							<td><input class="form-control subtotal" type="number"
-								step="any" name="subTotal"
+								step="any" name="total"
 								value="${sessionScope.feeInvoice.subTotal }" readonly></td>
 						</tr>
-						<tr>
-							<td colspan="4"></td>
-							<td colspan="1"><span class="label label-default">Overall Discount
-									%*</span><br> <input name="discountPercentage" type="number"
-								step="any" min=0 max=100
-								class="form-control discountPercentage inputdetails "
-								value="${sessionScope.feeInvoice.discountPercentage }"></td>
-
-							<td><span class="label label-default">Overall Discount(Rs)</span> <input
-								value="0" name="discountAmount" type="number" step="any"
-								class="form-control discountAmount "
-								value="${sessionScope.feeInvoice.discountAmount }" readonly></td>
-						</tr>
-						<tr>
-							<td colspan="4"></td>
-							<td colspan="1">TOTAL(Rs)</td>
-							<td><input class="form-control resulttotal" type="number"
-								step="any" name="total"
-								value="${sessionScope.feeInvoice.total }" readonly></td>
-						</tr>
-						<tr>
-							<td colspan="4"></td>
-							<td colspan="1"><span class="label label-default">TAX
-									%*</span><br> <input name="taxPercentage" step="any"
-								type="number" min=0 max=100
-								class="form-control taxPercentage inputdetails"
-								value="${sessionScope.feeInvoice.taxPercentage }"></td>
-							<td><span class="label label-default">TAX Amount(Rs)</span>
-								<input value="0" name="taxAmount" type="number" step="any"
-								class="form-control taxAmount"
-								value="${sessionScope.feeInvoice.taxAmount }"></td>
-						</tr>
-
-						<tr>
-							<td colspan="4"></td>
-							<td colspan="1">GRAND TOTAL(Rs)</td>
-							<td><input name="grandTotal"  id="number" type="number"
-								step="any" class="form-control grandTotal"
-								value="${sessionScope.feeInvoice.grandTotal }" readonly></td>
-						</tr>
+						
 						<tr>
 							<td colspan="4"></td>
 							<td colspan="1">AMOUNT PAID(Rs)</td>
@@ -250,7 +171,7 @@
 							<td colspan="1">BALANCE DUE(Rs)</td>
 							<td><input name="balanceDue" id="balance-due" type="number"
 								step="any" class="form-control"
-								value="${sessionScope.feeInvoice.balanceDue }"></td>
+								value="${sessionScope.feeInvoice.balanceDue }" readonly></td>
 						</tr>
 						<tr>
 							<td colspan="2"></td>
@@ -266,21 +187,9 @@
 						</tr>
 					</tfoot>
 				</table>
+				
 
-				<div id="notices">
-					<div class="form-group">
-						<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-
-							<button class="btn btn-info" type="button" id="validate">Validate</button>
-							<a class="btn btn-danger" id="cancel"
-								href="<spring:url value="/invoice/cancel" />">Cancel</a> <input
-								type="submit" class="btn btn-success" value="Submit">
-
-						</div>
-					</div>
-
-					<div class="notice"></div>
-				</div>
+				
 
 				</main>
 			</div>
@@ -288,9 +197,14 @@
 			<div class="col-md-1"></div>
 		</div>
 	</form>
-	<script src="<spring:url value="/resources/js/dynamicpurchase.js"/>"></script>
+	</div>
+	<script src="<spring:url value="/resources/js/numtowordold.js"/>"></script>
 	<script src="<spring:url value="/resources/js/dateAction.js"/>"></script>
 	<script>
+	$(document).ready(function(){
+		 calculateSubTotal();
+	});
+	
 		$("table").on("change", "input", function() { /* //use event delegation */
 			var tableRow = $(this).closest("tr"); /* //from input find row */
 			var one = Number(tableRow.find(".one").val()); /* //get first textbox */
@@ -304,9 +218,7 @@
 			tableRow.find(".categoryHead").val(categoryHead);
 		});
 
-		$(document).on('blur', "input", function() {
-			calculateSubTotal();
-		});
+	
 		function calculateSubTotal() {
 			var sum = 0;
 			$(".balance").each(function() {
@@ -319,14 +231,15 @@ $("#studentid").blur(function(){
 	
 	
 });
-		$("#balance-due").focus(function() {
-			var grandTotal = $("#number").val();
+		$("#amount-paid").keyup(function() {
+			var grandTotal = $(".subtotal").val();
 			var amountPaid = $("#amount-paid").val();
 			var balanceDue = grandTotal - amountPaid;
 			$("#balance-due").val(balanceDue);
 		});
 		 $("#validate").click(function()
 					{
+			
 					membername();
 					accountno();
 					}); 
@@ -383,6 +296,3 @@ $("#studentid").blur(function(){
 			};
 		
 	</script>
-</body>
-
-</html>

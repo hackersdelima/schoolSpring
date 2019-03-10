@@ -15,7 +15,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<columnHeader>
-		<band height="90" splitType="Stretch">
+		<band height="109" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="100" height="30" uuid="dc805890-f733-492b-8fec-e9faa9e56528">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bf95603f-d60b-4d85-b6ab-bca24d2e8177"/>
@@ -60,6 +60,14 @@
 				<reportElement x="50" y="60" width="100" height="30" uuid="a758f810-e0db-4b6c-9eb2-3a3d513674c1"/>
 				<textFieldExpression><![CDATA[$F{formonth}]]></textFieldExpression>
 			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="330" y="60" width="100" height="30" uuid="560ffa65-08e3-4007-8478-11fafc702a1b"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="280" y="60" width="50" height="30" uuid="b77fb485-3aff-479b-913c-43cdd6f6ebbd"/>
+				<text><![CDATA[Date :]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 </jasperReport>

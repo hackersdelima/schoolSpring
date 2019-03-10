@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="consolidateReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cf972826-6bb0-40d9-ba76-ac10aa2895ac">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="ds" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="studentid" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="studentModel.studentname" class="java.lang.String"/>
+	<field name="studentModel.studentid" class="java.lang.String"/>
+	<field name="examSummaryReportModel.studentid" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="83" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="30" width="100" height="30" uuid="b5b6c395-2a9b-47a8-af31-42c6676ef224"/>
+				<textFieldExpression><![CDATA[$F{studentModel.studentname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="30" width="100" height="30" uuid="f23bdc85-7eaf-453b-be1c-5086d9f5b5c7"/>
+				<textFieldExpression><![CDATA[$F{studentModel.studentid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="415" y="53" width="100" height="30" uuid="7f11d65c-4177-4e60-9311-e1c7eecb9b65"/>
+				<textFieldExpression><![CDATA[$P{studentid}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<textField>
+				<reportElement x="256" y="7" width="100" height="30" uuid="30216be8-a7d9-49d6-8867-e16ae7299d32"/>
+				<textFieldExpression><![CDATA[$F{examSummaryReportModel.studentid}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
