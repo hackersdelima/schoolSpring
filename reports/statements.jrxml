@@ -85,33 +85,8 @@
 		<property name="com.jaspersoft.studio.field.label" value="accountName"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="accountstbl"/>
 	</field>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
 	<title>
-		<band height="94" splitType="Stretch">
-			<staticText>
-				<reportElement x="20" y="0" width="522" height="20" uuid="bb414665-683f-4840-a3eb-bf4aec8df1da"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Araniko Secondary School]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="20" y="20" width="522" height="20" uuid="5280fe30-177c-4ad3-8e03-617b5bbb7ffe"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Suryabinayak - 4, Bhaktapur]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="20" y="40" width="522" height="25" uuid="be263f4b-b2b2-4004-a910-71a1ad7acae9"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Statements]]></text>
-			</staticText>
-		</band>
+		<band height="94" splitType="Stretch"/>
 	</title>
 	<pageHeader>
 		<band height="63" splitType="Stretch">

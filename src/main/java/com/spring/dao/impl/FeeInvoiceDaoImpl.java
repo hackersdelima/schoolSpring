@@ -57,7 +57,8 @@ public class FeeInvoiceDaoImpl implements FeeInvoiceDao {
 
 	public boolean insertFeeInvoiceContent(String invoiceNo, List<AccountModel> list,int i) {
 		boolean status = false;
-		String sql = "insert into fee_invoice_content(categoryId, accountNo, amount, fee_invoice_id,invoiceNo) values('"+list.get(i).getCategoryModel().getCategoryId()+"','"+list.get(i).getAccountNumber()+"','"+list.get(i).getDebitBal()+"','"+invoiceNo+"','"+invoiceNo+"')";
+		double totalDebit=list.get(i).getDebitBal()-list.get(i).getCreditBal();
+		String sql = "insert into fee_invoice_content(categoryId, accountNo, amount, fee_invoice_id,invoiceNo) values('"+list.get(i).getCategoryModel().getCategoryId()+"','"+list.get(i).getAccountNumber()+"','"+totalDebit+"','"+invoiceNo+"','"+invoiceNo+"')";
 		System.out.println(sql);
 
 		int j = jdbcTemplate.update(sql);
@@ -68,19 +69,26 @@ public class FeeInvoiceDaoImpl implements FeeInvoiceDao {
 		return status;
 	}
 
-	public FeeInvoiceModel search(String invoiceNo) {
-		String sql = "select * from fee_invoice_tbl";
+	public InvoiceModel search(String invoiceNo) {
+		String sql = "select * from fee_invoice_tbl where invoiceNo='"+invoiceNo+"'";
 		return jdbcTemplate.queryForObject(sql, new FeeInvoiceMapper());
 	}
 
-	public final static class FeeInvoiceMapper implements RowMapper<FeeInvoiceModel> {
+	public final static class FeeInvoiceMapper implements RowMapper<InvoiceModel> {
 
 		@Override
-		public FeeInvoiceModel mapRow(ResultSet rs, int rowNum) throws SQLException {
-			FeeInvoiceModel fm = new FeeInvoiceModel();
-			fm.setFee_invoice_id(rs.getString("fee_invoice_id"));
+		public InvoiceModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+			InvoiceModel im = new InvoiceModel();
+			im.setInvoiceNo(rs.getString("invoiceNo"));
+			im.setAmountPaid(rs.getDouble("amountPaid"));
+			im.setBalanceDue(rs.getDouble("balanceDue"));
+			im.setInvoiceDate(rs.getString("invoiceDateNep"));
+			im.setInvoiceDateEn(rs.getString("invoiceDateEn"));
+			im.setInwords(rs.getString("inwords"));
+			im.setRemarks(rs.getString("remarks"));
+			im.setStudentid(rs.getInt("studentid"));
 
-			return fm;
+			return im;
 		}
 	}
 
@@ -100,6 +108,30 @@ public class FeeInvoiceDaoImpl implements FeeInvoiceDao {
 		}
 		return status;
 	}
+
+	@Override
+	public List<InvoiceModel> searchAccounts(String invoiceNo) {
+		String sql="select fee_invoice_content.*,categories.categoryHead from fee_invoice_content join categories using(categoryId) where invoiceNo='"+invoiceNo+"'";
+		return jdbcTemplate.query(sql, new FeeInvoiceAccountsMapper());
+		
+	}
+	
+	public final static class FeeInvoiceAccountsMapper implements RowMapper<InvoiceModel>{
+
+		@Override
+		public InvoiceModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+			InvoiceModel im = new InvoiceModel();
+			im.setAccountNo(rs.getString("accountNo"));
+			im.setCategoryHead(rs.getString("categoryHead"));
+			im.setCategoryId(rs.getString("categoryId"));
+			im.setAmount(rs.getDouble("amount"));
+			
+			
+			return im;
+		}
+		
+	}
+
 
 	
 }

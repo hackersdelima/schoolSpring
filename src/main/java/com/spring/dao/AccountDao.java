@@ -30,5 +30,7 @@ public interface AccountDao {
 	public String getAccountName(String accountNo);
 	public String generateAccountNo(String branchid, String companyid, String catId);
 	public List<String> getFeeHeadCategories();
+	public boolean updateCreditBal(double amountPaid, String accountNo);
+	public String getStudentFromInoice(String invoiceNo);
 
 }

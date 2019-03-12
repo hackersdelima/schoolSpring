@@ -3,31 +3,51 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoice" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="30883c63-8a30-4328-a99d-da51030a0fc8">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="ds" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
-	<parameter name="amountPaid" class="java.lang.Integer"/>
-	<parameter name="amountPaidInWord" class="java.lang.String"/>
 	<parameter name="generalsubreportparam" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="generalDataSourceParam" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<parameter name="subreportparam" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="dataSourceParam" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="invoiceNo" class="java.lang.String"/>
+	<parameter name="foldername" class="java.lang.String"/>
+	<parameter name="amountPaid" class="java.lang.Double"/>
+	<parameter name="amountPaidInWord" class="java.lang.String"/>
+	<parameter name="balanceDue" class="java.lang.Double"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="accountNumber" class="java.lang.String"/>
-	<field name="categoryModel.categoryHead" class="java.lang.String"/>
-	<field name="debitBal" class="java.lang.Double"/>
+	<field name="accountNo" class="java.lang.String"/>
+	<field name="categoryHead" class="java.lang.String"/>
+	<field name="amountPaid" class="java.lang.Double"/>
+	<field name="amount" class="java.lang.Double"/>
+	<field name="balanceDue" class="java.lang.Double"/>
 	<variable name="totalAmount" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{debitBal}]]></variableExpression>
+		<variableExpression><![CDATA[$F{amount}]]></variableExpression>
 	</variable>
-	<variable name="balanceDue" class="java.lang.Double">
-		<variableExpression><![CDATA[$V{totalAmount}-$P{amountPaid}]]></variableExpression>
-	</variable>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
 	<title>
-		<band height="105" splitType="Stretch">
+		<band height="117" splitType="Stretch">
 			<subreport>
 				<reportElement x="0" y="-20" width="40" height="32" uuid="38f041f2-3e5b-4363-be61-fb8116f9f989"/>
+				<subreportParameter name="ds">
+					<subreportParameterExpression><![CDATA[$P{ds}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="generalsubreportparam">
+					<subreportParameterExpression><![CDATA[$P{generalsubreportparam}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="generalDataSourceParam">
+					<subreportParameterExpression><![CDATA[$P{generalDataSourceParam}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="subreportparam">
+					<subreportParameterExpression><![CDATA[$P{subreportparam}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dataSourceParam">
+					<subreportParameterExpression><![CDATA[$P{dataSourceParam}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoiceNo">
+					<subreportParameterExpression><![CDATA[$P{invoiceNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="foldername">
+					<subreportParameterExpression><![CDATA[$P{foldername}]]></subreportParameterExpression>
+				</subreportParameter>
 				<dataSourceExpression><![CDATA[$P{generalDataSourceParam}]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{generalsubreportparam}]]></subreportExpression>
 			</subreport>
@@ -36,6 +56,14 @@
 				<dataSourceExpression><![CDATA[$P{dataSourceParam}]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{subreportparam}]]></subreportExpression>
 			</subreport>
+			<textField>
+				<reportElement x="100" y="60" width="70" height="30" uuid="e8e3bedc-b15a-4d9a-8f9f-d3eb58512e5d"/>
+				<textFieldExpression><![CDATA[$P{invoiceNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="60" width="80" height="30" uuid="db41fae8-b96f-41af-9c42-2bf649077ce9"/>
+				<text><![CDATA[Invoice No:]]></text>
+			</staticText>
 		</band>
 	</title>
 	<columnHeader>
@@ -104,7 +132,7 @@
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{accountNumber}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{accountNo}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="150" y="0" width="250" height="30" uuid="83e429e8-917f-4e33-9d13-3c5865a10c09">
@@ -116,24 +144,24 @@
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{categoryModel.categoryHead}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{categoryHead}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="400" y="0" width="165" height="30" uuid="49e24d3e-9603-4193-b467-8c3bdbccf471">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="559e6d23-1cca-41ba-a460-d31a0a7614bd"/>
+				<reportElement x="400" y="0" width="165" height="30" uuid="29d01c29-305f-4a33-856a-9e2d8714699e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="caccf79a-2f0d-4883-92da-b506e1c4cd9d"/>
 				</reportElement>
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="12"/>
+					<font size="12" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{debitBal}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<summary>
-		<band height="182" splitType="Stretch">
+		<band height="270" splitType="Stretch">
 			<staticText>
 				<reportElement x="150" y="0" width="250" height="30" uuid="174d8a59-ab0b-4e7a-a0e0-c2e103db7b6e"/>
 				<box>
@@ -153,16 +181,6 @@
 					<font size="12" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalAmount}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="400" y="30" width="165" height="30" uuid="66996929-631a-431c-948e-347b6704f5a6"/>
-				<box>
-					<pen lineWidth="0.75"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font size="12" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{amountPaid}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="150" y="30" width="250" height="30" uuid="aac087ff-4250-4107-a6b4-33dabcd535c1"/>
@@ -184,16 +202,6 @@
 				</textElement>
 				<text><![CDATA[Balance Due:]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="400" y="60" width="165" height="30" uuid="67c6cad8-e2d5-4fdc-9cec-5d7b09150a65"/>
-				<box>
-					<pen lineWidth="0.75"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font size="12" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{balanceDue}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="150" y="90" width="250" height="50" uuid="493241a9-94b7-4150-bcb7-228672cc0a29"/>
 				<box>
@@ -205,14 +213,31 @@
 				<text><![CDATA[Amount Paid (In Words)]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="400" y="90" width="165" height="50" uuid="cfe77f38-076f-4eb1-9598-8e7c4ce30e83"/>
+				<reportElement x="400" y="30" width="165" height="30" uuid="60fc06e8-b2fd-41f6-abbc-77cac115c7ea"/>
 				<box>
 					<pen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="12" isBold="false"/>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{amountPaid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="90" width="165" height="50" uuid="7ef65489-1bb6-4f4a-b98e-e1a7d3f1639a"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{amountPaidInWord}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="60" width="165" height="30" uuid="cfbee98d-8d1e-4a82-9bdd-2ec3420992e1"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{balanceDue}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

@@ -117,6 +117,7 @@ public class AccountDaoImpl implements AccountDao {
 			am.setAccountNumber(rs.getString("accountNumber"));
 			am.setWorkingBal(rs.getDouble("workingBal"));
 			am.setDebitBal(rs.getDouble("debitBal"));
+			am.setCreditBal(rs.getDouble("creditBal"));
 			
 			am.setAccountName(rs.getString("accountName"));
 			am.setAlternativeAccountId(rs.getString("alternativeAccountId"));
@@ -207,6 +208,28 @@ public class AccountDaoImpl implements AccountDao {
 	public List<AccountModel> getBulkAccounts(String studentid) {
 		String query="select * from accountstbl join categories using(categoryId)";
 		return jdbcTemplate.query(query, new AccountRow());
+	}
+
+	@Override
+	public boolean updateCreditBal(double amountPaid,String accountNo) {
+		
+		boolean status=false;
+		String sql = "update accountstbl set creditBal=creditBal+'" + amountPaid + "' where accountNumber='" + accountNo
+				+ "'";
+
+		int res= jdbcTemplate.update(sql);
+		
+		if(res>0) {
+			status=true;
+		}
+		return status;
+
+	}
+
+	@Override
+	public String getStudentFromInoice(String invoiceNo) {
+		String query="select studentid from fee_invoice_tbl where invoiceNo='"+invoiceNo+"'";
+		return jdbcTemplate.queryForObject(query, String.class);
 	}
 	
 	

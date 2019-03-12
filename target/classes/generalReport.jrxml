@@ -2,6 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="generalReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e8227494-fbf8-4d69-b79f-e62bc309ac09">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="foldername" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -12,7 +13,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="61" splitType="Stretch">
+		<band height="74" splitType="Stretch">
 			<textField>
 				<reportElement x="2" y="-10" width="550" height="34" uuid="f815231f-f862-46db-95d0-530283cc43dc"/>
 				<textElement textAlignment="Center">
@@ -36,6 +37,10 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 			</line>
+			<image>
+				<reportElement x="30" y="-10" width="80" height="60" uuid="03467d9e-45a0-4146-84db-7e03a8083360"/>
+				<imageExpression><![CDATA[$P{foldername}]]></imageExpression>
+			</image>
 		</band>
 	</pageHeader>
 </jasperReport>

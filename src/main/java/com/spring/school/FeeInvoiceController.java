@@ -23,6 +23,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.spring.dao.AccountDao;
 import com.spring.dao.CategoryDao;
+import com.spring.dao.FeeDao;
 import com.spring.dao.FeeInvoiceDao;
 import com.spring.dao.GeneratorDao;
 import com.spring.dao.InitialDetailsDao;
@@ -79,20 +80,41 @@ public class FeeInvoiceController {
 	}
 	
 	@RequestMapping(value="/save/{id}")
-	@ResponseBody
 	public String saveInvoice(Model model,@PathVariable("id") String pid,@ModelAttribute InvoiceModel im) {
 		System.out.println("invoice Saving");
 		boolean invoiceSaveStatus = feeInvoiceDao.insertInvoice(im);
 		if (invoiceSaveStatus) {
 			String invoiceNo=im.getInvoiceNo();
-		
+			
 		
 			List<AccountModel> listOfAccount=accountDao.getStudentAccount(pid);
+			double amountPaid=im.getAmountPaid();
+			System.out.println("Actual Amount Paid "+amountPaid);
 			
 			for(int i=0;i<listOfAccount.size();i++) {
+				double acBalance=listOfAccount.get(i).getDebitBal()-listOfAccount.get(i).getCreditBal();
+				System.out.println(acBalance+"acBalance");
 				feeInvoiceDao.insertFeeInvoiceContent(invoiceNo,listOfAccount, i);
+				
+			
+				
+				if(amountPaid>=acBalance) {
+					//
+				boolean status=accountDao.updateCreditBal(acBalance,listOfAccount.get(i).getAccountNumber());
+				amountPaid=amountPaid-acBalance;
+				System.out.println("new Amount Paid "+amountPaid);
+				
+				}
+				else {
+					boolean status=accountDao.updateCreditBal(amountPaid,listOfAccount.get(i).getAccountNumber());
+					amountPaid=0;
+				}
 			}
-				return "Data Saved";
+			
+			
+			
+				
+				return "redirect:../viewFeeInvoice/"+invoiceNo;
 		}
 		return "Saving Failed";
 	}
@@ -101,6 +123,8 @@ public class FeeInvoiceController {
 	public void viewInvoice(@PathVariable("id") String pid,@RequestParam("amountPaid") int amountPaid,HttpServletResponse response) throws Exception {
 		DynamicData d = initialDetailsDao.getDynamicDatas();
 		String reporturl = d.getReporturl();
+		String foldername=d.getFoldername();
+		System.out.println(foldername);
 		byte[] bytes=null;
 		JasperPrint jasperPrint;
 		 Map<String, Object> parameters=new HashMap<String, Object>();
@@ -118,8 +142,11 @@ public class FeeInvoiceController {
 		 JRBeanCollectionDataSource generalds=new JRBeanCollectionDataSource(gdlist);
 			parameters.put("generalDataSourceParam", generalds);
 			parameters.put("generalsubreportparam",generalSubReport);
+			parameters.put("invoiceNo", genDao.invoiceIdGenerator());
+			parameters.put("foldername","http://124.41.193.91/projectdatas/"+foldername+"/images/logo.jpg");
 		
 		
+			
 	/*	For Student Details Sub Report*/	
 			 JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl+"/studentdetails.jrxml");
 			StudentModel sm=studentDao.getStudentDetail(Integer.parseInt(pid));
@@ -133,7 +160,7 @@ public class FeeInvoiceController {
 		 
 	
 		 
-			
+	
 		 List<AccountModel> data=accountDao.getStudentAccount(pid);
 			
 		 JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(data);
@@ -159,6 +186,81 @@ public class FeeInvoiceController {
 		    servletOutputStream.flush();
 		    servletOutputStream.close();
 	}
+	
+	
+	@RequestMapping(value="/viewFeeInvoice/{invoiceNo}")
+	public void viewFeeInvoice(@PathVariable("invoiceNo") String invoiceNo,HttpServletResponse response) throws Exception {
+		DynamicData d = initialDetailsDao.getDynamicDatas();
+		String reporturl = d.getReporturl();
+		String foldername=d.getFoldername();
+		System.out.println(foldername);
+		byte[] bytes=null;
+		JasperPrint jasperPrint;
+		 Map<String, Object> parameters=new HashMap<String, Object>();
+		
+		
+		/*For Initail Details Sub Report*/	
+		 
+		 JasperReport generalSubReport = JasperCompileManager.compileReport(reporturl+"/generalReport.jrxml");
+		 
+		 GeneralDetailsModel gdm=operationDao.getGeneralDetails();
+		 ArrayList<GeneralDetailsModel> gdlist= new ArrayList<GeneralDetailsModel>();
+		 gdlist.add(gdm);
+		
+		 JRBeanCollectionDataSource generalds=new JRBeanCollectionDataSource(gdlist);
+			parameters.put("generalDataSourceParam", generalds);
+			parameters.put("generalsubreportparam",generalSubReport);
+			parameters.put("invoiceNo", invoiceNo);
+			parameters.put("foldername","http://124.41.193.91/projectdatas/"+foldername+"/images/logo.jpg");
+		
+			 InvoiceModel invoiceData=feeInvoiceDao.search(invoiceNo);
+			 int pid=invoiceData.getStudentid();
+			 ArrayList<InvoiceModel> list=new ArrayList<InvoiceModel>();
+			 list.add(invoiceData);
+			 JRBeanCollectionDataSource invoiceds=new JRBeanCollectionDataSource(list);
+			 
+			 List<InvoiceModel> invoiceAccounts=feeInvoiceDao.searchAccounts(invoiceNo);
+			 JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(invoiceAccounts);
+			 
+			 
+			 
+			
+	/*	For Student Details Sub Report*/	
+			 JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl+"/studentdetails.jrxml");
+			StudentModel sm=studentDao.getStudentDetail(pid);
+			ArrayList<StudentModel> smlist=new ArrayList<StudentModel>();
+			smlist.add(sm);
+			 JRBeanCollectionDataSource subds=new JRBeanCollectionDataSource(smlist);
+			 
+			  parameters.put("subreportparam",jasperSubReport);
+			  parameters.put("dataSourceParam", subds);
+			  parameters.put("amountPaid",invoiceData.getAmountPaid());
+			  parameters.put("amountPaidInWord", invoiceData.getInwords());
+			  parameters.put("balanceDue", invoiceData.getBalanceDue());
+		 
+	
+		
+			JasperDesign jd=JRXmlLoader.load(reporturl+"/invoice.jrxml");
+			JasperReport jasperReport=JasperCompileManager.compileReport(jd);
+			
+			
+			/*String amountInWord=util.numToWordFromJs(amountPaid);
+			parameters.put("amountPaidInWord",amountInWord);
+		 */
+			jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,ds);
+		
+		
+			 bytes=JasperExportManager.exportReportToPdf(jasperPrint);
+			//JasperViewer.viewReport(jasperPrint);
+		  ServletOutputStream servletOutputStream = response.getOutputStream();
+		    response.setContentType("application/pdf");
+		    response.setContentLength(bytes.length);
+
+		    servletOutputStream.write(bytes, 0, bytes.length);
+		    servletOutputStream.flush();
+		    servletOutputStream.close();
+	}
+	
 	
 	@RequestMapping(value = "/review")
 	public String review(@ModelAttribute FeeInvoiceModel feeInvoice, ModelMap model) {
