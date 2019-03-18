@@ -15,4 +15,9 @@ public interface FeeInvoiceDao {
 	
 	public boolean insertInvoice(InvoiceModel f);
 
+	public InvoiceModel search(String invoiceNo);
+
+	public List<InvoiceModel> searchAccounts(String invoiceNo);
+	
+
 }

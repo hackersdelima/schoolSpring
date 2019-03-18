@@ -8,6 +8,50 @@ public class InvoiceModel {
 
 	private String invoiceDateEn, invoiceDate, inwords,remarks,invoice_id,invoiceNo;
 	
+	private String accountNo,categoryId,categoryHead;
+	
+
+	private double total, amountPaid, balanceDue, amount;
+
+	public double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+	private List<String> balance;
+	private List<String> account;
+	private CategoryModel category;
+	private StudentModel student;
+	
+	
+
+	public String getAccountNo() {
+		return accountNo;
+	}
+
+	public void setAccountNo(String accountNo) {
+		this.accountNo = accountNo;
+	}
+
+	
+	public String getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public String getCategoryHead() {
+		return categoryHead;
+	}
+
+	public void setCategoryHead(String categoryHead) {
+		this.categoryHead = categoryHead;
+	}
 
 	public String getInvoiceNo() {
 		return invoiceNo;
@@ -25,14 +69,6 @@ public class InvoiceModel {
 		this.invoice_id = invoice_id;
 	}
 
-	private double total, amountPaid, balanceDue;
-
-	private List<String> balance;
-	private List<String> account;
-	private CategoryModel category;
-	private StudentModel student;
-	
-	
 	public String getRemarks() {
 		return remarks;
 	}

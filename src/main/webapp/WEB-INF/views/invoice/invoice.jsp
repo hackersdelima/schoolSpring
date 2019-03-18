@@ -18,8 +18,8 @@
 							<a class="btn btn-danger" id="cancel"
 								href="<spring:url value="/invoice/search" />">Go Back</a>
 							<button class="btn btn-info" type="button" id="validate">Validate</button>
-							<a class="btn btn-danger" id="cancel"  
-								href="<spring:url value="/invoice/viewInvoice/${pid}" />">View</a>
+							<button type="submit" class="btn btn-danger" id="cancel"  
+								formaction="<spring:url value="/invoice/viewInvoice/${pid}" />" form="form">View</button>
 								 <input
 								type="submit" class="btn btn-success" value="Submit" form="form">
 
@@ -110,7 +110,7 @@
 										<td colspan="2">${s.categoryModel.categoryHead }</td>
 										
 									<td class="total" colspan="2"><input
-										class="form-control balance" type="number" step="any" value="${s.debitBal }"
+										class="form-control balance" type="number" step="any" value="${s.debitBal-s.creditBal }"
 										name="balance" disabled></td>
 								</tr>
 								
@@ -156,7 +156,7 @@
 							<td colspan="1">TOTAL(Rs)</td>
 							<td><input class="form-control subtotal" type="number"
 								step="any" name="total"
-								value="${sessionScope.feeInvoice.subTotal }" readonly></td>
+								value="" readonly></td>
 						</tr>
 						
 						<tr>
@@ -164,14 +164,14 @@
 							<td colspan="1">AMOUNT PAID(Rs)</td>
 							<td><input name="amountPaid" type="number" id="amount-paid"
 								step="any" class="form-control"
-								value="${sessionScope.feeInvoice.amountPaid }"></td>
+								value="0"></td>
 						</tr>
 						<tr>
 							<td colspan="4"></td>
 							<td colspan="1">BALANCE DUE(Rs)</td>
 							<td><input name="balanceDue" id="balance-due" type="number"
 								step="any" class="form-control"
-								value="${sessionScope.feeInvoice.balanceDue }" readonly></td>
+								value="" readonly></td>
 						</tr>
 						<tr>
 							<td colspan="2"></td>
