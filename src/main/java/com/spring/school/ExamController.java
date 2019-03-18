@@ -735,6 +735,64 @@ catch (Exception e) {
 			e.printStackTrace();
 		}
 	  }
+	  
+	  
+	  @RequestMapping(value = "/viewConsolidateReport/{id}", method = RequestMethod.POST)
+	  @ResponseBody
+	  public void viewConsolidateReport(HttpServletResponse response,@RequestParam Map<String, String> reqParam) throws JRException, IOException {
+	    String classid = reqParam.get("classid");
+		String section = reqParam.get("sectionid");
+		String academicdate = reqParam.get("academicdate");
+		DynamicData d = initialDetailsDao.getDynamicDatas();
+		String reporturl = d.getReporturl();
+		List<StudentModel> studentlist = null;
+		  JasperPrint jasper =null;
+		  
+		  
+		try {
+			List<Integer> studentids = studentDao.studentIdsFromClassAndSection(classid, section);
+			for(int i=0;i<studentids.size();i++) {
+				int studentid = studentids.get(i);
+			studentlist = new ArrayList<StudentModel>();
+				StudentModel student = studentDao.getStudentDetail(studentid);
+				studentlist.add(student);
+				List<ConsolidateReportModel> consolidatemarks=examDao.getConsolidateReport(studentid, academicdate);
+				
+				//---------JASPER PRINT
+				JRBeanCollectionDataSource ds=new JRBeanCollectionDataSource(consolidatemarks);
+				JRBeanCollectionDataSource subds=new JRBeanCollectionDataSource(studentlist);
+				
+				Map<String, Object> parameters = new HashMap<String, Object>();
+				
+				try {
+					 JasperReport jasperReport = JasperCompileManager.compileReport(reporturl + "/consolidatemarks.jrxml"); 
+			         JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl + "/studentdetails.jrxml"); 
+			         
+			         parameters.put("dataSourceParam", subds);
+			         parameters.put("subreportparam", jasperSubReport);
+			         
+			          jasper = JasperFillManager.fillReport(jasperReport, parameters, ds);
+
+					List pages = jasper.getPages();
+					JRPrintPage object = (JRPrintPage) pages.get(0);
+					jasper.addPage(object);
+				} catch (JRException e) {
+			         e.printStackTrace();
+			      }
+			}
+			byte[] bytes = JasperExportManager.exportReportToPdf(jasper);
+			// JasperViewer.viewReport(jasperPrint);
+			ServletOutputStream servletOutputStream = response.getOutputStream();
+			response.setContentType("application/pdf");
+			response.setContentLength(bytes.length);
+
+			servletOutputStream.write(bytes, 0, bytes.length);
+			servletOutputStream.flush();
+			servletOutputStream.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	  }
 	
 	//-----------------------------------------
 }
