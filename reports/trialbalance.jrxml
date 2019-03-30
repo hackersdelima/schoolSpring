@@ -4,20 +4,19 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Aranikodb"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<queryString>
-		<![CDATA[	select demodb.accountstbl.accountNumber,demodb.accountstbl.categoryId,
-	demodb.accountstbl.accountName,demodb.accountstbl.debitBal, demodb.accountstbl.creditBal,
-	 demodb.categories.`categoryHead` ,  demodb.mainac.`mainHead` ,  demodb.mainac1.`mainHead1`,
-	  demodb.mainac2.`mainHead2` from 
-	demodb.accountstbl join  demodb.categories on
-	demodb.accountstbl.categoryId=demodb.categories.categoryId
-	left join  demodb.mainac on
-	demodb.mainac.mainid=mid(demodb.accountstbl.categoryId,1,1)
-	left join  demodb.mainac1 on
-	demodb.mainac1.mainid1=mid(demodb.accountstbl.categoryId,1,2)
-	left join  demodb.mainac2 on
-	demodb.mainac2.mainid2=mid(demodb.accountstbl.categoryId,1,3)
-	order by demodb.accountstbl.categoryId
-	]]>
+		<![CDATA[select accountstbl.accountNumber,accountstbl.categoryId,
+	accountstbl.accountName,accountstbl.debitBal, accountstbl.creditBal,
+	 categories.`categoryHead` ,  mainac.`mainHead` ,  mainac1.`mainHead1`,
+	  mainac2.`mainHead2` from 
+	accountstbl join  categories on
+	accountstbl.categoryId=categories.categoryId
+	left join  mainac on
+	mainac.mainid=mid(accountstbl.categoryId,1,1)
+	left join  mainac1 on
+	mainac1.mainid1=mid(accountstbl.categoryId,1,2)
+	left join  mainac2 on
+	mainac2.mainid2=mid(accountstbl.categoryId,1,3)
+	order by accountstbl.categoryId]]>
 	</queryString>
 	<field name="accountNumber" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="accountNumber"/>

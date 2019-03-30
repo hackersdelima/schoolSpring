@@ -42,6 +42,7 @@
     <script src="${pageContext.request.contextPath}/resources/js/jszip.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/pdfmake.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/vfs_fonts.js"></script>
+     <script src="${pageContext.request.contextPath}/resources/js/numtoword.js"></script>
     <!-- FastClick -->
     <script src="${pageContext.request.contextPath}/resources/js/fastclick.js"></script>
     <!-- NProgress -->

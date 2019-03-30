@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="statementBulk" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f5369ab7-dbd3-47f2-9cd3-6625b8ac65e5">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="subreportparam" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="generalsubreportparam" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="dataSourceParam" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="generalDataSourceParam" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="bookingDate" class="java.lang.String"/>
+	<field name="accountNumber" class="java.lang.String"/>
+	<field name="valueDate" class="java.lang.String"/>
+	<field name="creditamount" class="java.lang.Double"/>
+	<field name="debitamount" class="java.lang.Double"/>
+	<field name="balanceamount" class="java.lang.Double"/>
+	<field name="narrative" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="6" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="-20" width="23" height="26" uuid="518f2187-4524-4051-8262-87d7dd377d97"/>
+				<dataSourceExpression><![CDATA[$P{generalDataSourceParam}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{generalsubreportparam}]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="227" y="0" width="100" height="30" uuid="30e3601d-50a1-4c81-9ccf-624000787dc4"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Statements]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="90" y="0" width="70" height="30" uuid="eddab623-5a38-400c-b1cf-8accf5b10040">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="83d5f92d-5eca-4fcb-8512-db9c89d51dd0"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Booking Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="0" width="100" height="30" uuid="700122cf-f59c-4fe0-b549-9dad9c3f64a2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8433285b-2cf0-499b-a30a-2191a5f074f3"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Account Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-10" y="0" width="30" height="30" uuid="59b557a4-6fa7-4220-8d05-eebba1b8a4a4"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[S.N.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="0" width="70" height="30" uuid="a630e45a-2249-4f0a-97bc-ac0540b05b68">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f0eee0c5-5bec-4535-bfbf-e30e1fb106b9"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Value Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="0" width="110" height="30" uuid="e64577ed-e2ba-41c6-b427-6a1d4babb8b8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="00cf7d43-8f0a-4d70-9c47-022a93d2e66b"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Narrative]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="0" width="60" height="30" uuid="8c3065b2-584e-4fb1-9ca9-b86fc61f99a4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e4cd4c74-f4c3-4dda-a742-259d5b2ccd37"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Debit Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="430" y="0" width="60" height="30" uuid="8ddcf6e9-5907-4cfe-916e-09e1fb7f328f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8073522e-b49a-4361-8728-9d46c026c490"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Credit Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="0" width="70" height="30" uuid="4e8f38b4-4c98-44f8-a106-411c2573600b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b1b34af8-a4e0-4f57-8b51-c4aaf9e4ebca"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Balance Amount]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="90" y="0" width="70" height="30" uuid="fb6e4e45-023c-45fb-a612-5cc6b22a810c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="83d5f92d-5eca-4fcb-8512-db9c89d51dd0"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{bookingDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="0" width="100" height="30" uuid="f34e9690-8078-4de8-837d-fc075e2593cb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8433285b-2cf0-499b-a30a-2191a5f074f3"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{accountNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="20" y="0" width="70" height="30" uuid="0e5963df-6f80-4f57-b491-b63af21b2231">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f0eee0c5-5bec-4535-bfbf-e30e1fb106b9"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{valueDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-10" y="0" width="30" height="30" uuid="16656036-9bca-4fba-a73e-65cb4d7eb4b2"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="0" width="110" height="30" uuid="cc0425c6-6215-4629-bae3-56ca3bf04ab4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="00cf7d43-8f0a-4d70-9c47-022a93d2e66b"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{narrative}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="0" width="60" height="30" uuid="cbdc058e-91d3-4131-825b-77db338246b0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e4cd4c74-f4c3-4dda-a742-259d5b2ccd37"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{debitamount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="0" width="60" height="30" uuid="f57ee65b-02f2-447c-9fc0-403a9c8fae9f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8073522e-b49a-4361-8728-9d46c026c490"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{creditamount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="0" width="70" height="30" uuid="e1250fe9-3ed6-4703-84f9-5cfbce219553">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b1b34af8-a4e0-4f57-8b51-c4aaf9e4ebca"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{balanceamount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

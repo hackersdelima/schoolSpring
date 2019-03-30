@@ -58,7 +58,7 @@
 
 
 			<div id="details" class="clearfix">
-				<div id="seller">
+				<div id="seller" class="col-md-4">
 
 					<h4 class="name">
 						<span class="label label-default">Transaction Id*</span><input
@@ -74,7 +74,7 @@
 					</h4>
 				</div>
 
-				<div id="client">
+				<div id="client" class="col-md-4">
 
 					<div class="date">
 						<span class="label label-default">Booking Eng Date*</span> <input
@@ -93,7 +93,7 @@
 							onblur="nepaliToEnglish('.bookingdate','.bookingdateen')">
 					</div>
 				</div>
-				<div id="client">
+				<div id="client" class="col-md-4">
 					<div class="date">
 						<span class="label label-default">Value Eng Date*</span> <input
 							type="text" maxlength="10" id="valueDateen"
@@ -122,14 +122,14 @@
 				<table border="0" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
-							<th  class="desc col-md-2"><a onclick="addRow()" id="newrow"
-								class="btn btn-primary">Add Row</a></th>
-							<th colspan="1" class="col-md-2">Account Number</th>
-							<th class="desc col-md-2" colspan="3">Account Name</th>
-							<th class="desc col-md-2" colspan="1">Cheque No.</th>
-							<th class="desc col-md-2" colspan="1">Dr/Cr</th>
-							<th class="desc col-md-2">Narration</th>
-							<th class="desc col-md-2" colspan="1">Amount</th>
+							<th  class="desc " colspan="1"><a onclick="addRow()" id="newrow"
+								class="btn btn-primary">+</a></th>
+							<th colspan="1" class="desc">Account Number</th>
+							<th class="desc " colspan="1">Account Name</th>
+							<th class="desc " colspan="1">Cheque No.</th>
+							<th class="desc " colspan="1">Dr/Cr</th>
+							<th class="desc " colspan="2">Narration</th>
+							<th class="desc " colspan="2">Amount</th>
 
 						</tr>
 					</thead>
@@ -139,27 +139,27 @@
 								test="${empty sessionScope.paymentVoucher.paymentVoucherAccount.accountNo}">
 								<tr  id="tablerow">
 									<td><button onclick="deleteRow(this)"
-											class="removebutton btn btn-danger">Delete</button></td>
-									<td colspan="1"><input type="text"
+											class="removebutton btn btn-danger">X</button></td>
+									<td ><input type="text"
 										class="form-control accountno"
 										name="paymentVoucherAccount.accountNo" value=""></td>
-									<td colspan="3" ><input type="text"
+									<td  ><input type="text"
 										name="paymentVoucherAccount.accountName"
 										class="form-control accountName " id="accountName" value=""
 										readonly></td>
-									<td colspan="1"><input type="text" class="form-control chequeNo"
+									<td ><input type="text" class="form-control chequeNo"
 										name="paymentVoucherAccount.chequeNo" value=""></td>
-									<td class="desc col-md-2" colspan="1"><select
+									<td colspan="1"><select
 										class="form-control one drcr"
-										name="paymentVoucherAccount.drcr" required>
+										name="paymentVoucherAccount.drcr"  required>
 											<option value="">None</option>
 											<option value="dr">Dr.</option>
 											<option value="cr">Cr.</option>
 									</select></td>
 
-									<td><input type="text" class="form-control"
+									<td colspan="2"><input type="text" class="form-control"
 										name="paymentVoucherAccount.narration"></td>
-									<td colspan="1"><input type="text"
+									<td ><input type="text"
 										class="form-control two" name="paymentVoucherAccount.amount"
 										id="amount" value="" contenteditable='true' onkeyup='calculfac()'></td>
 								</tr>
@@ -236,20 +236,22 @@
 						</tr> --%>
 						<tr>
 							<td colspan="1">Prepared By:</td>
-							<td colspan="3"><input type="text" class="form-control"
+							<td colspan="1"><input type="text" class="form-control"
 								name="preparedBy" value="${sessionScope.userDetail.username}"></td>
 							<td colspan="1"></td>
 							<td>Checked By:</td>
-							<td colspan="2"><input type="text" class="form-control"
+							<td colspan="1"><input type="text" class="form-control"
 								name="checkedBy"
 								value="${sessionScope.paymentVoucher.checkedBy }"></td>
+								<td colspan="1"></td>
+								<td colspan="1">Approved By:</td>
+							<td colspan="1"><input type="text" class="form-control"
+								name="approvedBy"
+								value="${sessionScope.paymentVoucher.approvedBy }"></td>
 
 						</tr>
 						<tr>
-							<td>Approved By:</td>
-							<td><input type="text" class="form-control"
-								name="approvedBy"
-								value="${sessionScope.paymentVoucher.approvedBy }"></td>
+							
 						</tr>
 
 
