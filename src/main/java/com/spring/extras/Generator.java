@@ -63,12 +63,12 @@ public class Generator {
 		String yr=yy.format(currentDate);
 		
 		
-		String query="select transactionId from payment_voucher where transactionId LIKE '%MT"+yr+month+day+branchid+"%' order by payment_voucher_id DESC;";
-
+		String query="select max(transactionId) from payment_voucher where transactionId LIKE '%MT"+yr+month+day+branchid+"%' order by payment_voucher_id DESC;";
+		System.out.println(query);
 		try {
 		 transactionid= jdbcTemplate.queryForObject(query, String.class);
 		}catch(Exception e){
-			System.out.println("caught");
+			System.out.println("caught"+e);
 			transactionid= "MT"+yr+month+day+branchid+"001";
 			System.out.println(transactionid);
 			return transactionid;
@@ -112,7 +112,7 @@ public class Generator {
 		String yr=yy.format(currentDate);
 		
 		
-		String query="select invoiceNo from fee_invoice_tbl where invoiceNo LIKE '"+yr+month+day+"%' order by fee_invoice_id DESC;";
+		String query="select max(invoiceNo) from fee_invoice_tbl where invoiceNo LIKE '"+yr+month+day+"%' order by fee_invoice_id DESC;";
 		System.out.println(query);
 		try {
 			System.out.println(jdbcTemplate);
