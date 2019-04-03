@@ -409,7 +409,7 @@ private void commonModels(Model model){
 		 
 			JasperDesign jd=JRXmlLoader.load(reporturl+"/trialbalancesummary.jrxml");
 		  JRDesignQuery query=new JRDesignQuery();
-		  query.setText("select demodb.accountstbl.accountNumber,demodb.accountstbl.categoryId,demodb.accountstbl.accountName,demodb.accountstbl.debitBal, demodb.accountstbl.creditBal, demodb.categories.`categoryHead` ,  demodb.mainac.`mainHead` ,  demodb.mainac1.`mainHead1`, demodb.mainac2.`mainHead2` from demodb.accountstbl join  demodb.categories on demodb.accountstbl.categoryId=demodb.categories.categoryId left join  demodb.mainac on demodb.mainac.mainid=mid(demodb.accountstbl.categoryId,1,1) left join  demodb.mainac1 on demodb.mainac1.mainid1=mid(demodb.accountstbl.categoryId,1,2) left join  demodb.mainac2 on demodb.mainac2.mainid2=mid(demodb.accountstbl.categoryId,1,3)");
+		  query.setText("select accountstbl.accountNumber,accountstbl.categoryId,accountstbl.accountName,accountstbl.debitBal, accountstbl.creditBal, categories.`categoryHead` ,  mainac.`mainHead` ,  mainac1.`mainHead1`, mainac2.`mainHead2` from accountstbl join  categories on accountstbl.categoryId=categories.categoryId left join  mainac on mainac.mainid=mid(accountstbl.categoryId,1,1) left join  mainac1 on mainac1.mainid1=mid(accountstbl.categoryId,1,2) left join  mainac2 on mainac2.mainid2=mid(accountstbl.categoryId,1,3)");
 		  jd.setQuery(query);
 		  JasperReport jasperReport=JasperCompileManager.compileReport(jd);
 		 
@@ -437,13 +437,51 @@ private void commonModels(Model model){
 	
 	
 	@RequestMapping(value="/viewStatements/{id}")
-	public String viewStatements(Model model,@PathVariable("id") String id)
+	@ResponseBody
+	public void viewStatements(Model model,@PathVariable("id") String id,HttpServletResponse response)
 	{
+		Map<String, Object> parameters=new HashMap<String,Object>();
+		 DynamicData d= initialDetailsDao.getDynamicDatas();
+			String reporturl = d.getReporturl();
+		
 		List<StatementModel> statements=paymentVoucherDao.viewStatements(id);
-		model.addAttribute("statements",statements);
-		model.addAttribute("id",id);
-		model.addAttribute("name",accountDao.getAccountName(id));
-		return "generalTransaction/statements";
+		JRBeanCollectionDataSource data=new JRBeanCollectionDataSource(statements);
+		
+		
+		try {
+		/*For Initail Details Sub Report*/	
+		 JasperReport generalSubReport = JasperCompileManager.compileReport(reporturl+"/generalReport.jrxml");
+		 
+		 GeneralDetailsModel gdm=operationDao.getGeneralDetails();
+		 ArrayList<GeneralDetailsModel> gdlist= new ArrayList<GeneralDetailsModel>();
+		 gdlist.add(gdm);
+		
+		 JRBeanCollectionDataSource generalds=new JRBeanCollectionDataSource(gdlist);
+			parameters.put("generalDataSourceParam", generalds);
+			parameters.put("generalsubreportparam",generalSubReport);
+		
+			  byte[] bytes=null;
+	
+		  JasperReport jasperReport=JasperCompileManager.compileReport(reporturl+"/statementBulk.jrxml");
+		 
+		 
+		    bytes = JasperRunManager.runReportToPdf(jasperReport,parameters, data);
+		    ServletOutputStream servletOutputStream = response.getOutputStream();
+		    response.setContentType("application/pdf");
+		    response.setContentLength(bytes.length);
+
+		    servletOutputStream.write(bytes, 0, bytes.length);
+		    servletOutputStream.flush();
+		  
+				servletOutputStream.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+		
+		
+		
+		
 				
 	}
 	
@@ -479,16 +517,10 @@ private void commonModels(Model model){
 		    servletOutputStream.flush();
 		  
 				servletOutputStream.close();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (JRException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
 				
 	}
 	@RequestMapping(value="/statementDateRange")

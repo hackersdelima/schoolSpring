@@ -1,8 +1,9 @@
 package com.spring.model;
 
 public class StatementModel {
-	String debitamount,creditamount,balanceamount,narrative,valueDate,bookingDate,bookingDateen,valueDateen;
-
+	String accountNumber,narrative,valueDate,bookingDate,bookingDateen,valueDateen;
+	double debitamount,creditamount,balanceamount; 
+	
 	public String getBookingDateen() {
 		return bookingDateen;
 	}
@@ -19,27 +20,37 @@ public class StatementModel {
 		this.valueDateen = valueDateen;
 	}
 
-	public String getDebitamount() {
+	
+	
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public double getDebitamount() {
 		return debitamount;
 	}
 
-	public void setDebitamount(String debitamount) {
+	public void setDebitamount(double debitamount) {
 		this.debitamount = debitamount;
 	}
 
-	public String getCreditamount() {
+	public double getCreditamount() {
 		return creditamount;
 	}
 
-	public void setCreditamount(String creditamount) {
+	public void setCreditamount(double creditamount) {
 		this.creditamount = creditamount;
 	}
 
-	public String getBalanceamount() {
+	public double getBalanceamount() {
 		return balanceamount;
 	}
 
-	public void setBalanceamount(String balanceamount) {
+	public void setBalanceamount(double balanceamount) {
 		this.balanceamount = balanceamount;
 	}
 

@@ -2,6 +2,7 @@ package com.spring.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.dao.ExamDao;
 import com.spring.dao.OperationDao;
-import com.spring.dao.impl.StudentDaoImpl.Exam;
 import com.spring.model.ConsolidateReportModel;
 import com.spring.model.ExamModel;
 import com.spring.model.ExamSummaryReportModel;
@@ -479,7 +479,35 @@ public class ExamDaoImpl implements ExamDao {
 	//---------CONSOLIDATE MARKS
 	@Override
 	public List<ConsolidateReportModel> getConsolidateReport(int studentid, String academicdate) {
-		 String query="select subjectname, sum(fullmarks) as fullmarks, sum(thmarks) as thmarks, sum(consolidate_thmarks) as consolidate_thmarks, getgrade(sum(consolidate_thmarks)) as consolidate_thgrade, sum(prmarks) as prmarks, sum(consolidate_prmarks) as consolidate_prmarks, getgrade(sum(consolidate_prmarks)) consolidate_prgrade from consolidatemarks where studentid="+studentid+" and examid in (select examid from exam where academicyear='"+academicdate+"') group by subjectid;";
+		 String query="select * from consolidatemarks where studentid='"+studentid+"'";
+		return jdbcTemplate.query(query, new ConsolidateReportMapper());
+	}
+	
+	
+
+	@Override
+	public List<ConsolidateReportModel> getTermReport(int studentid, String academicdate, String examTermId) {
+		 String query="select * from consolidatemarks where studentid='"+studentid+"' and examid='"+examTermId+"'";
+			return jdbcTemplate.query(query, new ConsolidateReportMapper());
+	}
+
+	@Override
+	public List<ConsolidateReportModel> getConsolidateTerms(int studentid, String academicdate, int examSize,int examid) {
+		String query="select * from (select studentid,subjectid, subjectname, fullmarks, fullmarks_pr,passmarks,passmarks_pr, consolidate_thmarks as term1_thmarks, consolidate_prmarks as term1_prmarks from consolidatemarks where examid="+examid+") as A";
+		List<String> list= Arrays.asList("z","A","B","C","D","E");
+		
+		String addQuery="";
+		for(int i=2;i<=examSize;i++) {
+			if(i==2) {
+				addQuery=" join (select studentid,subjectid, subjectname, consolidate_thmarks as term"+i+"_thmarks, consolidate_prmarks as term"+i+"_prmarks from consolidatemarks where examid="+examid+") as "+list.get(i);
+			}
+			else {
+			addQuery=" using(studentid, subjectid) join (select studentid,subjectid, subjectname, consolidate_thmarks as term"+i+"_thmarks, consolidate_prmarks as term"+i+"_prmarks from consolidatemarks where examid="+examid+") as "+list.get(i);
+			} query=query+addQuery;
+		 
+		}
+		query=query+" using(subjectid, studentid) where A.studentid=675";
+		 System.out.println("Generated Query "+query);
 		return jdbcTemplate.query(query, new ConsolidateReportMapper());
 	}
 	
@@ -491,13 +519,24 @@ public class ExamDaoImpl implements ExamDao {
 			Subjects s = new Subjects();
 			s.setSubjectname(rs.getString("subjectname"));
 			s.setFullmarks(rs.getString("fullmarks"));
-			s.setThmarks(rs.getString("thmarks"));
-			c.setConsolidate_thmarks(rs.getDouble("consolidate_thmarks"));
-			c.setConsolidate_thgrade(rs.getString("consolidate_thgrade"));
-			s.setPrmarks(rs.getString("prmarks"));
-			c.setConsolidate_prmarks(rs.getDouble("consolidate_prmarks"));
-			c.setConsolidate_prgrade(rs.getString("consolidate_prgrade"));
+			s.setFullmarks_pr(rs.getString("fullmarks_pr"));
+			s.setPassmarks(rs.getString("passmarks"));
+			s.setPassmarks_pr(rs.getString("passmarks_pr"));
+			
+			
 			c.setSubjects(s);
+			c.setTerm1_prmarks(rs.getString("term1_prmarks"));
+			c.setTerm1_thmarks(rs.getString("term1_thmarks"));
+			c.setTerm2_prmarks(rs.getString("term2_prmarks"));
+			c.setTerm2_thmarks(rs.getString("term2_thmarks"));
+			c.setTerm3_prmarks(rs.getString("term3_prmarks"));
+			c.setTerm3_thmarks(rs.getString("term3_thmarks"));
+			c.setTerm4_prmarks(rs.getString("term4_prmarks"));
+			c.setTerm4_thmarks(rs.getString("term4_thmarks"));
+			
+			
+			
+			//c.setExamid(rs.getString("examid"));
 			return c;
 		}
 	}

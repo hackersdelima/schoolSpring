@@ -169,10 +169,10 @@ public class FeeInvoiceController {
 			
 			parameters.put("amountPaid", amountPaid);
 			
-			Utilities util= new Utilities();
+			/*Utilities util= new Utilities();
 			String amountInWord=util.numToWordFromJs(amountPaid);
 			parameters.put("amountPaidInWord",amountInWord);
-		 
+		 */
 			jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,ds);
 		
 		

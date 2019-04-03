@@ -26,6 +26,7 @@ import com.spring.model.DynamicData;
 import com.spring.model.GeneralDetailsModel;
 import com.spring.model.PaymentVoucherAccountSingle;
 import com.spring.model.PaymentVoucherModel;
+import com.spring.util.Utilities;
 
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -128,6 +129,9 @@ public class PaymentVoucherController {
 			
 			
 			PaymentVoucherModel paymentModel=paymentVoucherDao.getIndividualPayment(id);
+			int totalAmount=Integer.parseInt(paymentModel.getTotalDebitAmount());
+			
+		 
 			
 			ArrayList data=new ArrayList<PaymentVoucherModel>();
 			data.add(paymentModel);

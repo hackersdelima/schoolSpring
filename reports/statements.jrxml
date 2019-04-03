@@ -7,7 +7,7 @@
 	<parameter name="fromDate" class="java.lang.String"/>
 	<parameter name="toDate" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[select statementtbl.*,accountstbl.accountName from  demodb.statementtbl join demodb.accountstbl on accountstbl.accountNumber=statementtbl.AccountNumber where  demodb.statementtbl.AccountNumber  =$P{accountNoParam} and  statementtbl.valueDate BETWEEN $P{fromDate} and $P{toDate} order by statementtbl.autoId]]>
+		<![CDATA[select statementtbl.*,accountstbl.accountName from  statementtbl join accountstbl on accountstbl.accountNumber=statementtbl.AccountNumber where  statementtbl.AccountNumber  =$P{accountNoParam} and  statementtbl.valueDate BETWEEN $P{fromDate} and $P{toDate} order by statementtbl.autoId]]>
 	</queryString>
 	<field name="Id" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="Id"/>

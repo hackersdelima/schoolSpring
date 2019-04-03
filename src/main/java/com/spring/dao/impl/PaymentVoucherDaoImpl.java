@@ -125,12 +125,13 @@ private JdbcTemplate jdbcTemplate;
 		public StatementModel mapRow(ResultSet rs, int rowNum) throws SQLException {
 
 			StatementModel s=new StatementModel();
-			s.setBalanceamount(rs.getString("balanceamount"));
+			s.setBalanceamount(rs.getDouble("balanceamount"));
 			s.setBookingDate(rs.getString("bookingDate"));
-			s.setCreditamount(rs.getString("creditamount"));
-			s.setDebitamount(rs.getString("debitamount"));
+			s.setCreditamount(rs.getDouble("creditamount"));
+			s.setDebitamount(rs.getDouble("debitamount"));
 			s.setValueDate(rs.getString("valueDate"));
 			s.setNarrative(rs.getString("narrative"));
+			s.setAccountNumber(rs.getString("AccountNumber"));
 			/*s.setBookingDateen(rs.getString("bookingDateen"));
 			s.setValueDateen(rs.getString("valueDateen"));*/
 			
