@@ -221,7 +221,10 @@ private void commonModels(Model model){
 	@RequestMapping(value="/createReportonSubject")
 	public String createMarksReportOnSubject(Model model)
 	{
-		model.addAttribute("examlist",operationDao.getExamList());
+		List<ExamModel> examlist = operationDao.getExamList();
+		if(examlist.size()>0) {
+		model.addAttribute("examlist",examlist);
+		}
 		return "exam/createReportOnSub";
 	}
 	@RequestMapping(value="/marksReportSearch")

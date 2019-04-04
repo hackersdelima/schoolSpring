@@ -36,3 +36,5 @@ public class Consolidatemarkssetting {
 		return "Consolidatemarkssetting [examid=" + examid + ", thper=" + thper + ", prper=" + prper + "]";
 	}
 }
+
+

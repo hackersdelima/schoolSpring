@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:if test="${sessionScope.userDetail != null}" >
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ attribute name="title" required="true"%>
 <html lang="en">
@@ -352,3 +354,8 @@ table {
 					</div>
 					<div class="clearfix"></div>
 					<div class="x_content">
+				 </c:if>
+				 <c:if test="${sessionScope.userDetail == null}" >
+				 
+				 <c:redirect url="/"/>  
+				 </c:if>
