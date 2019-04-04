@@ -1,12 +1,11 @@
 package com.spring.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="CONSOLIDATEMARKSSETTING")
+@Table(name="consolidatemarkssetting")
 public class Consolidatemarkssetting {
 	
 	@Id

@@ -37,11 +37,11 @@ public class DatabaseConnection {
 	        BasicDataSource dataSource = new BasicDataSource();
 	        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 
-	        dataSource.setUrl("jdbc:mysql://localhost:3306/schooldb");
+	        dataSource.setUrl("jdbc:mysql://localhost:3306/aranikohigher");
 
 	        dataSource.setUsername("root");
-	        dataSource.setPassword("123456");
-	        //dataSource.setPassword("DigCen@1Pep");
+	       // dataSource.setPassword("123456");
+	        dataSource.setPassword("DigCen@1Pep");
 	 
 	        return dataSource;
 	    }
