@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -41,8 +40,8 @@ public class DatabaseConnection {
 	        dataSource.setUrl("jdbc:mysql://localhost:3306/aranikodb");
 
 	        dataSource.setUsername("root");
-	        dataSource.setPassword("123456");
-	        //dataSource.setPassword("DigCen@1Pep");
+	       // dataSource.setPassword("123456");
+	        dataSource.setPassword("DigCen@1Pep");
 	 
 	        return dataSource;
 	    }

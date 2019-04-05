@@ -1,6 +1,5 @@
 package com.spring.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -37,3 +36,5 @@ public class Consolidatemarkssetting {
 		return "Consolidatemarkssetting [examid=" + examid + ", thper=" + thper + ", prper=" + prper + "]";
 	}
 }
+
+
