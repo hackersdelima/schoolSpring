@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="GENERALDETAILS")
+@Table(name="generaldetails")
 public class Generaldetails {
 	
 	@Id
