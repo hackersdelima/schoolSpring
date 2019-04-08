@@ -24,43 +24,47 @@
 	<parameter name="subreportparam" class="net.sf.jasperreports.engine.JasperReport"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT
-aranikodb.exam_marks_tbl.studentid,
-aranikodb.exam_marks_tbl.result,
-aranikodb.exam_marks_tbl.examid, 
-aranikodb.exam_marks_tbl.fullmarks,
-aranikodb.exam_marks_tbl.passmarks,
-aranikodb.exam_marks_tbl.fullmarks_pr,
-aranikodb.exam_marks_tbl.passmarks_pr, 
-aranikodb.exam_marks_tbl.prmarks,
-aranikodb.exam_marks_tbl.thmarks,
-aranikodb.exam_marks_tbl.totalmarks,
-aranikodb.exam_marks_tbl.totalgrade,
-aranikodb.studentinfo.studentname,
-aranikodb.studentinfo.facultyname,
-aranikodb.studentinfo.rollno,
-aranikodb.studentinfo.admissionclass,
-aranikodb.studentinfo.section,
-aranikodb.studentinfo.sex,
-aranikodb.subjectlist.subjectname,
-aranikodb.exam.examname
+exam_marks_tbl.studentid,
+exam_marks_tbl.result,
+exam_marks_tbl.examid, 
+exam_marks_tbl.fullmarks,
+exam_marks_tbl.passmarks,
+exam_marks_tbl.fullmarks_pr,
+exam_marks_tbl.passmarks_pr, 
+exam_marks_tbl.prmarks,
+exam_marks_tbl.thmarks,
+exam_marks_tbl.totalmarks,
+exam_marks_tbl.totalgrade,
+studentinfo.studentname,
+studentinfo.facultyname,
+studentinfo.rollno,
+studentinfo.admissionclass,
+studentinfo.section,
+studentinfo.sex,
+subjectlist.subjectname,
+classlist.classname,
+exam.examname
 
-FROM aranikodb.exam_marks_tbl
+FROM exam_marks_tbl
 left join
-aranikodb.studentinfo 
+studentinfo 
 on
-aranikodb.studentinfo.studentid = aranikodb.exam_marks_tbl.studentid 
+studentinfo.studentid = exam_marks_tbl.studentid 
 left join
-aranikodb.subjectlist 
+subjectlist 
 on
-aranikodb.exam_marks_tbl.subjectid = aranikodb.subjectlist.`subjectid`
+exam_marks_tbl.subjectid = subjectlist.`subjectid`
 left JOIN
-aranikodb.exam
+exam
 ON
-aranikodb.exam_marks_tbl.examid=aranikodb.exam.examid
-  where 
-  aranikodb.exam_marks_tbl.studentid = $P{studentid}
+exam_marks_tbl.examid=exam.examid 
+join classlist 
+ON
+classlist.classid=studentinfo.admissionclass
+    where 
+  exam_marks_tbl.studentid = $P{studentid}
   and
-  aranikodb.exam_marks_tbl.examid =$P{examid}]]>
+  exam_marks_tbl.examid =$P{examid}]]>
 	</queryString>
 	<field name="studentid" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="studentid"/>
@@ -133,6 +137,10 @@ aranikodb.exam_marks_tbl.examid=aranikodb.exam.examid
 	<field name="subjectname" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="subjectname"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="subjectlist"/>
+	</field>
+	<field name="classname" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="classname"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="classlist"/>
 	</field>
 	<field name="examname" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="examname"/>
@@ -251,13 +259,6 @@ aranikodb.exam_marks_tbl.examid=aranikodb.exam.examid
 				<textFieldExpression><![CDATA[$F{rollno}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="130" width="100" height="20" uuid="81f96e0c-8619-4d5f-9a59-9187b9167801"/>
-				<textElement>
-					<font fontName="SansSerif" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{admissionclass}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="50" y="150" width="120" height="20" uuid="a70d98d2-6f6e-4473-a2bf-a16cc7bc8f7b"/>
 				<textElement>
 					<font fontName="SansSerif" isBold="true"/>
@@ -292,6 +293,13 @@ aranikodb.exam_marks_tbl.examid=aranikodb.exam.examid
 				</textElement>
 				<text><![CDATA[Marksheet]]></text>
 			</staticText>
+			<textField>
+				<reportElement style="Detail" x="380" y="130" width="100" height="20" uuid="991f50b1-bfaf-4099-a183-cff42fd07866"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{classname}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -613,4 +621,19 @@ aranikodb.exam_marks_tbl.examid=aranikodb.exam.examid
 			</staticText>
 		</band>
 	</columnFooter>
+	<summary>
+		<band height="28">
+			<subreport>
+				<reportElement x="0" y="0" width="46" height="28" uuid="c834fb38-19f6-45d6-98bc-2b3f7e7c060f"/>
+				<subreportParameter name="studentid">
+					<subreportParameterExpression><![CDATA[$P{studentid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="examid">
+					<subreportParameterExpression><![CDATA[$P{examid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{subreportparam}]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
 </jasperReport>

@@ -492,22 +492,23 @@ public class ExamDaoImpl implements ExamDao {
 	}
 
 	@Override
-	public List<ConsolidateReportModel> getConsolidateTerms(int studentid, String academicdate, int examSize,int examid) {
-		String query="select * from (select studentid,subjectid, subjectname, fullmarks, fullmarks_pr,passmarks,passmarks_pr, consolidate_thmarks as term1_thmarks, consolidate_prmarks as term1_prmarks from consolidatemarks where examid="+examid+") as A";
+	public List<ConsolidateReportModel> getConsolidateTerms(int studentid, String academicdate, int examSize) {
+		List<Integer> examlist= Arrays.asList(0,7,10,11,13);
+		String query="select * from (select studentid,subjectid, subjectname, fullmarks, fullmarks_pr,passmarks,passmarks_pr, consolidate_thmarks as term1_thmarks, consolidate_prmarks as term1_prmarks from consolidatemarks where examid="+examlist.get(1)+") as A";
 		List<String> list= Arrays.asList("z","A","B","C","D","E");
 		
 		String addQuery="";
 		for(int i=2;i<=examSize;i++) {
 			if(i==2) {
-				addQuery=" join (select studentid,subjectid, subjectname, consolidate_thmarks as term"+i+"_thmarks, consolidate_prmarks as term"+i+"_prmarks from consolidatemarks where examid="+examid+") as "+list.get(i);
+				addQuery=" join (select studentid,subjectid, subjectname, consolidate_thmarks as term"+i+"_thmarks, consolidate_prmarks as term"+i+"_prmarks from consolidatemarks where examid="+examlist.get(i)+") as "+list.get(i);
 			}
 			else {
-			addQuery=" using(studentid, subjectid) join (select studentid,subjectid, subjectname, consolidate_thmarks as term"+i+"_thmarks, consolidate_prmarks as term"+i+"_prmarks from consolidatemarks where examid="+examid+") as "+list.get(i);
+			addQuery=" using(studentid, subjectid) join (select studentid,subjectid, subjectname, consolidate_thmarks as term"+i+"_thmarks, consolidate_prmarks as term"+i+"_prmarks from consolidatemarks where examid="+examlist.get(i)+") as "+list.get(i);
 			} query=query+addQuery;
 		 
 		}
-		query=query+" using(subjectid, studentid) where A.studentid=675";
-		 System.out.println("Generated Query "+query);
+		query=query+" using(subjectid, studentid) where A.studentid='"+studentid+"'";
+		System.out.println(query);
 		return jdbcTemplate.query(query, new ConsolidateReportMapper());
 	}
 	
@@ -525,20 +526,25 @@ public class ExamDaoImpl implements ExamDao {
 			
 			
 			c.setSubjects(s);
-			c.setTerm1_prmarks(rs.getString("term1_prmarks"));
-			c.setTerm1_thmarks(rs.getString("term1_thmarks"));
-			c.setTerm2_prmarks(rs.getString("term2_prmarks"));
-			c.setTerm2_thmarks(rs.getString("term2_thmarks"));
-			c.setTerm3_prmarks(rs.getString("term3_prmarks"));
-			c.setTerm3_thmarks(rs.getString("term3_thmarks"));
-			c.setTerm4_prmarks(rs.getString("term4_prmarks"));
-			c.setTerm4_thmarks(rs.getString("term4_thmarks"));
-			
-			
+			c.setTerm1_prmarks(rs.getDouble("term1_prmarks"));
+			c.setTerm1_thmarks(rs.getDouble("term1_thmarks"));
+			c.setTerm2_prmarks(rs.getDouble("term2_prmarks"));
+			c.setTerm2_thmarks(rs.getDouble("term2_thmarks"));
+			c.setTerm3_prmarks(rs.getDouble("term3_prmarks"));
+			c.setTerm3_thmarks(rs.getDouble("term3_thmarks"));
+			c.setTerm4_prmarks(rs.getDouble("term4_prmarks"));
+			c.setTerm4_thmarks(rs.getDouble("term4_thmarks"));
 			
 			//c.setExamid(rs.getString("examid"));
 			return c;
 		}
+	}
+
+	@Override
+	public List<String> getConsolidateGrade(int studentid) {
+
+		String query="select getgrade(sum(consolidate_thmarks)+sum(consolidate_prmarks)) as grade from consolidatemarks where studentid='"+studentid+"' group by subjectid order by subjectid";
+		return jdbcTemplate.queryForList(query, String.class);
 	}
 	
 		

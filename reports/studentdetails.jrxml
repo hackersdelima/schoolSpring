@@ -52,14 +52,6 @@
 				<reportElement x="280" y="30" width="100" height="30" uuid="4278c70d-d1a0-4aa2-a064-b554171fb5ee"/>
 				<text><![CDATA[Section :]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="0" y="60" width="50" height="30" uuid="d8e6d770-e619-4b35-a480-5f9479e6a8c5"/>
-				<text><![CDATA[Month :]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="50" y="60" width="100" height="30" uuid="a758f810-e0db-4b6c-9eb2-3a3d513674c1"/>
-				<textFieldExpression><![CDATA[$F{formonth}]]></textFieldExpression>
-			</textField>
 			<textField pattern="MMMMM dd, yyyy">
 				<reportElement x="330" y="60" width="100" height="30" uuid="560ffa65-08e3-4007-8478-11fafc702a1b"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>

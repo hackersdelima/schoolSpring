@@ -24,46 +24,46 @@
 	<parameter name="subreportparam" class="net.sf.jasperreports.engine.JasperReport"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT
-aranikodb.exam_marks_tbl.studentid,
-aranikodb.exam_marks_tbl.result,
-aranikodb.exam_marks_tbl.examid, 
-aranikodb.exam_marks_tbl.fullmarks,
-aranikodb.exam_marks_tbl.passmarks,
-aranikodb.exam_marks_tbl.fullmarks_pr,
-aranikodb.exam_marks_tbl.passmarks_pr, 
-aranikodb.exam_marks_tbl.prmarks,
-aranikodb.exam_marks_tbl.thmarks,
-aranikodb.exam_marks_tbl.totalmarks,
-aranikodb.exam_marks_tbl.totalgrade,
-aranikodb.studentinfo.studentname,
-aranikodb.studentinfo.facultyname,
-aranikodb.studentinfo.rollno,
-aranikodb.classlist.classname,
-aranikodb.studentinfo.section,
-aranikodb.studentinfo.sex,
-aranikodb.subjectlist.subjectname,
-aranikodb.exam.examname
+	exam_marks_tbl.studentid,
+	exam_marks_tbl.result,
+	exam_marks_tbl.examid, 
+	exam_marks_tbl.fullmarks,
+	exam_marks_tbl.passmarks,
+	exam_marks_tbl.fullmarks_pr,
+	exam_marks_tbl.passmarks_pr, 
+	exam_marks_tbl.prmarks,
+	exam_marks_tbl.thmarks,
+	exam_marks_tbl.totalmarks,
+	exam_marks_tbl.totalgrade,
+	studentinfo.studentname,
+	studentinfo.facultyname,
+	studentinfo.rollno,
+	classlist.classname,
+	studentinfo.section,
+	studentinfo.sex,
+	subjectlist.subjectname,
+	exam.examname
 
-FROM aranikodb.exam_marks_tbl
-left join
-aranikodb.studentinfo 
-on
-aranikodb.studentinfo.studentid = aranikodb.exam_marks_tbl.studentid 
-left join
-aranikodb.subjectlist 
-on
-aranikodb.exam_marks_tbl.subjectid = aranikodb.subjectlist.`subjectid`
-left JOIN
-aranikodb.exam
-ON
-aranikodb.exam_marks_tbl.examid=aranikodb.exam.examid
-left join 
-classlist ON
-aranikodb.studentinfo.admissionclass=aranikodb.classlist.classid
-  where 
-  aranikodb.exam_marks_tbl.studentid = $P{studentid}
-  and
-  aranikodb.exam_marks_tbl.examid =$P{examid}]]>
+	FROM exam_marks_tbl
+	left join
+	studentinfo 
+	on
+	studentinfo.studentid = exam_marks_tbl.studentid 
+	left join
+	subjectlist 
+	on
+	exam_marks_tbl.subjectid = subjectlist.`subjectid`
+	left JOIN
+	exam
+	ON
+	exam_marks_tbl.examid=exam.examid
+	left join 
+	classlist ON
+	studentinfo.admissionclass=classlist.classid
+	  where 
+	  exam_marks_tbl.studentid = $P{studentid}
+	  and
+	  exam_marks_tbl.examid =$P{examid}]]>
 	</queryString>
 	<field name="studentid" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="studentid"/>

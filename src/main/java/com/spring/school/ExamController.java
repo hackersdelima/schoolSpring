@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -112,6 +113,7 @@ public class ExamController {
 	@ResponseBody
 	public String addSubMarks(@ModelAttribute("examModel") ExamModel exammodel) {
 		List<String> studentidlist = exammodel.getStudentidlist();
+		List<Boolean> addmarks_statuslist = new ArrayList<Boolean>();
 		System.out.println("student id list" + studentidlist);
 		int num = studentidlist.size();
 		for (int i = 0; i < num; i++) {
@@ -119,7 +121,7 @@ public class ExamController {
 			System.out.println("prmarks=" + exammodel.getSubjects().getPrmarkslist().get(i));
 			if (exammodel.getSubjects().getPrmarkslist().get(i).isEmpty()
 					|| exammodel.getSubjects().getFullmarks_prlist().get(i).isEmpty()) {
-
+System.out.println("addSubMarks reached here if case");
 				examDao.addMissingMarks(exammodel, i);
 
 			} else {
@@ -142,8 +144,8 @@ public class ExamController {
 
 				exammodel.getSubjects().setTotalmarks(totalmarks.toString());
 
-				if (!examDao.checkStudentSubAvailability(exammodel, i) == true) {
-					examDao.addMarks(exammodel, i);
+				/*if (!examDao.checkStudentSubAvailability(exammodel, i) == true) {*/
+					boolean addmarksstatus = examDao.addMarks(exammodel, i);
 					double thmarks = Double.parseDouble(thmark);
 					double prmarks = Double.parseDouble(prmark);
 					double fullmarks = Double.parseDouble(fullmark);
@@ -165,13 +167,18 @@ public class ExamController {
 					System.out.println(fullmarks + " " + prmarks + thmarks + fullmarks_pr + grade);
 
 					examDao.updateGradeAndResult(sid, subid, grade, result, prgrade, thgrade, gpa);
-					return "Marks Entry Success";
-				}
+					addmarks_statuslist.add(addmarksstatus);
+					
+				//}
 
 			}
 		}
-
+		if(addmarks_statuslist.contains(false)) {
 		return "Marks Entry Failed";
+		}
+		else {
+			return "Marks Entry Success";
+		}
 	}
 
 	@RequestMapping(value = "/updateme", method = RequestMethod.GET)
@@ -301,7 +308,7 @@ public class ExamController {
 	public void getRpt1(HttpServletResponse response, @RequestParam Map<String, String> reqParam)
 			throws JRException, IOException {
 		System.out.println("/exam/jasper");
-
+		byte[] bytes=null;
 		Map<String, Object> param2 = new HashMap<String, Object>();
 		String classname = reqParam.get("classid");
 		String section = reqParam.get("sectionid");
@@ -310,10 +317,11 @@ public class ExamController {
 		try {
 			DynamicData d = initialDetailsDao.getDynamicDatas();
 			String reporturl = d.getReporturl();
+			System.out.println("report Url is "+reporturl);
 			Connection conn = null;
 
 			List<ExamModel> studentids = examDao.getBulkReport(classname, section, examid);
-			JasperPrint jasperPrint, jasper;
+			JasperPrint jasperPrint=null,jasper=null;
 
 			param2.put("examid", examid);
 
@@ -336,11 +344,15 @@ public class ExamController {
 				conn.close();
 			}
 
-			response.setContentType("application/x-pdf");
-			response.setHeader("Content-disposition", "inline; filename=Report.pdf");
+			bytes = JasperExportManager.exportReportToPdf(jasperPrint);
+			// JasperViewer.viewReport(jasperPrint);
+			ServletOutputStream servletOutputStream = response.getOutputStream();
+			response.setContentType("application/pdf");
+			response.setContentLength(bytes.length);
 
-			final OutputStream outStream = response.getOutputStream();
-			JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+			servletOutputStream.write(bytes, 0, bytes.length);
+			servletOutputStream.flush();
+			servletOutputStream.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -642,47 +654,102 @@ public class ExamController {
 	@ResponseBody
 	public void consolidatebulkreport(HttpServletResponse response, @RequestParam Map<String, String> reqParam)
 			throws JRException, IOException {
+		 byte[] bytes =null;
 		String classid = reqParam.get("classid");
 		String section = reqParam.get("sectionid");
 		String academicdate = reqParam.get("academicdate");
 		DynamicData d = initialDetailsDao.getDynamicDatas();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		String reporturl = d.getReporturl();
 		List<StudentModel> studentlist = null;
-		JasperPrint jasper = null;
+		GradeGenerator g=new GradeGenerator();
+		JasperPrint jasper= null, jasperPrint=null;
 		try {
+			JasperReport jasperReport = JasperCompileManager.compileReport(reporturl + "/consolidateReport.jrxml");
+
 			List<Integer> studentids = studentDao.studentIdsFromClassAndSection(classid, section);
+			System.out.println("studentids: "+studentids);
+		
+			jasperPrint = JasperFillManager.fillReport(jasperReport, null, new JREmptyDataSource());
+			
 			for (int i = 0; i < studentids.size(); i++) {
 				int studentid = studentids.get(i);
-				studentlist = new ArrayList<StudentModel>();
-				StudentModel student = studentDao.getStudentDetail(studentid);
-				studentlist.add(student);
-				List<ConsolidateReportModel> consolidatemarks = examDao.getConsolidateReport(studentid, academicdate);
+				System.out.println(studentid);
+				
+					
+				/*For Initail Details Sub Report*/	
+				
+				
+					 JasperReport generalSubReport = JasperCompileManager.compileReport(reporturl+"/generalReport.jrxml");
+					 
+					 GeneralDetailsModel gdm=operationDao.getGeneralDetails();
+					 ArrayList<GeneralDetailsModel> gdlist= new ArrayList<GeneralDetailsModel>();
+					 gdlist.add(gdm);
+					
+					 JRBeanCollectionDataSource generalds=new JRBeanCollectionDataSource(gdlist);
+						parameters.put("generalDataSourceParam", generalds);
+						parameters.put("generalsubreportparam",generalSubReport);
+					
+						/*	For Student Details Sub Report*/	
+						 JasperReport jasperSubReport = JasperCompileManager.compileReport(reporturl+"/studentdetails.jrxml");
+						StudentModel sm=studentDao.getStudentDetail(studentid);
+						ArrayList<StudentModel> smlist=new ArrayList<StudentModel>();
+						smlist.add(sm);
+						 JRBeanCollectionDataSource subds=new JRBeanCollectionDataSource(smlist);
+						 
+						  parameters.put("subreportparam",jasperSubReport);
+						  parameters.put("dataSourceParam", subds);
+					
+					int examSize=4;
+					
+					
+					List<ConsolidateReportModel> details=examDao.getConsolidateTerms(studentid, academicdate,examSize);
+					
+					/*List<String> gradeReport=examDao.getConsolidateGrade(studentid);
+					System.out.println(gradeReport);*/
+					System.out.println("detailsize:"+details.size());
+				if(details.size()>0) {
+					System.out.println("studentid found:"+studentid);
+					for(int j=0;j<details.size();j++) {
+						double totalTh=0;
+						double term1 = details.get(j).getTerm1_thmarks();
+						double term2 = details.get(j).getTerm2_thmarks();
+						double term3 =details.get(j).getTerm3_thmarks();
+						double term4 =details.get(j).getTerm4_thmarks();
 
-				// ---------JASPER PRINT
-				JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(consolidatemarks);
-				JRBeanCollectionDataSource subds = new JRBeanCollectionDataSource(studentlist);
+						totalTh= term1 + term2 + term3 + term4;
+						System.out.println("totalth: "+totalTh);
+						details.get(j).setTotalTh(totalTh);
+						
+						double totalPr = 0;
+						double term1_pr = details.get(j).getTerm1_prmarks();
+						double term2_pr = details.get(j).getTerm2_prmarks();
+						double term3_pr =details.get(j).getTerm3_prmarks();
+						double term4_pr =details.get(j).getTerm4_prmarks();
 
-				Map<String, Object> parameters = new HashMap<String, Object>();
-
-				try {
-					JasperReport jasperReport = JasperCompileManager
-							.compileReport(reporturl + "/consolidatemarks.jrxml");
-					JasperReport jasperSubReport = JasperCompileManager
-							.compileReport(reporturl + "/studentdetails.jrxml");
-
-					parameters.put("dataSourceParam", subds);
-					parameters.put("subreportparam", jasperSubReport);
-
-					jasper = JasperFillManager.fillReport(jasperReport, parameters, ds);
-
+						totalPr= term1_pr + term2_pr + term3_pr + term4_pr;
+						details.get(j).setTotalPr(totalPr);
+						
+						details.get(j).setGrade(g.singleGrade(totalPr+totalTh));
+					}
+					System.out.println("consolidate"+details);
+					
+					JRBeanCollectionDataSource finalTermData = new JRBeanCollectionDataSource(details);
+					
+					
+					
+					jasper = JasperFillManager.fillReport(jasperReport, parameters, finalTermData);
+					
 					List pages = jasper.getPages();
 					JRPrintPage object = (JRPrintPage) pages.get(0);
-					jasper.addPage(object);
-				} catch (JRException e) {
-					e.printStackTrace();
+					jasperPrint.addPage(object);
+					
 				}
+				
+
 			}
-			byte[] bytes = JasperExportManager.exportReportToPdf(jasper);
+			
+			 bytes = JasperExportManager.exportReportToPdf(jasperPrint);
 			// JasperViewer.viewReport(jasperPrint);
 			ServletOutputStream servletOutputStream = response.getOutputStream();
 			response.setContentType("application/pdf");
@@ -774,6 +841,7 @@ public class ExamController {
 		JasperPrint jasper = null;
 		int studentid = Integer.parseInt(id);
 		Map<String, Object> parameters = new HashMap<String, Object>();
+		GradeGenerator g=new GradeGenerator();
 		
 		
 
@@ -800,34 +868,38 @@ public class ExamController {
 				  parameters.put("subreportparam",jasperSubReport);
 				  parameters.put("dataSourceParam", subds);
 			
-			int examid=10;
 			int examSize=4;
 			
-			List<ConsolidateReportModel> details=examDao.getConsolidateTerms(studentid, academicdate,examSize,examid);
 			
+			List<ConsolidateReportModel> details=examDao.getConsolidateTerms(studentid, academicdate,examSize);
 			
+			/*List<String> gradeReport=examDao.getConsolidateGrade(studentid);
+			System.out.println(gradeReport);*/
 		
 			for(int i=0;i<details.size();i++) {
 				double totalTh=0;
-				double term1 = Double.parseDouble(details.get(i).getTerm1_thmarks());
-				double term2 = Double.parseDouble(details.get(i).getTerm2_thmarks());
-				double term3 =Double.parseDouble(details.get(i).getTerm3_thmarks());
-				double term4 =Double.parseDouble(details.get(i).getTerm4_thmarks());
+				double term1 = details.get(i).getTerm1_thmarks();
+				double term2 = details.get(i).getTerm2_thmarks();
+				double term3 =details.get(i).getTerm3_thmarks();
+				double term4 =details.get(i).getTerm4_thmarks();
 
 				totalTh= term1 + term2 + term3 + term4;
+				System.out.println("totalth: "+totalTh);
 				details.get(i).setTotalTh(totalTh);
 				
 				double totalPr = 0;
-				double term1_pr = Double.parseDouble(details.get(i).getTerm1_prmarks());
-				double term2_pr = Double.parseDouble(details.get(i).getTerm2_prmarks());
-				double term3_pr =Double.parseDouble(details.get(i).getTerm3_prmarks());
-				double term4_pr =Double.parseDouble(details.get(i).getTerm4_prmarks());
+				double term1_pr = details.get(i).getTerm1_prmarks();
+				double term2_pr = details.get(i).getTerm2_prmarks();
+				double term3_pr =details.get(i).getTerm3_prmarks();
+				double term4_pr =details.get(i).getTerm4_prmarks();
 
 				totalPr= term1_pr + term2_pr + term3_pr + term4_pr;
 				details.get(i).setTotalPr(totalPr);
 				
-				
+				details.get(i).setGrade(g.singleGrade(totalPr+totalTh));
 			}
+			System.out.println(details);
+			
 			JRBeanCollectionDataSource finalTermData = new JRBeanCollectionDataSource(details);
 			
 			

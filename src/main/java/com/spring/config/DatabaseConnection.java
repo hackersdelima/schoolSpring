@@ -40,8 +40,8 @@ public class DatabaseConnection {
 	        dataSource.setUrl("jdbc:mysql://localhost:3306/aranikodb");
 
 	        dataSource.setUsername("root");
-	       // dataSource.setPassword("123456");
-	        dataSource.setPassword("DigCen@1Pep");
+	        dataSource.setPassword("123456");
+	        //dataSource.setPassword("DigCen@1Pep");
 	 
 	        return dataSource;
 	    }

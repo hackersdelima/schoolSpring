@@ -61,7 +61,7 @@
 	<div class="panel-heading">
 	<h4>CONSOLIDATE MARKS</h4></div>
 	<div class="panel-body">
-		<spring:url value="/exam/viewConsolidateReport/675" var="formUrl" />
+		<spring:url value="/exam/consolidate/bulkreport" var="formUrl" />
 		<form:form action="${formUrl }" style="margin-top: 10px;" class="form">
 			<div role="tabpanel" class="tab-pane" aria-labelledby="profile-tab">
 				<div class="form-group">

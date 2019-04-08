@@ -10,9 +10,19 @@ public class ConsolidateReportModel {
 	private String consolidate_thgrade;
 	private String examid;
 	
-	private String term1_thmarks,term1_prmarks,term2_thmarks,term2_prmarks,term3_thmarks,term3_prmarks,term4_prmarks,term4_thmarks;
-	double totalPr,totalTh;
+	private double term1_thmarks,term1_prmarks,term2_thmarks,term2_prmarks,term3_thmarks,term3_prmarks,term4_prmarks,term4_thmarks;
+	private double totalPr;
+	private double totalTh;
 	
+	private String grade;
+	
+	
+	public String getGrade() {
+		return grade;
+	}
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
 	
 	public double getTotalPr() {
 		return totalPr;
@@ -23,62 +33,12 @@ public class ConsolidateReportModel {
 	public double getTotalTh() {
 		return totalTh;
 	}
-	public void setTotalTh(double totalTh) {
-		this.totalTh = totalTh;
+	
+	public Subjects getSubjects() {
+		return subjects;
 	}
-	public String getTerm4_prmarks() {
-		return term4_prmarks;
-	}
-	public void setTerm4_prmarks(String term4_prmarks) {
-		this.term4_prmarks = term4_prmarks;
-	}
-	public String getTerm4_thmarks() {
-		return term4_thmarks;
-	}
-	public void setTerm4_thmarks(String term4_thmarks) {
-		this.term4_thmarks = term4_thmarks;
-	}
-	public String getTerm1_thmarks() {
-		return term1_thmarks;
-	}
-	public void setTerm1_thmarks(String term1_thmarks) {
-		this.term1_thmarks = term1_thmarks;
-	}
-	public String getTerm1_prmarks() {
-		return term1_prmarks;
-	}
-	public void setTerm1_prmarks(String term1_prmarks) {
-		this.term1_prmarks = term1_prmarks;
-	}
-	public String getTerm2_thmarks() {
-		return term2_thmarks;
-	}
-	public void setTerm2_thmarks(String term2_thmarks) {
-		this.term2_thmarks = term2_thmarks;
-	}
-	public String getTerm2_prmarks() {
-		return term2_prmarks;
-	}
-	public void setTerm2_prmarks(String term2_prmarks) {
-		this.term2_prmarks = term2_prmarks;
-	}
-	public String getTerm3_thmarks() {
-		return term3_thmarks;
-	}
-	public void setTerm3_thmarks(String term3_thmarks) {
-		this.term3_thmarks = term3_thmarks;
-	}
-	public String getTerm3_prmarks() {
-		return term3_prmarks;
-	}
-	public void setTerm3_prmarks(String term3_prmarks) {
-		this.term3_prmarks = term3_prmarks;
-	}
-	public String getExamid() {
-		return examid;
-	}
-	public void setExamid(String examid) {
-		this.examid = examid;
+	public void setSubjects(Subjects subjects) {
+		this.subjects = subjects;
 	}
 	public double getConsolidate_prmarks() {
 		return consolidate_prmarks;
@@ -104,16 +64,72 @@ public class ConsolidateReportModel {
 	public void setConsolidate_thgrade(String consolidate_thgrade) {
 		this.consolidate_thgrade = consolidate_thgrade;
 	}
-	public Subjects getSubjects() {
-		return subjects;
+	public String getExamid() {
+		return examid;
 	}
-	public void setSubjects(Subjects subjects) {
-		this.subjects = subjects;
+	public void setExamid(String examid) {
+		this.examid = examid;
+	}
+	public double getTerm1_thmarks() {
+		return term1_thmarks;
+	}
+	public void setTerm1_thmarks(double term1_thmarks) {
+		this.term1_thmarks = term1_thmarks;
+	}
+	public double getTerm1_prmarks() {
+		return term1_prmarks;
+	}
+	public void setTerm1_prmarks(double term1_prmarks) {
+		this.term1_prmarks = term1_prmarks;
+	}
+	public double getTerm2_thmarks() {
+		return term2_thmarks;
+	}
+	public void setTerm2_thmarks(double term2_thmarks) {
+		this.term2_thmarks = term2_thmarks;
+	}
+	public double getTerm2_prmarks() {
+		return term2_prmarks;
+	}
+	public void setTerm2_prmarks(double term2_prmarks) {
+		this.term2_prmarks = term2_prmarks;
+	}
+	public double getTerm3_thmarks() {
+		return term3_thmarks;
+	}
+	public void setTerm3_thmarks(double term3_thmarks) {
+		this.term3_thmarks = term3_thmarks;
+	}
+	public double getTerm3_prmarks() {
+		return term3_prmarks;
+	}
+	public void setTerm3_prmarks(double term3_prmarks) {
+		this.term3_prmarks = term3_prmarks;
+	}
+	public double getTerm4_prmarks() {
+		return term4_prmarks;
+	}
+	public void setTerm4_prmarks(double term4_prmarks) {
+		this.term4_prmarks = term4_prmarks;
+	}
+	public double getTerm4_thmarks() {
+		return term4_thmarks;
+	}
+	public void setTerm4_thmarks(double term4_thmarks) {
+		this.term4_thmarks = term4_thmarks;
+	}
+	public void setTotalTh(double totalTh) {
+		this.totalTh = totalTh;
 	}
 	@Override
 	public String toString() {
 		return "ConsolidateReportModel [subjects=" + subjects + ", consolidate_prmarks=" + consolidate_prmarks
 				+ ", consolidate_thmarks=" + consolidate_thmarks + ", consolidate_prgrade=" + consolidate_prgrade
-				+ ", consolidate_thgrade=" + consolidate_thgrade + "]";
+				+ ", consolidate_thgrade=" + consolidate_thgrade + ", examid=" + examid + ", term1_thmarks="
+				+ term1_thmarks + ", term1_prmarks=" + term1_prmarks + ", term2_thmarks=" + term2_thmarks
+				+ ", term2_prmarks=" + term2_prmarks + ", term3_thmarks=" + term3_thmarks + ", term3_prmarks="
+				+ term3_prmarks + ", term4_prmarks=" + term4_prmarks + ", term4_thmarks=" + term4_thmarks + ", totalPr="
+				+ totalPr + ", totalTh=" + totalTh + "]";
 	}
+		
 }
