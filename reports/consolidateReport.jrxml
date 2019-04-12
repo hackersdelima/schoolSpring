@@ -7,6 +7,8 @@
 	<parameter name="generalsubreportparam" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="dataSourceParam" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<parameter name="generalDataSourceParam" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="finalPercentage" class="java.lang.Double"/>
+	<parameter name="finalGrade" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -367,6 +369,69 @@
 		</band>
 	</columnFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="104" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="60" width="160" height="30" uuid="5d2e864c-a324-4957-b5a7-4d89af234a67"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<frame>
+					<reportElement x="0" y="0" width="160" height="30" uuid="10984208-a8c7-40b1-a6c1-ac31aad96a82"/>
+					<box>
+						<pen lineWidth="0.75"/>
+					</box>
+					<staticText>
+						<reportElement x="0" y="0" width="160" height="30" uuid="067c6533-6606-4d62-8c0e-2e23b707c37e"/>
+						<box>
+							<pen lineWidth="0.75"/>
+						</box>
+						<text><![CDATA[    Percentage ::]]></text>
+					</staticText>
+					<textField>
+						<reportElement x="80" y="0" width="80" height="30" uuid="00d30f55-5c93-4e3d-9c23-faa01fa670e0"/>
+						<box>
+							<pen lineWidth="0.0"/>
+						</box>
+						<textFieldExpression><![CDATA[$P{finalPercentage}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</frame>
+			<frame>
+				<reportElement x="160" y="60" width="140" height="30" uuid="d3238cc6-8ad0-41ee-9f27-c66b9f6f42ee"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<frame>
+					<reportElement x="0" y="0" width="140" height="30" uuid="f57ab6dd-c088-4f3f-81cb-80297daf595f"/>
+					<box>
+						<pen lineWidth="0.75"/>
+					</box>
+					<staticText>
+						<reportElement x="0" y="0" width="140" height="30" uuid="637f46a6-9996-487e-ab13-a50b6f8488c1"/>
+						<box>
+							<pen lineWidth="0.75"/>
+						</box>
+						<text><![CDATA[    Grade ::]]></text>
+					</staticText>
+					<textField>
+						<reportElement x="51" y="0" width="89" height="30" uuid="91a7b0ee-048f-410e-b8f3-84b6504ed100"/>
+						<box>
+							<pen lineWidth="0.0"/>
+						</box>
+						<textFieldExpression><![CDATA[$P{finalGrade}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</frame>
+			<staticText>
+				<reportElement x="0" y="30" width="300" height="30" uuid="a3bcf0de-2c32-4720-9862-191806412679"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Overall]]></text>
+			</staticText>
+		</band>
 	</summary>
 </jasperReport>

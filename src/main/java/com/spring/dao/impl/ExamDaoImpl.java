@@ -494,6 +494,7 @@ public class ExamDaoImpl implements ExamDao {
 	@Override
 	public List<ConsolidateReportModel> getConsolidateTerms(int studentid, String academicdate, int examSize) {
 		List<Integer> examlist= Arrays.asList(0,7,10,11,13);
+		//List<Integer> examlist= Arrays.asList(7,7,7,7,7);
 		String query="select * from (select studentid,subjectid, subjectname, fullmarks, fullmarks_pr,passmarks,passmarks_pr, consolidate_thmarks as term1_thmarks, consolidate_prmarks as term1_prmarks from consolidatemarks where examid="+examlist.get(1)+") as A";
 		List<String> list= Arrays.asList("z","A","B","C","D","E");
 		

@@ -13,9 +13,21 @@ public class ConsolidateReportModel {
 	private double term1_thmarks,term1_prmarks,term2_thmarks,term2_prmarks,term3_thmarks,term3_prmarks,term4_prmarks,term4_thmarks;
 	private double totalPr;
 	private double totalTh;
+	private double finalPercentage;
+	private String grade,finalGrade;
 	
-	private String grade;
-	
+	public String getFinalGrade() {
+		return finalGrade;
+	}
+	public void setFinalGrade(String finalGrade) {
+		this.finalGrade = finalGrade;
+	}
+	public double getFinalPercentage() {
+		return finalPercentage;
+	}
+	public void setFinalPercentage(double finalPercentage) {
+		this.finalPercentage = finalPercentage;
+	}
 	
 	public String getGrade() {
 		return grade;
