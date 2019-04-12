@@ -20,10 +20,11 @@ public class MyTestings {
 	@Test
 	public void numToWordTest() {
 		logger.info("Number to Word Testing");
-		String word=util.numToWordFromJs(100);
+		String word=util.numToWordFromJs(1);
+		System.out.println(word);
 		assertTrue(true);
 		logger.info(word);
-		assertEquals(word, "one hundred");
+		assertEquals(word, "One");
 	}
 	
 

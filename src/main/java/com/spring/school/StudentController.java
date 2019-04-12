@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.dao.StudentDao;
 import com.spring.dao.UploadDao;
+import com.spring.exceptions.DataNotFoundException;
 import com.spring.extras.Generator;
 import com.spring.model.Status;
 import com.spring.model.StudentModel;
@@ -88,7 +89,7 @@ public class StudentController {
 	}
 
 	@RequestMapping(value = "/editStudent/{id}", method = RequestMethod.GET)
-	public String edit(@PathVariable int id, Model model) {
+	public String edit(@PathVariable int id, Model model) throws DataNotFoundException{
 		StudentModel student = studentDao.getStudentDetail(id);
 
 		List<StudentModel> localguardian = studentDao.getLocalGuardian(id);

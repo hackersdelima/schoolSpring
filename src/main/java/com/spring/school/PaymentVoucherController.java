@@ -1,5 +1,6 @@
 package com.spring.school;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,12 +23,14 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.spring.dao.InitialDetailsDao;
 import com.spring.dao.OperationDao;
 import com.spring.dao.PaymentVoucherDao;
+import com.spring.exceptions.DataNotFoundException;
 import com.spring.model.DynamicData;
 import com.spring.model.GeneralDetailsModel;
 import com.spring.model.PaymentVoucherAccountSingle;
 import com.spring.model.PaymentVoucherModel;
 import com.spring.util.Utilities;
 
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -94,7 +97,7 @@ public class PaymentVoucherController {
 	}
 	
 	@RequestMapping(value="/viewPaymentVoucher/{id}")
-	public void viewPaymentVoucher(Model model, @PathVariable String id,HttpServletResponse response) throws Exception
+	public void viewPaymentVoucher(Model model, @PathVariable String id,HttpServletResponse response) throws DataNotFoundException, JRException, IOException
 	{
 		DynamicData d = initialDetailsDao.getDynamicDatas();
 		String reporturl = d.getReporturl();

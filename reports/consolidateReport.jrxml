@@ -335,11 +335,37 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="141" splitType="Stretch">
+			<staticText>
+				<reportElement x="7" y="25" width="119" height="30" uuid="c8cfb6d0-f7b6-416c-8c3a-19b3ff8d58a5"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[......................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="446" y="25" width="119" height="30" uuid="d3ea3778-8ace-4d7e-9067-e1b643902867"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[......................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="40" width="119" height="30" uuid="3803880d-246d-4ffd-8d13-c246369576a8"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Class Teacher]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="446" y="40" width="119" height="30" uuid="362879b5-b0c9-45f2-bdb9-e898505c25b9"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Principal]]></text>
+			</staticText>
+		</band>
 	</columnFooter>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>
 	</summary>

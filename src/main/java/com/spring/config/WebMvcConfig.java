@@ -27,12 +27,12 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = { "com" })
-public class WebMvcConfig implements WebMvcConfigurer{
-	
+public class WebMvcConfig implements WebMvcConfigurer {
+
 	@Override
-	 public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-	        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-	    }
+	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+	}
 
 	@Bean
 	public InternalResourceViewResolver viewResolver() {
@@ -40,28 +40,28 @@ public class WebMvcConfig implements WebMvcConfigurer{
 		InternalResourceViewResolver vr = new InternalResourceViewResolver();
 		vr.setPrefix("/WEB-INF/views/");
 		vr.setSuffix(".jsp");
-		 vr.setOrder(1);
+		vr.setOrder(1);
 
 		return vr;
 	}
-	
+
 	@Bean
-	public CommonsMultipartResolver multipartResolver(){
-	    CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-	    resolver.setMaxUploadSize(5242880); // set the size limit
-	    return resolver;
+	public CommonsMultipartResolver multipartResolver() {
+		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+		resolver.setMaxUploadSize(5242880); // set the size limit
+		return resolver;
 	}
 
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -73,55 +73,55 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> returnValueHandlers) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-	/*	registry.addInterceptor(new SessionHandler()).addPathPatterns("/nav/*");;*/
-		
+		/* registry.addInterceptor(new SessionHandler()).addPathPatterns("/nav/*");; */
+
 	}
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void configurePathMatch(PathMatchConfigurer configurer) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -130,7 +130,4 @@ public class WebMvcConfig implements WebMvcConfigurer{
 		return null;
 	}
 
-
-
-	
 }
